@@ -11,11 +11,13 @@
 - open source software
 - individuals can handle the cluster storage
 
+<br>
+<br>
+
 ### features of Ceph
 1. scalable
 2. no single point of failure
 3. software-based
-
 
 ### Cepth storage cluster
 | definition | description |
@@ -33,7 +35,6 @@
 | CEPHS | manage meta-data |
 
 
-
 ### Cepth terminology
 ```
 RADOS - a reliable, distributed object store comprised of self healing self managing storage nodes
@@ -42,6 +43,8 @@ Monitors - Maintain cluster membership and state
 meta-data of ceph : syntax for POSIX
 ```
 
+<br>
+<br>
 
 ### CRUSH
 - how it finds the data and place the data
