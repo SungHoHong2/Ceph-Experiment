@@ -11,8 +11,7 @@
 - open source software
 - individuals can handle the cluster storage
 
-<br>
-<br>
+--
 
 ### features of Ceph
 1. scalable
@@ -43,25 +42,6 @@ Monitors - Maintain cluster membership and state
 meta-data of ceph : syntax for POSIX
 ```
 
-<br>
-<br>
-
-### CRUSH
-- how it finds the data and place the data
-- random placement algorithm
-- ** the entire calculation of CRUSH is done in the client **
-
-1. hash the object into numbers
-2. calculate the location in the client
-3. this provides an statistically even distribution
-
-
-
-
-
-
-
-
 
 ### Terminology
 ```
@@ -79,3 +59,14 @@ Major Linux desktop implementation: glibc, which in many cases just provides a s
 REST architecture involves reading a designated Web page that contains an XML file. The XML file describes and includes the desired content. Once dynamically defined, consumers may access the interface.
 
 ```
+
+--
+
+### CRUSH
+- how it finds the data and place the data
+- random placement algorithm
+- ** the entire calculation of CRUSH is done in the client **
+
+1. hash the object into numbers
+2. calculate the location in the client
+3. this provides an statistically even distribution
