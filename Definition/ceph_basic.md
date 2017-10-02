@@ -65,8 +65,21 @@ REST architecture involves reading a designated Web page that contains an XML fi
 ### CRUSH
 - how it finds the data and place the data
 - random placement algorithm
-- ** the entire calculation of CRUSH is done in the client **
+- **the entire calculation of CRUSH is done in the client**
 
 1. hash the object into numbers
 2. calculate the location in the client
 3. this provides an statistically even distribution
+
+### CLONING
+- block devices are virtually copied and don't take memory until something is actually written
+- don't keep track of the image
+- **you can create multiple VMs without considering actual space**
+
+
+
+### Contact Support
+- [IRC community](http://ceph.com/irc)
+- [Download Ceph](http://ceph.com/get)
+- [Start-guide for Ceph Deploy](http://ceph.com/qsg)
+- [AWS test cluster Deploy](http://ceph.com/juju)
