@@ -25,6 +25,7 @@
 | File Directories | **CEPH FILESYSTEM** that is distributed scale out file system with POSIX semantics that provides storage |
 
 | components | description |
+| --- | --- |
 | RADOS | access the cluster storage as a logical unit, comprised of OSDs and Monitors  |  
 | LIBRADOS | library for applications to communicate with RADOS applications |
 | RADOSGW | translate REST to direct RADOS call |
