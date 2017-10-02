@@ -11,7 +11,7 @@
 - open source software
 - individuals can handle the cluster storage
 
---
+---
 
 ### features of Ceph
 1. scalable
@@ -60,7 +60,7 @@ REST architecture involves reading a designated Web page that contains an XML fi
 
 ```
 
---
+---
 
 ### CRUSH
 - how it finds the data and place the data
