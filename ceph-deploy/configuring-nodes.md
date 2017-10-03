@@ -9,6 +9,8 @@
 5. **each nodes will have NIC for NAT network and internet access**
 
 
+<br>
+
 ### Node configuration
 
 ```
@@ -32,6 +34,7 @@ $ ssh frisk@[address]
 
 ```
 
+<br>
 ### Root Node self key test
 ```
 ssh-keygen -t rsa -P ""
@@ -39,6 +42,7 @@ cat ./.ssh/id_rsa.pub >> ./.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
 
+<br>
 ### Client Node for creating keys
 - currently if we use the username the ssh works
 - need to find ssh root login
@@ -50,6 +54,7 @@ $ vi /etc/ssh/sshd_config
   + AllowUsers root sungho chara etc
 ```
 
+<br>
 ### Allowing direct root logins
 - still prompts the password even if the key is installed to the ssh server
 ```
@@ -64,6 +69,7 @@ $ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
 ```
 
 
+<br>
 ### Allow sudo password-less privilege
 - must add the new line below this passage
 ```
