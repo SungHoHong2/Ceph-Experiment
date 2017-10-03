@@ -2,9 +2,9 @@
 1. create several nodes with snapshot
 2. NICs should be all initialized for each snapshot
 3. create the NAT network from the virtual-box preference (upper-bar)
-  - create NAT network
+    - create NAT network
 4. enable all node's first network adapter into NAT network
-  - first network preferred since it is likely the first ethernet shares the default subnet mask and enabling the second NIC adapter into  NAT network does not work
+    - first network preferred since it is likely the first ethernet shares the default subnet mask and enabling the second NIC adapter into  NAT network does not work
 
 5. **each nodes will have NIC for NAT network and internet access**
 
