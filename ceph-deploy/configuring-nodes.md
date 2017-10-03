@@ -1,8 +1,3 @@
-### Install Ceph Admin Node
-```
- wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
-```
-
 ### SSH connection without password
 1. create several nodes with snapshot
 2. NICs should be all initialized for each snapshot
@@ -77,9 +72,3 @@ $ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
 
 %username  ALL=(ALL) NOPASSWD:ALL
 ```
-
-
-
-
-### Deploy Ceph Node
-1. When ceph-deploy logs in to a Ceph node as a user, that particular user must have passwordless sudo privileges.

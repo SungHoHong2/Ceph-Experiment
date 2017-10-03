@@ -1,0 +1,8 @@
+### Install Ceph Admin Node
+```
+ wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
+```
+
+
+### Deploy Ceph Node
+1. When ceph-deploy logs in to a Ceph node as a user, that particular user must have password-less sudo privileges.
