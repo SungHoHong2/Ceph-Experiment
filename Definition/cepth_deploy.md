@@ -1,7 +1,6 @@
 ### Install Ceph Admin Node
 ```
  wget -q -O- 'https://download.ceph.com/keys/release.asc' | sudo apt-key add -
-
 ```
 
 ### SSH connection without password
@@ -27,10 +26,11 @@ $ service ssh start or stop
 // ssh host
 $ adduser frisk
 $ passwd ******
-$ sudo visudo
+
+// you can use $ pkexec visudo if you made an error in the pseudo file
+$ sudo vi /etc/sudoers
   root	ALL=(ALL) ALL
   jkeesh	ALL=(ALL) ALL // add this for root permission
-
 
 // client
 $ ssh frisk@[address]
@@ -38,13 +38,11 @@ $ ssh frisk@[address]
 ```
 
 ### Root Node self key test
-
 ```
 ssh-keygen -t rsa -P ""
 cat ./.ssh/id_rsa.pub >> ./.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
-
 
 ### Client Node for creating keys
 - currently if we use the username the ssh works
@@ -52,13 +50,36 @@ chmod 600 ~/.ssh/authorized_keys
 ```
 $ ssh-keygen
 $ ssh-copy-id -i /path/to/key.pub username@10.0.2.7
+
+$ vi /etc/ssh/sshd_config
+  + AllowUsers root sungho chara etc
+```
+
+### Allowing direct root logins
+- still prompts the password even if the key is installed to the ssh server
+```
+$ vi /etc/ssh/sshd_config
+  + AllowUsers root sungho chara etc
+
+// add root pasword
+$ passwd root
+
+$ ssh-keygen
+$ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
 ```
 
 
-### allowing root logins
+### Allow sudo password-less privilege
+- must add the new line below this passage
 ```
-  vi /etc/ssh/sshd_config
-  add allow users <- root
-  // don't know whether the rsa key had an effect or not
-  // but currently it works
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+%username  ALL=(ALL) NOPASSWD:ALL
 ```
+
+
+
+
+### Deploy Ceph Node
+1. When ceph-deploy logs in to a Ceph node as a user, that particular user must have passwordless sudo privileges.
