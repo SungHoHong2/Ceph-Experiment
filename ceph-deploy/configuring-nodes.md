@@ -35,6 +35,7 @@ $ ssh frisk@[address]
 ```
 
 <br>
+
 ### Root Node self key test
 ```
 ssh-keygen -t rsa -P ""
@@ -43,6 +44,7 @@ chmod 600 ~/.ssh/authorized_keys
 ```
 
 <br>
+
 ### Client Node for creating keys
 - currently if we use the username the ssh works
 - need to find ssh root login
@@ -55,6 +57,7 @@ $ vi /etc/ssh/sshd_config
 ```
 
 <br>
+
 ### Allowing direct root logins
 - still prompts the password even if the key is installed to the ssh server
 ```
@@ -70,6 +73,7 @@ $ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
 
 
 <br>
+
 ### Allow sudo password-less privilege
 - must add the new line below this passage
 ```
