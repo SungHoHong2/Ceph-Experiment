@@ -47,11 +47,16 @@ iptables -I INPUT -j ACCEPT
   $ sudo vi /etc/hosts
   + 0.0.0.0   node_name
 
+2. deploy monitor nodes
   $ ceph-deploy new [node-name]
-  // deploy each nodes separately
 
-
-2. install ceph packages
+3. install ceph packages to all nodes
   $ ceph-deploy install node1 node2 node3
 
 ```
+
+### Stalled situation
+- documentation requires the monitor nodes to have public address
+- documentation requires at least 4 nodes with one monitor and managing nodes
+- the virtual machine ip address is currently limited to NAT network, which does not recognize as a public address
+- [link to the error log](ERROR_LOG)
