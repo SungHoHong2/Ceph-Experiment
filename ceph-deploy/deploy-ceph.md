@@ -57,7 +57,7 @@ iptables -I INPUT -j ACCEPT
 
 <br>
 
-### <span style="color:blue">Stalled situation </span>
+### Stalled situation 
 - documentation requires the monitor nodes to have public address
 - documentation requires at least 4 nodes with one monitor and managing nodes
 - the virtual machine ip address is currently limited to NAT network, which does not recognize as a public address
