@@ -60,3 +60,8 @@ iptables -I INPUT -j ACCEPT
 - documentation requires at least 4 nodes with one monitor and managing nodes
 - the virtual machine ip address is currently limited to NAT network, which does not recognize as a public address
 - [link to the error log](ERROR_LOG)
+- [link to the documentation](http://docs.ceph.com/docs/master/start/quick-ceph-deploy/)
+
+```
+Note If this process fails with a message similar to “Unable to find /etc/ceph/ceph.client.admin.keyring”, please ensure that the IP listed for the monitor node in ceph.conf is the Public IP, not the Private IP.
+```
