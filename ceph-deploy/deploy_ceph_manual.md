@@ -24,15 +24,18 @@ sudo make install
 
 <br>
 
+### General idea of the nodes
+- the installment of ceph takes a quite a long time so install one and clone them
+- all the nodes can share the keys and configuration file (it might be best to configure everything and then clone them)
+- monitor is not a node even if the configuration file has declared it as one of the node
 
-### Duplicate the nodes
-- the installment of ceph takes a quite a long time
 
 <br>
 
 ### create monitor
 - use uuidgen command to created fsid
 - create configuration file
+- need to add the Add mgr daemon in the monitor
 
 ```
 Create a /etc/ceph/ceph.conf file
@@ -92,7 +95,7 @@ sudo touch /var/lib/ceph/mon/ceph-c3n21/done
 touch /var/lib/ceph/mon/ceph-c3n21/upstart
 ```
 
-- 启动monitor
+- Run monitor
 ```
 sudo ceph-mon -i c3n21 -c /etc/ceph/ceph.conf
 ```
@@ -103,12 +106,19 @@ ceph osd lspools
 0 rbd，
 ```
 
+- Need to establish a mgr daemon
+
+```
+ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
+ceph-mgr -i 0 -c /etc/ceph/ceph.conf
+
+// This time ceph-s should be health_ok
+```
+
 <br>
 
-### Question
-- where does the OSD's fsid goto?
-- is it okay to just create a directory without any partitions in mnt?
-- configuration file example
+### Installing OSD
+
 ```
 [global]
 fsid = 240f2d59-dcd3-474e-b459-8d872b38dca2
@@ -186,19 +196,3 @@ ceph osd crush add osd.0 1.0 host=c3n21
 ```
 sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
 ```
-
-- Need to establish a mgr daemon
-
-```
-ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
-ceph-mgr -i 0 -c /etc/ceph/ceph.conf
-
-// This time ceph-s should be health_ok
-```
-
-
-
-
-
-
-### Add OSD
