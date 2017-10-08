@@ -48,7 +48,7 @@ Create a /etc/ceph/ceph.conf file
 
 [global]
 fsid = f9a8ed78-92aa-4c20-a42e-bf97431698cf
-mon initial members = c3n21              
+mon initial members = node1              
 mon host = x.x.x.x
 auth cluster required = cephx
 auth service required = cephx
@@ -76,7 +76,7 @@ ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n 
 ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 ```
 
-- Create monitor map, where c3n21 is the hostname of monitor, x.x.x.x is its IP address, 240f2d59-dcd3-474e-b459-8d872b38dca2 is just put in the configuration file fsid.
+- Create monitor map, where node1 is the hostname of monitor, x.x.x.x is its IP address, 240f2d59-dcd3-474e-b459-8d872b38dca2 is just put in the configuration file fsid.
 ```
 monmaptool --create --add node1 x.x.x.x --fsid f9a8ed78-92aa-4c20-a42e-bf97431698cf /etc/ceph/monmap
 ```
