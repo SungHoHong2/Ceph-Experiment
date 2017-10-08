@@ -12,11 +12,16 @@ git clone --recursive https://github.com/ceph/ceph.git
 git submodule update --force --init --recursive
 git checkout -b luminous  
 ```
+
 <br>
 
-### before installing
-- need to install python-rados
-- change the hostname from /etc/hostname for each nodes
+### CAUTION while running
+- need to install python-rados before install [NOT VALID]
+- change the hostname from /etc/hostname for each nodes [NOT VALID]
+- change the hostname from /etc/hosts for each nodes [NOT VALID]
+- **whenever running ssh has to be run at least once.** [NOT VALID]
+- **run the ceph osd lspools on super user**
+
 
 
 ### download dependencies
