@@ -5,6 +5,7 @@
 
 <br>
 
+
 ### Download Ceph
 ```
 git clone --recursive https://github.com/ceph/ceph.git
@@ -12,6 +13,11 @@ git submodule update --force --init --recursive
 git checkout -b luminous  
 ```
 <br>
+
+### before installing
+- need to install python-rados
+- change the hostname from /etc/hostname for each nodes
+
 
 ### download dependencies
 ```
@@ -65,56 +71,48 @@ ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --ca
 ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
 ```
 
-- Add client.admin to the keyring of the monitor
+- Add client.admin keyring to the monitor keyring
 ```
 ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 ```
 
-
 - Create monitor map, where c3n21 is the hostname of monitor, x.x.x.x is its IP address, 240f2d59-dcd3-474e-b459-8d872b38dca2 is just put in the configuration file fsid.
 ```
-monmaptool --create --add c3n21 x.x.x.x --fsid 240f2d59-dcd3-474e-b459-8d872b38dca2 /etc/ceph/monmap
+monmaptool --create --add node1 x.x.x.x --fsid f9a8ed78-92aa-4c20-a42e-bf97431698cf /etc/ceph/monmap
 ```
 
 - Create monitor default data directory, the name of the rule is mkdir / var / lib / ceph / mon / {cluster-name} - {hostname}
+  - the default {cluster-name} is ceph
 ```
-mkdir /var/lib/ceph/mon/ceph-c3n21
+mkdir /var/lib/ceph/mon/ceph-node1
 ```
 
-- Create a monitor files. Where c3n21 is hostname
+- Create a monitor files. Where node1 is hostname
 ```
-ceph-mon --mkfs -i c3n21 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
+ceph-mon --mkfs -i node1 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
 ```
+
 - Create a file named done in this directory that monitor creation is complete
 ```
-sudo touch /var/lib/ceph/mon/ceph-c3n21/done
+sudo touch /var/lib/ceph/mon/ceph-node1/done
 ```
 
 - Restart automatically after the need to create a file:
 ```
-touch /var/lib/ceph/mon/ceph-c3n21/upstart
+touch /var/lib/ceph/mon/ceph-node1/upstart
 ```
 
 - Run monitor
 ```
-sudo ceph-mon -i c3n21 -c /etc/ceph/ceph.conf
+sudo ceph-mon -i node1 -c /etc/ceph/ceph.conf
 ```
 
 - testing Monitor
 ```
 ceph osd lspools
 0 rbd，
+ceph -s (status)
 ```
-
-- Need to establish a mgr daemon
-
-```
-ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
-ceph-mgr -i 0 -c /etc/ceph/ceph.conf
-
-// This time ceph-s should be health_ok
-```
-
 <br>
 
 ### Installing OSD
@@ -195,4 +193,14 @@ ceph osd crush add osd.0 1.0 host=c3n21
 - Start the osd daemon:
 ```
 sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
+```
+
+<br>
+
+### establish a mgr daemon
+
+```
+ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
+ceph-mgr -i 0 -c /etc/ceph/ceph.conf
+
 ```
