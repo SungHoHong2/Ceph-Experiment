@@ -16,11 +16,10 @@ git checkout -b luminous
 <br>
 
 ### CAUTION while running
-- need to install python-rados before install [NOT VALID]
-- change the hostname from /etc/hostname for each nodes [NOT VALID]
-- change the hostname from /etc/hosts for each nodes [NOT VALID]
-- **whenever running ssh has to be run at least once.** [NOT VALID]
-- **run the ceph osd lspools on super user**
+- need to install python-rados before install
+- change the hostname from /etc/hostname for each nodes
+- change the hostname from /etc/hosts for each nodes
+- **run the ceph osd lspools on super user, adding sudo in the cmd line is suffice**
 
 
 
@@ -114,7 +113,7 @@ sudo ceph-mon -i node1 -c /etc/ceph/ceph.conf
 
 - testing Monitor
 ```
-ceph osd lspools
+sudo ceph osd lspools
 0 rbd，
 ceph -s (status)
 ```
