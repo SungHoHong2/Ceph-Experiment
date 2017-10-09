@@ -120,8 +120,32 @@ ceph -s (status)
 <br>
 
 
+### Enable Bluestore
+- add to the configuration file
+```
+enable experimental unrecoverable data corrupting features = bluestore rocksdb
+osd objectstore = bluestore
+bluestore default buffered read = true
+```
+
+
+
+
+
 ### Installing OSD
 
+- removing osds from osd map
+```
+ceph osd out osd.11
+ceph osd down osd.11
+ceph osd rm osd.11
+
+ceph osd crush rm osd.11
+ceph auth del osd.11
+```
+
+
+- configuration file
 ```
 [global]
 fsid = 240f2d59-dcd3-474e-b459-8d872b38dca2
