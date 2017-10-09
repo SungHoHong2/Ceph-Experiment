@@ -119,6 +119,7 @@ ceph -s (status)
 ```
 <br>
 
+
 ### Installing OSD
 
 ```
@@ -159,8 +160,13 @@ bluestore block db path = /dev/disk/by-partlabel/osd-device-1-db
 bluestore block wal path = /dev/disk/by-partlabel/osd-device-1-wal
 ```
 
+- create osd
+```
+ceph osd create [uuidgen]
+```
 
 - Return value for the osd id number, and then use ceph osd dump can be seen just created osd uuid. This id need to write down in the back to create a data file used. Then create the osd data directory:
+
 
 ```
 mkdir -p /mnt/osd-device-0-data
@@ -169,7 +175,7 @@ mkdir -p /mnt/osd-device-0-data
 - The name rule is still the cluster name plus the osd name. And then use the following order to prepare our osd installed in this directory.
 
 ```
-sudo mount -t xfs /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
+sudo mount -t [xfs,ext4,filesystemtype] /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
 ```
 
 - And then create the osd data file, the number 0 for the osd number, u uid is the first step inside we generated uuid number:
