@@ -119,8 +119,55 @@ ceph -s (status)
 ```
 <br>
 
+
+### Enable Bluestore
+- add to the configuration file
+```
+enable experimental unrecoverable data corrupting features = bluestore rocksdb
+osd objectstore = bluestore
+bluestore default buffered read = true
+
+```
+- use parted to go to the command line
+```
+$ sudo su
+$ parted
+$ mklabel
+$ mkpart
+
+// or
+
+sudo parted -s -a optimal /dev/sdb mklabel gpt
+sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-data 0G 10G
+sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-block 10G 100%
+sudo parted -s -a optimal /dev/nvme0 mkpart osd-device-0-wal 0G 2G
+sudo parted -s -a optimal /dev/nvme0 mkpart osd-device-0-db 2G 12G
+
+
+// the filesystem will not  be added for some reason so you need to force it through
+$ /sbin/mkfs -t ext3 /dev/hdb3
+
+```
+
+
+<br>
+
+
+
 ### Installing OSD
 
+- removing osds from osd map
+```
+ceph osd out osd.11
+ceph osd down osd.11
+ceph osd rm osd.11
+
+ceph osd crush rm osd.11
+ceph auth del osd.11
+```
+
+
+- configuration file
 ```
 [global]
 fsid = 240f2d59-dcd3-474e-b459-8d872b38dca2
@@ -159,8 +206,13 @@ bluestore block db path = /dev/disk/by-partlabel/osd-device-1-db
 bluestore block wal path = /dev/disk/by-partlabel/osd-device-1-wal
 ```
 
+- create osd
+```
+ceph osd create [uuidgen]
+```
 
 - Return value for the osd id number, and then use ceph osd dump can be seen just created osd uuid. This id need to write down in the back to create a data file used. Then create the osd data directory:
+
 
 ```
 mkdir -p /mnt/osd-device-0-data
@@ -169,7 +221,7 @@ mkdir -p /mnt/osd-device-0-data
 - The name rule is still the cluster name plus the osd name. And then use the following order to prepare our osd installed in this directory.
 
 ```
-sudo mount -t xfs /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
+sudo mount -t [xfs,ext4,filesystemtype] /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
 ```
 
 - And then create the osd data file, the number 0 for the osd number, u uid is the first step inside we generated uuid number:
@@ -202,7 +254,7 @@ sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
 <br>
 
 ### establish a mgr daemon
-
+- this has to run in the monitor node
 ```
 ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
 ceph-mgr -i 0 -c /etc/ceph/ceph.conf
