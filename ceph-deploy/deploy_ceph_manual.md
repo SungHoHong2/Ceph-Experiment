@@ -126,9 +126,31 @@ ceph -s (status)
 enable experimental unrecoverable data corrupting features = bluestore rocksdb
 osd objectstore = bluestore
 bluestore default buffered read = true
+
+```
+- use parted to go to the command line
+```
+$ sudo su
+$ parted
+$ mklabel
+$ mkpart
+
+// or
+
+sudo parted -s -a optimal /dev/sdb mklabel gpt
+sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-data 0G 10G
+sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-block 10G 100%
+sudo parted -s -a optimal /dev/nvme0 mkpart osd-device-0-wal 0G 2G
+sudo parted -s -a optimal /dev/nvme0 mkpart osd-device-0-db 2G 12G
+
+
+// the filesystem will not  be added for some reason so you need to force it through
+$ /sbin/mkfs -t ext3 /dev/hdb3
+
 ```
 
 
+<br>
 
 
 
@@ -232,7 +254,7 @@ sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
 <br>
 
 ### establish a mgr daemon
-
+- this has to run in the monitor node
 ```
 ceph auth get-or-create mgr.0 mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr.0/keyring
 ceph-mgr -i 0 -c /etc/ceph/ceph.conf
