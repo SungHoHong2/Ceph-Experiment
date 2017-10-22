@@ -1,54 +1,84 @@
-### Network basic controls
+### SSH connection without password
+1. create several nodes with snapshot
+2. NICs should be all initialized for each snapshot
+3. create the NAT network from the virtual-box preference (upper-bar)
+    - create NAT network
+4. enable all node's first network adapter into NAT network
+    - first network preferred since it is likely the first ethernet shares the default subnet mask and enabling the second NIC adapter into  NAT network does not work
+
+5. **each nodes will have NIC for NAT network and internet access**
+
+
+<br>
+
+### Node configuration
 
 ```
-// checking network manager status "ACTIVE"
-$ sudo systemctl status NetworkManager
+// install ssh server
+$ sudo apt-get install openssh-server
+$ vi /etc/ssh/sshd_config
+  Port 22222 //if you want to change the port (22222)
+$ service ssh start or stop
 
-// NetworkManager Command line interface
-$ nmcli
+// ssh host
+$ adduser frisk
+$ passwd ******
 
-// checking ethernet connection
-$ nmcli device or nmcli d
+// you can use $ pkexec visudo if you made an error in the pseudo file
+$ sudo vi /etc/sudoers
+  root	ALL=(ALL) ALL
+  jkeesh	ALL=(ALL) ALL // add this for root permission
 
-// running GUI for network connection
-$ nm-connection-editor
-
-```
-
-### Difference between device and connections
-- Device
-  - Network hardware on your computer
-  - Ethernet port, Wifi Adapter
-- Connection
-  - Collection of settings that can be applied to your device
-- **note that network managers should be restarted when it is not recognizing the devices**
-
-
-```
-// restart the Network manager and check it is running
-  $ service network-manager restart
-  $ service network-manager status
-
-// you will find the two columns DEVICE and CONNECTION
-  $ nmcli d
-
-// connection.* // this part can be configured
-  $ nmcli connection show enp0s3
-
-
-// edit the connection name into myEthernet
-  $ nmcli connection edit enp0s3
-  $ nmcli > print connection // shows all the variables of connection
-  $ nmcli > describe connection.id // describe what the connection.id does
-  $ nmcli > set connection.id myEthernet // change the ethernet name into myEthernet
-  $ nmcli > quit
-  $ nmcli connection // you can see that the connection name has changed
-
-
-
-// add another connection name "Othernet"
-  $ nmcli connection add con-name othernet ifname enp0s3 type ethernet
+// client
+$ ssh frisk@[address]
 
 ```
 
-### Static address
+<br>
+
+### Root Node self key test
+```
+ssh-keygen -t rsa -P ""
+cat ./.ssh/id_rsa.pub >> ./.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+<br>
+
+### Client Node for creating keys
+- currently if we use the username the ssh works
+- need to find ssh root login
+```
+$ ssh-keygen
+$ ssh-copy-id -i /path/to/key.pub username@10.0.2.7
+
+$ vi /etc/ssh/sshd_config
+  + AllowUsers root sungho chara etc
+```
+
+<br>
+
+### Allowing direct root logins
+- still prompts the password even if the key is installed to the ssh server
+```
+$ vi /etc/ssh/sshd_config
+  + AllowUsers root sungho chara etc
+
+// add root pasword
+$ passwd root
+
+$ ssh-keygen
+$ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
+```
+
+
+<br>
+
+### Allow sudo password-less privilege
+- must add the new line below this passage
+```
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+%username  ALL=(ALL) NOPASSWD:ALL
+```
