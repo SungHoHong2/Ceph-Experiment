@@ -149,6 +149,16 @@ $ /sbin/mkfs -t ext3 /dev/hdb3
 
 ```
 
+### Enabling Filestore
+- add to the config file
+```
+
+osd objectstore = filestore
+osd data = ${fio_dir}
+osd journal = ${fio_dir}/journal
+
+```
+
 
 <br>
 
