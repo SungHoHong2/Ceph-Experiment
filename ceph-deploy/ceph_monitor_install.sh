@@ -14,7 +14,7 @@ monmaptool --create --add monitor01 10.0.2.14 --fsid f9a8ed78-92aa-4c20-a42e-bf9
 
 wait
 
-mkdir /var/lib/ceph/mon/ceph-monitor01
+mkdir -p /var/lib/ceph/mon/ceph-monitor01
 
 wait
 
