@@ -10,17 +10,17 @@ ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.
 
 wait
 
-monmaptool --create --add node1 10.0.2.10 --fsid f9a8ed78-92aa-4c20-a42e-bf97431698cf /etc/ceph/monmap
+monmaptool --create --add monitor01 10.0.2.14 --fsid f9a8ed78-92aa-4c20-a42e-bf97431698cf /etc/ceph/monmap
 
 wait
 
-mkdir /var/lib/ceph/mon/ceph-node1
+mkdir /var/lib/ceph/mon/ceph-monitor01
 
 wait
 
-ceph-mon --mkfs -i node1 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
+ceph-mon --mkfs -i monitor01 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
 
 wait
 
-touch /var/lib/ceph/mon/ceph-node1/done
-touch /var/lib/ceph/mon/ceph-node1/upstart
+touch /var/lib/ceph/mon/ceph-monitor01/done
+touch /var/lib/ceph/mon/ceph-monitor01/upstart
