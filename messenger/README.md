@@ -24,9 +24,8 @@ Set Ownership: You can set a user ID as the owner of a pool.
 
 ### CRUD commands for pools
   1. **creating pool**
-      - for some reason directly creating the pool from rados fails
-
 ```
+// for some reason directly creating the pool from rados fails
 $ ceph osd pool create {pool-name} {pg-num} [{pgp-num}]
 $ ceph osd lspools
 $ rados df // available to check the file from here
@@ -43,10 +42,9 @@ ceph osd pool rename {current-pool-name} {new-pool-name}
 
 
   3. **removing pool**
-      - need to set the mon_allow_pool_delete config option to true
-
-
-<br>
+```
+// need to set the mon_allow_pool_delete config option to true
+```
 
   4. **pool snapshot**
 ```
