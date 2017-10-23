@@ -83,7 +83,7 @@ $ sudo vi /etc/sudoers
 
 ...
 ... %sudo   ALL=(ALL:ALL) ALL
-+ %username  ALL=(ALL) NOPASSWD:ALL
++ username  ALL=(ALL) NOPASSWD:ALL
 ...
 
 ```
