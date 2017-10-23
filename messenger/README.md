@@ -7,9 +7,9 @@
 ### Creating pools for storing data
   1. **creating pool**
     -  for some reason directly creating the pool from rados fails
-    <br>
-    ```
-    $ ceph osd pool create {pool-name} {pg-num} [{pgp-num}]
-    $ ceph osd lspools
-    $ rados df // available to check the file from here
-    ```
+
+```
+$ ceph osd pool create {pool-name} {pg-num} [{pgp-num}]
+$ ceph osd lspools
+$ rados df // available to check the file from here
+```
