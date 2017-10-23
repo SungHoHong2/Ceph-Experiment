@@ -1,5 +1,5 @@
 [client.admin]
-	key = AQDlndpZudbUMBAAo73yvArdo4Lm9ANDybDeTQ==
+	key = AQDNVe5Zf5XbExAAo5RAA0iqbWERZ9pMYrX8AA==
 	auid = 0
 	caps mds = "allow *"
 	caps mgr = "allow *"
