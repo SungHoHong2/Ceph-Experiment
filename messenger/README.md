@@ -7,6 +7,15 @@
 
 <br>
 
+### Features of Pools
+  - Resilience: You can set how many OSD are allowed to fail without losing data. For replicated pools, it is the desired number of copies/replicas of an object. A typical configuration stores an object and one additional copy (i.e., size = 2), but you can determine the number of copies/replicas. For erasure coded pools, it is the number of coding chunks (i.e. m=2 in the erasure code profile)
+  - Placement Groups: You can set the number of placement groups for the pool. A typical configuration uses approximately 100 placement groups per OSD to provide optimal balancing without using up too many computing resources. When setting up multiple pools, be careful to ensure you set a reasonable number of placement groups for both the pool and the cluster as a whole.
+CRUSH Rules: When you store data in a pool, a CRUSH ruleset mapped to the pool enables CRUSH to identify a rule for the placement of the object and its replicas (or chunks for erasure coded pools) in your cluster. You can create a custom CRUSH rule for your pool.
+  - Snapshots: When you create snapshots with ceph osd pool mksnap, you effectively take a snapshot of a particular pool.
+Set Ownership: You can set a user ID as the owner of a pool.
+
+<br>
+
 ### CRUD commands for pools
   1. **creating pool**
       - for some reason directly creating the pool from rados fails
