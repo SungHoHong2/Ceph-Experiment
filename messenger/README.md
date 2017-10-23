@@ -32,14 +32,21 @@ $ ceph osd lspools
 $ rados df // available to check the file from here
 ```
 
+<br>
+
   2. **renamng pool**
 ```
 ceph osd pool rename {current-pool-name} {new-pool-name}
 ```
 
+<br>
+
+
   3. **removing pool**
       - need to set the mon_allow_pool_delete config option to true
 
+
+<br>
 
   4. **pool snapshot**
 ```
