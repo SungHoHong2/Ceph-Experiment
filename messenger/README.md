@@ -68,4 +68,6 @@ rados -p foo ls -
 rados -p foo rm myobject
 ```
   4. **SNAPSHOT objects**
-      - ignored due to other pending issues with higher priority
+```
+// ignored due to other pending issues with higher priority
+```
