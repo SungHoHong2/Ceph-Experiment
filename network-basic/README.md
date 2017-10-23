@@ -17,7 +17,8 @@
 // install ssh server
 $ sudo apt-get install openssh-server
 $ vi /etc/ssh/sshd_config
-  Port 22222 //if you want to change the port (22222)
+  + AllowUsers root sungho chara etc
+
 $ service ssh start or stop
 
 // ssh host
@@ -36,6 +37,23 @@ $ ssh frisk@[address]
 
 <br>
 
+### Allow host -> guest ssh login [OPTIONAL]
+- connect host-only adpater in virtual box
+- fix the subnet with the host ip address
+```
+$  /etc/network/interfaces
+auto eth0
+iface eth0 inet static
+
+address 192.168.1.128
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+gateway 192.168.1.1
+```
+
+<br>
+
 ### Root Node self key test
 ```
 ssh-keygen -t rsa -P ""
@@ -47,7 +65,6 @@ chmod 600 ~/.ssh/authorized_keys
 
 ### Client Node for creating keys
 - currently if we use the username the ssh works
-- need to find ssh root login
 ```
 $ ssh-keygen
 $ ssh-copy-id -i /path/to/key.pub username@10.0.2.7
@@ -58,27 +75,21 @@ $ vi /etc/ssh/sshd_config
 
 <br>
 
-### Allowing direct root logins
-- still prompts the password even if the key is installed to the ssh server
-```
-$ vi /etc/ssh/sshd_config
-  + AllowUsers root sungho chara etc
-
-// add root pasword
-$ passwd root
-
-$ ssh-keygen
-$ ssh-copy-id -i /path/to/key.pub root@10.0.2.7
-```
-
-
-<br>
-
-### Allow sudo password-less privilege
+### Allow password-less root privilege
 - must add the new line below this passage
 ```
 # Allow members of group sudo to execute any command
 %sudo   ALL=(ALL:ALL) ALL
 
 %username  ALL=(ALL) NOPASSWD:ALL
+```
+
+<br>
+
+### Change hosts and hostname
+- both hosts and hostname should be configured for Ceph to find the correct location
+```
+$ sudo vi /etc/hosts hostname
++ hosts are for all the address for you and the fellow nodes
++ hostname are for your node name
 ```
