@@ -1,9 +1,10 @@
 ### How src/msg/async works
   - [x] CRUD commands for pools
-  - [ ] The definition of pools in Ceph
-  - [ ] CRUD commands for data objects  
+  - [x] The definition of pools in Ceph
+  - [x] CRUD commands for data objects  
   - [ ] know the basic CRUD of LIBRADOS
-  - [ ] debug how the CRUD functions affect the  
+  - [ ] create a sample code  that will create a file and then delete a file in a pool
+  - [ ] debug it by debugging the /var/msg/async   
 
 <br>
 
@@ -71,3 +72,6 @@ rados -p foo rm myobject
 ```
 // ignored due to other pending issues with higher priority
 ```
+
+
+<br>
