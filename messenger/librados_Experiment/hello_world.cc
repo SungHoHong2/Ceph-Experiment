@@ -20,7 +20,7 @@ int main(int argc, const char **argv)
   int ret = 0;
 
   // we will use all of these below
-  const char *pool_name = "hello_world_pool";
+  // const char *pool_name = "hello_world_pool";
   std::string hello("hello world!");
   std::string object_name("hello_object");
   librados::IoCtx io_ctx;
@@ -32,7 +32,7 @@ int main(int argc, const char **argv)
     if (ret < 0) { // let's handle any error that might have come back
       std::cerr << "couldn't initialize rados! error " << ret << std::endl;
       ret = EXIT_FAILURE;
-      goto out;
+      // goto out;
     } else {
       std::cout << "we just set up a rados cluster object" << std::endl;
     }
