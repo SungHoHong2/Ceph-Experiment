@@ -84,20 +84,6 @@ int main(int argc, const char **argv)
     }
   }
 
-
-  {
-    librados::IoCtx io_ctx;
-    const char *pool_name = "data";
-    ret = rados.ioctx_create(pool_name, io_ctx);
-
-    if (ret < 0) {
-        std::cerr << "Couldn't set up ioctx! error " << ret << std::endl;
-        exit(EXIT_FAILURE);
-    } else {
-        std::cout << "Created an ioctx for the pool." << std::endl;
-    }
-  }
-
   /*
    * let's create our own pool instead of scribbling over real data.
    * Note that this command creates pools with default PG counts specified
@@ -105,7 +91,7 @@ int main(int argc, const char **argv)
    * for testing, though.
    */
   // {
-  //   ret = rados.pool_create(pool_name);
+  //   ret = rados.pool_create("howdy");
   //   if (ret < 0) {
   //     std::cerr << "couldn't create pool! error " << ret << std::endl;
   //     return EXIT_FAILURE;
@@ -117,47 +103,47 @@ int main(int argc, const char **argv)
   /*
    * create an "IoCtx" which is used to do IO to a pool
    */
-  // {
-  //   ret = rados.ioctx_create(pool_name, io_ctx);
-  //   if (ret < 0) {
-  //     std::cerr << "couldn't set up ioctx! error " << ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   } else {
-  //     std::cout << "we just created an ioctx for our pool" << std::endl;
-  //   }
-  // }
+  {
+    ret = rados.ioctx_create("test_pool", io_ctx);
+    if (ret < 0) {
+      std::cerr << "couldn't set up ioctx! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just created an ioctx for our pool" << std::endl;
+    }
+  }
 
   /*
    * now let's do some IO to the pool! We'll write "hello world!" to a
    * new object.
    */
 // {
-    /*
-     * "bufferlist"s are Ceph's native transfer type, and are carefully
-     * designed to be efficient about copying. You can fill them
-     * up from a lot of different data types, but strings or c strings
-     * are often convenient. Just make sure not to deallocate the memory
-     * until the bufferlist goes out of scope and any requests using it
-     * have been finished!
-     */
-    // librados::bufferlist bl;
-    // bl.append(hello);
-
-    /*
-     * now that we have the data to write, let's send it to an object.
-     * We'll use the synchronous interface for simplicity.
-     */
-  //   ret = io_ctx.write_full(object_name, bl);
-  //   if (ret < 0) {
-  //     std::cerr << "couldn't write object! error " << ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   } else {
-  //     std::cout << "we just wrote new object " << object_name
-	//         << ", with contents\n" << hello << std::endl;
-  //   }
-  // }
+//     /*
+//      * "bufferlist"s are Ceph's native transfer type, and are carefully
+//      * designed to be efficient about copying. You can fill them
+//      * up from a lot of different data types, but strings or c strings
+//      * are often convenient. Just make sure not to deallocate the memory
+//      * until the bufferlist goes out of scope and any requests using it
+//      * have been finished!
+//      */
+//     librados::bufferlist bl;
+//     bl.append(hello);
+//
+//     /*
+//      * now that we have the data to write, let's send it to an object.
+//      * We'll use the synchronous interface for simplicity.
+//      */
+//     ret = io_ctx.write_full(object_name, bl);
+//     if (ret < 0) {
+//       std::cerr << "couldn't write object! error " << ret << std::endl;
+//       ret = EXIT_FAILURE;
+//       goto out;
+//     } else {
+//       std::cout << "we just wrote new object " << object_name
+// 	        << ", with contents\n" << hello << std::endl;
+//     }
+//   }
 
   /*
    * now let's read that object back! Just for fun, we'll do it using
