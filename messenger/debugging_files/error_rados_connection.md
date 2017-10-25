@@ -1,3 +1,10 @@
+### Solution
+- run the command inside the ceph original example file
+```
+$ sudo ./hello_world_cpp -c /etc/ceph/ceph.conf
+```
+
+<br>
 
 ### Running hello_world_cpp
 
