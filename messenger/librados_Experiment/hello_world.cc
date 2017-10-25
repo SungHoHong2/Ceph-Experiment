@@ -89,6 +89,13 @@ int main(int argc, const char **argv)
     librados::IoCtx io_ctx;
     const char *pool_name = "data";
     ret = rados.ioctx_create(pool_name, io_ctx);
+
+    if (ret < 0) {
+        std::cerr << "Couldn't set up ioctx! error " << ret << std::endl;
+        exit(EXIT_FAILURE);
+    } else {
+        std::cout << "Created an ioctx for the pool." << std::endl;
+    }
   }
 
   /*
