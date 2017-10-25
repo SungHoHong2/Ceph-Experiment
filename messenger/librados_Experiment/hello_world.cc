@@ -85,10 +85,11 @@ int main(int argc, const char **argv)
   }
 
 
-  librados::IoCtx io_ctx;
-  const char *pool_name = "data";
-  ret = cluster.ioctx_create(pool_name, io_ctx);
-
+  {
+    librados::IoCtx io_ctx;
+    const char *pool_name = "data";
+    ret = cluster.ioctx_create(pool_name, io_ctx);
+  }
 
   /*
    * let's create our own pool instead of scribbling over real data.
