@@ -86,3 +86,8 @@ $ ceph osd lspools
 $ rados df // available to check the file from here
 ```
 - avoid creating pools directly from the code for it causes errors at this point
+
+
+<br>
+
+### SAMPLE CREATE DELETE FILE
