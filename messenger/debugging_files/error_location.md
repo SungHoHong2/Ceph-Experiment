@@ -66,3 +66,48 @@ lderr(cct) << "ERROR: missing keyring, cannot use cephx for authentication" << d
   }
 }
 ```
+
+
+<br>
+
+
+- **Keyring.cc**
+    - LINE 35
+```cpp
+  const md_config_t *conf = cct->_conf;
+  string filename;
+
+  int ret = ceph_resolve_file_search(conf->keyring, filename);
+  if (!ret) {
+    ret = load(cct, filename);
+    if (ret < 0)
+      lderr(cct) << "failed to load " << filename
+		 << ": " << cpp_strerror(ret) << dendl;
+  } else {
+    lderr(cct) << "unable to find a keyring on " << conf->keyring
+	       << ": " << cpp_strerror(ret) << dendl;
+  }
+```
+
+<br>
+
+- **Config.cc**
+```cpp
+
+  list<string> ls;
+  get_str_list(filename_list, ls);
+
+  int ret = -ENOENT;
+  list<string>::iterator iter;
+  for (iter = ls.begin(); iter != ls.end(); ++iter) {
+    int fd = ::open(iter->c_str(), O_RDONLY);
+    if (fd < 0) {
+      ret = -errno;
+      continue;
+    }
+    close(fd);
+    result = *iter;
+    return 0;
+  }
+
+```
