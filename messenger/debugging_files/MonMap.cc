@@ -541,7 +541,7 @@ int MonMap::build_initial(CephContext *cct, ostream& errout)
     // no info found from conf options lets try use DNS SRV records
     string srv_name = conf->get_val<std::string>("mon_dns_srv_name");
 
-    cout << "mon_dns_srv_name" << srv_name << endl; // this should have the result? 
+    cout << "mon_dns_srv_name" << srv_name << endl; // this should have the result?
 
     string domain;
     // check if domain is also provided and extract it from srv_name

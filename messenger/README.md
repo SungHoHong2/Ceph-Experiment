@@ -3,7 +3,7 @@
   - [x] The definition of pools in Ceph
   - [x] CRUD commands for data objects  
   - [x] know the basic CRUD of LIBRADOS
-  - [ ] create a sample code  that will create a file and then delete a file in a pool
+  - [x] create a sample code  that will create a file and then delete a file in a pool
   - [ ] debug it by debugging the /var/msg/async   
 
 <br>
@@ -90,4 +90,6 @@ $ rados df // available to check the file from here
 
 <br>
 
-### SAMPLE CREATE DELETE FILE
+### SAMPLE WRITE READ FILE
+- [link to running sample application](sample_application)
+- [Debug Path of read and write](debugging_files/debug_read_write.md)

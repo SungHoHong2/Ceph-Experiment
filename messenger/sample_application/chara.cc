@@ -75,8 +75,6 @@ int main(int argc, const char **argv){
   }
 
 
-
-
   /*
    * create an "IoCtx" which is used to do IO to a pool
    */
@@ -157,25 +155,25 @@ int main(int argc, const char **argv){
       * atomic operation. For instance, we can update the contents of our object
       * and set the version at the same time.
       */
-     {
-       librados::bufferlist bl;
-       bl.append(hello);
-       bl.append("v2");
-       librados::ObjectWriteOperation write_op;
-       write_op.write_full(bl);
-       librados::bufferlist version_bl;
-       version_bl.append('2');
-       write_op.setxattr("version", version_bl);
-       ret = io_ctx.operate(object_name, &write_op);
-       if (ret < 0) {
-         std::cerr << "failed to do compound write! error " << ret << std::endl;
-         ret = EXIT_FAILURE;
-         goto out;
-       } else {
-         std::cout << "we overwrote our object " << object_name
-   		<< " with contents\n" << bl.c_str() << std::endl;
-       }
-     }
+    //  {
+    //    librados::bufferlist bl;
+    //    bl.append(hello);
+    //    bl.append("v2");
+    //    librados::ObjectWriteOperation write_op;
+    //    write_op.write_full(bl);
+    //    librados::bufferlist version_bl;
+    //    version_bl.append('2');
+    //    write_op.setxattr("version", version_bl);
+    //    ret = io_ctx.operate(object_name, &write_op);
+    //    if (ret < 0) {
+    //      std::cerr << "failed to do compound write! error " << ret << std::endl;
+    //      ret = EXIT_FAILURE;
+    //      goto out;
+    //    } else {
+    //      std::cout << "we overwrote our object " << object_name
+   // 		<< " with contents\n" << bl.c_str() << std::endl;
+    //    }
+    //  }
 
 
 
