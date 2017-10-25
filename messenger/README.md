@@ -3,9 +3,6 @@
   - [x] The definition of pools in Ceph
   - [x] CRUD commands for data objects  
   - [x] know the basic CRUD of LIBRADOS
-        - [link to running librados example](librados_Experiment)
-        - for some reason creating the pool is not working directly with rados
-        - solution is to create the pool with OSD command and then use the created pool in the librados
   - [ ] create a sample code  that will create a file and then delete a file in a pool
   - [ ] debug it by debugging the /var/msg/async   
 
