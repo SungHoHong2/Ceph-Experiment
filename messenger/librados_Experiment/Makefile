@@ -12,8 +12,8 @@ CC_LIBS?=-lrados
 CC_CC=$(CC) $(CC_FLAGS) $(CC_INC) $(LOCAL_LIBRADOS)
 
 # Relative path to the Ceph source:
-CEPH_SRC_HOME?=../../src
-CEPH_BLD_HOME?=../../build
+CEPH_SRC_HOME?=/home/sungho/ceph/src
+CEPH_BLD_HOME?=/home/sungho/ceph/build
 
 LOCAL_LIBRADOS?=-L$(CEPH_BLD_HOME)/lib/ -Wl,-rpath,$(CEPH_BLD_HOME)/lib
 LOCAL_LIBRADOS_INC?=-I$(CEPH_SRC_HOME)/include
