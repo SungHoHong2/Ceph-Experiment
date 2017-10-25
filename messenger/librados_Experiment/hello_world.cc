@@ -118,7 +118,7 @@ int main(int argc, const char **argv)
    * now let's do some IO to the pool! We'll write "hello world!" to a
    * new object.
    */
-// {
+   {
 //     /*
 //      * "bufferlist"s are Ceph's native transfer type, and are carefully
 //      * designed to be efficient about copying. You can fill them
@@ -127,23 +127,23 @@ int main(int argc, const char **argv)
 //      * until the bufferlist goes out of scope and any requests using it
 //      * have been finished!
 //      */
-//     librados::bufferlist bl;
-//     bl.append(hello);
-//
-//     /*
-//      * now that we have the data to write, let's send it to an object.
-//      * We'll use the synchronous interface for simplicity.
-//      */
-//     ret = io_ctx.write_full(object_name, bl);
-//     if (ret < 0) {
-//       std::cerr << "couldn't write object! error " << ret << std::endl;
-//       ret = EXIT_FAILURE;
-//       goto out;
-//     } else {
-//       std::cout << "we just wrote new object " << object_name
-// 	        << ", with contents\n" << hello << std::endl;
-//     }
-//   }
+    librados::bufferlist bl;
+    bl.append(hello);
+
+    /*
+     * now that we have the data to write, let's send it to an object.
+     * We'll use the synchronous interface for simplicity.
+     */
+    ret = io_ctx.write_full(object_name, bl);
+    if (ret < 0) {
+      std::cerr << "couldn't write object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just wrote new object " << object_name
+	        << ", with contents\n" << hello << std::endl;
+    }
+  }
 
   /*
    * now let's read that object back! Just for fun, we'll do it using
@@ -151,75 +151,75 @@ int main(int argc, const char **argv)
    * wanted to send off multiple reads at once; see
    * http://docs.ceph.com/docs/master/rados/api/librados/#asychronous-io )
    */
-  // {
-  //   librados::bufferlist read_buf;
-  //   int read_len = 4194304; // this is way more than we need
-  //   // allocate the completion from librados
-  //   librados::AioCompletion *read_completion = librados::Rados::aio_create_completion();
-  //   // send off the request.
-  //   ret = io_ctx.aio_read(object_name, read_completion, &read_buf, read_len, 0);
-  //   if (ret < 0) {
-  //     std::cerr << "couldn't start read object! error " << ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   }
-  //   // wait for the request to complete, and check that it succeeded.
-  //   read_completion->wait_for_complete();
-  //   ret = read_completion->get_return_value();
-  //   if (ret < 0) {
-  //     std::cerr << "couldn't read object! error " << ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   } else {
-  //     std::cout << "we read our object " << object_name
-	//   << ", and got back " << ret << " bytes with contents\n";
-  //     std::string read_string;
-  //     read_buf.copy(0, ret, read_string);
-  //     std::cout << read_string << std::endl;
-  //   }
-  // }
+  {
+    librados::bufferlist read_buf;
+    int read_len = 4194304; // this is way more than we need
+    // allocate the completion from librados
+    librados::AioCompletion *read_completion = librados::Rados::aio_create_completion();
+    // send off the request.
+    ret = io_ctx.aio_read(object_name, read_completion, &read_buf, read_len, 0);
+    if (ret < 0) {
+      std::cerr << "couldn't start read object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    }
+    // wait for the request to complete, and check that it succeeded.
+    read_completion->wait_for_complete();
+    ret = read_completion->get_return_value();
+    if (ret < 0) {
+      std::cerr << "couldn't read object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we read our object " << object_name
+	  << ", and got back " << ret << " bytes with contents\n";
+      std::string read_string;
+      read_buf.copy(0, ret, read_string);
+      std::cout << read_string << std::endl;
+    }
+  }
 
   /*
    * We can also use xattrs that go alongside the object.
    */
-  // {
-  //   librados::bufferlist version_bl;
-  //   version_bl.append('1');
-  //   ret = io_ctx.setxattr(object_name, "version", version_bl);
-  //   if (ret < 0) {
-  //     std::cerr << "failed to set xattr version entry! error "
-	// 	<< ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   } else {
-  //     std::cout << "we set the xattr 'version' on our object!" << std::endl;
-  //   }
-  // }
+  {
+    librados::bufferlist version_bl;
+    version_bl.append('1');
+    ret = io_ctx.setxattr(object_name, "version", version_bl);
+    if (ret < 0) {
+      std::cerr << "failed to set xattr version entry! error "
+		<< ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we set the xattr 'version' on our object!" << std::endl;
+    }
+  }
 
   /*
    * And if we want to be really cool, we can do multiple things in a single
    * atomic operation. For instance, we can update the contents of our object
    * and set the version at the same time.
    */
-  // {
-  //   librados::bufferlist bl;
-  //   bl.append(hello);
-  //   bl.append("v2");
-  //   librados::ObjectWriteOperation write_op;
-  //   write_op.write_full(bl);
-  //   librados::bufferlist version_bl;
-  //   version_bl.append('2');
-  //   write_op.setxattr("version", version_bl);
-  //   ret = io_ctx.operate(object_name, &write_op);
-  //   if (ret < 0) {
-  //     std::cerr << "failed to do compound write! error " << ret << std::endl;
-  //     ret = EXIT_FAILURE;
-  //     goto out;
-  //   } else {
-  //     std::cout << "we overwrote our object " << object_name
-	// 	<< " with contents\n" << bl.c_str() << std::endl;
-  //   }
-  // }
+  {
+    librados::bufferlist bl;
+    bl.append(hello);
+    bl.append("v2");
+    librados::ObjectWriteOperation write_op;
+    write_op.write_full(bl);
+    librados::bufferlist version_bl;
+    version_bl.append('2');
+    write_op.setxattr("version", version_bl);
+    ret = io_ctx.operate(object_name, &write_op);
+    if (ret < 0) {
+      std::cerr << "failed to do compound write! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we overwrote our object " << object_name
+		<< " with contents\n" << bl.c_str() << std::endl;
+    }
+  }
 
   /*
    * And to be even cooler, we can make sure that the object looks the
