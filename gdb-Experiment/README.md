@@ -38,8 +38,4 @@ $ gdb
 ```
 (gdb) backtrace //work after the program produces an error
 (gdb) where //same as backtrace
-
-
-
-
 ```
