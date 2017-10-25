@@ -32,7 +32,7 @@ int main(int argc, const char **argv)
     if (ret < 0) { // let's handle any error that might have come back
       std::cerr << "couldn't initialize rados! error " << ret << std::endl;
       ret = EXIT_FAILURE;
-      // goto out;
+      goto out;
     } else {
       std::cout << "we just set up a rados cluster object" << std::endl;
     }
@@ -280,7 +280,7 @@ int main(int argc, const char **argv)
   // }
 
   // ret = EXIT_SUCCESS;
-  // out:
+  out:
   // /*
   //  * And now we're done, so let's remove our pool and then
   //  * shut down the connection gracefully.
