@@ -2,7 +2,8 @@
   - [x] CRUD commands for pools
   - [x] The definition of pools in Ceph
   - [x] CRUD commands for data objects  
-  - [ ] know the basic CRUD of LIBRADOS
+  - [x] know the basic CRUD of LIBRADOS
+        - [link to running librados example](librados_Experiment)
         - for some reason creating the pool is not working directly with rados
         - solution is to create the pool with OSD command and then use the created pool in the librados
   - [ ] create a sample code  that will create a file and then delete a file in a pool
@@ -77,3 +78,14 @@ rados -p foo rm myobject
 
 
 <br>
+
+
+### Running LIBRADOS
+- [link to running librados example](librados_Experiment)
+- must add pool with the command below
+```
+$ ceph osd pool create {pool-name} {pg-num} [{pgp-num}]
+$ ceph osd lspools
+$ rados df // available to check the file from here
+```
+- avoid creating pools directly from the code for it causes errors at this point
