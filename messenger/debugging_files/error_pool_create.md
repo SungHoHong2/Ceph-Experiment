@@ -33,12 +33,41 @@ int librados::Rados::pool_create(const char *name)
 <br>
 
 - **/ceph/examples/librados/RadosClient.cc**
+    - LINE: 671 - int r = wait_for_osdmap();
 ```cpp
+int librados::RadosClient::pool_create(string& name, unsigned long long auid,
+				       int16_t crush_rule)
+{
+int r = wait_for_osdmap();
+if (r < 0) {
+  return r;
+}
 
+Mutex mylock ("RadosClient::pool_create::mylock");
+int reply;
+Cond cond;
+bool done;
+Context *onfinish = new C_SafeCond(&mylock, &cond, &done, &reply);
+reply = objecter->create_pool(name, onfinish, auid, crush_rule);
 
-
+if (reply < 0) {
+  delete onfinish;
+} else {
+  mylock.Lock();
+  while(!done)
+    cond.Wait(mylock);
+  mylock.Unlock();
+}
+return reply;
+}
 ```
 
+<br>
+
+- **/ceph/examples/librados/hello_world_cpp**
+```cpp
+
+```
 
 
 <br>
