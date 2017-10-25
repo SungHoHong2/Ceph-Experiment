@@ -28,6 +28,8 @@ $ gdb
 (gdb) continue // continue to the next breakpoint
 (gdb) step // going into inner function
 
+$ gdb --args executablename arg1 arg2 arg3 // running with parameters
+
 ```
 
 <br>
