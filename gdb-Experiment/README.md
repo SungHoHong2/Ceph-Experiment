@@ -5,6 +5,8 @@
     - allows you to inspect what the program is doing at a certain point during execution.
     - Errors like segmentation faults may be easier to find with the help of gdb.
 
+<br>
+
 1. **Basic functions**
     - run - run the file
     - break - break in particular function or line
@@ -27,6 +29,8 @@ $ gdb
 (gdb) step // going into inner function
 
 ```
+
+<br>
 
 2. **Useful functions**
     - backtrace - produces a stack trace of the function calls that lead to a seg fault (should remind you of Java exceptions)
