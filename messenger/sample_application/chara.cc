@@ -7,7 +7,5 @@ int main(int argc, const char **argv){
 
 
 
-  rados.shutdown();
-
   return ret;
 }
