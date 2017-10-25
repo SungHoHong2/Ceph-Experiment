@@ -5,6 +5,8 @@
 ### Debug Log
 
 - **/ceph/examples/librados/hello_world_cpp**
+- LINE 94
+- LINE 106
 ```cpp
 {
   ret = rados.pool_create(pool_name);
@@ -15,6 +17,18 @@
     std::cout << "we just created a new pool named " << pool_name << std::endl;
   }
 }
+
+{
+  ret = rados.ioctx_create(pool_name, io_ctx);
+  if (ret < 0) {
+    std::cerr << "couldn't set up ioctx! error " << ret << std::endl;
+    ret = EXIT_FAILURE;
+    goto out;
+  } else {
+    std::cout << "we just created an ioctx for our pool" << std::endl;
+  }
+}
+
 ```
 
 <br>
