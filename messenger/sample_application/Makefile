@@ -19,7 +19,7 @@ all-system: LOCAL_LIBRADOS=
 all-system: LOCAL_LIBRADOS_INC=
 all-system: all
 
-hello_world_cpp: chara.cc
+chara_cpp: chara.cc
 	$(CXX_CC) -o chara_cpp chara.cc $(CXX_LIBS)
 
 clean:
