@@ -18,7 +18,7 @@ CEPH_BLD_HOME?=../../build
 LOCAL_LIBRADOS?=-L$(CEPH_BLD_HOME)/lib/ -Wl,-rpath,$(CEPH_BLD_HOME)/lib
 LOCAL_LIBRADOS_INC?=-I$(CEPH_SRC_HOME)/include
 
-all: hello_world_cpp hello_radosstriper_cpp hello_world_c
+all: hello_world_cpp # hello_radosstriper_cpp hello_world_c
 
 # Build against the system librados instead of the one in the build tree:
 all-system: LOCAL_LIBRADOS=
