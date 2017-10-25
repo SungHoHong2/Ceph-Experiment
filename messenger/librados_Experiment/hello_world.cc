@@ -88,7 +88,7 @@ int main(int argc, const char **argv)
   {
     librados::IoCtx io_ctx;
     const char *pool_name = "data";
-    ret = cluster.ioctx_create(pool_name, io_ctx);
+    ret = rados.ioctx_create(pool_name, io_ctx);
   }
 
   /*
