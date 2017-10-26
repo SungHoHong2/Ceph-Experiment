@@ -402,14 +402,3 @@ int Objecter::_get_session(int osd, OSDSession **session, shunique_lock& sul)
 virtual ConnectionRef get_connection(const entity_inst_t& dest) = 0;
 
 ```
-
-
-
-
-<br>
-
-- **/ceph/src/librados/.cc**
-    - LINE: 0
-
-```cpp
-```
