@@ -92,4 +92,5 @@ $ rados df // available to check the file from here
 
 ### SAMPLE WRITE READ FILE
 - [link to running sample application](sample_application)
-- [Debug Path of read and write](debugging_files/debug_read_write.md)
+- [Debug Path of read and write](debugging_files/)
+![read debug](debugging_files/CONNECTION.png)
