@@ -362,6 +362,45 @@ void Objecter::_op_submit(Op *op, shunique_lock& sul, ceph_tid_t *ptid)
   ldout(cct, 5) << num_in_flight << " in flight" << dendl;
 }
 
+
+int Objecter::_get_session(int osd, OSDSession **session, shunique_lock& sul)
+{
+  assert(sul && sul.mutex() == &rwlock);
+
+  if (osd < 0) {
+    *session = homeless_session;
+    ldout(cct, 20) << __func__ << " osd=" << osd << " returning homeless"
+		   << dendl;
+    return 0;
+  }
+
+  map<int,OSDSession*>::iterator p = osd_sessions.find(osd);
+  if (p != osd_sessions.end()) {
+    OSDSession *s = p->second;
+    s->get();
+    *session = s;
+    ldout(cct, 20) << __func__ << " s=" << s << " osd=" << osd << " "
+		   << s->get_nref() << dendl;
+    return 0;
+  }
+  if (!sul.owns_lock()) {
+    return -EAGAIN;
+  }
+  OSDSession *s = new OSDSession(cct, osd);
+  osd_sessions[osd] = s;
+  s->con = messenger->get_connection(osdmap->get_inst(osd));
+  s->con->set_priv(s->get());
+  logger->inc(l_osdc_osd_session_open);
+  logger->set(l_osdc_osd_sessions, osd_sessions.size());
+  s->get();
+  *session = s;
+  ldout(cct, 20) << __func__ << " s=" << s << " osd=" << osd << " "
+		 << s->get_nref() << dendl;
+  return 0;
+}
+
+virtual ConnectionRef get_connection(const entity_inst_t& dest) = 0;
+
 ```
 
 
