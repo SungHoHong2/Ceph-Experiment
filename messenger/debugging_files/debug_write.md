@@ -88,11 +88,6 @@ int librados::IoCtxImpl::write_full(const object_t& oid, bufferlist& bl)
 }
 ```
 
-  <br>
-
-    - operate function LINE: 694
-    - Objector is initiated in the operate function
-
 ```cpp
 
 int librados::IoCtxImpl::operate(const object_t& oid, ::ObjectOperation *o,
