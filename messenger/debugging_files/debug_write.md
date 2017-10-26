@@ -42,6 +42,10 @@
 }
 ```
 
+<br>
+
+- **/ceph/src/librados/IoCtxImpl.cc**
+
 ```cpp
 int librados::IoCtx::write_full(const std::string& oid, bufferlist& bl)
 {
@@ -49,32 +53,6 @@ int librados::IoCtx::write_full(const std::string& oid, bufferlist& bl)
   return io_ctx_impl->write_full(obj, bl);
 }
 ```
-
-```cpp
-int librados::IoCtxImpl::write_full(const object_t& oid, bufferlist& bl)
-{
-  if (bl.length() > UINT_MAX/2)
-    return -E2BIG;
-  ::ObjectOperation op;
-  prepare_assert_ops(&op);
-  op.write_full(bl);
-  return operate(oid, &op, NULL);
-}
-```
-
-```cpp
-void add_data(int op, uint64_t off, uint64_t len, bufferlist& bl) {
-  OSDOp& osd_op = add_op(op);
-  osd_op.op.extent.offset = off;
-  osd_op.op.extent.length = len;
-  osd_op.indata.claim_append(bl);
-}
-```
-
-<br>
-
-- **/ceph/src/librados/IoCtxImpl.cc**
-    - LINE: 668
 
 ```cpp
 int librados::IoCtxImpl::write_full(const object_t& oid, bufferlist& bl)
