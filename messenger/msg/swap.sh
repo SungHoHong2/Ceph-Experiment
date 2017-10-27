@@ -1,2 +1,2 @@
-rm -rf ~/ceph/src/msg
-cp -a ../msg  ~/ceph/src/msg
+rm -rf ~/ceph/src/msg/async
+cp -a async  ~/ceph/src/msg/async
