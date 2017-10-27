@@ -16,7 +16,7 @@
 
 <br>
 
-# Message Passing Used by Ceph
+### Message Passing Used by Ceph
 - Uses Singleton Message Stack as the protocol template
 - The stack is passed on to the Threads for running RW ( Asynchronous mode )
 ![image-2](img/2.png)
