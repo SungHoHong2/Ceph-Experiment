@@ -99,3 +99,16 @@ $ rados df // available to check the file from here
 
 ![read debug](debugging_files/CONNECTION.png)
 ![read debug](debugging_files/WRITE_2.png)
+
+<br>
+
+### How Messenger is Implemented
+
+```
+# target to build an object file
+msg/Messenger.cc.o:
+	cd /home/sungho/ceph/build && $(MAKE) -f src/CMakeFiles/common-objs.dir/build.make src/CMakeFiles/common-objs.dir/msg/Messenger.cc.o
+.PHONY : msg/Messenger.cc.o
+
+
+```
