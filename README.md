@@ -19,14 +19,11 @@
 ![image-1](img/1_i.png)
 
 
-<br>
-
 2. **Message Passing Used by Ceph**
     - Uses Singleton Message Stack as the protocol template
     - The stack is passed on to the Threads for running RW ( Asynchronous mode )
 ![image-2](img/2_i.png)
 
-<br>
 
 3. **Implemented Structure**
     - used virtual box
