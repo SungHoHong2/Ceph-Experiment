@@ -13,7 +13,7 @@
 - Used for testing 4 cases of message passing  
 - Multiple threads run the same R/W operations
 - Used GDB to track down the functions of Librados
-![image-1](img/1.png)
+![image-1](img/1_i.png)
 
 
 <br>
@@ -21,7 +21,7 @@
 ### Message Passing Used by Ceph
 - Uses Singleton Message Stack as the protocol template
 - The stack is passed on to the Threads for running RW ( Asynchronous mode )
-![image-2](img/2.png)
+![image-2](img/2_i.png)
 
 <br>
 
