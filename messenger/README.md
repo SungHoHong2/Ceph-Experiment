@@ -4,7 +4,8 @@
   - [x] CRUD commands for data objects  
   - [x] know the basic CRUD of LIBRADOS
   - [x] create a sample code  that will create a file and then delete a file in a pool
-  - [ ] debug it by debugging the /var/msg/async   
+  - [x] debug it by debugging the /var/msg/async   
+  - [ ] Finding a way to debug outside of librados scope
 
 <br>
 
