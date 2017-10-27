@@ -97,3 +97,4 @@ $ rados df // available to check the file from here
 <br>
 
 ![read debug](debugging_files/CONNECTION.png)
+![read debug](debugging_files/WRITE.png)
