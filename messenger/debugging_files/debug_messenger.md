@@ -143,6 +143,43 @@ struct StackSingleton {
 
 <br>
 
+- **stack.cc**
+    - call spawnworkers from [PosixStack.h](../reference_message/PosixStack.h)
+
+```
+void NetworkStack::start()
+{
+  std::unique_lock<decltype(pool_spin)> lk(pool_spin);
+
+  if (started) {
+    return ;
+  }
+
+  for (unsigned i = 0; i < num_workers; ++i) {
+    if (workers[i]->is_init())
+      continue;
+    std::function<void ()> thread = add_thread(i);
+    spawn_worker(i, std::move(thread));
+  }
+  started = true;
+  lk.unlock();
+
+  for (unsigned i = 0; i < num_workers; ++i)
+    workers[i]->wait_for_init();
+    /*
+    #include<condition_variable>
+    void wait_for_init() {
+      std::unique_lock<std::mutex> l(init_lock);
+      while (!init)
+        init_cond.wait(l);
+    }
+    */
+}
+```
+
+
+<br>
+
 - **AsyncMessenger.h**
 
 ```cpp
