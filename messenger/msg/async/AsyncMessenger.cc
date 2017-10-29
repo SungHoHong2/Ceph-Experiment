@@ -1,4 +1,4 @@
-// -*- mode:C++; tab-width:8; c-basic-offset:2; indent-tabs-mode:t -*- 
+// -*- mode:C++; tab-width:8; c-basic-offset:2; indent-tabs-mode:t -*-
 // vim: ts=8 sw=2 smarttab
 /*
  * Ceph - scalable distributed file system
@@ -258,7 +258,8 @@ AsyncMessenger::AsyncMessenger(CephContext *cct, entity_name_t name,
     transport_type = "dpdk";
 
 
-  std::cout << "CHARA MESSEGE: " << transport_type << std::endl;
+    std::cout << "CHARA AsyncMessenger mname: " << mname << std::endl;
+    std::cout << "CHARA AsyncMessenger transport_type: " << transport_type << std::endl;
 
   StackSingleton *single;
   cct->lookup_or_create_singleton_object<StackSingleton>(single, "AsyncMessenger::NetworkStack::"+transport_type);
@@ -273,7 +274,7 @@ AsyncMessenger::AsyncMessenger(CephContext *cct, entity_name_t name,
   if (stack->support_local_listen_table())
     processor_num = stack->get_num_worker();
 
-  std::cout << "CHARA processor_num: " << processor_num << std::endl;
+  std::cout << "CHARA AsyncMessenger processor_num: " << processor_num << std::endl;
 
   for (unsigned i = 0; i < processor_num; ++i)
     processors.push_back(new Processor(this, stack->get_worker(i), cct));

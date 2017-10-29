@@ -18,6 +18,9 @@ Messenger *Messenger::create_client_messenger(CephContext *cct, string lname)
 {
   std::string public_msgr_type = cct->_conf->ms_public_type.empty() ? cct->_conf->get_val<std::string>("ms_type") : cct->_conf->ms_public_type;
   uint64_t nonce = 0;
+
+  std::cout << "CHARA MESSEGE > lname: " << lname << std::endl;
+
   get_random_bytes((char*)&nonce, sizeof(nonce));
   return Messenger::create(cct, public_msgr_type, entity_name_t::CLIENT(),
 			   std::move(lname), nonce, 0);
@@ -33,10 +36,8 @@ Messenger *Messenger::create(CephContext *cct, const string &type,
   }
 
   std::cout << "CHARA MESSEGE > TYPE: " << type << std::endl;
-  std::cout << "CHARA MESSEGE > lname: " << lname << std::endl;
 
-
-  if (r == 0 || type == "simple")
+    if (r == 0 || type == "simple")
     return new SimpleMessenger(cct, name, std::move(lname), nonce);
   else if (r == 1 || type.find("async") != std::string::npos)
     return new AsyncMessenger(cct, name, type, std::move(lname), nonce);

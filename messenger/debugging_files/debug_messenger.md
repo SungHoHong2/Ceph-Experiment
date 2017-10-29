@@ -5,8 +5,6 @@
 sudo ceph -s
 ```
 
-- **RadosClient.cc**
-
 - **/ceph/src/librados/RadosClient.cc**
 
 ```cpp
