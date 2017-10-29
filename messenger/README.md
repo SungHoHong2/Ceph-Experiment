@@ -93,12 +93,8 @@ $ rados df // available to check the file from here
 
 ### OVERALL FLOW OF WRITE READ FILE
 - [link to running sample application](sample_application)
-- [Debug Path of read and write](debugging_files/)
-
-<br>
-
-![read debug](debugging_files/CONNECTION.png)
-![read debug](debugging_files/WRITE_2.png)
+- [Debug Path of connection](debugging_files/debug_connect.md)
+- [Debug Path of read and write](debugging_files/debug_write.md)
 
 <br>
 
@@ -106,6 +102,7 @@ $ rados df // available to check the file from here
 ### INTENSIVE DEBUGGING OF MESSAGE
 - [debug messenger](debugging_files/debug_messenger.md)
 
+<br>
 
 ### Debugging Messenger
 

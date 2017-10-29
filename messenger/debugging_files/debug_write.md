@@ -1,5 +1,7 @@
 ### WRITE DEBUG
 
+![read debug](debugging_files/WRITE_2.png)
+
 - **main.cc**
     - LINE: 67
 ```cpp

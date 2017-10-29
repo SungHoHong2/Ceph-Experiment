@@ -1,5 +1,7 @@
 ### DEBUG CONNECT
 
+![read debug](debugging_files/CONNECTION.png)
+
 - **main.cc**
 
 ```cpp
