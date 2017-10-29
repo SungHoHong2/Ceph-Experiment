@@ -25,7 +25,7 @@ int librados::RadosClient::connect()
     - get the message type from public or private configuration   
     - initiate number value and assign random number
     - pass Messenger with msg_type, entity_name_t(?), "radiosclient", random-number, 0
-    - entity_name_t: is within msg_type.h
+        - entity_name_t: is within msg_type.h
 
 ```cpp
 
@@ -46,12 +46,7 @@ Messenger *Messenger::create_client_messenger(CephContext *cct, string lname)
 
 
 - **messenger.c >> create**
-    - type: simple messenger
-    - name: struct entity_name_t
-    - cct: struct CephContext
-    - type: "async"
-    - move(string lname):
-    - nonce: uint64_t nonce = 0;
+    - check the message type and move on the AsyncMessenger
 
 ```cpp
 Messenger *Messenger::create(CephContext *cct, const string &type,
@@ -77,6 +72,9 @@ Messenger *Messenger::create(CephContext *cct, const string &type,
 
 // move is used to indicate that an object t may be "moved from", i.e. allowing the efficient transfer of resources from t to another object.
 ```
+
+
+<br>
 
 
 - **AsyncMessenger.c >> AsyncMessenger**
