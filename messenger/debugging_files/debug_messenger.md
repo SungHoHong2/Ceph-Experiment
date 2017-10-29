@@ -146,7 +146,7 @@ struct StackSingleton {
 - **stack.cc**
     - call spawnworkers from [PosixStack.h](../reference_message/PosixStack.h)
 
-```
+```cpp
 void NetworkStack::start()
 {
   std::unique_lock<decltype(pool_spin)> lk(pool_spin);
