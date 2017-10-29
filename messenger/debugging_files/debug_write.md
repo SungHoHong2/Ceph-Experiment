@@ -1,6 +1,6 @@
 ### WRITE DEBUG
 
-![read debug](debugging_files/WRITE_2.png)
+![read debug](WRITE_2.png)
 
 - **main.cc**
     - LINE: 67

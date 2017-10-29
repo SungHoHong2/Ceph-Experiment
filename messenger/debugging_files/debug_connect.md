@@ -1,6 +1,6 @@
 ### DEBUG CONNECT
 
-![read debug](debugging_files/CONNECTION.png)
+![read debug](CONNECTION.png)
 
 - **main.cc**
 
