@@ -80,9 +80,7 @@ Messenger *Messenger::create(CephContext *cct, const string &type,
 - **AsyncMessenger.c >> AsyncMessenger**
     - add transport type as posix
     - if other type was found in the string type, then switch to those
-    - 
-
-
+    - create a singleton object
 
 ```cpp
 AsyncMessenger::AsyncMessenger(CephContext *cct, entity_name_t name,
@@ -103,25 +101,131 @@ AsyncMessenger::AsyncMessenger(CephContext *cct, entity_name_t name,
 
   StackSingleton *single;
   cct->lookup_or_create_singleton_object<StackSingleton>(single, "AsyncMessenger::NetworkStack::"+transport_type);
+...
+```
+
+<br>
+
+- **AsyncMessenger.c >> class StackSingleton**
+    - call NetworkStack to create the singleton
+
+```cpp
+struct StackSingleton {
+  CephContext *cct;
+  std::shared_ptr<NetworkStack> stack;
+
+  StackSingleton(CephContext *c): cct(c) {}
+  void ready(std::string &type) {
+    if (!stack)
+      stack = NetworkStack::create(cct, type); // could not find beyond this
+  }
+  ~StackSingleton() {
+    stack->stop();
+  }
+};
+```
+
+<br>
+
+- **AsyncMessenger.c >> AsyncMessenger**
+    - call ready function
+    - start networkstack
+    - get Worker Object from from (NetworkStack)[../reference_message/stack.h]
+    - start NetworkStack
+
+```cpp  
   single->ready(transport_type);
   stack = single->stack.get();
   stack->start();
   local_worker = stack->get_worker();
   local_connection = new AsyncConnection(cct, this, &dispatch_queue, local_worker);
+```
+
+<br>
+
+- **AsyncMessenger.h**
+
+```cpp
+AsyncConnection(CephContext *cct, AsyncMessenger *m, DispatchQueue *q, Worker *w);
+~AsyncConnection() override;
+void maybe_start_delay_thread();
+
+ostream& _conn_prefix(std::ostream *_dout);
+
+bool is_connected() override {
+  return can_write.load() == WriteStatus::CANWRITE;
+}
+```
+
+<br>
+
+
+- **AsyncMessenger.c >> AsyncMessenger**
+
+```cpp
   init_local_connection();
+  /*
+    void _init_local_connection() {
+      assert(lock.is_locked());
+      local_connection->peer_addr = my_inst.addr;
+      local_connection->peer_type = my_inst.name.type();
+      local_connection->set_features(CEPH_FEATURES_ALL);
+      ms_deliver_handle_fast_connect(local_connection.get());
+    }
+  */
+
   reap_handler = new C_handle_reap(this);
+  /*
+  class C_handle_reap : public EventCallback {
+    AsyncMessenger *msgr;
+
+    public:
+    explicit C_handle_reap(AsyncMessenger *m): msgr(m) {}
+    void do_request(int id) override {
+      // judge whether is a time event
+      msgr->reap_dead();
+    }
+  };
+  */
+
   unsigned processor_num = 1;
   if (stack->support_local_listen_table())
     processor_num = stack->get_num_worker();
 
-  std::cout << "CHARA processor_num: " << processor_num << std::endl;
-
   for (unsigned i = 0; i < processor_num; ++i)
     processors.push_back(new Processor(this, stack->get_worker(i), cct));
-}
+    /*
+    class Processor {
+      Processor(AsyncMessenger *r, Worker *w, CephContext *c);
+    }
 
+    Processor::Processor(AsyncMessenger *r, Worker *w, CephContext *c)
+    : msgr(r), net(c), worker(w),
+    listen_handler(new C_processor_accept(this)) {}
+    */
 
 ```
+
+<br>
+
+- **stack.h**
+
+```cpp
+
+class NetworkStack : public CephContext::ForkWatcher {
+  ...
+  virtual bool support_local_listen_table() const { return false; }
+
+  unsigned get_num_worker() const {
+  return num_workers;
+}
+  ...
+}
+
+```
+
+
+
 
 
 <br>
