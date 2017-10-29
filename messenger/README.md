@@ -91,7 +91,7 @@ $ rados df // available to check the file from here
 
 <br>
 
-### SAMPLE WRITE READ FILE
+### OVERALL FLOW OF WRITE READ FILE
 - [link to running sample application](sample_application)
 - [Debug Path of read and write](debugging_files/)
 
@@ -101,6 +101,11 @@ $ rados df // available to check the file from here
 ![read debug](debugging_files/WRITE_2.png)
 
 <br>
+
+
+### INTENSIVE DEBUGGING OF MESSAGE
+- [debug messenger](debugging_files/debug_messenger.md)
+
 
 ### Debugging Messenger
 
