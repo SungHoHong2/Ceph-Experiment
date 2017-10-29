@@ -18,9 +18,9 @@ int librados::RadosClient::connect()
 ```
 
 - **messenger.c >> create_client_messenger**
-  1. get the message type from public or private configuration   
-  2. initiate number value and assign random number
-  3. pass Messenger with msg_type, entity_name_t(?), "radiosclient", random-number, 0
+    - get the message type from public or private configuration   
+    - initiate number value and assign random number
+    - pass Messenger with msg_type, entity_name_t(?), "radiosclient", random-number, 0
     - entity_name_t: is within msg_type.h
 
 ```cpp
