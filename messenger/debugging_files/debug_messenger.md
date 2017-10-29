@@ -78,13 +78,10 @@ Messenger *Messenger::create(CephContext *cct, const string &type,
 
 
 - **AsyncMessenger.c >> AsyncMessenger**
-    - entity_name_t name:
-    - type:
-    - mname:
-    - _nonce:
-    - StackSingleton *single:
-    - Worker *local_worker;
-    - ConnectionRef local_connection;
+    - add transport type as posix
+    - if other type was found in the string type, then switch to those
+    - 
+
 
 
 ```cpp
@@ -103,8 +100,6 @@ AsyncMessenger::AsyncMessenger(CephContext *cct, entity_name_t name,
   else if (type.find("dpdk") != std::string::npos)
     transport_type = "dpdk";
 
-
-  std::cout << "CHARA MESSEGE: " << transport_type << std::endl;
 
   StackSingleton *single;
   cct->lookup_or_create_singleton_object<StackSingleton>(single, "AsyncMessenger::NetworkStack::"+transport_type);
