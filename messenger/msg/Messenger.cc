@@ -32,7 +32,9 @@ Messenger *Messenger::create(CephContext *cct, const string &type,
     r = ceph::util::generate_random_number(0, 1);
   }
 
-  std::cout << "CHARA MESSEGE: " << type << std::endl;
+  std::cout << "CHARA MESSEGE > TYPE: " << type << std::endl;
+  std::cout << "CHARA MESSEGE > lname: " << lname << std::endl;
+
 
   if (r == 0 || type == "simple")
     return new SimpleMessenger(cct, name, std::move(lname), nonce);
