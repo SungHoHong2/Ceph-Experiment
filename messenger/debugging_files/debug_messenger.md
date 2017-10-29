@@ -6,38 +6,27 @@ sudo ceph -s
 ```
 
 - **/ceph/src/librados/RadosClient.cc**
-    - passes create_client_messenger with
 
 ```cpp
-
 int librados::RadosClient::connect()
 {
-  common_init_finish(cct);
-
-  int err;
-
-  // already connected?
-  if (state == CONNECTING)
-    return -EINPROGRESS;
-  if (state == CONNECTED)
-    return -EISCONN;
-  state = CONNECTING;
-
-  // get monmap
-  err = monclient.build_initial_monmap();
-  if (err < 0)
-    goto out;
-
-  err = -ENOMEM;
+...
   messenger = Messenger::create_client_messenger(cct, "radosclient");
   if (!messenger)
     goto out;
-
+...
 ```
 
 - **messenger.c >> create_client_messenger**
+  1. get the message type from public or private configuration   
+  2. initiate number value and assign random number
+  3. pass Messenger with msg_type, entity_name_t(?), "radiosclient", random-number, 0
+    - entity_name_t: is within msg_type.h
 
 ```cpp
+
+// string lname = radosclient
+// cct = configuration
 Messenger *Messenger::create_client_messenger(CephContext *cct, string lname)
 {
   std::string public_msgr_type = cct->_conf->ms_public_type.empty() ? cct->_conf->get_val<std::string>("ms_type") : cct->_conf->ms_public_type;
