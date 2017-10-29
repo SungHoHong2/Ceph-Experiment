@@ -17,6 +17,8 @@ int librados::RadosClient::connect()
 ...
 ```
 
+<br>
+
 - **messenger.c >> create_client_messenger**
     - get the message type from public or private configuration   
     - initiate number value and assign random number
@@ -36,6 +38,9 @@ Messenger *Messenger::create_client_messenger(CephContext *cct, string lname)
 			   std::move(lname), nonce, 0);
 }
 ```
+
+
+<br>
 
 
 - **messenger.c >> create**
