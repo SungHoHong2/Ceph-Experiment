@@ -261,38 +261,32 @@ class NetworkStack : public CephContext::ForkWatcher {
 
 ```
 
-
-
-
-
 <br>
 
-
 - **/ceph/src/librados/RadosClient.cc**
-    - passes create_client_messenger with
+    - create [objector](../reference_message/Objecter.h)
+    - [finisher](../reference_message/Finisher.h) is signaled after the operations are completed
 
 
-```
-
-  // require OSDREPLYMUX feature.  this means we will fail to talk to
-  // old servers.  this is necessary because otherwise we won't know
-  // how to decompose the reply data into its constituent pieces.
-  messenger->set_default_policy(Messenger::Policy::lossy_client(CEPH_FEATURE_OSDREPLYMUX));
-
-  ldout(cct, 1) << "starting msgr at " << messenger->get_myaddr() << dendl;
-
-  ldout(cct, 1) << "starting objecter" << dendl;
-
+```cpp
   objecter = new (std::nothrow) Objecter(cct, messenger, &monclient,
 			  &finisher,
 			  cct->_conf->rados_mon_op_timeout,
 			  cct->_conf->rados_osd_op_timeout);
+
   if (!objecter)
     goto out;
   objecter->set_balanced_budget();
 
+  /* in objecter.h
+     void set_balanced_budget() { keep_balanced_budget = true; }
+  */
+
   monclient.set_messenger(messenger);
+  ... truncated
+
   mgrclient.set_messenger(messenger);
+  ...truncated
 
   objecter->init();
   messenger->add_dispatcher_head(&mgrclient);
@@ -301,67 +295,24 @@ class NetworkStack : public CephContext::ForkWatcher {
 
   messenger->start();
 
-  ldout(cct, 1) << "setting wanted keys" << dendl;
-  monclient.set_want_keys(
-      CEPH_ENTITY_TYPE_MON | CEPH_ENTITY_TYPE_OSD | CEPH_ENTITY_TYPE_MGR);
-  ldout(cct, 1) << "calling monclient init" << dendl;
-  err = monclient.init();
-  if (err) {
-    ldout(cct, 0) << conf->name << " initialization error " << cpp_strerror(-err) << dendl;
-    shutdown();
-    goto out;
-  }
-
-  err = monclient.authenticate(conf->client_mount_timeout);
-  if (err) {
-    ldout(cct, 0) << conf->name << " authentication error " << cpp_strerror(-err) << dendl;
-    shutdown();
-    goto out;
-  }
-  messenger->set_myname(entity_name_t::CLIENT(monclient.get_global_id()));
-
-  // MgrClient needs this (it doesn't have MonClient reference itself)
-  monclient.sub_want("mgrmap", 0, 0);
-  monclient.renew_subs();
-
-  if (service_daemon) {
-    ldout(cct, 10) << __func__ << " registering as " << service_name << "."
-		   << daemon_name << dendl;
-    mgrclient.service_daemon_register(service_name, daemon_name,
-				      daemon_metadata);
-  }
-  mgrclient.init();
-
   objecter->set_client_incarnation(0);
+
+  /* void set_client_incarnation(int inc) { client_inc = inc; } */
+
+
   objecter->start();
+  /*  void start(const OSDMap *o = nullptr); */
+
   lock.Lock();
 
   timer.init();
 
-  finisher.start();
+  finisher.start(); // finisher actually starts the worker threads
 
   state = CONNECTED;
   instance_id = monclient.get_global_id();
 
   lock.Unlock();
-
-  ldout(cct, 1) << "init done" << dendl;
-  err = 0;
-
- out:
-  if (err) {
-    state = DISCONNECTED;
-
-    if (objecter) {
-      delete objecter;
-      objecter = NULL;
-    }
-    if (messenger) {
-      delete messenger;
-      messenger = NULL;
-    }
-  }
-
-  return err;
+...
 }
 ```
