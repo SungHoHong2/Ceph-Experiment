@@ -127,6 +127,32 @@ struct StackSingleton {
 
 <br>
 
+- **Stack.cc**
+
+```cpp
+std::shared_ptr<NetworkStack> NetworkStack::create(CephContext *c, const string &t)
+{
+  if (t == "posix")
+    return std::make_shared<PosixNetworkStack>(c, t);
+#ifdef HAVE_RDMA
+  else if (t == "rdma")
+    return std::make_shared<RDMAStack>(c, t);
+#endif
+#ifdef HAVE_DPDK
+  else if (t == "dpdk")
+    return std::make_shared<DPDKStack>(c, t);
+#endif
+
+  lderr(c) << __func__ << " ms_async_transport_type " << t <<
+    " is not supported! " << dendl;
+  ceph_abort();
+  return nullptr;
+}
+```
+
+
+<br>
+
 - **AsyncMessenger.c >> AsyncMessenger**
     - call ready function
     - start networkstack
