@@ -139,6 +139,36 @@ struct StackSingleton {
   stack->start();
   local_worker = stack->get_worker();
   local_connection = new AsyncConnection(cct, this, &dispatch_queue, local_worker);
+  /*
+
+  AsyncConnection::AsyncConnection(CephContext *cct, AsyncMessenger *m, DispatchQueue *q,
+                                   Worker *w)
+    : Connection(cct, m), delay_state(NULL), async_msgr(m), conn_id(q->get_id()),
+      logger(w->get_perf_counter()), global_seq(0), connect_seq(0), peer_global_seq(0),
+      state(STATE_NONE), state_after_send(STATE_NONE), port(-1),
+      dispatch_queue(q), can_write(WriteStatus::NOWRITE),
+      keepalive(false), recv_buf(NULL),
+      recv_max_prefetch(MAX(msgr->cct->_conf->ms_tcp_prefetch_max_size, TCP_PREFETCH_MIN_SIZE)),
+      recv_start(0), recv_end(0),
+      last_active(ceph::coarse_mono_clock::now()),
+      inactive_timeout_us(cct->_conf->ms_tcp_read_timeout*1000*1000),
+      got_bad_auth(false), authorizer(NULL), replacing(false),
+      is_reset_from_peer(false), once_ready(false), state_buffer(NULL), state_offset(0),
+      worker(w), center(&w->center)
+  {
+    read_handler = new C_handle_read(this);
+    write_handler = new C_handle_write(this);
+    wakeup_handler = new C_time_wakeup(this);
+    tick_handler = new C_tick_wakeup(this);
+    memset(msgvec, 0, sizeof(msgvec));
+    // double recv_max_prefetch see "read_until"
+    recv_buf = new char[2*recv_max_prefetch];
+    state_buffer = new char[4096];
+    logger->inc(l_msgr_created_connections);
+  }
+
+  */
+
 ```
 
 <br>
@@ -181,21 +211,6 @@ void NetworkStack::start()
 
 <br>
 
-- **AsyncMessenger.h**
-
-```cpp
-AsyncConnection(CephContext *cct, AsyncMessenger *m, DispatchQueue *q, Worker *w);
-~AsyncConnection() override;
-void maybe_start_delay_thread();
-
-ostream& _conn_prefix(std::ostream *_dout);
-
-bool is_connected() override {
-  return can_write.load() == WriteStatus::CANWRITE;
-}
-```
-
-<br>
 
 
 - **AsyncMessenger.c >> AsyncMessenger**
