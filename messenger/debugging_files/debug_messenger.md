@@ -145,6 +145,7 @@ struct StackSingleton {
 
 - **stack.cc**
     - call spawnworkers from [PosixStack.h](../reference_message/PosixStack.h)
+    - depending on the type it choosed DPDKStack.h, RDMAStack.h
 
 ```cpp
 void NetworkStack::start()
@@ -304,7 +305,7 @@ class NetworkStack : public CephContext::ForkWatcher {
   /*  void start(const OSDMap *o = nullptr); */
 
   lock.Lock();
-
+``
   timer.init();
 
   finisher.start(); // finisher actually starts the worker threads
