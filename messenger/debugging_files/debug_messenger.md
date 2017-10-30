@@ -208,7 +208,30 @@ void NetworkStack::start()
 }
 ```
 
+<br>
 
+- **AsyncConnection.cc**
+```cpp
+class C_handle_read : public EventCallback {
+  AsyncConnectionRef conn;
+
+ public:
+  explicit C_handle_read(AsyncConnectionRef c): conn(c) {}
+  void do_request(int fd_or_id) override {
+    conn->process(); //event callbacks
+  }
+};
+
+class C_handle_write : public EventCallback {
+  AsyncConnectionRef conn;
+
+ public:
+  explicit C_handle_write(AsyncConnectionRef c): conn(c) {}
+  void do_request(int fd) override {
+    conn->handle_write(); //event callbacks
+  }
+};
+```
 <br>
 
 
