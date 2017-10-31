@@ -37,8 +37,8 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
 	$ make install T=x86_64-native-linuxapp-gcc
 
 # install kernel modules
-	sudo modprobe uio
-	sudo insmod build/kmod/igb_uio.ko
+	$ sudo modprobe uio
+	$ sudo insmod build/kmod/igb_uio.ko
 
 # configure hugepages for dpdk
 	$ echo 1024 | sudo tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
@@ -46,8 +46,8 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
   $ sudo mount -t hugetlbfs nodev /mnt/huge
 
 # Bind network adaptor
-	sudo ifconfig ens3 down
-	sudo ./usertools/dpdk-devbind.py --bind=igb_uio ens3
+	$ sudo ifconfig ens3 down
+	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio ens3
 
 # Setup the environment
   $ vi etc/profile
@@ -56,6 +56,6 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
 	$ export RTE_TARGET=x86_64-native-linuxapp-gcc
 	$ ln -s $RTE_SDK/build $RTE_SDK/x86_64-default-linuxapp-gcc
 
-if it does not work
-make install T=$RTE_TARGET
+# if it does not work
+  $ make install T=$RTE_TARGET
 ```
