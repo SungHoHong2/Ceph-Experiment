@@ -25,7 +25,7 @@ mkdir -p /var/lib/ceph/mon/ceph-${monitor_name}
 
 wait
 
-ceph-mon --mkfs -i ${monitor_name} --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
+ceph-mon --mkfs -i monitor01 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
 
 wait
 
