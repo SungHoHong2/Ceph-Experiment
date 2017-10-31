@@ -1,9 +1,3 @@
-monitor_name="monitortest"
-address="10.143.3.131"
-fileuuid="f9a8ed78-92aa-4c20-a42e-bf97431698cf"
-
-mkdir /etc/ceph
-mkdir /etc/ceph/monmap
 ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 
 wait
@@ -16,11 +10,11 @@ ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.
 
 wait
 
-monmaptool --create --add ${monitor_name} ${address} --${fileuuid} /etc/ceph/monmap
+monmaptool --create --add monitortest 10.143.2.14 --fsid f9a8ed78-92aa-4c20-a42e-bf97431698cf /etc/ceph/monmap
 
 wait
 
-mkdir -p /var/lib/ceph/mon/ceph-${monitor_name}
+mkdir -p /var/lib/ceph/mon/ceph-monitortest
 
 wait
 
@@ -28,5 +22,5 @@ ceph-mon --mkfs -i monitor01 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.
 
 wait
 
-touch /var/lib/ceph/mon/ceph-${monitor_name}/done
-touch /var/lib/ceph/mon/ceph-${monitor_name}/upstart
+touch /var/lib/ceph/mon/ceph-monitortest/done
+touch /var/lib/ceph/mon/ceph-monitortest/upstart
