@@ -3,7 +3,7 @@ address="10.143.3.131"
 fileuuid="f9a8ed78-92aa-4c20-a42e-bf97431698cf"
 
 mkdir /etc/ceph
-cp ceph.conf /etc/ceph/ceph.conf
+cp dpdk.conf /etc/ceph/ceph.conf
 
 ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 

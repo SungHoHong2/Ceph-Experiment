@@ -3,7 +3,7 @@
 - **when the dpdk does not find librados related file**
     - change the parameter into n
 ```
-$ vim common_base
+$ vi config/common_base
 ./dpdk/config/common_base:198:CONFIG_RTE_LIBRTE_MLX4_PMD=n
 ./dpdk/config/common_base:199:CONFIG_RTE_LIBRTE_MLX4_DEBUG=n
 ./dpdk/config/common_base:200:CONFIG_RTE_LIBRTE_MLX4_SGE_WR_N=4
@@ -28,8 +28,8 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
 - **install**
 ```
 # prerequisites
-  $ install vim
-  $ install gcc-multilib, libnuma-dev
+  $ sudo apt-get install vim
+  $ sudo apt-get install gcc-multilib libnuma-dev
 
 # install dpdk
   $ make config T=x86_64-native-linuxapp-gcc
@@ -46,8 +46,8 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
   $ sudo mount -t hugetlbfs nodev /mnt/huge
 
 # Bind network adaptor
-	$ sudo ifconfig ens3 down
-	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio ens3
+	$ sudo ifconfig enp6s0 down
+	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio enp6s0
 
 # Setup the environment
   $ vi etc/profile
