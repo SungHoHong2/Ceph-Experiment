@@ -36,12 +36,15 @@ $ rados df // available to check the file from here
 
   2. **renamng pool**
 ```
-ceph osd pool rename {current-pool-name} {new-pool-name}
+$ ceph osd pool rename {current-pool-name} {new-pool-name}
 ```
 
   3. **removing pool**
 ```
-// need to set the mon_allow_pool_delete config option to true
+$ vi ceph.conf
+    + mon_allow_pool_delete = true
+
+$ ceph osd pool delete {pool-name} {pool-name} --yes-i-really-really-mean-it
 ```
 
   4. **pool snapshot**
