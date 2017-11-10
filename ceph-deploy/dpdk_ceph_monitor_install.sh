@@ -1,4 +1,4 @@
-monitor_name="monitortest"
+monitor_name="monitordpdk"
 address="10.143.3.131"
 fileuuid="f9a8ed78-92aa-4c20-a42e-bf97431698cf"
 
@@ -25,7 +25,7 @@ mkdir -p /var/lib/ceph/mon/ceph-${monitor_name}
 
 wait
 
-ceph-mon --mkfs -i monitor01 --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
+ceph-mon --mkfs -i ${monitor_name} --monmap /etc/ceph/monmap --keyring /etc/ceph/ceph.mon.keyring
 
 wait
 

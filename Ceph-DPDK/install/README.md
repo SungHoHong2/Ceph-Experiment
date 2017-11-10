@@ -46,11 +46,13 @@ $ sudo make install T=x86_64-native-linuxapp-gcc DESTDIR=/usr/local
   $ sudo mount -t hugetlbfs nodev /mnt/huge
 
 # Bind network adaptor
-	$ sudo ifconfig enp6s0 down
-	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio enp6s0
+	$ sudo ifconfig enp0s8 down
+	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio enp0s8
+  $ sudo ifconfig enp0s10 down
+	$ sudo ./usertools/dpdk-devbind.py --bind=igb_uio enp0s10
 
 # Setup the environment
-  $ vi etc/profile
+  $ vi /root/.profile
 	$ export RTE_SDK=/home/sungho/ceph-12.2.0/src/dpdk-17
 	$ export DESTDIR=/usr/local
 	$ export RTE_TARGET=x86_64-native-linuxapp-gcc
