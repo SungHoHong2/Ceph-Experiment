@@ -31,7 +31,35 @@
 
 
 **CRUSH**
-  - 
+  - [paper](https://ceph.com/wp-content/uploads/2016/08/weil-crush-sc06.pdf)
+  - a scalable pseudorandom data distribution function designed for distributed object-based storage systems efficiently maps data objects to storage devices without relying on a central directory.
+  - large systems are inherently dynamic, CRUSH is designed to facilitate the addition and removal of storage while minimizing unnecessary data movement.
+  - fundamental task of distributing data among thousands of storage devices—typically with varying capacities and performance characteristics remains
+  - A robust solution is to distribute all data in a system randomly among available storage devices.
+
+
+  <br>
+
+  - However, simple hashbased distribution fails to cope with changes in the number of devices, incurring a massive reshuffling of data
+  - Further, existing randomized distribution schemes that decluster replication by spreading each disk’s replicas across many other devices suffer from a high probability of data loss from coincident device failures.
+
+
+  - CRUSH needs only a compact, hierarchical description of the devices comprising the storage cluster and knowledge of the replica placement policy.
+
+  - CRUSH is designed to optimally distribute data to utilize available resources,
+
+  <br>
+
+  - Storage devices are assigned weights by the administrator to control the relative amount of data they are responsible for storing.
+  - CRUSH defines placement rules for each replication strategy or distribution policy employed that allow the storage system or administrator to specify exactly how object replicas are place
+
+  
+
+<br>
+
+**Crush algorithm**
+- The CRUSH algorithm distributes data objects among storage devices according to a per-device weight value approximating
+a uniform probability distribution
 
 
 
