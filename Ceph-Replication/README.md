@@ -53,20 +53,10 @@
   - Storage devices are assigned weights by the administrator to control the relative amount of data they are responsible for storing.
   - CRUSH defines placement rules for each replication strategy or distribution policy employed that allow the storage system or administrator to specify exactly how object replicas are place
 
-  
+
 
 <br>
 
 **Crush algorithm**
 - The CRUSH algorithm distributes data objects among storage devices according to a per-device weight value approximating
 a uniform probability distribution
-
-
-
-
-
-**Monitor / OSD Interaction**
-
-
-
-**Security**

@@ -2,13 +2,18 @@
 
 ### Contents
 1. [Network Basics](/network-basic)
-2. [Ceph Theory](Ceph-Theory)
 2. [Deploy Ceph](/ceph-deploy)
 3. [Messenger Mechanism](/messenger)
 4. [GDB Experiments](/gdb-Experiment)
 
 <br>
 
+
+### Key Experiments
+- [Ceph Replication](Ceph-Replication)
+- [ErasureCoding](ErasureCoding-Experiment)
+
+<br>
 
 ### Abstract
 
