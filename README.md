@@ -11,7 +11,7 @@
 
 ### Key Experiments
 - [Ceph Replication](Ceph-Replication)
-  - [simple information about what makes Ceph special](Ceph-Replication/crush.md)
+  - [Explanation about CRUSH](Ceph-Replication/crush.md)
 - [ErasureCoding](ErasureCoding-Experiment)
 
 <br>
