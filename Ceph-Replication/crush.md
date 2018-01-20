@@ -1,4 +1,5 @@
 ### Crush
+- [CRUSH: Controlled, Scalable, Decentralized Placement of Replicated Data](https://ceph.com/wp-content/uploads/2016/08/weil-crush-sc06.pdf)
 
 **basics**
 - pseudo random
@@ -31,3 +32,6 @@
 **layered block device**
 - makes a copied layer of the data and the client will read from the copy
 - this part is one of the unqiue way of ceph
+
+
+<br>
