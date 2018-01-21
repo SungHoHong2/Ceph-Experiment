@@ -83,3 +83,42 @@
 
 
 <br>
+
+**CRUSH Algorithm**
+- SH algorithm distributes data objects among storage devices according to a per-device weight value,
+- The distribution is controlled by a hierarchical cluster map
+- The data distribution policy is defined in terms of placement rules
+- CRUSH generates a declustered distribution of replicas in that the set of devices sharing replicas for one item also appears to be independent of all other items.
+
+<br>
+
+**Hierarchical CLuster Map**
+- The cluster map is composed of devices and buckets
+- Buckets can contain any number of devices  allowing them to form interior nodes in a storage hierarchy in which devices are always at the leaves.
+- Storage devices are assigned weights by the administrator to control the relative amount of data they are responsible for storing
+
+- Bucket weights are defined as the sum of the weights of the items they contain.
+- , CRUSH is based on four different bucket types, each with a different selection algorithm to address data movement resulting from the addition or removal of devices and overall computational complexity.
+
+<br>
+
+**Replica Placement**
+
+- designed to distribute data uniformly among weighted devices to maintain a statistically balanced utilization of storage and device bandwidth resources
+- By encoding this information into the cluster map, CRUSH placement policies can separate object replicas across different failure domains while still maintaining the desired distribution
+- . For example, to address the possibility of concurrent failures, it may be desirable to ensure that data replicas are on devices in different shelves, racks, power supplies, controllers, and/or physical locations
+
+<br>
+
+-  defines placement rules for each replication strategy
+-  distribution policy employed that allow the storage system or administrator to specify exactly how object replicas are placed.
+
+<br>
+
+**Algorithm 1**
+
+- `x`, is typically an object name or other identifier, such as an identifier for a group of objects whose replicas will be placed on the same devices.
+
+- The `take(a)` operation selects an item (typically a bucket) within the storage hierarchy and assigns it to the vector~i, which serves as an input to subsequent operations.
+
+- The `select(n,t)` operation iterates over each element i ∈~i, and chooses n distinct items of type t in the subtree rooted at that point.
