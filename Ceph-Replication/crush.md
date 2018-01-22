@@ -120,14 +120,15 @@ procedure SELECT(n,t)                       // select n items of type t
     for r=1 in n                            // loop over n replicas
         fr = 0                              //no failures in this replica
         retry_descent = false
-        repeat
+        repeat                              // redistribution
           b = bucket(i)
           retry_bucket = false
-          repeat
-            if (first n) then // section 3.2.2
-              r = r + f
+          repeat                            // in case of collision
+            if (first n) then               // for primary copy recursion themes
+              r = r + f                     
             else
-              r = r + fr * n
+              r = r + fr * n                // defining a sequence of candidates for each replica rank that are    
+                                            // probabilistically independent of others’ failures.
             end if
             o = b.c(r, x) // section 3.4
             if type(o) != t then
@@ -139,7 +140,7 @@ procedure SELECT(n,t)                       // select n items of type t
               if o is in o.array and fr < 3 then
                 retry_bucket = true
               else
-                retury_descent = true
+                retry_descent = true
               end if
             end if
           until // retry bucket
@@ -177,4 +178,46 @@ emit
 - three disks spread over three cabinets, but in the same row
   - allows replicas to be simultaneously separated across
   - constrained within container types
-  - 
+  - `take, emit` blocks allow storage targets to be explicitly drawn from different pools of storage,
+
+
+
+<br>
+
+
+**Collisions Failure and Overload**
+- `select(n,t)` operation may traverse many levels of the storage hierarchy in order to locate n distinct items of the specified type t
+- During this process, CRUSH may reject and reselect items using a modified input
+  -  `collision` if an item has already been selected in the current se
+  - if a device is `failed`
+  - if a device is `overloaded`.
+  - CRUSH uniformly redistributes items across the storage cluster by restarting the recursion at the beginning of the select(n,t)
+
+
+<br>
+
+**Map Changes and Data Movement**
+- When an individual device fails,
+  - CRUSH flags the device but leaves it in the hierarchy
+  - where it will be rejected and its contents uniformly redistributed by the placement algorithm
+  - The CRUSH mapping process, which uses the cluster map as a weighted hierarchical decision tree,
+  - can result in additional data movement beyond the theoretical optimum
+
+
+<br>
+
+**bucket types**
+- Uniform Buckets
+  - CRUSH can map replicas into uniform buckets in constant time
+  - if the size of a uniform bucket changes, there is a complete reshuffling of data between devices,
+  - When buckets are expected to be fixed (e. g.,a shelf of identical disks), uniform buckets are fastest.
+- List buckets
+  - Items removed from the middle or tail of the list, however, can result in a significant amount of unnecessary movement,
+  - bucket is only expected to expand, list buckets provide optimal data movement when new items are added at the head of the list
+- Tree buckets
+  - this strategy keeps movement to a reasonable level, while offering efficient mapping even for very large buckets
+  - an all around compromise, providing excellent performance and decent reorganization efficiency
+- Straw buckets
+  - The straw bucket type allows all items to fairly “compete” against each other for replica placement through a process analogous to a draw of straws.
+  - straw buckets result in optimal data movement between nested items when modified.
+  - In circumstances where removal is expected and reorganization efficiency is critical (e. g., near the root of the storage hierarchy), straw buckets provide optimal migration behavior between subtrees
