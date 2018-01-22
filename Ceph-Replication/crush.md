@@ -156,3 +156,25 @@ procedure EMIT()
 end procedure
 
 ```
+
+
+<br>
+
+**example**
+- distributing three replicas across thre cabinets in the same row
+
+```
+take(root)  root
+select(1, row)  row2
+select(3, cabinet) cab21 cab23 cab24
+select(1, disk) disk2107  disk2013  disk2437
+emit
+```
+
+- `select(1,row)` chooses a single bucket of type “row” (it selects row2).
+- `select(3,cabinet)` chooses three distinct cabinets n
+- `select(1,disk)` iterates over the three cabinet buckets in the input vector and chooses a single disk nested beneath each of them
+- three disks spread over three cabinets, but in the same row
+  - allows replicas to be simultaneously separated across
+  - constrained within container types
+  - 
