@@ -12,7 +12,7 @@
 ### Published Papers related to Ceph Replication
 - [Explanation about CRUSH](Ceph-Replication/crush.md)
 - [A Weak Consistency Model For Ceph](Ceph-Replication/weak.md)
-- [ErasureCoding](ErasureCoding-Experiment)
+- [ErasureCoding](Ceph-Replicatio/erasure.md)
 
 <br>
 
