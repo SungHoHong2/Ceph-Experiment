@@ -12,6 +12,7 @@
 ### Published Papers related to Ceph Replication
 - [Explanation about CRUSH](Ceph-Replication/crush.md)
 - [A Weak Consistency Model For Ceph](Ceph-Replication/weak.md)
+- [The Performance of the Data-Cluster Based on the CEPH Platform with Geographically Separated Nodes](Ceph-Replication/geo.md)
 - [ErasureCoding](Ceph-Replicatio/erasure.md)
 
 <br>
