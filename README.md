@@ -17,6 +17,12 @@
 
 <br>
 
+### Ceph Manual
+- [Ceph-manual from mirantis.com](Ceph-manual/mirantis.md)
+
+
+<br>
+
 ### Abstract
 
 1. **Message Passing Used by Ceph**
