@@ -10,9 +10,8 @@
 
 
 ### Ceph Replication
-- [Ceph Replication](Ceph-Replication)
-  - [Explanation about CRUSH](Ceph-Replication/crush.md)
-  - [A Weak Consistency Model For Ceph](Ceph-Replication/weak.md)
+- [Explanation about CRUSH](Ceph-Replication/crush.md)
+- [A Weak Consistency Model For Ceph](Ceph-Replication/weak.md)
 - [ErasureCoding](ErasureCoding-Experiment)
 
 <br>
