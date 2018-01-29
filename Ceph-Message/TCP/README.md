@@ -657,3 +657,9 @@ public:
   }
 };
 ```
+
+> tcp_write works in polling mode <br>
+> the connection in ceph requires the whole TCP to be non-blocking
+> `do_sendmsg` invokes the tcp `sendmsg` function
+> `do_recv` returns the recv function otf tcp
+> have both blocking and nonblocking send and recv of TCP
