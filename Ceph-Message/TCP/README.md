@@ -1,7 +1,7 @@
-> all the nodes use the send_message method to send the data
+> all the nodes use the send_message method to send the data <br>
+> this includes `clients` `object` `monitor` and `managers`
 
 ```c
-// clients, object, monitor, manager
 void MDSMonitor::check_sub(Subscription *sub)
 {
   dout(20) << __func__ << ": " << sub->type << dendl;
@@ -18,6 +18,9 @@ void MDSMonitor::check_sub(Subscription *sub)
   }
 }
 ```
+
+<br>
+
 > send the message
 
 ```c
@@ -26,7 +29,8 @@ int send_message(Message *m, const entity_inst_t& dest) override {
 }
 ```
 
-> [Message](Message.md) - stores the data and the header
+> [Message](Message.md) - stores the `data` `header` and `footer` <br>
+> the message has the type, source and destination address <br>
 > `enetity_inst_t` creates a list of destination that you have to send the message
 
 ```c
@@ -40,6 +44,7 @@ void entity_inst_t::generate_test_instances(list<entity_inst_t*>& o)
 }
 ```
 
+<br>
 
 ```c
 SimpleMessenger::SimpleMessenger(CephContext *cct, entity_name_t name,
