@@ -1,3 +1,40 @@
+> all the nodes check for connections before sending the data <br>
+> this includes `clients` `object` `monitor` and `managers` <br>
+
+> When pipe connection is connected <br>
+> simple messenger is initialized
+
+```c
+bool PipeConnection::is_connected()
+{
+  return static_cast<SimpleMessenger*>(msgr)->is_connected(this);
+}
+```
+
+```c
+SimpleMessenger::SimpleMessenger(CephContext *cct, entity_name_t name,
+				 string mname, uint64_t _nonce)
+  : SimplePolicyMessenger(cct, name,mname, _nonce),
+    accepter(this, _nonce),
+    dispatch_queue(cct, this, mname),
+    reaper_thread(this),
+    nonce(_nonce),
+    lock("SimpleMessenger::lock"), need_addr(true), did_bind(false),
+    global_seq(0),
+    cluster_protocol(0),
+    reaper_started(false), reaper_stop(false),
+    timeout(0),
+    local_connection(new PipeConnection(cct, this))
+{
+  ANNOTATE_BENIGN_RACE_SIZED(&timeout, sizeof(timeout),
+                             "SimpleMessenger read timeout");
+  ceph_spin_init(&global_seq_lock);
+  init_local_connection();
+}
+```
+
+<br>
+
 > all the nodes use the send_message method to send the data <br>
 > this includes `clients` `object` `monitor` and `managers`
 
@@ -46,28 +83,10 @@ void entity_inst_t::generate_test_instances(list<entity_inst_t*>& o)
 
 <br>
 
+
+> `simple messenger` is created and this creates multiple connections <br>
+
 ```c
-SimpleMessenger::SimpleMessenger(CephContext *cct, entity_name_t name,
-				 string mname, uint64_t _nonce)
-  : SimplePolicyMessenger(cct, name,mname, _nonce),
-    accepter(this, _nonce),
-    dispatch_queue(cct, this, mname),
-    reaper_thread(this),
-    nonce(_nonce),
-    lock("SimpleMessenger::lock"), need_addr(true), did_bind(false),
-    global_seq(0),
-    cluster_protocol(0),
-    reaper_started(false), reaper_stop(false),
-    timeout(0),
-    local_connection(new PipeConnection(cct, this))
-{
-  ANNOTATE_BENIGN_RACE_SIZED(&timeout, sizeof(timeout),
-                             "SimpleMessenger read timeout");
-  ceph_spin_init(&global_seq_lock);
-  init_local_connection();
-}
-
-
 int SimpleMessenger::_send_message(Message *m, Connection *con)
 {
   //set envelope
