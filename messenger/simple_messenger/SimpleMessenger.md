@@ -51,24 +51,15 @@ void ms_deliver_handle_fast_connect(Connection *con) {
 }
 ```
 
-
 ```
-void OSD::ms_handle_fast_connect(Connection *con)
-{
-  if (con->get_peer_type() != CEPH_ENTITY_TYPE_MON &&
-      con->get_peer_type() != CEPH_ENTITY_TYPE_MGR) {
-    Session *s = static_cast<Session*>(con->get_priv());
-    if (!s) {
-      s = new Session(cct);
-      con->set_priv(s->get());
-      s->con = con;
-      dout(10) << " new session (outgoing) " << s << " con=" << s->con
-          << " addr=" << s->con->get_peer_addr() << dendl;
-      // we don't connect to clients
-      assert(con->get_peer_type() == CEPH_ENTITY_TYPE_OSD);
-      s->entity_name.set_type(CEPH_ENTITY_TYPE_OSD);
-    }
-    s->put();
-  }
-}
+/**
+ * This function will be called synchronously whenever a Connection is
+ * newly-created or reconnects in the Messenger, if you support fast
+ * dispatch. It is guaranteed to be called before any messages are
+ * dispatched.
+ *
+ * @param con The new Connection which has been established. You are not
+ * granted a reference to it -- take one if you need one!
+ */
+virtual void ms_handle_fast_connect(Connection *con) {}
 ```
