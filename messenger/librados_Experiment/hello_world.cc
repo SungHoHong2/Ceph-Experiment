@@ -1,16 +1,3 @@
-// -*- mode:C++; tab-width:8; c-basic-offset:2; indent-tabs-mode:t -*-
-// vim: ts=8 sw=2 smarttab
-/*
- * Ceph - scalable distributed file system
- *
- * This is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License version 2.1, as published by the Free Software
- * Foundation.  See file COPYING.
- * Copyright 2013 Inktank
- */
-
-// install the librados-dev package to get this
 #include <rados/librados.hpp>
 #include <iostream>
 #include <string>
@@ -85,22 +72,6 @@ int main(int argc, const char **argv)
   }
 
   /*
-   * let's create our own pool instead of scribbling over real data.
-   * Note that this command creates pools with default PG counts specified
-   * by the monitors, which may not be appropriate for real use -- it's fine
-   * for testing, though.
-   */
-  // {
-  //   ret = rados.pool_create("howdy");
-  //   if (ret < 0) {
-  //     std::cerr << "couldn't create pool! error " << ret << std::endl;
-  //     return EXIT_FAILURE;
-  //   } else {
-  //     std::cout << "we just created a new pool named " << pool_name << std::endl;
-  //   }
-  // }
-
-  /*
    * create an "IoCtx" which is used to do IO to a pool
    */
   {
@@ -119,21 +90,13 @@ int main(int argc, const char **argv)
    * new object.
    */
    {
-//     /*
-//      * "bufferlist"s are Ceph's native transfer type, and are carefully
-//      * designed to be efficient about copying. You can fill them
-//      * up from a lot of different data types, but strings or c strings
-//      * are often convenient. Just make sure not to deallocate the memory
-//      * until the bufferlist goes out of scope and any requests using it
-//      * have been finished!
-//      */
     librados::bufferlist bl;
     bl.append(hello);
 
     /*
      * now that we have the data to write, let's send it to an object.
      * We'll use the synchronous interface for simplicity.
-     */     
+     */
     ret = io_ctx.write_full(object_name, bl);
     if (ret < 0) {
       std::cerr << "couldn't write object! error " << ret << std::endl;
