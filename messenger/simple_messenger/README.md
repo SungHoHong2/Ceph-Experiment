@@ -49,7 +49,7 @@ int librados::RadosClient::connect()
     goto out;
 
 ```
->  /home/sungho/ceph/src/msg/Messenger.cc:28 <br> 
+>  /home/sungho/ceph/src/msg/Messenger.cc:28 <br>
 > [create_client_messenger](create_client_messenger.md)
 ```
 
@@ -63,6 +63,11 @@ int librados::RadosClient::connect()
   ldout(cct, 1) << "starting objecter" << dendl;
 
   objecter = new (std::nothrow) Objecter(cct, messenger, &monclient,
+```
+
+> [objecter](objecter.md)
+
+```
 			  &finisher,
 			  cct->_conf->rados_mon_op_timeout,
 			  cct->_conf->rados_osd_op_timeout);

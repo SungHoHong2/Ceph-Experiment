@@ -63,3 +63,20 @@ void ms_deliver_handle_fast_connect(Connection *con) {
  */
 virtual void ms_handle_fast_connect(Connection *con) {}
 ```
+> I believe this is one good example of ms_handle_fast_connect
+```
+void ms_handle_fast_connect(Connection *con) override {
+  lock.Lock();
+  lderr(g_ceph_context) << __func__ << " " << con << dendl;
+  Session *s = static_cast<Session*>(con->get_priv());
+  if (!s) {
+    s = new Session(con);
+    con->set_priv(s->get());
+    lderr(g_ceph_context) << __func__ << " con: " << con << " count: " << s->count << dendl;
+  }
+  s->put();
+  got_connect = true;
+  cond.Signal();
+  lock.Unlock();
+}
+```
