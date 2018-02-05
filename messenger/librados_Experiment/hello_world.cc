@@ -104,7 +104,7 @@ int main(int argc, const char **argv)
    * create an "IoCtx" which is used to do IO to a pool
    */
   {
-    ret = rados.ioctx_create("test_pool", io_ctx);
+    ret = rados.ioctx_create("scbench", io_ctx);
     if (ret < 0) {
       std::cerr << "couldn't set up ioctx! error " << ret << std::endl;
       ret = EXIT_FAILURE;
