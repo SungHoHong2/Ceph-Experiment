@@ -1,6 +1,37 @@
-SimpleMessenger create two threads
-The messenger classes that you see which sends the messages puts the message to the queue
-and the Pipe write is the one actually takes out the pipes from the queue and run the operation
+### Simple Messenger
+```
+/*
+ * This class handles transmission and reception of messages. Generally
+ * speaking, there are several major components:
+ *
+ * - Connection
+ *    Each logical session is associated with a Connection.
+ * - Pipe
+ *    Each network connection is handled through a pipe, which handles
+ *    the input and output of each message.  There is normally a 1:1
+ *    relationship between Pipe and Connection, but logical sessions may
+ *    get handed off between Pipes when sockets reconnect or during
+ *    connection races.
+ * - IncomingQueue
+ *    Incoming messages are associated with an IncomingQueue, and there
+ *    is one such queue associated with each Pipe.
+ * - DispatchQueue
+ *    IncomingQueues get queued in the DIspatchQueue, which is responsible
+ *    for doing a round-robin sweep and processing them via a worker thread.
+ * - SimpleMessenger
+ *    It's the exterior class passed to the external message handler and
+ *    most of the API details.
+ *
+ * Lock ordering:
+ *
+ *   SimpleMessenger::lock
+ *       Pipe::pipe_lock
+ *           DispatchQueue::lock
+ *               IncomingQueue::lock
+ */
+```
+
+<br>
 
 ### How does Ceph write object
 1. Get the Admin keyring

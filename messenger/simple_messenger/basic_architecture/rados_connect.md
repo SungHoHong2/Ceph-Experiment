@@ -92,6 +92,7 @@ int librados::RadosClient::connect()
   messenger->start();
 
 ```
+> [add_dispatcher_tail](add_dispatcher_tail.md) <br>
 > [messenger_start](messenger_start.md)
 ```
   ldout(cct, 1) << "setting wanted keys" << dendl;

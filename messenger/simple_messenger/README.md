@@ -1,3 +1,5 @@
+### adding request to the queue
+
 ```
 #include <rados/librados.hpp>
 #include <iostream>
@@ -162,4 +164,66 @@ int main(int argc, const char **argv)
   rados.shutdown();
   return ret;
 }
+```
+
+<br>
+
+### UNSOLVED Fragments
+
+>  /home/sungho/ceph/src/simple/Pipe.cc:318
+
+```
+void SimpleMessenger::ready()
+{
+  ldout(cct,10) << "ready " << get_myaddr() << dendl;
+  dispatch_queue.start();
+
+```
+> [dispatcher_queue_start](dispatcher_queue_start.md)
+```
+  lock.Lock();
+  if (did_bind)
+    accepter.start();
+  lock.Unlock();
+}
+
+```
+>  /home/sungho/ceph/src/msg/simple/Pipe.cc:796
+
+>  /home/sungho/ceph/src/msg/simple/Pipe.cc:367
+
+>  /home/sungho/ceph/src/msg/simple/Pipe.cc:221
+
+```
+
+void Pipe::start_reader()
+{
+  assert(pipe_lock.is_locked());
+  assert(!reader_running);
+  if (reader_needs_join) {
+    reader_thread.join();
+    reader_needs_join = false;
+  }
+  reader_running = true;
+  reader_thread.create("ms_pipe_read", msgr->cct->_conf->ms_rwthread_stack_bytes);
+}
+
+void Pipe::start_writer()
+{
+  assert(pipe_lock.is_locked());
+  assert(!writer_running);
+  writer_running = true;
+  writer_thread.create("ms_pipe_write", msgr->cct->_conf->ms_rwthread_stack_bytes);
+}
+
+int Pipe::do_sendmsg(struct msghdr *msg, unsigned len, bool more){
+r = ::sendmsg(sd, msg, MSG_NOSIGNAL | (more ? MSG_MORE : 0));
+
+int Pipe::read_message(Message **pm, AuthSessionHandler* auth_handler)
+int Pipe::tcp_read(char *buf, unsigned len)
+ssize_t Pipe::tcp_read_nonblocking(char *buf, unsigned len)
+ssize_t got = buffered_recv(buf, len, MSG_DONTWAIT );
+ssize_t ret = do_recv(buf, left, flags );
+ssize_t got = ::recv( sd, buf, len, flags );
+
 ```
