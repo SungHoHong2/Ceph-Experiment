@@ -7,14 +7,14 @@ and the Pipe write is the one actually takes out the pipes from the queue and ru
 2. initialize rados object
 3. set up rados with the configuration from the ceph.conf file
 4. connect by invoking `rados_connect`
-  1. reads the required info from the configuration file
-  2. read the monitor information from monitor map
-  3. initialize a `client messenger` **what does this client messenger do**
-  4. set policy for the client messenger
-  5. initialize `objecter` **is objector used for all purposess**
-    1. pass configuration file as a argument
-    2. pass messenger as a argument
-    3. pass monitor as a argument
+    1. reads the required info from the configuration file
+    2. read the monitor information from monitor map
+    3. initialize a `client messenger` **what does this client messenger do**
+    4. set policy for the client messenger
+    5. initialize `objecter` **is objector used for all purposess**
+      1. pass configuration file as a argument
+      2. pass messenger as a argument
+      3. pass monitor as a argument
   6. set objecter with balanced budget   
   7. set monitor with messenger pointer
   8. set manager with messenger pointer
