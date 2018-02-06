@@ -104,7 +104,7 @@ $ rados df // available to check the file from here
 
 ### INTENSIVE DEBUGGING OF MESSAGE
 - [debug simple messenger](simple_messenger)
-  - [description of how the simple messenger works](simple_messenger/basic_architecture/desc.md)
+  - [description of how the simple messenger works](simple_messenger/basic_architecture)
   - [experiment on how the pipe sends message](simple_messenger/pipe_experiment)
 - [debug async messenger](debugging_files/debug_messenger.md)
 
