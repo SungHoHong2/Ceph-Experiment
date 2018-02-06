@@ -104,6 +104,7 @@ $ rados df // available to check the file from here
 
 ### INTENSIVE DEBUGGING OF MESSAGE
 - [debug simple messenger](simple_messenger)
+  - [description of how the simple messenger works](simple_messenger/desc.md)
 - [debug async messenger](debugging_files/debug_messenger.md)
 
 <br>
