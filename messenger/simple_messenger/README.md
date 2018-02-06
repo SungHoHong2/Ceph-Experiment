@@ -1,151 +1,165 @@
-> break 64
 ```
+#include <rados/librados.hpp>
+#include <iostream>
+#include <string>
+
+int main(int argc, const char **argv)
 {
-  ret = rados.connect();
-  if (ret < 0) {
-    std::cerr << "couldn't connect to cluster! error " << ret << std::endl;
-    ret = EXIT_FAILURE;
-    goto out;
-  } else {
-    std::cout << "we just connected to the rados cluster" << std::endl;
-  }
-}
-```
+  int ret = 0;
 
-```
-int librados::Rados::connect()
-{
-  return client->connect();
-}
-```
+  // we will use all of these below
+  // const char *pool_name = "hello_world_pool";
+  std::string hello("hello world!");
+  std::string object_name("hello_object");
+  librados::IoCtx io_ctx;
 
-> home/sungho/ceph/src/librados/RadosClient.cc
-
-```
-int librados::RadosClient::connect()
-{
-  common_init_finish(cct);
-```
-> [common_init_finish](common_init_finish.md)
-
-```
-  int err;
-
-  // already connected?
-  if (state == CONNECTING)
-    return -EINPROGRESS;
-  if (state == CONNECTED)
-    return -EISCONN;
-  state = CONNECTING; // ended up in the connecting part
-
-  // get monmap
-  err = monclient.build_initial_monmap();
-  if (err < 0)
-    goto out;
-
-  err = -ENOMEM;
-  messenger = Messenger::create_client_messenger(cct, "radosclient");
-  if (!messenger)
-    goto out;
-
-```
->  /home/sungho/ceph/src/msg/Messenger.cc:28 <br>
-> [create_client_messenger](create_client_messenger.md)
-```
-
-  // require OSDREPLYMUX feature.  this means we will fail to talk to
-  // old servers.  this is necessary because otherwise we won't know
-  // how to decompose the reply data into its constituent pieces.
-  messenger->set_default_policy(Messenger::Policy::lossy_client(CEPH_FEATURE_OSDREPLYMUX));
-
-  ldout(cct, 1) << "starting msgr at " << messenger->get_myaddr() << dendl;
-
-  ldout(cct, 1) << "starting objecter" << dendl;
-
-  objecter = new (std::nothrow) Objecter(cct, messenger, &monclient,
-```
-
-> [objecter](objecter.md)
-
-```
-			  &finisher,
-			  cct->_conf->rados_mon_op_timeout,
-			  cct->_conf->rados_osd_op_timeout);
-  if (!objecter)
-    goto out;
-  objecter->set_balanced_budget();
-
-  monclient.set_messenger(messenger);
-  mgrclient.set_messenger(messenger);
-
-  objecter->init();
-  messenger->add_dispatcher_head(&mgrclient);
-  messenger->add_dispatcher_tail(objecter);
-  messenger->add_dispatcher_tail(this);
-
-  messenger->start();
-
-  ldout(cct, 1) << "setting wanted keys" << dendl;
-  monclient.set_want_keys(
-      CEPH_ENTITY_TYPE_MON | CEPH_ENTITY_TYPE_OSD | CEPH_ENTITY_TYPE_MGR);
-  ldout(cct, 1) << "calling monclient init" << dendl;
-  err = monclient.init();
-  if (err) {
-    ldout(cct, 0) << conf->name << " initialization error " << cpp_strerror(-err) << dendl;
-    shutdown();
-    goto out;
-  }
-
-  err = monclient.authenticate(conf->client_mount_timeout);
-  if (err) {
-    ldout(cct, 0) << conf->name << " authentication error " << cpp_strerror(-err) << dendl;
-    shutdown();
-    goto out;
-  }
-  messenger->set_myname(entity_name_t::CLIENT(monclient.get_global_id()));
-
-  // MgrClient needs this (it doesn't have MonClient reference itself)
-  monclient.sub_want("mgrmap", 0, 0);
-  monclient.renew_subs();
-
-  if (service_daemon) {
-    ldout(cct, 10) << __func__ << " registering as " << service_name << "."
-		   << daemon_name << dendl;
-    mgrclient.service_daemon_register(service_name, daemon_name,
-				      daemon_metadata);
-  }
-  mgrclient.init();
-
-  objecter->set_client_incarnation(0);
-  objecter->start();
-  lock.Lock();
-
-  timer.init();
-
-  finisher.start();
-
-  state = CONNECTED;
-  instance_id = monclient.get_global_id();
-
-  lock.Unlock();
-
-  ldout(cct, 1) << "init done" << dendl;
-  err = 0;
-
- out:
-  if (err) {
-    state = DISCONNECTED;
-
-    if (objecter) {
-      delete objecter;
-      objecter = NULL;
-    }
-    if (messenger) {
-      delete messenger;
-      messenger = NULL;
+  // first, we create a Rados object and initialize it
+  librados::Rados rados;
+  {
+    ret = rados.init("admin"); // just use the client.admin keyring
+    if (ret < 0) { // let's handle any error that might have come back
+      std::cerr << "couldn't initialize rados! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just set up a rados cluster object" << std::endl;
     }
   }
 
-  return err;
+  /*
+   * Now we need to get the rados object its config info. It can
+   * parse argv for us to find the id, monitors, etc, so let's just
+   * use that.
+   */
+  {
+    ret = rados.conf_parse_argv(argc, argv);
+    if (ret < 0) {
+      // This really can't happen, but we need to check to be a good citizen.
+      std::cerr << "failed to parse config options! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just parsed our config options" << std::endl;
+      // We also want to apply the config file if the user specified
+      // one, and conf_parse_argv won't do that for us.
+      for (int i = 0; i < argc; ++i) {
+	if ((strcmp(argv[i], "-c") == 0) || (strcmp(argv[i], "--conf") == 0)) {
+	  ret = rados.conf_read_file(argv[i+1]);
+	  if (ret < 0) {
+	    // This could fail if the config file is malformed, but it'd be hard.
+	    std::cerr << "failed to parse config file " << argv[i+1]
+	              << "! error" << ret << std::endl;
+	    ret = EXIT_FAILURE;
+	    goto out;
+	  }
+	  break;
+	}
+      }
+    }
+  }
+
+  /*
+   * next, we actually connect to the cluster
+   */
+  {
+    ret = rados.connect();
+    if (ret < 0) {
+      std::cerr << "couldn't connect to cluster! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just connected to the rados cluster" << std::endl;
+    }
+  }
+
+```
+[rados_connect](rados_connect.md)
+
+```
+  /*
+   * create an "IoCtx" which is used to do IO to a pool
+   */
+  {
+    ret = rados.ioctx_create("scbench", io_ctx);
+    if (ret < 0) {
+      std::cerr << "couldn't set up ioctx! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just created an ioctx for our pool" << std::endl;
+    }
+  }
+
+```
+
+[rados_ioctx_create](rados_ioctx_create.md)
+
+```
+
+  /*
+   * now let's do some IO to the pool! We'll write "hello world!" to a
+   * new object.
+   */
+   {
+    librados::bufferlist bl;
+    bl.append(hello);
+
+    /*
+     * now that we have the data to write, let's send it to an object.
+     * We'll use the synchronous interface for simplicity.
+     */
+    ret = io_ctx.write_full(object_name, bl);
+    if (ret < 0) {
+      std::cerr << "couldn't write object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we just wrote new object " << object_name
+	        << ", with contents\n" << hello << std::endl;
+    }
+  }
+
+```
+
+> [io_ctx_write_full](io_ctx_write_full.md)
+
+```
+  /*
+   * now let's read that object back! Just for fun, we'll do it using
+   * async IO instead of synchronous. (This would be more useful if we
+   * wanted to send off multiple reads at once; see
+   * http://docs.ceph.com/docs/master/rados/api/librados/#asychronous-io )
+   */
+  {
+    librados::bufferlist read_buf;
+    int read_len = 4194304; // this is way more than we need
+    // allocate the completion from librados
+    librados::AioCompletion *read_completion = librados::Rados::aio_create_completion();
+    // send off the request.
+    ret = io_ctx.aio_read(object_name, read_completion, &read_buf, read_len, 0);
+    if (ret < 0) {
+      std::cerr << "couldn't start read object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    }
+    // wait for the request to complete, and check that it succeeded.
+    read_completion->wait_for_complete();
+    ret = read_completion->get_return_value();
+    if (ret < 0) {
+      std::cerr << "couldn't read object! error " << ret << std::endl;
+      ret = EXIT_FAILURE;
+      goto out;
+    } else {
+      std::cout << "we read our object " << object_name
+	  << ", and got back " << ret << " bytes with contents\n";
+      std::string read_string;
+      read_buf.copy(0, ret, read_string);
+      std::cout << read_string << std::endl;
+    }
+  }
+
+  out:
+  rados.shutdown();
+  return ret;
 }
 ```
