@@ -8,6 +8,7 @@
 #include "core/future-util.hh"
 #include <chrono>
 using namespace seastar;
+using namespace std;
 namespace bpo = boost::program_options;
 
 int main(int ac, char** av) {
