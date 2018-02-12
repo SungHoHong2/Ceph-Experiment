@@ -21,8 +21,9 @@ int main(int argc, char** argv) {
 
 future<> f() {
     cout << "Sleeping... " << std::flush;
+    sleep(200ms).then([] { cout << "200ms " << endl; });
+    sleep(100ms).then([] { cout << "100ms " << endl; });
     return sleep(1s).then([] {
       cout << "Done.\n";
     });
-
 }
