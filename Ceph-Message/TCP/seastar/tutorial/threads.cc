@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
             return make_ready_future<>();
     });
   } catch(runtime_error &e){
-        cerr << "Couldn't start application: " << e.what() << "\n";
+        cerr << "Couldn't start application: " << e.what() << "\n";  // initiating try and catch
         return 1;
   }
 
