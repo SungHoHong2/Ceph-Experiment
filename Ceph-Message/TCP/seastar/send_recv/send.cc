@@ -52,7 +52,7 @@ int main(int ac, char** av) {
       return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
     });
 
-
+    
 
 
 
