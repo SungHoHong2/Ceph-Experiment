@@ -1,4 +1,9 @@
 ### SEASTAR Experiments
+- creating shortcut
+```
+ln -s /home/sungho/Ceph-Experiment/Ceph-Message/TCP/seastar/tutorial seastar
+```
+
 - installing in workstation
 ```
 // for some god damn reason don't every compile with g++-5 in the cluster

@@ -5,13 +5,24 @@
 using namespace seastar;
 using namespace std;
 
+extern future<> f();
+
+
 int main(int argc, char** argv) {
     app_template app;
+    try {
+        app.run(argc, argv, f);
+    } catch(std::runtime_error &e) {
+        cerr << "Couldn't start application: " << e.what() << "\n";
+        return 1;
+    }
+    return 0;
+}
 
-    app.run(argc, argv, [] {
-      cout << "sleeping" << endl;
-          return sleep(1s).then([]{
-            cout << "Done" << endl;
-          });
+future<> f() {
+    cout << "Sleeping... " << std::flush;
+    return sleep(1s).then([] {
+      cout << "Done.\n";
     });
+
 }
