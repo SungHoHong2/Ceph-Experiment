@@ -19,6 +19,13 @@ void http_debug(const char* fmt, Args&&... args) { // what does this ... represe
 #endif
 }
 
+class http_client {
+
+
+}
+
+
+
 
 int main(int ac, char** av) {
   app_template app;
@@ -52,7 +59,7 @@ int main(int ac, char** av) {
       return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
     });
 
-    
+
 
 
 
