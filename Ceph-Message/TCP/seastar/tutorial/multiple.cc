@@ -19,24 +19,12 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-future<int> fast() {
-    return make_ready_future<int>(3);
-}
-
-future<int> slow() {
-    return sleep(100ms).then([] { return 3; });
+future<int> incr(int i) {
+    return sleep(10ms).then([i] { return i + 1; });
 }
 
 future<> f() {
-    slow().then([] (int val) {
-        std::cout << "Slow: " << val << "\n";
-    });
-
-    return fast().then([] (int val) {
-        cout << "Fast: " << val << "\n";
-    });
-
-    return sleep(1s).then([] {
-      cout << "Done.\n";
+    return incr(3).then([] (int val) {
+        cout << "Got " << val << "\n";
     });
 }
