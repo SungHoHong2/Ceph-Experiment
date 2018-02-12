@@ -22,9 +22,7 @@ void http_debug(const char* fmt, Args&&... args) { // what does this ... represe
 class http_client {
 
 
-}
-
-
+};
 
 
 int main(int ac, char** av) {
