@@ -15,3 +15,7 @@ g++ `pkg-config --cflags --libs $SEASTAR/build/release/seastar.pc` getting-start
 
 ### Seastar Tutorial
 - [seastar threads](tutorialthreads.c)
+- future and continuations
+  - building blocks of asynchronous programming
+  - `future` is a result of a computation that may not be available yet.
+  - `continuation` is a callback (typically a lambda) to run when a future becomes available

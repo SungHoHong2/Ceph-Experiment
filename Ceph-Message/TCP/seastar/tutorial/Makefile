@@ -1,5 +1,5 @@
 SEASTAR ="/home/sungho/seastar"
-TARGET ="threads"
+TARGET ="future"
 
 all:
 	g++  `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET}.cc -o ${TARGET}
