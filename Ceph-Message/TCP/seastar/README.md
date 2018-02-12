@@ -1,7 +1,7 @@
 ### SEASTAR Experiments
 - creating shortcut
 ```
-ln -s /home/sungho/Ceph-Experiment/Ceph-Message/TCP/seastar/tutorial seastar
+ln -s /home/sungho/Ceph-Experiment/Ceph-Message/TCP/seastar/send_recv seastar
 ```
 
 - installing in workstation

@@ -7,7 +7,7 @@
 #include "core/semaphore.hh"
 #include "core/future-util.hh"
 #include <chrono>
-
+using namespace seastar;
 namespace bpo = boost::program_options;
 
 int main(int ac, char** av) {
