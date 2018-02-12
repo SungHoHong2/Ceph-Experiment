@@ -32,7 +32,11 @@ future<> f() {
         std::cout << "Slow: " << val << "\n";
     });
 
-    // return fast().then([] (int val) {
-    //     cout << "Fast: " << val << "\n";
-    // });
+    return fast().then([] (int val) {
+        cout << "Fast: " << val << "\n";
+    });
+
+    return sleep(1s).then([] {
+      cout << "Done.\n";
+    });
 }
