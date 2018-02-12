@@ -23,7 +23,6 @@ future<int> fast() {
     return make_ready_future<int>(3);
 }
 
-
 future<int> slow() {
     return sleep(100ms).then([] { return 3; });
 }
@@ -33,7 +32,7 @@ future<> f() {
         std::cout << "Slow: " << val << "\n";
     });
 
-    return fast().then([] (int val) {
-        cout << "Fast: " << val << "\n";
-    });
+    // return fast().then([] (int val) {
+    //     cout << "Fast: " << val << "\n";
+    // });
 }

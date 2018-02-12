@@ -19,7 +19,17 @@ g++ `pkg-config --cflags --libs $SEASTAR/build/release/seastar.pc` getting-start
 <br>
 
 ### Seastar Tutorial
+- `app_template` starts the main event loop
+- `app.run()` when the future returned by it resolves the app will shut down, stopping event loops on all cpus, and `app.run()` will return
+- `app.run_deprecated()` application doesn't exit when the callback returns, explicitly stopped by calling `engine_exit()`
+
 - [seastar threads](tutorialthreads.c)
+  - cannot start more threads than the number of hardware threads
+- seastar memory
+  - Each thread is preallocated with a large piece of memory on the same NUMA node it is running on
+  - uses only that memory for its allocations
+  - By default, the machine's entire memory except a small reservation left for the OS (defaulting to 512 MB) is pre-allocated
+
 - future and continuations
   - building blocks of asynchronous programming
   - `future` is a result of a computation that may not be available yet.
