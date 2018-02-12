@@ -19,6 +19,8 @@
 ### Experiments
 - [Ceph Messenger in TCP](Ceph-Message/TCP/README.md)
   - [RADOS benchmark tests](Ceph-Message/TCP/result)
+  - [seastar experiments](Ceph-Message/TCP/seastar)
+  - [integrating seastar with TCP Ceph](Ceph-Message/TCP/seastar-tcp)
 - [Ceph Messenger in DPDK](Ceph-Message/DPDK/README.md)
 - [Ceph Messenger in RDMA](Ceph-Message/RDMA/README.md)
 
