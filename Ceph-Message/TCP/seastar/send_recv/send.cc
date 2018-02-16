@@ -89,7 +89,13 @@ public:
                 return _write_buf.flush();
             }).then([this] {
                 _nr_done++;
+                if (_http_client->done(_nr_done)) {
+                    return make_ready_future();
+                } else {
+                    return do_req();
+                }
 
+  
                 // _parser.init();
                 // return _read_buf.consume(_parser).then([this] {
                 //     // Read HTTP response header first
