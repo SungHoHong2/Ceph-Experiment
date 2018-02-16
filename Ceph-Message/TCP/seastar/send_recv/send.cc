@@ -39,9 +39,19 @@ void http_debug(const char* fmt, Args&&... args) {
 #endif
 }
 
-
-
 int main(int ac, char** av) {
-  cout << "howdy" << endl;
+  cout << "BEGIN" << endl;
+  app_template app;
+  app.add_options()
+      ("server,s", bpo::value<std::string>()->default_value("192.168.66.100:10000"), "Server address")
+      ("conn,c", bpo::value<unsigned>()->default_value(100), "total connections")
+      ("reqs,r", bpo::value<unsigned>()->default_value(0), "reqs per connection")
+      ("duration,d", bpo::value<unsigned>()->default_value(10), "duration of the test in seconds)");
+
+
+
+  
+
+  cout << "END" << endl;
   return 0;
 }
