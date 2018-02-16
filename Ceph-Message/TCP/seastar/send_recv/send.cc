@@ -175,7 +175,7 @@ int main(int ac, char** av) {
 
 
         auto http_clients = new distributed<http_client>;
-        auto started = steady_clock_type::now();
+        // auto started = steady_clock_type::now();
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
           cout << "http_clients->connect" << endl;
@@ -187,16 +187,16 @@ int main(int ac, char** av) {
         }).then([http_clients] {
           cout << "http_clients->map_reduce" << endl;
           return http_clients->map_reduce(adder<uint64_t>(), &http_client::total_reqs);
-        }).then([http_clients, started] (auto total_reqs){
+        }).then([http_clients] (auto total_reqs){
 
-          auto finished = steady_clock_type::now();
-          auto elapsed = finished - started;
-          auto secs = static_cast<double>(elapsed.count() / 1000000000.0);
-          print("Total cpus: %u\n", smp::count);
-          print("Total requests: %u\n", total_reqs);
-          print("Total time: %f\n", secs);
-          print("Requests/sec: %f\n", static_cast<double>(total_reqs) / secs);
-          print("==========     done     ============\n");
+          // auto finished = steady_clock_type::now();
+          // auto elapsed = finished - started;
+          // auto secs = static_cast<double>(elapsed.count() / 1000000000.0);
+          // print("Total cpus: %u\n", smp::count);
+          // print("Total requests: %u\n", total_reqs);
+          // print("Total time: %f\n", secs);
+          // print("Requests/sec: %f\n", static_cast<double>(total_reqs) / secs);
+          // print("==========     done     ============\n");
 
           return http_clients->stop().then([http_clients] {
               delete http_clients;
