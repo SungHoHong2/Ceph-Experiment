@@ -51,9 +51,9 @@ int main(int ac, char** av) {
       ("reqs,r", bpo::value<unsigned>()->default_value(0), "reqs per connection")
       ("duration,d", bpo::value<unsigned>()->default_value(10), "duration of the test in seconds)");
 
+      return app.run(ac, av, [&app] () -> future<int> {
 
-
-
+      });
 
   cout << "END" << endl;
   return 0;
