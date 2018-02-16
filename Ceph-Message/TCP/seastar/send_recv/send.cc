@@ -107,7 +107,8 @@ int main(int ac, char** av) {
 
 
 
-
     cout << "program ended" << endl;
+    return 1;
+
   });
 }
