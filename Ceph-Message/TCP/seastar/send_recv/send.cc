@@ -53,9 +53,21 @@ int main(int ac, char** av) {
 
       return app.run(ac, av, [&app] () -> future<int> {
 
+        auto& config = app.configuration();
+        auto server = config["server"].as<std::string>();
+        auto reqs_per_conn = config["reqs"].as<unsigned>();
+        auto total_conn= config["conn"].as<unsigned>();
+        auto duration = config["duration"].as<unsigned>();
 
 
-      cout << "END" << endl;
-      return make_ready_future<int>(0);
+        if (total_conn % smp::count != 0) {
+          print("Error: conn needs to be n * cpu_nr\n");
+          return make_ready_future<int>(-1);
+        }
+
+
+
+          cout << "END" << endl;
+          return make_ready_future<int>(0); // this terminates the future
       });
 }
