@@ -199,8 +199,8 @@ int main(int ac, char** av) {
         }
 
 
-         auto http_clients = new distributed<http_client>;
-         // auto started = steady_clock_type::now();
+        auto http_clients = new distributed<http_client>;
+        auto started = steady_clock_type::now();
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
           cout << "http_clients->connect" << endl;
