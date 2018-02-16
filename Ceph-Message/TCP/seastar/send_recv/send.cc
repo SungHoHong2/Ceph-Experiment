@@ -41,7 +41,38 @@ void http_debug(const char* fmt, Args&&... args) {
 }
 
 class http_client {
+private:
+    unsigned _duration;
+    unsigned _conn_per_core;
+    unsigned _reqs_per_conn;
+    std::vector<connected_socket> _sockets;
+    semaphore _conn_connected{0};
+    semaphore _conn_finished{0};
+    timer<> _run_timer;
+    bool _timer_based;
+    bool _timer_done{false};
+    // uint64_t _total_reqs{0};
 
+public:
+  http_client(unsigned duration, unsigned total_conn, unsigned reqs_per_conn)
+    : _duration(duration)
+    , _conn_per_core(total_conn / smp::count)
+    , _reqs_per_conn(reqs_per_conn)
+    , _run_timer([this] { _timer_done = true; })
+    , _timer_based(reqs_per_conn == 0) {
+  }
+
+  future<> connect(ipv4_addr server_addr) {
+    // Establish all the TCP connections first
+    for (unsigned i = 0; i < _conn_per_core; i++) {
+        engine().net().connect(make_ipv4_address(server_addr)).then([this] (connected_socket fd) {
+            _sockets.push_back(std::move(fd));
+            http_debug("Established connection %6d on cpu %3d\n", _conn_connected.current(), engine().cpu_id());
+            _conn_connected.signal();
+        }).or_terminate();
+    }
+    return _conn_connected.wait(_conn_per_core);
+}
 
   future<> stop() {
       return make_ready_future();
