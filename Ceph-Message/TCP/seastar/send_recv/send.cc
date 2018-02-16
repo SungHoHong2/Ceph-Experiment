@@ -118,10 +118,10 @@ public:
   };
 
 
-  // future<uint64_t> total_reqs() {
-  //     print("Requests on cpu %2d: %ld\n", engine().cpu_id(), _total_reqs);
-  //     return make_ready_future<uint64_t>(_total_reqs);
-  // }
+  future<uint64_t> total_reqs() {
+      print("Requests on cpu %2d: %ld\n", engine().cpu_id(), _total_reqs);
+      return make_ready_future<uint64_t>(_total_reqs);
+  }
 
   bool done(uint64_t nr_done) {
       if (_timer_based) {
