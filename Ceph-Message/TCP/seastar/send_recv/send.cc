@@ -9,6 +9,8 @@
 #include <chrono>
 using namespace seastar;
 using namespace std;
+using namespace http_client;
+
 namespace bpo = boost::program_options;
 
 
@@ -93,7 +95,7 @@ int main(int ac, char** av) {
     // Start http requests on all the cores
     auto started = steady_clock_type::now();
     return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
-      return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
+      return http_clients->invoke_on_all(&connect, ipv4_addr{server});
     });
 
 
