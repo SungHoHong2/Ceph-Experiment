@@ -21,6 +21,17 @@ void http_debug(const char* fmt, Args&&... args) { // what does this ... represe
 
 class http_client {
 private:
+  unsigned _duration;
+  unsigned _conn_per_core;
+  unsigned _reqs_per_conn;
+  std::vector<connected_socket> _sockets;
+  semaphore _conn_connected{0};
+  semaphore _conn_finished{0};
+  timer<> _run_timer;
+  bool _timer_based;
+  bool _timer_done{false};
+  uint64_t _total_reqs{0};
+
 public:
   class connection {
     private:
