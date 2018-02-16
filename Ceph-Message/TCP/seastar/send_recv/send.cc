@@ -20,6 +20,14 @@ void http_debug(const char* fmt, Args&&... args) { // what does this ... represe
 }
 
 class http_client {
+private:
+public:
+  class connection {
+    private:
+    public:
+
+
+  }
 
 
 };
@@ -44,6 +52,8 @@ int main(int ac, char** av) {
     auto server = config["server"].as<std::string>(); // server ip address
     auto reqs_per_conn = config["reqs"].as<unsigned>(); // requests per connection
     auto total_conn= config["conn"].as<unsigned>(); // number of connections
+    auto duration = config["duration"].as<unsigned>(); // duration
+    
 
     if (total_conn % smp::count != 0) { // future count should have numbers
         print("Error: conn needs to be n * cpu_nr\n");
