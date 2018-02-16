@@ -94,7 +94,7 @@ public:
 
               cout << "reading? 0" << endl;
               _nr_done++;
-              http_debug("%s\n", buf.get());
+              // http_debug("%s\n", buf.get());
               if (_http_client->done(_nr_done)) {
                   return make_ready_future();
               } else {
