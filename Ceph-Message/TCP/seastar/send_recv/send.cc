@@ -59,11 +59,14 @@ int main(int ac, char** av) {
         auto total_conn= config["conn"].as<unsigned>();
         // auto duration = config["duration"].as<unsigned>();
 
-
         if (total_conn % smp::count != 0) {
-          print("Error: conn needs to be n * cpu_nr\n");
-          return make_ready_future<int>(-1);
+          print("Error: conn needs to be n * cpu_nr\n"); // smp should not be 0
+          return make_ready_future<int>(-1); // terminate the application
         }
+
+
+         auto http_clients = new distributed<http_client>;
+
 
 
 
