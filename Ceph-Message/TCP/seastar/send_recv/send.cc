@@ -53,6 +53,7 @@ int main(int ac, char** av) {
 
       return app.run(ac, av, [&app] () -> future<int> {
 
+        return 0;
       });
 
   cout << "END" << endl;
