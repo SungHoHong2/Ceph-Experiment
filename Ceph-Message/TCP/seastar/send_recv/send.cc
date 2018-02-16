@@ -22,9 +22,9 @@ void http_debug(const char* fmt, Args&&... args) { // what does this ... represe
 
 class http_client {
 private:
-  unsigned _duration;
-  unsigned _conn_per_core;
-  unsigned _reqs_per_conn;
+  // unsigned _duration;
+  // unsigned _conn_per_core;
+  // unsigned _reqs_per_conn;
   std::vector<connected_socket> _sockets;
   semaphore _conn_connected{0};
   semaphore _conn_finished{0};
@@ -95,7 +95,7 @@ int main(int ac, char** av) {
         return make_ready_future<int>(-1);
     }
 
-    auto http_clients = new distributed<http_client>;
+    // auto http_clients = new distributed<http_client>;
     // Start http requests on all the cores
     auto started = steady_clock_type::now();
     // return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
