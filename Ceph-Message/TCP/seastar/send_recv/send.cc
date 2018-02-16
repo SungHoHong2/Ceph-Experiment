@@ -54,10 +54,8 @@ int main(int ac, char** av) {
       return app.run(ac, av, [&app] () -> future<int> {
 
 
+
+      cout << "END" << endl;
       return make_ready_future<int>(0);
-
       });
-
-  cout << "END" << endl;
-  return 0;
 }
