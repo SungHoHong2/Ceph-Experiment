@@ -86,8 +86,13 @@ public:
 
         future<> do_req() {
             return _write_buf.write("howdy").then([this] {
+
+                cout << "writing? 1" << endl;
+
                 return _write_buf.flush();
             }).then([this] {
+
+              cout << "reading? 0" << endl;
 
                 _parser.init();
                 return _read_buf.consume(_parser).then([this] {
