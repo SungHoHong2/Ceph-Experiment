@@ -109,7 +109,7 @@ int main(int ac, char** av) {
          auto started = steady_clock_type::now();
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
-          return make_ready_future();
+          return make_ready_future<int>(0); // this terminates the future
           // return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
         });
 
