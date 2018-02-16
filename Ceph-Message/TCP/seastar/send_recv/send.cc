@@ -80,7 +80,7 @@ public:
         }
 
         future<> do_req() {
-            return _write_buf.write("howdy").then([this] {
+            return _write_buf.write("GET / HTTP/1.1\r\nHost: 127.0.0.1:10000\r\n\r\n").then([this] {
                 return _write_buf.flush();
             }).then([this] {
                 _parser.init();
@@ -171,7 +171,7 @@ namespace bpo = boost::program_options;
 int main(int ac, char** av) {
     app_template app;
     app.add_options()
-        ("server,s", bpo::value<std::string>()->default_value("10.218.111.252:10000"), "Server address")
+        ("server,s", bpo::value<std::string>()->default_value("192.168.66.100:10000"), "Server address")
         ("conn,c", bpo::value<unsigned>()->default_value(100), "total connections")
         ("reqs,r", bpo::value<unsigned>()->default_value(0), "reqs per connection")
         ("duration,d", bpo::value<unsigned>()->default_value(10), "duration of the test in seconds)");
