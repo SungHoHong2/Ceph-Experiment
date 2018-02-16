@@ -106,9 +106,10 @@ int main(int ac, char** av) {
 
 
          auto http_clients = new distributed<http_client>;
-         auto started = steady_clock_type::now();
+         // auto started = steady_clock_type::now();
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
+          cout << __FUNCTION__ << endl;
           return make_ready_future<int>(0); // this terminates the future
           // return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
         });
@@ -116,7 +117,6 @@ int main(int ac, char** av) {
 
 
 
-          cout << "END" << endl;
           return make_ready_future<int>(0); // this terminates the future
       });
 }
