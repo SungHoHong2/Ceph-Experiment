@@ -42,6 +42,11 @@ void http_debug(const char* fmt, Args&&... args) {
 
 class http_client {
 
+
+  future<> stop() {
+      return make_ready_future();
+  }
+
 };
 
 
@@ -75,7 +80,7 @@ int main(int ac, char** av) {
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
           return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
         });
-        
+
 
 
 
