@@ -203,13 +203,18 @@ int main(int ac, char** av) {
          // auto started = steady_clock_type::now();
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
-          cout << "http_clients->start" << endl;
+          cout << "http_clients->connect" << endl;
           return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server}); // this connects to the server
           // return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
         }).then([http_clients] {
+          cout << "http_clients->run" << endl;
           return http_clients->invoke_on_all(&http_client::run);
         }).then([http_clients] {
-          return make_ready_future<int>(0); // this terminates the future
+          cout << "http_clients->map_reduce" << endl;
+          return http_clients->map_reduce(adder<uint64_t>(), &http_client::total_reqs);
+        }).then([http_clients, started] (auto total_reqs){
+
+            return make_ready_future<int>(0); // this terminates the future
         });
 
 
