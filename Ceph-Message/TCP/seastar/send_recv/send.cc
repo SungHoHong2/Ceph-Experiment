@@ -93,45 +93,53 @@ public:
             }).then([this] {
 
               cout << "reading? 0" << endl;
-
-                _parser.init();
-                return _read_buf.consume(_parser).then([this] {
-                    // Read HTTP response header first
-
-                    cout << "reading? 1" << endl;
-
-                    if (_parser.eof()) {
-                        return make_ready_future<>();
-                    }
+              _nr_done++;
+              http_debug("%s\n", buf.get());
+              if (_http_client->done(_nr_done)) {
+                  return make_ready_future();
+              } else {
+                  return do_req();
+              }
 
 
-                    cout << "reading? 2" << endl;
-
-                    auto _rsp = _parser.get_parsed_response();
-                    auto it = _rsp->_headers.find("Content-Length");
-                    if (it == _rsp->_headers.end()) {
-                        print("Error: HTTP response does not contain: Content-Length\n");
-                        return make_ready_future<>();
-                    }
-
-
-                    cout << "reading? 3" << endl;
-
-                    auto content_len = std::stoi(it->second);
-                    http_debug("Content-Length = %d\n", content_len);
-                    // Read HTTP response body
-
-                    cout << "reading? 4" << endl;
-                    return _read_buf.read_exactly(content_len).then([this] (temporary_buffer<char> buf) {
-                        _nr_done++;
-                        http_debug("%s\n", buf.get());
-                        if (_http_client->done(_nr_done)) {
-                            return make_ready_future();
-                        } else {
-                            return do_req();
-                        }
-                    });
-                });
+                // _parser.init();
+                // return _read_buf.consume(_parser).then([this] {
+                //     // Read HTTP response header first
+                //
+                //     cout << "reading? 1" << endl;
+                //
+                //     if (_parser.eof()) {
+                //         return make_ready_future<>();
+                //     }
+                //
+                //
+                //     cout << "reading? 2" << endl;
+                //
+                //     auto _rsp = _parser.get_parsed_response();
+                //     auto it = _rsp->_headers.find("Content-Length");
+                //     if (it == _rsp->_headers.end()) {
+                //         print("Error: HTTP response does not contain: Content-Length\n");
+                //         return make_ready_future<>();
+                //     }
+                //
+                //
+                //     cout << "reading? 3" << endl;
+                //
+                //     auto content_len = std::stoi(it->second);
+                //     http_debug("Content-Length = %d\n", content_len);
+                //     // Read HTTP response body
+                //
+                //     cout << "reading? 4" << endl;
+                //     return _read_buf.read_exactly(content_len).then([this] (temporary_buffer<char> buf) {
+                //         _nr_done++;
+                //         http_debug("%s\n", buf.get());
+                //         if (_http_client->done(_nr_done)) {
+                //             return make_ready_future();
+                //         } else {
+                //             return do_req();
+                //         }
+                //     });
+                // });
             });
         }
   };
