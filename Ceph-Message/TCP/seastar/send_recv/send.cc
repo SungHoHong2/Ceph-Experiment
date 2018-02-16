@@ -32,8 +32,14 @@ private:
   bool _timer_based;
   bool _timer_done{false};
   uint64_t _total_reqs{0};
-
 public:
+  http_client(unsigned duration, unsigned total_conn, unsigned reqs_per_conn)
+      : _duration(duration)
+      , _conn_per_core(total_conn / smp::count)
+      , _reqs_per_conn(reqs_per_conn)
+      , _run_timer([this] { _timer_done = true; })
+      , _timer_based(reqs_per_conn == 0) {
+  }
   class connection {
     private:
     public:
