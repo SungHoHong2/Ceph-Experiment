@@ -80,7 +80,7 @@ public:
         }
 
         future<> do_req() {
-            return _write_buf.write("GET / HTTP/1.1\r\nHost: 127.0.0.1:10000\r\n\r\n").then([this] {
+            return _write_buf.write("howdy").then([this] {
                 return _write_buf.flush();
             }).then([this] {
                 _parser.init();
