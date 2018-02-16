@@ -51,7 +51,7 @@ private:
     timer<> _run_timer;
     bool _timer_based;
     bool _timer_done{false};
-    // uint64_t _total_reqs{0};
+    uint64_t _total_reqs{0};
 
 public:
   http_client(unsigned duration, unsigned total_conn, unsigned reqs_per_conn)
