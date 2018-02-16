@@ -92,7 +92,7 @@ int main(int ac, char** av) {
     auto http_clients = new distributed<http_client>;
     // Start http requests on all the cores
     auto started = steady_clock_type::now();
-    return http_clients->start(std::move(duration), std::move(total_conn), std::move(reqs_per_conn)).then([http_clients, server] {
+    return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
       return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
     });
 
