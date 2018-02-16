@@ -86,7 +86,6 @@ public:
 
         future<> do_req() {
             return _write_buf.write("howdy").then([this] {
-
                 // cout << "writing? 1" << endl;
                 return _write_buf.flush();
             }).then([this] {
@@ -96,10 +95,7 @@ public:
               // http_debug("%s\n", buf.get());
               if (_http_client->done(_nr_done)) {
                   return make_ready_future();
-              } else {
-                  return do_req();
               }
-
 
                 // _parser.init();
                 // return _read_buf.consume(_parser).then([this] {
