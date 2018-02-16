@@ -214,9 +214,11 @@ int main(int ac, char** av) {
           return http_clients->map_reduce(adder<uint64_t>(), &http_client::total_reqs);
         }).then([http_clients, started] (auto total_reqs){
 
-            return make_ready_future<int>(0); // this terminates the future
+          return http_clients->stop().then([http_clients] {
+              delete http_clients;
+              return make_ready_future<int>(0);
+          });
         });
-
 
           cout << "END" << endl;
           return make_ready_future<int>(0); // this terminates the future
