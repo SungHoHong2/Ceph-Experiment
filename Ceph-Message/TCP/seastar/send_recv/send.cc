@@ -95,7 +95,8 @@ public:
               // http_debug("%s\n", buf.get());
               if (_http_client->done(_nr_done)) {
                   return make_ready_future();
-              }
+                }
+              make_ready_future();
 
                 // _parser.init();
                 // return _read_buf.consume(_parser).then([this] {
