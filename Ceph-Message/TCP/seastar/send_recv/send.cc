@@ -30,6 +30,7 @@
 #include <chrono>
 
 using namespace seastar;
+using namespace std;
 
 template <typename... Args>
 void http_debug(const char* fmt, Args&&... args) {
