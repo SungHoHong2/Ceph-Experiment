@@ -29,6 +29,20 @@ public:
 
   };
 
+
+  future<> connect(ipv4_addr server_addr) {
+      // Establish all the TCP connections first
+      for (unsigned i = 0; i < _conn_per_core; i++) {
+          engine().net().connect(make_ipv4_address(server_addr)).then([this] (connected_socket fd) {
+              _sockets.push_back(std::move(fd));
+              http_debug("Established connection %6d on cpu %3d\n", _conn_connected.current(), engine().cpu_id());
+              _conn_connected.signal();
+          }).or_terminate();
+      }
+      return _conn_connected.wait(_conn_per_core);
+  }
+
+
   future<> stop() {
     return make_ready_future();
   }
