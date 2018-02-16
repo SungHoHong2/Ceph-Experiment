@@ -78,6 +78,31 @@ public:
       return make_ready_future();
   }
 
+  future<> run() {
+      // All connected, start HTTP request
+      http_debug("Established all %6d tcp connections on cpu %3d\n", _conn_per_core, engine().cpu_id());
+      if (_timer_based) {
+          _run_timer.arm(std::chrono::seconds(_duration));
+      }
+      for (auto&& fd : _sockets) {
+          auto conn = new connection(std::move(fd), this);
+          conn->do_req().then_wrapped([this, conn] (auto&& f) {
+              http_debug("Finished connection %6d on cpu %3d\n", _conn_finished.current(), engine().cpu_id());
+              _total_reqs += conn->nr_done();
+              _conn_finished.signal();
+              delete conn;
+              try {
+                  f.get();
+              } catch (std::exception& ex) {
+                  print("http request error: %s\n", ex.what());
+              }
+          });
+      }
+      // All finished
+      return _conn_finished.wait(_conn_per_core);
+  }
+
+
 };
 
 
@@ -110,11 +135,12 @@ int main(int ac, char** av) {
 
         return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
           cout << "http_clients->start" << endl;
-          return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
+          return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server}); // this connects to the server
           // return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
         }).then([http_clients] {
-
-           return make_ready_future<int>(0); // this terminates the future
+          return http_clients->invoke_on_all(&http_client::run);
+        }).then([http_clients] {
+          return make_ready_future<int>(0); // this terminates the future
         });
 
 
