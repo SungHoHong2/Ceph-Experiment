@@ -55,9 +55,9 @@ int main(int ac, char** av) {
 
         auto& config = app.configuration();
         auto server = config["server"].as<std::string>();
-        auto reqs_per_conn = config["reqs"].as<unsigned>();
+        // auto reqs_per_conn = config["reqs"].as<unsigned>();
         auto total_conn= config["conn"].as<unsigned>();
-        auto duration = config["duration"].as<unsigned>();
+        // auto duration = config["duration"].as<unsigned>();
 
 
         if (total_conn % smp::count != 0) {
