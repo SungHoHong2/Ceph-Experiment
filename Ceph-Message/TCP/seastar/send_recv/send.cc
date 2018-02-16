@@ -59,9 +59,9 @@ int main(int ac, char** av) {
 
         auto& config = app.configuration();
         auto server = config["server"].as<std::string>();
-        // auto reqs_per_conn = config["reqs"].as<unsigned>();
+        auto reqs_per_conn = config["reqs"].as<unsigned>();
         auto total_conn= config["conn"].as<unsigned>();
-        // auto duration = config["duration"].as<unsigned>();
+        auto duration = config["duration"].as<unsigned>();
 
         if (total_conn % smp::count != 0) {
           print("Error: conn needs to be n * cpu_nr\n"); // smp should not be 0
@@ -72,9 +72,10 @@ int main(int ac, char** av) {
          auto http_clients = new distributed<http_client>;
          auto started = steady_clock_type::now();
 
-          return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
-            return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
-          });
+        return http_clients->start(move(duration), move(total_conn), move(reqs_per_conn)).then([http_clients, server] {
+          return http_clients->invoke_on_all(&http_client::connect, ipv4_addr{server});
+        });
+        
 
 
 
