@@ -62,6 +62,62 @@ public:
     , _timer_based(reqs_per_conn == 0) {
   }
 
+
+  class connection {
+
+    private:
+        connected_socket _fd;
+        input_stream<char> _read_buf;
+        output_stream<char> _write_buf;
+        http_response_parser _parser;
+        http_client* _http_client;
+        uint64_t _nr_done{0};
+    public:
+        connection(connected_socket&& fd, http_client* client)
+            : _fd(std::move(fd))
+            , _read_buf(_fd.input())
+            , _write_buf(_fd.output())
+            , _http_client(client){
+        }
+
+        uint64_t nr_done() {
+            return _nr_done;
+        }
+
+        future<> do_req() {
+            return _write_buf.write("howdy").then([this] {
+                return _write_buf.flush();
+            }).then([this] {
+                _parser.init();
+                return _read_buf.consume(_parser).then([this] {
+                    // Read HTTP response header first
+                    if (_parser.eof()) {
+                        return make_ready_future<>();
+                    }
+                    auto _rsp = _parser.get_parsed_response();
+                    auto it = _rsp->_headers.find("Content-Length");
+                    if (it == _rsp->_headers.end()) {
+                        print("Error: HTTP response does not contain: Content-Length\n");
+                        return make_ready_future<>();
+                    }
+                    auto content_len = std::stoi(it->second);
+                    http_debug("Content-Length = %d\n", content_len);
+                    // Read HTTP response body
+                    return _read_buf.read_exactly(content_len).then([this] (temporary_buffer<char> buf) {
+                        _nr_done++;
+                        http_debug("%s\n", buf.get());
+                        if (_http_client->done(_nr_done)) {
+                            return make_ready_future();
+                        } else {
+                            return do_req();
+                        }
+                    });
+                });
+            });
+        }
+  };
+
+
   future<> connect(ipv4_addr server_addr) {
     // Establish all the TCP connections first
     for (unsigned i = 0; i < _conn_per_core; i++) {
