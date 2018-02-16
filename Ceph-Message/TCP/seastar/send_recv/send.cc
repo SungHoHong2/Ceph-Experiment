@@ -40,6 +40,10 @@ void http_debug(const char* fmt, Args&&... args) {
 #endif
 }
 
+class http_client {
+
+}
+
 
 namespace bpo = boost::program_options;
 int main(int ac, char** av) {
