@@ -85,9 +85,9 @@ public:
           _run_timer.arm(std::chrono::seconds(_duration));
       }
       for (auto&& fd : _sockets) {
-          auto conn = new connection(std::move(fd), this);
+          auto conn = new connection(move(fd), this);
           conn->do_req().then_wrapped([this, conn] (auto&& f) {
-              http_debug("Finished connection %6d on cpu %3d\n", _conn_finished.current(), engine().cpu_id());
+              // http_debug("Finished connection %6d on cpu %3d\n", _conn_finished.current(), engine().cpu_id());
               _total_reqs += conn->nr_done();
               _conn_finished.signal();
               delete conn;
