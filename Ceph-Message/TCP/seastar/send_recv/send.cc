@@ -53,7 +53,7 @@ int main(int ac, char** av) {
     auto reqs_per_conn = config["reqs"].as<unsigned>(); // requests per connection
     auto total_conn= config["conn"].as<unsigned>(); // number of connections
     auto duration = config["duration"].as<unsigned>(); // duration
-    
+
 
     if (total_conn % smp::count != 0) { // future count should have numbers
         print("Error: conn needs to be n * cpu_nr\n");
