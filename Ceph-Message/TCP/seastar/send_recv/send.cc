@@ -118,6 +118,19 @@ public:
   };
 
 
+  // future<uint64_t> total_reqs() {
+  //     print("Requests on cpu %2d: %ld\n", engine().cpu_id(), _total_reqs);
+  //     return make_ready_future<uint64_t>(_total_reqs);
+  // }
+
+  bool done(uint64_t nr_done) {
+      if (_timer_based) {
+          return _timer_done;
+      } else {
+          return nr_done >= _reqs_per_conn;
+      }
+  }
+
   future<> connect(ipv4_addr server_addr) {
     // Establish all the TCP connections first
     for (unsigned i = 0; i < _conn_per_core; i++) {
