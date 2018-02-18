@@ -64,7 +64,6 @@ public:
 
 
   class connection {
-
     private:
         connected_socket _fd;
         input_stream<char> _read_buf;
@@ -188,16 +187,6 @@ int main(int ac, char** av) {
           cout << "http_clients->map_reduce" << endl;
           return http_clients->map_reduce(adder<uint64_t>(), &http_client::total_reqs);
         }).then([http_clients] (auto total_reqs){
-
-          // auto finished = steady_clock_type::now();
-          // auto elapsed = finished - started;
-          // auto secs = static_cast<double>(elapsed.count() / 1000000000.0);
-          // print("Total cpus: %u\n", smp::count);
-          // print("Total requests: %u\n", total_reqs);
-          // print("Total time: %f\n", secs);
-          // print("Requests/sec: %f\n", static_cast<double>(total_reqs) / secs);
-          // print("==========     done     ============\n");
-
           return http_clients->stop().then([http_clients] {
               delete http_clients;
               return make_ready_future<int>(0);

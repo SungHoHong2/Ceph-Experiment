@@ -1,5 +1,5 @@
 SEASTAR ="/home/sungho/seastar"
-TARGET ="send"
+TARGET ="recv"
 
 all:
 	g++  `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET}.cc -o ${TARGET}
