@@ -162,7 +162,7 @@ int main(int ac, char ** av) {
           auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
           auto test = config["test"].as<std::string>();
-          auto ncon = config["conn"].as<unsigned>();
+          unsigned int ncon = 16;
           // auto proto = config["proto"].as<std::string>();
           // if (proto == "tcp") {
           protocol = transport::TCP;
