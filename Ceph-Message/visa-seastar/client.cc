@@ -14,6 +14,7 @@ static std::string str_txbuf(tx_msg_size, 'X');
 
 class client;
 distributed<client> clients;
+
 transport protocol = transport::TCP;
 
 class client {
@@ -82,6 +83,28 @@ public:
                     } else {
                         return make_ready_future();
                     }
+                });
+            });
+        }
+
+        future<size_t> rxrx() {
+            return _write_buf.write("rxrx").then([this] {
+                return _write_buf.flush();
+            }).then([this] {
+                return do_write(tx_msg_nr).then([this] {
+                    return _write_buf.close();
+                }).then([this] {
+                    return make_ready_future<size_t>(_bytes_write);
+                });
+            });
+        }
+
+        future<size_t> txtx() {
+            return _write_buf.write("txtx").then([this] {
+                return _write_buf.flush();
+            }).then([this] {
+                return do_read().then([this] {
+                    return make_ready_future<size_t>(_bytes_read);
                 });
             });
         }
