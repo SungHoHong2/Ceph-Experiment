@@ -165,7 +165,7 @@ int main(int ac, char ** av) {
           unsigned ncon = 16;
           // auto proto = config["proto"].as<std::string>();
           // if (proto == "tcp") {
-          char* test = "ping";
+          char* const test = "ping";
           protocol = transport::TCP;
           // }
 
