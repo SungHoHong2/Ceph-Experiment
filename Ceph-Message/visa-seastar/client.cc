@@ -86,28 +86,6 @@ public:
                 });
             });
         }
-
-        future<size_t> rxrx() {
-            return _write_buf.write("rxrx").then([this] {
-                return _write_buf.flush();
-            }).then([this] {
-                return do_write(tx_msg_nr).then([this] {
-                    return _write_buf.close();
-                }).then([this] {
-                    return make_ready_future<size_t>(_bytes_write);
-                });
-            });
-        }
-
-        future<size_t> txtx() {
-            return _write_buf.write("txtx").then([this] {
-                return _write_buf.flush();
-            }).then([this] {
-                return do_read().then([this] {
-                    return make_ready_future<size_t>(_bytes_read);
-                });
-            });
-        }
     };
 
     future<> ping_test(connection *conn) {
@@ -115,22 +93,6 @@ public:
         return conn->ping(_pings_per_connection).then([started] {
             auto finished = lowres_clock::now();
             clients.invoke_on(0, &client::ping_report, started, finished);
-        });
-    }
-
-    future<> rxrx_test(connection *conn) {
-        auto started = lowres_clock::now();
-        return conn->rxrx().then([started] (size_t bytes) {
-            auto finished = lowres_clock::now();
-            clients.invoke_on(0, &client::rxtx_report, started, finished, bytes);
-        });
-    }
-
-    future<> txtx_test(connection *conn) {
-        auto started = lowres_clock::now();
-        return conn->txtx().then([started] (size_t bytes) {
-            auto finished = lowres_clock::now();
-            clients.invoke_on(0, &client::rxtx_report, started, finished, bytes);
         });
     }
 
