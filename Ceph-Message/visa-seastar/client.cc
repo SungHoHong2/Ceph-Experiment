@@ -160,20 +160,29 @@ int main(int ac, char ** av) {
         ;
 
     return app.run_deprecated(ac, av, [&app] {
-        auto&& config = app.configuration();
-        auto server = "10.218.105.75:1234";
-        auto test = "ping";
-        auto ncon = 16;
-        protocol = transport::TCP;
+      auto&& config = app.configuration();
+      auto server = config["server"].as<std::string>();
+      auto test = config["test"].as<std::string>();
+      auto ncon = config["conn"].as<unsigned>();
+      auto proto = config["proto"].as<std::string>();
 
-        if (!client::tests.count(test)) {
-            fprint(std::cerr, "Error: -test=ping | rxrx | txtx\n");
-            return engine().exit(1);
-        }
+      if (proto == "tcp") {
+          protocol = transport::TCP;
+      } else if (proto == "sctp") {
+          protocol = transport::SCTP;
+      } else {
+          fprint(std::cerr, "Error: --proto=tcp|sctp\n");
+          return engine().exit(1);
+      }
 
-        clients.start().then([server, test, ncon] () {
-            clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
-        });
+      if (!client::tests.count(test)) {
+          fprint(std::cerr, "Error: -test=ping | rxrx | txtx\n");
+          return engine().exit(1);
+      }
+
+      clients.start().then([server, test, ncon] () {
+          clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
+      });
     });
 }
 
