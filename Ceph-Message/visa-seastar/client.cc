@@ -160,7 +160,7 @@ int main(int ac, char ** av) {
 
     return app.run_deprecated(ac, av, [&app] {
           auto&& config = app.configuration();
-          auto server = "10.218.105.75:1234"
+          auto server = "10.218.105.75:1234";
           auto test = config["test"].as<std::string>();
           auto ncon = config["conn"].as<unsigned>();
           // auto proto = config["proto"].as<std::string>();
