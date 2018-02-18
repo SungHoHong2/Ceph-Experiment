@@ -152,23 +152,11 @@ namespace bpo = boost::program_options;
 
 int main(int ac, char ** av) {
     app_template app;
-    app.add_options()
-        ("server", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address")
-        ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
-        ("conn", bpo::value<unsigned>()->default_value(16), "nr connections per cpu")
-        ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp");
-
     return app.run_deprecated(ac, av, [&app] {
-          auto&& config = app.configuration();
-          auto server = config["server"].as<std::string>();
-          auto test = config["test"].as<std::string>();
-          auto ncon = config["conn"].as<unsigned>();
-          auto proto = config["proto"].as<std::string>();
-
-          if (proto == "tcp") {
-              protocol = transport::TCP;
-          }
-
+          auto server = "10.218.105.75:1234";
+          auto test = "ping";
+          auto ncon = 16;
+          protocol = transport::TCP;
           clients.start().then([server, test, ncon] () {
               clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
           });
