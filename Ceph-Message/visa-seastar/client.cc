@@ -68,6 +68,15 @@ public:
                 return _write_buf.flush();
             }).then([this, times] {
                 return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
+                    if (buf.size() != 4) {
+                        fprint(std::cerr, "illegal packet received: %d\n", buf.size());
+                        return make_ready_future();
+                    }
+                    auto str = std::string(buf.get(), buf.size());
+                    if (str != "pong") {
+                        fprint(std::cerr, "illegal packet received: %d\n", buf.size());
+                        return make_ready_future();
+                    }
                     if (times > 0) {
                         return ping(times - 1);
                     } else {
@@ -102,6 +111,29 @@ public:
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Requests/Sec: %f\n",
                 static_cast<double>(_total_pings) / secs);
+            clients.stop().then([] {
+                engine().exit(0);
+            });
+        }
+    }
+
+    void rxtx_report(lowres_clock::time_point started, lowres_clock::time_point finished, size_t bytes) {
+        if (_earliest_started > started)
+            _earliest_started = started;
+        if (_latest_finished < finished)
+            _latest_finished = finished;
+        _processed_bytes += bytes;
+        if (++_num_reported == _concurrent_connections) {
+            auto elapsed = _latest_finished - _earliest_started;
+            auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+            auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
+            fprint(std::cout, "========== %s ============\n", _test);
+            fprint(std::cout, "Server: %s\n", _server_addr);
+            fprint(std::cout, "Connections: %u\n", _concurrent_connections);
+            fprint(std::cout, "Bytes Received(MiB): %u\n", _processed_bytes/1024/1024);
+            fprint(std::cout, "Total Time(Secs): %f\n", secs);
+            fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
+                static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
             clients.stop().then([] {
                 engine().exit(0);
             });
