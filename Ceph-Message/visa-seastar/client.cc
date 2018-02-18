@@ -118,6 +118,22 @@ public:
         });
     }
 
+    future<> rxrx_test(connection *conn) {
+        auto started = lowres_clock::now();
+        return conn->rxrx().then([started] (size_t bytes) {
+            auto finished = lowres_clock::now();
+            clients.invoke_on(0, &client::rxtx_report, started, finished, bytes);
+        });
+    }
+
+    future<> txtx_test(connection *conn) {
+        auto started = lowres_clock::now();
+        return conn->txtx().then([started] (size_t bytes) {
+            auto finished = lowres_clock::now();
+            clients.invoke_on(0, &client::rxtx_report, started, finished, bytes);
+        });
+    }
+
     void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
         if (_earliest_started > started)
             _earliest_started = started;
