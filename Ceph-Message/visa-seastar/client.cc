@@ -159,10 +159,10 @@ int main(int ac, char ** av) {
         ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp");
 
     return app.run_deprecated(ac, av, [&app] {
-          auto server = "10.218.105.75:1234";
-          auto test = "ping";
-          auto ncon = 16;
-          auto proto = "tcp";
+          auto server = config["server"].as<std::string>();
+          auto test = config["test"].as<std::string>();
+          auto ncon = config["conn"].as<unsigned>();
+          auto proto = config["proto"].as<std::string>();
 
           protocol = transport::TCP;
 
