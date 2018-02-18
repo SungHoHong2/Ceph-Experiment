@@ -162,14 +162,15 @@ int main(int ac, char ** av) {
           auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
           auto test = config["test"].as<std::string>();
-          unsigned int ncon = 16;
+          unsigned ncon = 16;
           // auto proto = config["proto"].as<std::string>();
           // if (proto == "tcp") {
           protocol = transport::TCP;
           // }
 
+          cout << "howdy: " << test << endl;
           clients.start().then([server, test, ncon] () {
-              clients.invoke_on_all(&client::start, ipv4_addr{server}, "ping", ncon);
+              clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
           });
     });
 }
