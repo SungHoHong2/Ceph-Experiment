@@ -159,7 +159,7 @@ int main(int ac, char ** av) {
         ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp");
 
     return app.run_deprecated(ac, av, [&app] {
-          auto&& config = app.configuration();
+          // auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
           // auto test = config["test"].as<std::string>();
           unsigned ncon = 16;
