@@ -40,43 +40,15 @@ public:
             , _read_buf(_fd.input())
             , _write_buf(_fd.output()) {}
 
-        future<> do_read() {
-            return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
-                _bytes_read += buf.size();
-                if (buf.size() == 0) {
-                    return make_ready_future();
-                } else {
-                    return do_read();
-                }
-            });
-        }
-
-        future<> do_write(int end) {
-            if (end == 0) {
-                return make_ready_future();
-            }
-            return _write_buf.write(str_txbuf).then([this] {
-                _bytes_write += tx_msg_size;
-                return _write_buf.flush();
-            }).then([this, end] {
-                return do_write(end - 1);
-            });
-        }
-
         future<> ping(int times) {
             return _write_buf.write("ping").then([this] {
                 return _write_buf.flush();
             }).then([this, times] {
                 return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
-                    if (buf.size() != 4) {
-                        fprint(std::cerr, "illegal packet received: %d\n", buf.size());
-                        return make_ready_future();
-                    }
                     auto str = std::string(buf.get(), buf.size());
-                    if (str != "pong") {
-                        fprint(std::cerr, "illegal packet received: %d\n", buf.size());
-                        return make_ready_future();
-                    }
+
+                    cout << str << endl;
+
                     if (times > 0) {
                         return ping(times - 1);
                     } else {
@@ -155,17 +127,15 @@ int main(int ac, char ** av) {
     app.add_options()
         ("server", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address")
         ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
-        ("conn", bpo::value<unsigned>()->default_value(16), "nr connections per cpu")
-        ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp");
+        ("conn", bpo::value<unsigned>()->default_value(16), "nr connections per cpu");
 
     return app.run_deprecated(ac, av, [&app] {
           auto&& config = app.configuration();
-          auto server = "10.218.105.75:1234";
+          auto server = config["server"].as<std::string>();
           auto test = config["test"].as<std::string>();
-          unsigned ncon = 16;
+          auto ncon = config["conn"].as<unsigned>();
           protocol = transport::TCP;
 
-          std::cout << "howdy: " << test << std::endl;
           clients.start().then([server, test, ncon] () {
               clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
           });
