@@ -162,7 +162,11 @@ int main(int ac, char ** av) {
           auto server = "10.218.105.75:1234";
           auto test = "ping";
           auto ncon = 16;
+          auto proto = "tcp";
+
           protocol = transport::TCP;
+
+
           clients.start().then([server, test, ncon] () {
               clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
           });
