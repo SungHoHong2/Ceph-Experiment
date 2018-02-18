@@ -9,11 +9,6 @@ using namespace seastar;
 
 static std::string str_ping{"ping"};
 static std::string str_pong{"pong"};
-static int tx_msg_total_size = 100 * 1024 * 1024;
-static int tx_msg_size = 4 * 1024;
-static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
-static int rx_msg_size = 4 * 1024;
-static std::string str_txbuf(tx_msg_size, 'X');
 
 class tcp_server {
     std::vector<server_socket> _tcp_listeners;
@@ -85,25 +80,6 @@ public:
                     }).then([this] {
                         return this->read();
                     });
-                }
-            });
-        }
-        future<> do_write(int end) {
-            if (end == 0) {
-                return make_ready_future<>();
-            }
-            return _write_buf.write(str_txbuf).then([this] {
-                return _write_buf.flush();
-            }).then([this, end] {
-                return do_write(end - 1);
-            });
-        }
-        future<> do_read() {
-            return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
-                if (buf.size() == 0) {
-                    return make_ready_future();
-                } else {
-                    return do_read();  // read the file until it
                 }
             });
         }
