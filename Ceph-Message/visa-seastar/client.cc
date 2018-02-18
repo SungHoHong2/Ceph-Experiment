@@ -47,7 +47,7 @@ public:
                 return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
                     auto str = std::string(buf.get(), buf.size());
 
-                    cout << str << endl;
+                    std::cout << str << std::endl;
 
                     if (times > 0) {
                         return ping(times - 1);
