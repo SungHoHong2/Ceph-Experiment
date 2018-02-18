@@ -161,13 +161,9 @@ int main(int ac, char ** av) {
     return app.run_deprecated(ac, av, [&app] {
           // auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
-          // auto test = config["test"].as<std::string>();
+          auto test = config["test"].as<std::string>();
           unsigned ncon = 16;
-          // auto proto = config["proto"].as<std::string>();
-          // if (proto == "tcp") {
-          char* const test = "ping";
           protocol = transport::TCP;
-          // }
 
           std::cout << "howdy: " << test << std::endl;
           clients.start().then([server, test, ncon] () {
