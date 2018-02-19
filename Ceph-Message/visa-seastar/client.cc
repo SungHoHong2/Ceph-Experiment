@@ -25,25 +25,24 @@ public:
         connected_socket _fd;
         input_stream<char> _read_buf;
         output_stream<char> _write_buf;
-        size_t _bytes_read = 0;
-        size_t _bytes_write = 0;
     public:
         connection(connected_socket&& fd)
             : _fd(std::move(fd))
             , _read_buf(_fd.input())
             , _write_buf(_fd.output()) {}
 
+        // ping function
         future<> ping(int times) {
             return _write_buf.write("ping").then([this] {
-                return _write_buf.flush();
+                return _write_buf.flush(); // send string data ping
             }).then([this, times] {
-                return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
-                    auto str = std::string(buf.get(), buf.size());
+                return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) { // read only when the file size is 4
+                    auto str = std::string(buf.get(), buf.size());  // get the string data from the server "pong"
                     // std::cout << str << std::endl;
                     if (times > 0) {
-                        return ping(times - 1);
+                        return ping(times - 1); // continue the ping for designated amount of time
                     } else {
-                        return make_ready_future();
+                        return make_ready_future(); // finish ping
                     }
                 });
             });
@@ -51,10 +50,10 @@ public:
     };
 
     future<> ping_test(connection *conn) {
-        auto started = lowres_clock::now();
+        auto started = lowres_clock::now(); // start timing the clock
         return conn->ping(_pings_per_connection).then([started] {
-            auto finished = lowres_clock::now();
-            clients.invoke_on(0, &client::ping_report, started, finished);
+            auto finished = lowres_clock::now(); // stop timing the clock
+            clients.invoke_on(0, &client::ping_report, started, finished); // run pingpong report after transfer
         });
     }
 
@@ -105,6 +104,7 @@ public:
             });
         }
         return make_ready_future();
+        // Creates a future in an available, value state.
     }
     future<> stop() {
         return make_ready_future();
@@ -129,7 +129,3 @@ int main(int ac, char ** av) {
           });
     });
 }
-
-const std::map<std::string, client::test_fn> client::tests = {
-        {"ping", &client::ping_test},
-};
