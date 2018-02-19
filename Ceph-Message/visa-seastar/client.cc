@@ -124,7 +124,7 @@ int main(int ac, char ** av) {
           auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
           std::string test = "ping";
-          auto ncon = 1;
+          unsigned ncon = 1;
           protocol = transport::TCP;
 
           clients.start().then([server, test, ncon] () {
