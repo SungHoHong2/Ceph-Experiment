@@ -20,7 +20,7 @@
 - [Ceph Messenger Experiments](Ceph-Message/TCP/README.md)
   - [RADOS benchmark tests](Ceph-Message/TCP/result)
   - [seastar experiments](Ceph-Message/TCP/seastar)
-  - [seastar running on pingpong](Ceph-Message/TCP/visa-seastar)
+- [Seastar pingpong](Ceph-Message/visa-seastar)
 - [Ceph Messenger in DPDK](Ceph-Message/DPDK/README.md)
 - [Ceph Messenger in RDMA](Ceph-Message/RDMA/README.md)
 
