@@ -7,8 +7,8 @@ using namespace net;
 using namespace std::chrono_literals;
 
 class client;
-distributed<client> clients;
-transport protocol = transport::TCP;
+distributed<client> clients; // distributed: Invoke a method on a specific instance of Service.
+transport protocol = transport::TCP; // protocol used to transport data
 
 class client {
 private:
@@ -17,10 +17,9 @@ private:
     unsigned _concurrent_connections;
     ipv4_addr _server_addr;
     std::string _test;
-    lowres_clock::time_point _earliest_started;
-    lowres_clock::time_point _latest_finished;
-    size_t _processed_bytes;
-    unsigned _num_reported;
+    lowres_clock::time_point _earliest_started; // time used to count latency
+    lowres_clock::time_point _latest_finished; // time sued to count latency
+    unsigned _num_reported; // compare the total number of pingpongs and end the loop
 public:
     class connection {
         connected_socket _fd;
@@ -115,16 +114,17 @@ public:
 namespace bpo = boost::program_options;
 
 int main(int ac, char ** av) {
-    app_template app;
-    app.add_options()
+    app_template app; // starts the seastar engine
+    app.add_options() // used to accept argumments when running the application
         ("server", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address")
-        ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
+        ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping)")
         ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu");
 
-    return app.run_deprecated(ac, av, [&app] {
+    return app.run_deprecated(ac, av, [&app] {  // run application
           auto&& config = app.configuration();
           auto server = config["server"].as<std::string>();
-          auto test = config["test"].as<std::string>();
+          // auto test = config["test"].as<std::string>();
+          std::string test = "ping";
           auto ncon = config["conn"].as<unsigned>();
           protocol = transport::TCP;
 
