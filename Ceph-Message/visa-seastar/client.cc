@@ -123,7 +123,7 @@ int main(int ac, char ** av) {
           // TCP: 10.218.105.75:1234
           // DPDK: 10.218.111.252:1234
           std::string test = "ping"; // assing function ping_test
-          unsigned ncon = 1; // assign number of connections per core
+          unsigned ncon = 16; // assign number of connections per core
           protocol = transport::TCP;  // assign protocol
           clients.start().then([server, test, ncon] () {
               clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon); // this is one function invoking
