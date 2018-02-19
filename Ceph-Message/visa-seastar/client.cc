@@ -115,18 +115,11 @@ namespace bpo = boost::program_options;
 
 int main(int ac, char ** av) {
     app_template app; // starts the seastar engine
-    app.add_options() // used to accept argumments when running the application
-        ("server", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address")
-        ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping)")
-        ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu");
-
     return app.run_deprecated(ac, av, [&app] {  // run application
-          auto&& config = app.configuration();
           auto server = "10.218.105.75:1234";
           std::string test = "ping";
           unsigned ncon = 1;
           protocol = transport::TCP;
-
           clients.start().then([server, test, ncon] () {
               clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
           });
