@@ -122,9 +122,8 @@ int main(int ac, char ** av) {
 
     return app.run_deprecated(ac, av, [&app] {  // run application
           auto&& config = app.configuration();
-          std::string server = "10.218.105.75:1234";
+          auto server = "10.218.105.75:1234";
           std::string test = "ping";
-          
           auto ncon = config["conn"].as<unsigned>();
           protocol = transport::TCP;
 
