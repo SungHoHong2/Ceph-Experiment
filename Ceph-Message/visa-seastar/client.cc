@@ -119,7 +119,7 @@ namespace bpo = boost::program_options;
 int main(int ac, char ** av) {
     app_template app; // starts the seastar engine
     return app.run_deprecated(ac, av, [&app] {  // run application
-          auto server = "10.218.111.253:1234"; // assign ip address
+          auto server = "10.218.105.75:1234"; // assign ip address
           // TCP: 10.218.105.75:1234
           // DPDK: 10.218.111.252:1234
           std::string test = "ping"; // assing function ping_test
