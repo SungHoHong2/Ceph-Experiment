@@ -82,16 +82,19 @@ public:
     }
 
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
-        _server_addr = server_addr;
-        _concurrent_connections = ncon * smp::count;
-        _total_pings = _pings_per_connection * _concurrent_connections;
-        _test = test;
+        _server_addr = server_addr; // assign the ip address
+        _concurrent_connections = ncon * smp::count; // multiple the total available cores and the communication
+        _total_pings = _pings_per_connection * _concurrent_connections; // multiple total number of pings and concurrent connection
+        _test = test; // assign ping
 
-        for (unsigned i = 0; i < ncon; i++) {
-            socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
-            engine().net().connect(make_ipv4_address(server_addr), local, protocol).then([this, test] (connected_socket fd) {
-                auto conn = new connection(std::move(fd));
-                (this->*tests.at(test))(conn).then_wrapped([conn] (auto&& f) {
+        for (unsigned i = 0; i < ncon; i++) { // iterate all connections
+            socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}}); // get socket address
+
+            engine().net().connect(make_ipv4_address(server_addr), local, protocol) // connect with TCP protocol
+            .then([this, test] (connected_socket fd) {
+                auto conn = new connection(std::move(fd)); // create connection
+               (this->client::ping_test)(conn).then_wrapped([conn] (auto&& f) {
+                // (this->*tests.at(test))(conn).then_wrapped([conn] (auto&& f) {
                     delete conn;
                     try {
                         f.get();
@@ -116,12 +119,13 @@ namespace bpo = boost::program_options;
 int main(int ac, char ** av) {
     app_template app; // starts the seastar engine
     return app.run_deprecated(ac, av, [&app] {  // run application
-          auto server = "10.218.105.75:1234";
-          std::string test = "ping";
-          unsigned ncon = 1;
-          protocol = transport::TCP;
+          auto server = "10.218.105.75:1234"; // assign ip address
+          std::string test = "ping"; // assing function ping_test
+          unsigned ncon = 1; // assign number of connections per core
+          protocol = transport::TCP;  // assign protocol
           clients.start().then([server, test, ncon] () {
-              clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
+              clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon); // this is one function invoking
+              // Invoke a callable on all instances of Service.
           });
     });
 }
