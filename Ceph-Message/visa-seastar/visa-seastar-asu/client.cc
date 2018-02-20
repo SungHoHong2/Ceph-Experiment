@@ -123,7 +123,7 @@ int main(int ac, char ** av) {
 
     return app.run_deprecated(ac, av, [&app] {  // run application
           auto&& config = app.configuration();
-          auto server = config["server"].as<std::string>();
+          auto server = config["s"].as<std::string>();
           std::string test = "ping"; // assing function ping_test
           unsigned ncon = 1; // assign number of connections per core
           protocol = transport::TCP;  // assign protocol
