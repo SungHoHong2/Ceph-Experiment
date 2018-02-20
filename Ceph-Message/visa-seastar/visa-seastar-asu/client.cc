@@ -119,7 +119,7 @@ namespace bpo = boost::program_options;
 int main(int ac, char ** av) {
     app_template app; // starts the seastar engine
     app.add_options()
-    ("s", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address")
+    ("s", bpo::value<std::string>()->default_value("10.218.105.75:1234"), "Server address");
 
     return app.run_deprecated(ac, av, [&app] {  // run application
           auto&& config = app.configuration();
