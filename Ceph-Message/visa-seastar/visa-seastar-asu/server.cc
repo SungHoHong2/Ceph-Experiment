@@ -86,6 +86,7 @@ public:
                     });
                 }
             });
+            return make_ready_future(); // end functio
         }
     };
 };
