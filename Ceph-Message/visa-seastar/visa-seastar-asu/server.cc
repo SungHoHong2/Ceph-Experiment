@@ -85,8 +85,8 @@ public:
                         return this->read(); // rerun the read function
                     });
                 }
+                return make_ready_future(); // end functio
             });
-            return make_ready_future(); // end functio
         }
     };
 };
