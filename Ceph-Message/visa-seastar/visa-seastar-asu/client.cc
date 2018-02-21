@@ -114,6 +114,7 @@ public:
     static const std::map<std::string, test_fn> tests;
 };
 
+
 namespace bpo = boost::program_options;
 
 int main(int ac, char ** av) {
