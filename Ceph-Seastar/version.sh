@@ -72,13 +72,15 @@ rados bench -p test-pool2 10 write --no-cleanup
 rados bench -p test-pool2 1 write
 ceph osd pool delete test-pool test-pool --yes-i-really-really-mean-it
 
-
 ceph osd out osd.0
 ceph osd down osd.0
 ceph osd rm osd.0
 
 ceph osd crush rm osd.0
 ceph auth del osd.0
+
+
+
 
 elif [ "$HOSTS" = "wenji-w1" ]
 then
