@@ -19,8 +19,8 @@ git checkout -b luminous
 ./install-deps.sh
 ./do_cmake.sh
 cd build
-sudo make
-sudo make install
+sudo make -j 8
+sudo make install -j 8
 ```
 
 ```c++
