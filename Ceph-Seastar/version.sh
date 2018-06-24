@@ -17,12 +17,12 @@ git commit -m '$HISTORY'
 git push origin master
 
 
-
 elif [ "$1" = "git_to_server" ]
 then
 git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
+cd /home/sungho/ceph/build
 cd make -j 8 && make instal -j 8
 
       if [ "$HOSTS" = "w2" ]
