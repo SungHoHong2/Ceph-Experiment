@@ -727,8 +727,8 @@ flushjournal_out:
 
     std::cout << hostname << "\t::g_conf->daemonize" << std::endl;
 
-
     global_init_postfork_finish(g_ceph_context);
+    // FIXME: it ends here
     forker.daemonize();
   }
 
