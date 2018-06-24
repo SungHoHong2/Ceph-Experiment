@@ -230,7 +230,7 @@ int main(int argc, const char **argv)
 
     if (bl.read_file(dump_pg_log.c_str(), &error) >= 0) {
       pg_log_entry_t e;
-      auto p = bl.cbegin();
+      auto p = bl.begin();
       while (!p.end()) {
 	uint64_t pos = p.get_off();
 	try {
