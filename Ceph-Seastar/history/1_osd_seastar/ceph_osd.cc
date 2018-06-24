@@ -292,12 +292,6 @@ int main(int argc, const char **argv)
     forker.exit(-ENODEV);
   }
 
-<<<<<<< HEAD
-=======
-#ifdef BUILDING_FOR_EMBEDDED
-  cephd_preload_embedded_plugins();
-#endif
->>>>>>> b26ff9f79a0cbdda8b888e5cd2bcec84fdf0070d
 
   if (mkkey) {
     common_init_finish(g_ceph_context);
@@ -331,7 +325,6 @@ int main(int argc, const char **argv)
   }
   if (mkfs) {
     common_init_finish(g_ceph_context);
-<<<<<<< HEAD
 
     if (g_conf->get_val<uuid_d>("fsid").is_zero()) {
       derr << "must specify cluster fsid" << dendl;
@@ -354,31 +347,6 @@ int main(int argc, const char **argv)
   if (mkfs || mkkey) {
     forker.exit(0);
   }
-=======
-    MonClient mc(g_ceph_context);
-    if (mc.build_initial_monmap() < 0)
-      return -1;
-    if (mc.get_monmap_privately() < 0)
-      return -1;
-
-    if (mc.monmap.fsid.is_zero()) {
-      derr << "must specify cluster fsid" << dendl;
-      return -EINVAL;
-    }
-
-    int err = OSD::mkfs(g_ceph_context, store, g_conf->osd_data,
-			mc.monmap.fsid, whoami);
-    if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error creating empty object store in "
-	   << g_conf->osd_data << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
-      exit(1);
-    }
-    derr << "created object store " << g_conf->osd_data
-	 << " for osd." << whoami << " fsid " << mc.monmap.fsid << dendl;
-  }
-  if (mkfs || mkkey)
-    exit(0);
->>>>>>> b26ff9f79a0cbdda8b888e5cd2bcec84fdf0070d
   if (mkjournal) {
     common_init_finish(g_ceph_context);
     int err = store->mkjournal();
