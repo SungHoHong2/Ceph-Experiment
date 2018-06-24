@@ -24,22 +24,23 @@ git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
 
+      if [ "$HOSTS" = "w2" ]
+      then
+      kill -9 `pidof ceph-osd`
+      ceph-osd -i 0 -c /etc/ceph/ceph.conf
+
+      elif [ "$HOSTS" = "wenji-w1" ]
+      then
+      kill -9 `pidof ceph-mon`
+      kill -9 `pidof ceph-mgr`
+      ceph-mon -i wenji -c /etc/ceph/ceph.conf
+      ceph-mgr -i 0 -c /etc/ceph/ceph.conf
+      fi
 
 
-elif [ "$1" = "run_ceph" ]
+elif [ "$HOSTS" = "ceph-junk" ]
 then
-
-if [ "$HOSTS" = "w2" ]
-then
-
-kill -9 `pidof ceph-osd`
-sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
-
-
-
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
-
-
 
 sudo parted -s -a optimal /dev/sdb mklabel gpt
 sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-data 0G 10G
@@ -87,18 +88,9 @@ ceph auth del osd.0
 
 
 
-
-elif [ "$HOSTS" = "wenji-w1" ]
-then
-sudo ceph-mon -i wenji -c /etc/ceph/ceph.conf
-ceph-mgr -i 0 -c /etc/ceph/ceph.conf
-
-
-fi
-
-
 else
 echo "no argument"
+
 
 
 
