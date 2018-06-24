@@ -22,6 +22,8 @@ then
 git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/build/src
+
 cd /home/sungho/ceph/build
 make -j 8 && make instal -j 8
 
