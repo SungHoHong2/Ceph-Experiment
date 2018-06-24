@@ -24,11 +24,12 @@ git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/build/src
 
-cd /home/sungho/ceph/build
-make -j 8 && make instal -j 8
-
       if [ "$HOSTS" = "w2" ]
       then
+      export LC_ALL=C
+      cd /home/sungho/ceph/build
+      make -j 8 && make install -j 8
+            
       kill -9 `pidof ceph-osd`
       ceph-osd -i 0 -c /etc/ceph/ceph.conf
 

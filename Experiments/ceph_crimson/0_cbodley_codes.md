@@ -1,10 +1,6 @@
-
 ### problems
 Seastar context is different
 Seastar IP address will be different for DPDK
-
-
-
 
 ### Ceph-Crimson
 lets first see how original Ceph work without the help of ceph
@@ -21,7 +17,31 @@ git checkout -b luminous
 cd build
 sudo make -j 8
 sudo make install -j 8
+
+sudo apt-get install python-setuptools python-dev
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 100
+sudo update-alternatives --config gcc
+
+locale.Error: unsupported locale setting
 ```
+
+
+```
+export LC_ALL=C
+Complete output from command /home/sungho/ceph/bu...de-env/bin/python2.7 - setuptools pkg_resources pip
+wheel:
+Traceback (most recent call last):
+File "<stdin>", line 24, in <module>
+File "/usr/share/python-wheels/pip-8.1.1-py2.py3-none-any.whl/pip/__init__.py", line 215, in main
+File "/home/sungho/ceph/build/src/pybind/mgr/dashboard/node-env/lib/python2.7/locale.py", line 581, in
+etlocale
+  return _setlocale(category, locale)
+locale.Error: unsupported locale setting
+```
+
+
+
 
 ```c++
 src/msg
