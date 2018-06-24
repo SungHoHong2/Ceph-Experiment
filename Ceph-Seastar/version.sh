@@ -22,7 +22,8 @@ elif [ "$1" = "git_to_server" ]
 then
 git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
-cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/build/src/
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
+
 
 
 elif [ "$1" = "run_ceph" ]
@@ -31,8 +32,13 @@ then
 if [ "$HOSTS" = "w2" ]
 then
 
-
 kill -9 `pidof ceph-osd`
+sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
+
+
+
+make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
+
 
 
 sudo parted -s -a optimal /dev/sdb mklabel gpt
