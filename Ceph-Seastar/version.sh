@@ -23,7 +23,7 @@ git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
 cd /home/sungho/ceph/build
-cd make -j 8 && make instal -j 8
+make -j 8 && make instal -j 8
 
       if [ "$HOSTS" = "w2" ]
       then
