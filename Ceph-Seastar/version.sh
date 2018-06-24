@@ -4,7 +4,7 @@ if [ "$1" = "host_to_git" ]
 then
 rm -rf history/$HISTORY
 mkdir history/$HISTORY
-cp /Users/sunghohong/Documents/Projects/ceph/Makefile src/Makefile
+cp /Users/sunghohong/Documents/Projects/ceph/src/Makefile src/Makefile
 cp /Users/sunghohong/Documents/Projects/ceph/src/ceph_osd.cc src/ceph_osd.cc
 
 
