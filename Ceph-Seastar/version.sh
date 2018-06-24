@@ -10,6 +10,8 @@ cp /Users/sunghohong/Documents/Projects/ceph/src/ceph_osd.cc src/ceph_osd.cc
 
 
 cp src/* history/$HISTORY
+
+cd /Users/sunghohong/Documents/Projects/Ceph-Experiment
 git add .
 git commit -m '$HISTORY'
 git push origin master

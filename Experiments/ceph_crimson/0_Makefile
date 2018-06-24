@@ -1,0 +1,29 @@
+// Makefile
+# Build rule for target.
+ceph-osd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ceph-osd
+.PHONY : ceph-osd
+
+
+# Build rule for target.
+simple_client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_client
+.PHONY : simple_client
+
+# fast build rule for target.
+simple_client/fast:
+	$(MAKE) -f src/test/messenger/CMakeFiles/simple_client.dir/build.make src/test/messenger/CMakeFiles/simple_client.dir/build
+.PHONY : simple_client/fast
+
+#=============================================================================
+# Target rules for targets named simple_server
+
+# Build rule for target.
+simple_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_server
+.PHONY : simple_server
+
+# fast build rule for target.
+simple_server/fast:
+	$(MAKE) -f src/test/messenger/CMakeFiles/simple_server.dir/build.make src/test/messenger/CMakeFiles/simple_server.dir/build
+.PHONY : simple_server/fast
