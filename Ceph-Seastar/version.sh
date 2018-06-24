@@ -1,4 +1,4 @@
-HISTORY="0_osd_seastar"
+HISTORY="1_osd_seastar"
 
 if [ "$1" = "host_to_git" ]
 then
