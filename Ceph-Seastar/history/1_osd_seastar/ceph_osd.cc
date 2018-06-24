@@ -528,7 +528,7 @@ flushjournal_out:
   ms_hb_back_server->set_cluster_protocol(CEPH_OSD_PROTOCOL);
   ms_hb_front_server->set_cluster_protocol(CEPH_OSD_PROTOCOL);
 
-  cout << "CHARA: starting osd." << whoami
+  cout << "starting osd." << whoami
        << " at " << ms_public->get_myaddr()
        << " osd_data " << data_path
        << " " << ((journal_path.empty()) ?
@@ -719,7 +719,9 @@ flushjournal_out:
     dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
   }
 
+
   std::cout << "OSD END" << std::endl;
+
 
   return 0;
 }
