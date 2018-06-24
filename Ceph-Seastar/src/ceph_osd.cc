@@ -193,7 +193,7 @@ int main(int argc, const char **argv)
     exit(1);
   }
 
-  std::cout << hostname << "\t\t::arguments" << std::endl;
+  std::cout << hostname << "\t::arguments" << std::endl;
 
 
   if (global_init_prefork(g_ceph_context) >= 0) {
@@ -216,11 +216,12 @@ int main(int argc, const char **argv)
   global_init_chdir(g_ceph_context);
 
   if (get_journal_fsid) {
-    std::cout << hostname << "\t\t::get_journal_fsid" << std::endl;
+    std::cout << hostname << "\t::get_journal_fsid" << std::endl; // does not exists
     device_path = g_conf->get_val<std::string>("osd_journal");
     get_device_fsid = true;
   }
   if (get_device_fsid) {
+    std::cout << hostname << "\t::get_device_fsid" << std::endl;
     uuid_d uuid;
     int r = ObjectStore::probe_block_device_fsid(g_ceph_context, device_path,
 						 &uuid);
@@ -263,6 +264,10 @@ int main(int argc, const char **argv)
   const char *id = g_conf->name.get_id().c_str();
   int whoami = strtol(id, &end, 10);
   std::string data_path = g_conf->get_val<std::string>("osd_data");
+
+  std::cout << hostname << "\t::data_path::"<< data_path << std::endl;
+
+
   if (*end || end == id || whoami < 0) {
     derr << "must specify '-i #' where # is the osd number" << dendl;
     forker.exit(1);
@@ -315,6 +320,10 @@ int main(int argc, const char **argv)
     EntityAuth eauth;
 
     std::string keyring_path = g_conf->get_val<std::string>("keyring");
+
+    std::cout << hostname << "\t::keyring_path" << std::endl;
+
+
     int ret = keyring->load(g_ceph_context, keyring_path);
     if (ret == 0 &&
 	keyring->get_auth(ename, eauth)) {
@@ -341,9 +350,15 @@ int main(int argc, const char **argv)
       forker.exit(-EINVAL);
     }
 
+
+
     int err = OSD::mkfs(g_ceph_context, store, data_path,
 			g_conf->get_val<uuid_d>("fsid"),
                         whoami);
+
+
+    std::cout << hostname << "\t::mkfs" << std::endl;
+
     if (err < 0) {
       derr << TEXT_RED << " ** ERROR: error creating empty object store in "
 	   << data_path << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
@@ -354,10 +369,17 @@ int main(int argc, const char **argv)
 	    << " fsid " << g_conf->get_val<uuid_d>("fsid")
 	    << dendl;
   }
+
+
+
   if (mkfs || mkkey) {
     forker.exit(0);
   }
   if (mkjournal) {
+
+    std::cout << hostname << "\t::mkjournal" << std::endl;
+
+
     common_init_finish(g_ceph_context);
     int err = store->mkjournal();
     if (err < 0) {
@@ -431,6 +453,10 @@ flushjournal_out:
 
 
   if (convertfilestore) {
+
+    std::cout << hostname << "\t::convertfilestore" << std::endl;
+
+
     int err = store->mount();
     if (err < 0) {
       derr << TEXT_RED << " ** ERROR: error mounting store " << data_path
@@ -451,6 +477,10 @@ flushjournal_out:
   uuid_d cluster_fsid, osd_fsid;
   int w;
   int r = OSD::peek_meta(store, magic, cluster_fsid, osd_fsid, w);
+
+
+  std::cout << hostname << "\t::peek_meta" << std::endl;
+
   if (r < 0) {
     derr << TEXT_RED << " ** ERROR: unable to open OSD superblock on "
 	 << data_path << ": " << cpp_strerror(-r)
@@ -641,6 +671,9 @@ flushjournal_out:
     forker.exit(1);
   }
 
+
+  std::cout << hostname << "\t::new OSD BEGIN" << std::endl;
+
   osd = new OSD(g_ceph_context,
                 store,
                 whoami,
@@ -655,7 +688,13 @@ flushjournal_out:
                 data_path,
                 journal_path);
 
+  std::cout << hostname << "\t::new OSD END" << std::endl;
+
+
   int err = osd->pre_init();
+
+  std::cout << hostname << "\t::osd->pre_init()" << std::endl;
+
   if (err < 0) {
     derr << TEXT_RED << " ** ERROR: osd pre_init failed: " << cpp_strerror(-err)
 	 << TEXT_NORMAL << dendl;
@@ -672,6 +711,10 @@ flushjournal_out:
 
   // start osd
   err = osd->init();
+
+  std::cout << hostname << "\t::osd->init()" << std::endl;
+
+
   if (err < 0) {
     derr << TEXT_RED << " ** ERROR: osd init failed: " << cpp_strerror(-err)
          << TEXT_NORMAL << dendl;
@@ -681,6 +724,10 @@ flushjournal_out:
   // -- daemonize --
 
   if (g_conf->daemonize) {
+
+    std::cout << hostname << "\t::g_conf->daemonize" << std::endl;
+
+
     global_init_postfork_finish(g_ceph_context);
     forker.daemonize();
   }
@@ -690,6 +737,9 @@ flushjournal_out:
   register_async_signal_handler_oneshot(SIGTERM, handle_osd_signal);
 
   osd->final_init();
+
+  std::cout << hostname << "\t::osd->final_init()" << std::endl;
+
 
   if (g_conf->get_val<bool>("inject_early_sigterm"))
     kill(getpid(), SIGTERM);
