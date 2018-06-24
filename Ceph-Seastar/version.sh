@@ -20,7 +20,8 @@ elif [ "$1" = "git_to_server" ]
 then
 git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
-cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd /home/sungho/ceph/build/
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd /home/sungho/ceph/build/src/
+
 
 else
 echo "no argument"
