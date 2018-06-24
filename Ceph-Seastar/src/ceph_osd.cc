@@ -104,7 +104,8 @@ static void usage()
 int main(int argc, const char **argv)
 {
 
-  std::cout << "OSD BEGIN" << std::endl;
+  gethostname(hostname, 150);
+  std::cout << hostname << "::OSD BEGIN" << std::endl;
   vector<const char*> args;
   argv_to_vec(argc, argv, args);
   if (args.empty()) {
@@ -115,6 +116,7 @@ int main(int argc, const char **argv)
     usage();
     exit(0);
   }
+
 
   map<string,string> defaults = {
     // We want to enable leveldb's log, while allowing users to override this
@@ -189,6 +191,9 @@ int main(int argc, const char **argv)
     exit(1);
   }
 
+  std::cout << hostname << "\t\t::arguments" << std::endl;
+
+
   if (global_init_prefork(g_ceph_context) >= 0) {
     std::string err;
     int r = forker.prefork(err);
@@ -209,6 +214,7 @@ int main(int argc, const char **argv)
   global_init_chdir(g_ceph_context);
 
   if (get_journal_fsid) {
+    std::cout << hostname << "\t\t::get_journal_fsid" << std::endl;
     device_path = g_conf->get_val<std::string>("osd_journal");
     get_device_fsid = true;
   }
