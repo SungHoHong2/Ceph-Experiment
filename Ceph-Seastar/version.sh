@@ -23,6 +23,7 @@ then
 git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/Makefile /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/src/
+cd make -j 8 && make instal -j 8
 
       if [ "$HOSTS" = "w2" ]
       then
@@ -36,7 +37,6 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc /home/sungho/ceph/s
       ceph-mon -i wenji -c /etc/ceph/ceph.conf
       ceph-mgr -i 0 -c /etc/ceph/ceph.conf
       fi
-
 
 elif [ "$HOSTS" = "ceph-junk" ]
 then
@@ -86,12 +86,7 @@ ceph osd rm osd.0
 ceph osd crush rm osd.0
 ceph auth del osd.0
 
-
-
 else
 echo "no argument"
-
-
-
 
 fi
