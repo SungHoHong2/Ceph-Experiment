@@ -62,7 +62,7 @@
 
 #define CEPH_OSD_PROTOCOL    10 /* cluster internal */
 
-char hostname[150];
+extern char hostname[150];
 
 /*
 

@@ -52,6 +52,8 @@
 #define dout_context g_ceph_context
 #define dout_subsys ceph_subsys_osd
 
+
+char hostname[150];
 namespace {
 
 TracepointProvider::Traits osd_tracepoint_traits("libosd_tp.so",
