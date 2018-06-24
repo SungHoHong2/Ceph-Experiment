@@ -719,5 +719,7 @@ flushjournal_out:
     dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
   }
 
+  std::cout << "OSD END" << std::endl;
+
   return 0;
 }
