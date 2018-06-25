@@ -32,9 +32,19 @@ int main(int ac, char** av) {
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
 
+        protocol = transport::TCP;
+
+
+        if (!client::tests.count(test)) {
+            return engine().exit(1);
+        }
 
 
         std::cout << "MAIN END" << std::endl;
     });
 
 }
+
+const std::map<std::string, client::test_fn> client::tests = {
+        {"ping", &client::ping_test},
+};
