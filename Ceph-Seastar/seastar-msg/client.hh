@@ -45,12 +45,7 @@ public:
                 if (times > 0) {
                     return ping(times - 1);
                 } else {
-
-                    using namespace std::chrono_literals;
-                    sleep(10s).then([]{
-                        return make_ready_future();
-                    });
-
+                    return make_ready_future();
                 }
 
             });
@@ -72,7 +67,7 @@ public:
             _latest_finished = finished;
         if (++_num_reported == _concurrent_connections) {
             clients.stop().then([] {
-                engine().exit(0);
+                // engine().exit(0);
             });
         }
     }
