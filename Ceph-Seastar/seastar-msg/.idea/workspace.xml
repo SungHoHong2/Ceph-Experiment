@@ -47,20 +47,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="710">
-              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="444">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="610">
+              <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="55" />
             </state>
           </provider>
         </entry>
@@ -82,6 +82,8 @@
       <find>tx_msg_size</find>
       <find>enable_tcp</find>
       <find>test</find>
+      <find>str &lt;&lt;</find>
+      <find>str</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -91,8 +93,8 @@
         <option value="$PROJECT_DIR$/server.cc" />
         <option value="$PROJECT_DIR$/client.cc" />
         <option value="$PROJECT_DIR$/server.hh" />
-        <option value="$PROJECT_DIR$/client.hh" />
         <option value="$PROJECT_DIR$/seastar-msg.cc" />
+        <option value="$PROJECT_DIR$/client.hh" />
       </list>
     </option>
   </component>
@@ -159,12 +161,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="3891000" />
+      <workItem from="1529907379562" duration="4061000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3891000" />
+    <option name="totallyTimeSpent" value="4061000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -221,13 +223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client.hh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client.cc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="677">
@@ -237,8 +232,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="710">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="444">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client.hh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="55" />
         </state>
       </provider>
     </entry>
