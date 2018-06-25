@@ -9,7 +9,7 @@ distributed<client> clients;
 transport protocol = transport::TCP;
 
 std::atomic<int> x;
-std::string packet("");
+static std::string packet("");
 
 void task1(std::string msg)
 {
