@@ -78,14 +78,8 @@ public:
                     return make_ready_future();
                 }
                 auto cmd = std::string(buf.get(), buf.size());
-                // pingpong test
-                // if (cmd == str_ping) {
-                // this is where you get the string ping!
-                return _write_buf.write(cmd).then([this] {
-                    return _write_buf.flush();
-                }).then([this] {
-                    return this->read();
-                });
+                std::cout << "LISTEN::" << cmd << std::endl;
+                return this->read();
             });
         }
         future<> do_write(int end) {

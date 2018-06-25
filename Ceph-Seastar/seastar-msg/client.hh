@@ -1,12 +1,6 @@
 using namespace seastar;
 using namespace net;
 using namespace std::chrono_literals;
-
-// static int rx_msg_size = 4 * 1024;
-// static int tx_msg_total_size = 100 * 1024 * 1024;
-// static int tx_msg_size = 4 * 1024;
-// static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
-// static std::string str_txbuf(tx_msg_size, 'X');
 static int total_ping_identifier = 0;
 
 class client;
@@ -38,7 +32,6 @@ public:
                 , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
 
-
         future<> ping(int times) {
 
             std::string str = "";
@@ -61,20 +54,14 @@ public:
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
             }).then([this, times] {
-                return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
-                    if (buf.size() != 4) {
-                        fprint(std::cerr, "illegal packet received: %d\n", buf.size());
-                        return make_ready_future();
-                    }
-                    auto str = std::string(buf.get(), buf.size());
-                    std::cout << "after: "  << str << std::endl;
 
-                    if (times > 0) {
-                        return ping(times - 1);
-                    } else {
-                        return make_ready_future();
-                    }
-                });
+                std::cout << "WRITE::"<< str << std::endl;
+                if (times > 0) {
+                    return ping(times - 1);
+                } else {
+                    return make_ready_future();
+                }
+
             });
         }
     };
