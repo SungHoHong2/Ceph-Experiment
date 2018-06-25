@@ -43,7 +43,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       ceph-mgr -i 0 -c /etc/ceph/ceph.conf
       fi
 
-elif [ "$HOSTS" = "ceph-junk" ]
+elif [ "$HOSTS" = "ceph-install" ]
 then
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
 
