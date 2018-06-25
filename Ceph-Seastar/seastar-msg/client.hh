@@ -52,7 +52,7 @@ public:
 
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
-            }).then([this, times, str] {
+            }).then([this, times] {
 
 //                std::cout << "WRITE::"<< str << std::endl;
                 if (times > 0) {
