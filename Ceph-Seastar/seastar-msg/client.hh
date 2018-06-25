@@ -35,21 +35,8 @@ public:
         future<> ping(int times) {
 
             std::string str = "";
-            int v, tenth;
-            int total = 4;
-
-            std::string s = std::to_string(total_ping_identifier);
-            tenth = s.length();
-            for(v=0; v<(total-tenth); v++){
-                str.append("0");
-            }
-            str.append(s);
-
-            total_ping_identifier++;
-            if(str.length()>4){
-                str = "ping";
-            }
-
+            str = "ping";
+            
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
             }).then([this, times, str] {
