@@ -77,8 +77,11 @@ public:
                 if (buf.size() == 0) {
                     return make_ready_future();
                 }
-                auto cmd = std::string(buf.get(), buf.size());
-                std::cout << "LISTEN::" << cmd << std::endl;
+
+                if(buf.size()>2) {
+                    auto cmd = std::string(buf.get(), buf.size());
+                    std::cout << "LISTEN::" << cmd << std::endl;
+                }
                 return this->read();
             });
         }

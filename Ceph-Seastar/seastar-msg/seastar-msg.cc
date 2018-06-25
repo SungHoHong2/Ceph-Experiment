@@ -7,19 +7,12 @@
 #include <vector>
 #include <iostream>
 #include <thread>
+#include <mutex>
+
 #include "server.hh"
 #include "client.hh"
 
 namespace bpo = boost::program_options;
-
-char packet[1024];
-void task1(std::string msg)
-{
-    while(1) {
-        sleep(1);
-        std::cout << "task1 says: " << msg << std::endl;
-    }
-}
 
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
@@ -34,23 +27,14 @@ int main(int ac, char** av) {
         arg_host = "10.218.104.170:1234";
 
 
-
-
-
     }else if(strcmp("w2",hostname)==0){
         arg_host = "10.218.111.252:1234";
-
-
 
 
     } else {
         std::cout << "wrong host" << std::endl;
         return 0;
     }
-
-
-
-
 
 
     app_template app;

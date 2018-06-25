@@ -8,6 +8,22 @@ distributed<client> clients;
 
 transport protocol = transport::TCP;
 
+std::atomic<int> x;
+std::string packet("");
+
+void task1(std::string msg)
+{
+    while(1) {
+
+        while(x==1) sleep(1);
+
+        std::cout << "task1 says: " << msg << std::endl;
+        packet = msg;
+        x=1;
+    }
+}
+
+
 class client {
 private:
     static constexpr unsigned _pings_per_connection = 10000;
@@ -34,10 +50,11 @@ public:
 
         future<> ping(int times) {
 
-            sleep(1);
-            std::string str = "";
-            str = "ping";
-
+            std::string str("^");
+            if(x==1){
+                str = packet;
+                x=0;
+            }
 
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
