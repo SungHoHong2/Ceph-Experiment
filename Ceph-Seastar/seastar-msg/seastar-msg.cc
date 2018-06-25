@@ -19,13 +19,20 @@ int main(int ac, char** av) {
     char hostname[150];
     gethostname(hostname, 150);
 
+    std::string arg_host;
+
     if(strcmp("wenji-w1",hostname)==0){
-        std::cout << "howdy" << std::endl;
+        arg_host = "10.218.104.170:1234";
+    }else if(strcmp("wenji-w1",hostname)==0){
+        arg_host = "10.218.111.252:1234";
+    } else {
+        std::cout << "wrong host" << std::endl;
+        return 0;
     }
 
     app_template app;
     app.add_options()
-            ("server", bpo::value<std::string>()->default_value("10.218.104.170:1234"), "Server address")
+            ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
             ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
             ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
             ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
@@ -39,7 +46,6 @@ int main(int ac, char** av) {
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
         uint16_t port = config["port"].as<uint16_t>();
-
 
         protocol = transport::TCP;
         enable_tcp = 1;
