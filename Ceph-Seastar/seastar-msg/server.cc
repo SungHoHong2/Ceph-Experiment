@@ -9,6 +9,8 @@ using namespace seastar;
 
 static std::string str_ping{"ping"};
 static std::string str_pong{"pong"};
+static int tx_msg_size = 4 * 1024;
+static std::string str_txbuf(tx_msg_size, 'X');
 static bool enable_tcp = false;
 static bool enable_sctp = false;
 
