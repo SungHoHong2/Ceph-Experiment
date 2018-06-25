@@ -45,7 +45,12 @@ public:
                 if (times > 0) {
                     return ping(times - 1);
                 } else {
-                    return make_ready_future();
+
+                    using namespace std::chrono_literals;
+                    sleep(10s).then([]{
+                        return make_ready_future();
+                    });
+
                 }
 
             });

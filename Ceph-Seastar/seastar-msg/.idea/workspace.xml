@@ -47,20 +47,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="660">
+              <caret line="68" column="1" selection-start-line="68" selection-start-column="1" selection-end-line="73" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="80" selection-start-line="80" selection-end-line="80" />
+            <state relative-caret-position="743">
+              <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
             </state>
           </provider>
         </entry>
@@ -87,7 +87,6 @@
       <find>config</find>
       <find>transport</find>
       <find>start</find>
-      <find>clients</find>
       <find>server</find>
       <find>test</find>
       <find>ping_report</find>
@@ -95,6 +94,7 @@
       <find>tests</find>
       <find>tcp_server</find>
       <find>started</find>
+      <find>clients</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -104,8 +104,8 @@
         <option value="$PROJECT_DIR$/server.cc" />
         <option value="$PROJECT_DIR$/client.cc" />
         <option value="$PROJECT_DIR$/server.hh" />
-        <option value="$PROJECT_DIR$/client.hh" />
         <option value="$PROJECT_DIR$/seastar-msg.cc" />
+        <option value="$PROJECT_DIR$/client.hh" />
       </list>
     </option>
   </component>
@@ -172,12 +172,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="9197000" />
+      <workItem from="1529907379562" duration="9406000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9197000" />
+    <option name="totallyTimeSpent" value="9406000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -241,17 +241,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client.hh">
+    <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="660">
+          <caret line="68" column="1" selection-start-line="68" selection-start-column="1" selection-end-line="73" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
+    <entry file="file://$PROJECT_DIR$/client.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="743">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
