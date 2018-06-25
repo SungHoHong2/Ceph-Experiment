@@ -34,11 +34,13 @@ int main(int ac, char** av) {
 
         protocol = transport::TCP;
 
-
         if (!client::tests.count(test)) {
             return engine().exit(1);
         }
 
+        clients.start().then([server, test, ncon] () {
+            clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
+        });
 
         std::cout << "MAIN END" << std::endl;
     });
