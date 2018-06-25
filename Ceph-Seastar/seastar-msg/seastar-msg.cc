@@ -23,7 +23,7 @@ int main(int ac, char** av) {
 
     if(strcmp("wenji-w1",hostname)==0){
         arg_host = "10.218.104.170:1234";
-    }else if(strcmp("wenji-w1",hostname)==0){
+    }else if(strcmp("w2",hostname)==0){
         arg_host = "10.218.111.252:1234";
     } else {
         std::cout << "wrong host" << std::endl;
