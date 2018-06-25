@@ -1,0 +1,52 @@
+w2::OSD BEGIN
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tclient.?
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 0 26 bytes epoch 0) v1 -- ?+0 0x562ff4c34000 con 0x562ff4ba9680
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 32 bytes epoch 0) v1 -- ?+0 0x562ff4c34500 con 0x562ff4ba9680
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({config=0+,monmap=0+}) v3 -- ?+0 0x562ff4882d80 con 0x562ff4ba9680
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 2 bytes epoch 0) v1 -- ?+0 0x562ff4c34280 con 0x562ff4ba9680
+w2	::arguments
+w2	::data_path::/mnt/osd-device-0-data
+w2	::peek_meta
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tosd.0
+starting osd.0 at - osd_data /mnt/osd-device-0-data /var/lib/ceph/osd/ceph-0/journal
+w2	::new OSD BEGIN
+w2	::new OSD END
+w2	::osd->pre_init()
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 0 26 bytes epoch 0) v1 -- ?+0 0x562ff4c50f80 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 32 bytes epoch 0) v1 -- ?+0 0x562ff5072500 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 165 bytes epoch 0) v1 -- ?+0 0x562ff5072280 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({config=0+,monmap=0+}) v3 -- ?+0 0x562ff4fe01c0 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 2 bytes epoch 0) v1 -- ?+0 0x562ff5072780 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_command({"prefix": "osd crush set-device-class", "class": "hdd", "ids": ["0"]} v 0) v1 -- ?+0 0x562ff4fe0400 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_command({"prefix": "osd crush create-or-move", "id": 0, "weight":0.0182, "args": ["host=w2", "root=default"]} v 0) v1 -- ?+0 0x562ff4fe0640 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({mgrmap=0+,osd_pg_creates=0+}) v3 -- ?+0 0x562ff4883440 con 0x562ff4fdb200
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_get_version(what=osdmap handle=1) v1 -- ?+0 0x562ff4f6be00 con 0x562ff4fdb200
+w2	::osd->init()
+w2	::g_conf->daemonize
