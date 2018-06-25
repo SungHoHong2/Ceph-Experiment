@@ -18,7 +18,7 @@ int main(int ac, char** av) {
     char hostname[150];
     gethostname(hostname, 150);
 
-    if(strncpy("wenji-w1",hostname)==0){
+    if(strcmp("wenji-w1",hostname)==0){
         std::cout << "howdy" << std::endl;
     }
 
