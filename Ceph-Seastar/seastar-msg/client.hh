@@ -49,10 +49,10 @@ public:
         future<> ping(int times) {
 
             std::string str("ping");
-            if(x==1){
-                str = packet_data;
-                x=0;
-            }
+//            if(x==1){
+//                str = packet_data;
+//                x=0;
+//            }
 
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
