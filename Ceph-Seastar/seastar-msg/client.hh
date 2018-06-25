@@ -65,36 +65,6 @@ public:
         }
     };
 
-    future<> ping_test(connection *conn) {
-        auto started = lowres_clock::now();
-        return conn->ping(_pings_per_connection).then([started] {
-            auto finished = lowres_clock::now();
-            clients.invoke_on(0, &client::ping_report, started, finished);
-        });
-    }
-
-    void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
-        if (_earliest_started > started)
-            _earliest_started = started;
-        if (_latest_finished < finished)
-            _latest_finished = finished;
-        if (++_num_reported == _concurrent_connections) {
-            auto elapsed = _latest_finished - _earliest_started;
-            auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-            auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
-            fprint(std::cout, "========== ping ============\n");
-            fprint(std::cout, "Server: %s\n", _server_addr);
-            fprint(std::cout,"Connections: %u\n", _concurrent_connections);
-            fprint(std::cout, "Total PingPong: %u\n", _total_pings);
-            fprint(std::cout, "Total Time(Secs): %f\n", secs);
-            fprint(std::cout, "Requests/Sec: %f\n",
-                   static_cast<double>(_total_pings) / secs);
-            clients.stop().then([] {
-                engine().exit(0);
-            });
-        }
-    }
-
 
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
         _server_addr = server_addr;
