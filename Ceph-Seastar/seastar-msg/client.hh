@@ -43,7 +43,8 @@ public:
 
                 std::cout << "WRITE::"<< str << std::endl;
                 if (times > 0) {
-                    return ping(times - 1);
+                    return ping(times);
+//                    return ping(times - 1);
                 } else {
                     return make_ready_future();
                 }
