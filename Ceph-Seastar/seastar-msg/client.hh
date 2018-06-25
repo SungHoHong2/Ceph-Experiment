@@ -50,11 +50,11 @@ public:
                 str = "ping";
             }
 
-            return _write_buf.write(str).then([this, str] {
+            return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
             }).then([this, times, str] {
 
-                std::cout << "WRITE::"<< str << std::endl;
+//                std::cout << "WRITE::"<< str << std::endl;
                 if (times > 0) {
                     return ping(times - 1);
                 } else {
