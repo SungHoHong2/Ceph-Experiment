@@ -46,6 +46,8 @@ int main(int ac, char** av) {
             ("smp", bpo::value<unsigned>()->default_value(1), "smp");
 
 
+    std::thread t1(task1, "Hello");
+
 
     return app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
@@ -62,7 +64,6 @@ int main(int ac, char** av) {
             return engine().exit(1);
         }
 
-        // std::thread t1(task1, "Hello");
 
         auto server = new distributed<tcp_server>; // run distributed object
         server->start().then([server = std::move(server), port] () mutable {

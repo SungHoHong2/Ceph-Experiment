@@ -14,8 +14,7 @@ static std::string packet_data("");
 void task1(std::string msg)
 {
     while(1) {
-
-        sleep(1);
+        while(x==1) sleep(1);
         std::cout << "task1 says: " << msg << std::endl;
         packet_data = msg;
         x=1;
@@ -50,10 +49,10 @@ public:
         future<> ping(int times) {
 
             std::string str("^");
-//            if(x==1){
-//                str = packet_data;
-//                x=0;
-//            }
+            if(x==1){
+                str = packet_data;
+                x=0;
+            }
 
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
