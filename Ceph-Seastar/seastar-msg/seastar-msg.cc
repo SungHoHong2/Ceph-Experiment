@@ -1,4 +1,3 @@
-
 #include "core/reactor.hh"
 #include "core/app-template.hh"
 #include "core/temporary_buffer.hh"
@@ -12,6 +11,18 @@
 
 namespace bpo = boost::program_options;
 
+
+_Atomic int written_by_you=0;
+char packet[1024];
+
+void task1(string msg)
+{
+    while(1) {
+        sleep(1);
+        cout << "task1 says: " << msg;
+    }
+}
+
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
 
@@ -23,12 +34,26 @@ int main(int ac, char** av) {
 
     if(strcmp("wenji-w1",hostname)==0){
         arg_host = "10.218.104.170:1234";
+
+
+
+
+
     }else if(strcmp("w2",hostname)==0){
         arg_host = "10.218.111.252:1234";
+
+
+
+
     } else {
         std::cout << "wrong host" << std::endl;
         return 0;
     }
+
+
+
+
+
 
     app_template app;
     app.add_options()
@@ -38,6 +63,8 @@ int main(int ac, char** av) {
             ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
             ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
             ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+
+
 
     return app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
@@ -53,6 +80,8 @@ int main(int ac, char** av) {
         if (!client::tests.count(test)) {
             return engine().exit(1);
         }
+
+        thread t1(task1, "Hello");
 
         auto server = new distributed<tcp_server>; // run distributed object
         server->start().then([server = std::move(server), port] () mutable {
@@ -71,7 +100,7 @@ int main(int ac, char** av) {
             clients.start().then([conn_server, test, ncon] () {
                 clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
 
-                
+
 
             });
         });

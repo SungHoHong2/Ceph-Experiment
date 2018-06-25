@@ -51,11 +51,14 @@ cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
     if [ "$HOSTS" = "w2" ]
     then
     g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` seastar-msg.cc -o seastar-msg
+    # ./seastar-msg/seastar-ms --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --smp 1
+
 
     elif [ "$HOSTS" = "wenji-w1" ]
     then
     # g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
     g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` seastar-msg.cc -o seastar-msg
+    # ./seastar-msg/seastar-ms --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.254 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --smp 1
     fi
 
 
