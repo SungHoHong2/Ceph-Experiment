@@ -15,7 +15,7 @@ namespace bpo = boost::program_options;
 _Atomic int written_by_you=0;
 char packet[1024];
 
-void task1(string msg)
+void task1(std::string msg)
 {
     while(1) {
         sleep(1);
