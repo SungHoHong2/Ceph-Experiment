@@ -766,8 +766,7 @@ void SimpleMessenger::init_local_connection()
   local_connection->peer_addr = my_addr;
   local_connection->peer_type = my_name.type();
 
-  CHARA
-
+  
   local_connection->set_features(CEPH_FEATURES_ALL);
   ms_deliver_handle_fast_connect(local_connection.get());
 }
