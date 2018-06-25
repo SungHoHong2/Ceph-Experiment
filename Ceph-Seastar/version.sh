@@ -64,6 +64,9 @@ cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
 
 elif [ "$HOSTS" = "ceph-install" ]
 then
+
+kill -9 `pidof seastar-msg`
+
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
 
 sudo parted -s -a optimal /dev/sdb mklabel gpt
