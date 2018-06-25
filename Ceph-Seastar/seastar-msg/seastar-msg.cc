@@ -14,13 +14,13 @@ namespace bpo = boost::program_options;
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
 
+
     char hostname[150];
     gethostname(hostname, 150);
 
-    if(strncpy("wenji-w1",hostname, 150)==0){
+    if(strncpy("wenji-w1",hostname)==0){
         std::cout << "howdy" << std::endl;
     }
-
 
     app_template app;
     app.add_options()
