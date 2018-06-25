@@ -54,6 +54,8 @@ SimpleMessenger::SimpleMessenger(CephContext *cct, entity_name_t name,
 {
 
   std::cout << "\t\t::SimpleMessenger::SimpleMessenger()" << std::endl;
+  std::cout << "\t\t::SimpleMessenger::entity_name_t" << name << std::endl;
+
 
   ANNOTATE_BENIGN_RACE_SIZED(&timeout, sizeof(timeout),
                              "SimpleMessenger read timeout");
@@ -105,13 +107,15 @@ int SimpleMessenger::_send_message(Message *m, const entity_inst_t& dest)
   m->get_header().src = get_myname();
   m->set_cct(cct);
 
+  std::cout << "\t\t::_send_message(dest)" << std::endl;
+
   if (!m->get_priority()) m->set_priority(get_default_send_priority());
  
-  ldout(cct,1) <<"--> " << dest.name << " "
+  std::cout <<"--> " << dest.name << " "
           << dest.addr << " -- " << *m
     	  << " -- ?+" << m->get_data().length()
 	  << " " << m 
-	  << dendl;
+	  << std::endl;
 
   if (dest.addr == entity_addr_t()) {
     ldout(cct,0) << "send_message message " << *m
@@ -133,7 +137,15 @@ int SimpleMessenger::_send_message(Message *m, Connection *con)
   //set envelope
   m->get_header().src = get_myname();
 
+  std::cout << "\t\t::_send_message(con)" << std::endl;
   if (!m->get_priority()) m->set_priority(get_default_send_priority());
+
+  std::cout << "--> " << con->get_peer_addr()
+               << " -- " << *m
+               << " -- ?+" << m->get_data().length()
+               << " " << m << " con " << con
+               << std::endl;
+
 
   ldout(cct,1) << "--> " << con->get_peer_addr()
       << " -- " << *m
@@ -753,6 +765,9 @@ void SimpleMessenger::init_local_connection()
 {
   local_connection->peer_addr = my_addr;
   local_connection->peer_type = my_name.type();
+
+  CHARA
+
   local_connection->set_features(CEPH_FEATURES_ALL);
   ms_deliver_handle_fast_connect(local_connection.get());
 }
