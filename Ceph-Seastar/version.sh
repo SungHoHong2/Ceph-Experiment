@@ -43,6 +43,23 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       ceph-mgr -i 0 -c /etc/ceph/ceph.conf
       fi
 
+
+elif [ "$1" = "seastar-msg-wrk" ]
+then
+git pull origin master
+cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
+    if [ "$HOSTS" = "w2" ]
+    then
+    g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` server.cc -o server
+    g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
+
+    elif [ "$HOSTS" = "wenji-w1" ]
+    then
+    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` server.cc -o server
+    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
+    fi
+
+
 elif [ "$HOSTS" = "ceph-install" ]
 then
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
