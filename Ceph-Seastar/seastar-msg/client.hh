@@ -9,7 +9,7 @@ distributed<client> clients;
 transport protocol = transport::TCP;
 
 std::atomic<int> x;
-static std::string packet("");
+static std::string packet_data("");
 
 void task1(std::string msg)
 {
@@ -18,7 +18,7 @@ void task1(std::string msg)
         while(x==1) sleep(1);
 
         std::cout << "task1 says: " << msg << std::endl;
-        packet = msg;
+        packet_data = msg;
         x=1;
     }
 }
@@ -52,7 +52,7 @@ public:
 
             std::string str("^");
             if(x==1){
-                str = packet;
+                str = packet_data;
                 x=0;
             }
 
