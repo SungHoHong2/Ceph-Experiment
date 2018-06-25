@@ -34,8 +34,10 @@ public:
 
         future<> ping(int times) {
 
+            sleep(1);
             std::string str = "";
             str = "ping";
+
 
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();

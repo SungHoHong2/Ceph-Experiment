@@ -70,6 +70,9 @@ int main(int ac, char** av) {
         sleep(10s).then([conn_server, test, ncon] {
             clients.start().then([conn_server, test, ncon] () {
                 clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
+
+                
+
             });
         });
 
