@@ -48,7 +48,7 @@ public:
 
         future<> ping(int times) {
 
-            std::string str("^");
+            std::string str("ping");
             if(x==1){
                 str = packet_data;
                 x=0;
