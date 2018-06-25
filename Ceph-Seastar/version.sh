@@ -81,6 +81,8 @@ sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
 ceph osd lspools
 ceph osd pool create test-pool2 128
 rados bench -p test-pool2 10 write --no-cleanup
+rados bench -p test-pool2 1 write --no-cleanup >> log
+
 rados bench -p test-pool2 1 write
 ceph osd pool delete test-pool test-pool --yes-i-really-really-mean-it
 
