@@ -66,6 +66,7 @@ public:
     };
 
     future<> ping_test(connection *conn) {
+        auto started = lowres_clock::now();
         return conn->ping(_pings_per_connection).then([started] {
             auto finished = lowres_clock::now();
             clients.invoke_on(0, &client::ping_report, started, finished);
