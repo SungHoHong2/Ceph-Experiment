@@ -6,6 +6,7 @@
 #include "core/sleep.hh"
 #include <vector>
 #include <iostream>
+#include <thread>
 #include "server.hh"
 #include "client.hh"
 
