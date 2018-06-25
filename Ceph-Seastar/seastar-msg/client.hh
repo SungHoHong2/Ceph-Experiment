@@ -16,7 +16,7 @@ void task1(std::string msg)
     while(1) {
         while(x==1) sleep(1);
         std::cout << "task1 says: " << msg << std::endl;
-        packet_data = msg;
+        packet_data = "howdyhowdy";
         x=1;
     }
 }
