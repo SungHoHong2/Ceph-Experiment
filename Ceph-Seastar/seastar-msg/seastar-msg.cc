@@ -28,7 +28,7 @@ int main(int ac, char** av) {
     return app.run_deprecated(ac, av, [&app] {
 
         auto&& config = app.configuration();
-        auto server = config["server"].as<std::string>();
+        auto conn_server = config["server"].as<std::string>();
         auto test = config["test"].as<std::string>();
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
@@ -42,8 +42,8 @@ int main(int ac, char** av) {
             return engine().exit(1);
         }
 
-        clients.start().then([server, test, ncon] () {
-            clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
+        clients.start().then([conn_server, test, ncon] () {
+            clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
         });
 
         auto server = new distributed<tcp_server>; // run distributed object
