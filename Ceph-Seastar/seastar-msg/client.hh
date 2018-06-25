@@ -65,6 +65,25 @@ public:
         }
     };
 
+    future<> ping_test(connection *conn) {
+        return conn->ping(_pings_per_connection).then([started] {
+            auto finished = lowres_clock::now();
+            clients.invoke_on(0, &client::ping_report, started, finished);
+        });
+    }
+
+    void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
+        if (_earliest_started > started)
+            _earliest_started = started;
+        if (_latest_finished < finished)
+            _latest_finished = finished;
+        if (++_num_reported == _concurrent_connections) {
+            clients.stop().then([] {
+                engine().exit(0);
+            });
+        }
+    }
+
 
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
         _server_addr = server_addr;
