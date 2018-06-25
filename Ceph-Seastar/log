@@ -1,0 +1,126 @@
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tclient.?
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 0 30 bytes epoch 0) v1 -- ?+0 0x56404f2619f0 con 0x56404f25b140
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 32 bytes epoch 0) v1 -- ?+0 0x7fed84001210 con 0x56404f25b140
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({config=0+,monmap=0+}) v3 -- ?+0 0x56404f261c50 con 0x56404f25b140
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tclient.?
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 0 30 bytes epoch 0) v1 -- ?+0 0x56404f255130 con 0x56404f2556a0
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 32 bytes epoch 0) v1 -- ?+0 0x7fed8c000ed0 con 0x56404f2556a0
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({config=0+,monmap=0+}) v3 -- ?+0 0x56404f264a80 con 0x56404f2556a0
+		::SimpleMessenger::SimpleMessenger()
+		::SimpleMessenger::entity_name_tclient.?
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 0 30 bytes epoch 0) v1 -- ?+0 0x56404f26b9d0 con 0x56404f265170
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 32 bytes epoch 0) v1 -- ?+0 0x7fed840016b0 con 0x56404f265170
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- auth(proto 2 165 bytes epoch 0) v1 -- ?+0 0x7fed84001a00 con 0x56404f265170
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({config=0+,monmap=0+}) v3 -- ?+0 0x56404f26bc30 con 0x56404f265170
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({mgrmap=0+}) v3 -- ?+0 0x56404f26c020 con 0x56404f265170
+		::_send_message(con)
+--> 10.218.111.252:6789/0 -- mon_subscribe({osdmap=0}) v3 -- ?+0 0x56404f26c020 con 0x56404f265170
+hints = 1
+Maintaining 16 concurrent writes of 4194304 bytes to objects of size 4194304 for up to 1 seconds or 0 objects
+Object prefix: benchmark_data_w2_19915
+  sec Cur ops   started  finished  avg MB/s  cur MB/s last lat(s)  avg lat(s)
+    0       0         0         0         0         0           -           0
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:1 4.5e 4:7b0dd02b:::benchmark_data_w2_19915_object0:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f271db0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:2 4.2c 4:34f943c9:::benchmark_data_w2_19915_object1:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f272c40 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:3 4.2e 4:74a96b0a:::benchmark_data_w2_19915_object2:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f273ae0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:4 4.a 4:50169e20:::benchmark_data_w2_19915_object3:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f274920 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:5 4.58 4:1b475808:::benchmark_data_w2_19915_object4:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275760 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:6 4.49 4:9270111c:::benchmark_data_w2_19915_object5:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f2765a0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:7 4.0 4:0147a1d6:::benchmark_data_w2_19915_object6:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f2773e0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:8 4.16 4:689c5f31:::benchmark_data_w2_19915_object7:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f278220 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:9 4.3e 4:7da7b0d1:::benchmark_data_w2_19915_object8:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f279060 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:10 4.6b 4:d7a41ca5:::benchmark_data_w2_19915_object9:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f279ea0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:11 4.4e 4:72152a2a:::benchmark_data_w2_19915_object10:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27ace0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:12 4.1c 4:397af2c1:::benchmark_data_w2_19915_object11:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27bb20 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:13 4.3f 4:fd3f1054:::benchmark_data_w2_19915_object12:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27c960 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:14 4.11 4:885af010:::benchmark_data_w2_19915_object13:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27d7a0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:15 4.43 4:c2d1be03:::benchmark_data_w2_19915_object14:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27e5e0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:16 4.3c 4:3db0aa00:::benchmark_data_w2_19915_object15:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27f420 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:17 4.58 4:1b5689d4:::benchmark_data_w2_19915_object16:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f273ae0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:18 4.56 4:6a0a5b29:::benchmark_data_w2_19915_object17:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f274920 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:19 4.34 4:2d8d6429:::benchmark_data_w2_19915_object18:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275760 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:20 4.47 4:e288112a:::benchmark_data_w2_19915_object19:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f274330 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:21 4.40 4:03646a74:::benchmark_data_w2_19915_object20:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275170 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:22 4.43 4:c3eb9f9b:::benchmark_data_w2_19915_object21:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f274330 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:23 4.2a 4:54550c76:::benchmark_data_w2_19915_object22:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f278220 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:24 4.27 4:e5dcb87e:::benchmark_data_w2_19915_object23:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f277c30 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:25 4.68 4:171e37b6:::benchmark_data_w2_19915_object24:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275170 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:26 4.1e 4:78e8b60b:::benchmark_data_w2_19915_object25:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27b530 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:27 4.3b 4:dd5cfdbd:::benchmark_data_w2_19915_object26:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f277c30 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:28 4.4b 4:d2be003a:::benchmark_data_w2_19915_object27:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27ace0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:29 4.9 4:91c81cfe:::benchmark_data_w2_19915_object28:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275170 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:30 4.46 4:6285fc92:::benchmark_data_w2_19915_object29:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275170 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:31 4.4b 4:d324dc29:::benchmark_data_w2_19915_object30:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27d1b0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:32 4.50 4:0b6f036f:::benchmark_data_w2_19915_object31:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f275170 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:33 4.69 4:9745adc8:::benchmark_data_w2_19915_object32:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27dff0 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:34 4.a 4:51a0d8ca:::benchmark_data_w2_19915_object33:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27bb20 con 0x56404f270960
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:35 4.37 4:ec725804:::benchmark_data_w2_19915_object34:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27d1b0 con 0x56404f270960
+    1      16        35        19   75.9791        76     0.42564    0.592199
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:36 4.68 4:1714b60f:::benchmark_data_w2_19915_object35:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f27bb20 con 0x56404f270960
+Total time run:         1.26088
+Total writes made:      36
+Write size:             4194304
+Object size:            4194304
+Bandwidth (MB/sec):     114.206
+Stddev Bandwidth:       0
+Max bandwidth (MB/sec): 76
+Min bandwidth (MB/sec): 76
+Average IOPS:           28
+Stddev IOPS:            0
+Max IOPS:               19
+Min IOPS:               19
+Average Latency(s):     0.544591
+Stddev Latency(s):      0.171226
+Max latency(s):         0.882921
+Min latency(s):         0.177198
+		::_send_message(con)
+--> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:37 4.1d 4:b8615e71:::benchmark_last_metadata:head [writefull 0~24] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f2746b0 con 0x56404f270960
