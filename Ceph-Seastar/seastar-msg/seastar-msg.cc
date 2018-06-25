@@ -55,7 +55,7 @@ int main(int ac, char** av) {
         }).then([port] {
             std::cout << "Seastar TCP server listening on port " << port << " ...\n";
         });
-        
+
         std::cout << "MAIN END" << std::endl;
     });
 
