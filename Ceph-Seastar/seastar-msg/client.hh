@@ -90,6 +90,7 @@ public:
                     } catch (std::exception& ex) {
                         fprint(std::cerr, "request error: %s\n", ex.what());
                     }
+
                 });
             });
         }

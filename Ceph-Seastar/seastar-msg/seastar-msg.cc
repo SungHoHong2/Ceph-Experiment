@@ -4,6 +4,7 @@
 #include "core/temporary_buffer.hh"
 #include "core/future-util.hh"
 #include "core/distributed.hh"
+#include "core/sleep.hh"
 #include <vector>
 #include <iostream>
 #include "server.hh"
@@ -31,7 +32,6 @@ int main(int ac, char** av) {
             ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
             ("smp", bpo::value<unsigned>()->default_value(1), "smp");
 
-
     return app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
@@ -48,10 +48,6 @@ int main(int ac, char** av) {
             return engine().exit(1);
         }
 
-        clients.start().then([conn_server, test, ncon] () {
-            clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
-        });
-
         auto server = new distributed<tcp_server>; // run distributed object
         server->start().then([server = std::move(server), port] () mutable {
             engine().at_exit([server] {
@@ -61,6 +57,14 @@ int main(int ac, char** av) {
             // Invoke a method on all Service instances in parallel.
         }).then([port] {
             std::cout << "Seastar TCP server listening on port " << port << " ...\n";
+        });
+
+
+        using namespace std::chrono_literals;
+        sleep(10s).then([clients, conn_server, test, ncon] {
+            clients.start().then([conn_server, test, ncon] () {
+                clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
+            });
         });
 
         std::cout << "MAIN END" << std::endl;
