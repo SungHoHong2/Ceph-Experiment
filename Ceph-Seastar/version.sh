@@ -50,7 +50,7 @@ git pull origin master
 cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
     if [ "$HOSTS" = "w2" ]
     then
-    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` seastar-msg.cc -o seastar-msg
+    g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` seastar-msg.cc -o seastar-msg
 
     elif [ "$HOSTS" = "wenji-w1" ]
     then
