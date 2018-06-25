@@ -47,7 +47,7 @@ public:
                 , _write_buf(_fd.output()) {}
 
         future<> ping(int times) {
-
+            sleep(0);
             std::string str("ping");
 //            if(x==1){
 //                str = packet_data;
