@@ -7,7 +7,6 @@
 #include <vector>
 #include <iostream>
 #include <thread>
-#include <mutex>
 
 #include "server.hh"
 #include "client.hh"
