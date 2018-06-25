@@ -18,6 +18,7 @@ int main(int ac, char** av) {
 
     app.add_options()
             ("server", bpo::value<std::string>()->default_value("10.218.104.170:1234"), "Server address")
+            ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
             ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
             ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
             ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
@@ -31,8 +32,11 @@ int main(int ac, char** av) {
         auto test = config["test"].as<std::string>();
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
+        uint16_t port = config["port"].as<uint16_t>();
+
 
         protocol = transport::TCP;
+        enable_tcp = 1;
 
         if (!client::tests.count(test)) {
             return engine().exit(1);
@@ -42,6 +46,16 @@ int main(int ac, char** av) {
             clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
         });
 
+        server->start().then([server = std::move(server), port] () mutable {
+            engine().at_exit([server] {
+                return server->stop();
+            });
+            server->invoke_on_all(&tcp_server::listen, ipv4_addr{port});
+            // Invoke a method on all Service instances in parallel.
+        }).then([port] {
+            std::cout << "Seastar TCP server listening on port " << port << " ...\n";
+        });
+        
         std::cout << "MAIN END" << std::endl;
     });
 

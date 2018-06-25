@@ -7,6 +7,7 @@ static std::string str_txbuf(tx_msg_size, 'X');
 static bool enable_tcp = false;
 static bool enable_sctp = false;
 
+auto server = new distributed<tcp_server>; // run distributed object
 class tcp_server {
     std::vector<server_socket> _tcp_listeners;
     std::vector<server_socket> _sctp_listeners;
