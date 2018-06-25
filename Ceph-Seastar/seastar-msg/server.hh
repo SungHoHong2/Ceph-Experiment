@@ -94,5 +94,3 @@ public:
         }
     };
 };
-
-auto server = new distributed<tcp_server>; // run distributed object

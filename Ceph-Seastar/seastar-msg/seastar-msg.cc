@@ -46,6 +46,7 @@ int main(int ac, char** av) {
             clients.invoke_on_all(&client::start, ipv4_addr{server}, test, ncon);
         });
 
+        auto server = new distributed<tcp_server>; // run distributed object
         server->start().then([server = std::move(server), port] () mutable {
             engine().at_exit([server] {
                 return server->stop();
