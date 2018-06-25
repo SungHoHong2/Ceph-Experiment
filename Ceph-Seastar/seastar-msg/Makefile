@@ -4,8 +4,8 @@ TARGET_2 = "client"
 
 
 all:
-	g++ -g `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET}.cc -o ${TARGET}
-	g++ -g `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET_2}.cc -o ${TARGET_2}
+	g++-5 -g `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET}.cc -o ${TARGET}
+	g++-5 -g `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` ${TARGET_2}.cc -o ${TARGET_2}
 
 
 .PHONY: clean
