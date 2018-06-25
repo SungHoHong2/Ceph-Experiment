@@ -17,13 +17,41 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/client.cc">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="19">
+                    <caret line="1" column="24" selection-start-line="1" selection-end-line="2" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="server.cc" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/server.cc">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state>
+                    <caret selection-end-line="7" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server.cc">
+      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+            <state relative-caret-position="266">
+              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -46,15 +74,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -72,6 +91,7 @@
         <option value="$PROJECT_DIR$/server.cc" />
         <option value="$PROJECT_DIR$/client.hh" />
         <option value="$PROJECT_DIR$/client.cc" />
+        <option value="$PROJECT_DIR$/seastar-msg.cc" />
       </list>
     </option>
   </component>
@@ -138,12 +158,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="2342000" />
+      <workItem from="1529907379562" duration="2596000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2342000" />
+    <option name="totallyTimeSpent" value="2596000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -181,13 +201,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.hh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -202,10 +215,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="19">
+          <caret line="1" column="24" selection-start-line="1" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seastar-msg.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
         </state>
       </provider>
     </entry>

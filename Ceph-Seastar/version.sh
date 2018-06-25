@@ -51,12 +51,11 @@ cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
     if [ "$HOSTS" = "w2" ]
     then
     g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` server.cc -o server
-    g++-5 `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
 
     elif [ "$HOSTS" = "wenji-w1" ]
     then
-    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` server.cc -o server
-    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
+    # g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
+    g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` seastar-msg.cc -o seastar-msg
     fi
 
 
