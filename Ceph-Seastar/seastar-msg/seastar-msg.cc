@@ -14,8 +14,15 @@ namespace bpo = boost::program_options;
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
 
-    app_template app;
+    char hostname[150];
+    gethostname(hostname, 150);
 
+    if(strncpy("wenji-w1",hostname, 150)==0){
+        std::cout << "howdy" << std::endl;
+    }
+
+
+    app_template app;
     app.add_options()
             ("server", bpo::value<std::string>()->default_value("10.218.104.170:1234"), "Server address")
             ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
@@ -26,7 +33,6 @@ int main(int ac, char** av) {
 
 
     return app.run_deprecated(ac, av, [&app] {
-
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
         auto test = config["test"].as<std::string>();

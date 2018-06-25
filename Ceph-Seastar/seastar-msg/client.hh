@@ -36,7 +36,7 @@ public:
 
             std::string str = "";
             str = "ping";
-            
+
             return _write_buf.write(str).then([this] {
                 return _write_buf.flush();
             }).then([this, times, str] {
