@@ -57,7 +57,10 @@ public:
                 return _write_buf.flush();
             }).then([this, times] {
 
-                std::cout << "WRITE::"<< _send_packet << std::endl;
+                if(strlen(_send_packet)>2) {
+                    std::cout << "WRITE::" << _send_packet << std::endl;
+                }
+
                 if (times > 0) {
                     return ping(times);
                 } else {
