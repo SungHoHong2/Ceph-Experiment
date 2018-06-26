@@ -44,11 +44,11 @@ public:
                 , _write_buf(_fd.output()) {}
 
         future<> ping(int times) {
-            sleep(0);
+            sleep(1);
 
             memset(_send_packet, 0, PACKET_SIZE);
             if(send_size!=0){
-                memcpy(_send_packet, "Hello", send_size);
+                memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
                 memcpy(_send_packet, "^", 1);
