@@ -40,13 +40,11 @@ OSD::OSD(CephContext *cct_, ObjectStore *store):
 - but the application is not working properly when we combine client and server together.
 
 
-
 ### use two independent threads
 - use two different threads to run the Seastar client and server application.
--
-
-
-
+- when the read and write functions of the socket run indepenently the data is often send as duplicates
+- send fixed size packets
+- listening interface only accepts the fixed size packets and ignore overwhelmend packets
 
 
 
