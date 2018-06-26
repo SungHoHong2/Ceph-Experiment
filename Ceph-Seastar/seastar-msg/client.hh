@@ -42,13 +42,14 @@ public:
 
         future<> ping() {
 
+            sleep(1);
+
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
                 memcpy(_send_packet, "^^^^^", 5);
             }
-
 
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
