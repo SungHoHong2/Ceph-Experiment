@@ -45,7 +45,7 @@ OSD::OSD(CephContext *cct_, ObjectStore *store):
 - when the read and write functions of the socket run indepenently the data is often send as duplicates
 - send fixed size packets
 - listening interface only accepts the fixed size packets and ignore overwhelmend packets
-
+- need to send dummy packet from the client with the same size
 
 
 
