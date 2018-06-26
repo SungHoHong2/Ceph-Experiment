@@ -32,14 +32,12 @@ private:
 public:
     class connection {
         connected_socket _fd;
-        input_stream<char> _read_buf;
         output_stream<char> _write_buf;
         size_t _bytes_read = 0;
         size_t _bytes_write = 0;
     public:
         connection(connected_socket&& fd)
                 : _fd(std::move(fd))
-                , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
 
         future<> ping() {
