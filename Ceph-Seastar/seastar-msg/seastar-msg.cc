@@ -16,6 +16,16 @@ namespace bpo = boost::program_options;
 
 
 void server_task(int ac, char** av){
+
+    app_template app;
+    app.add_options()
+            ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
+            ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
+            ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
+            ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
+            ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
+            ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+
     app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
@@ -58,6 +68,14 @@ void server_task(int ac, char** av){
 
 void client_task(int ac, char** av){
     app_template app2;
+    app2.add_options()
+            ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
+            ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
+            ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
+            ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
+            ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
+            ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+
     app2.run_deprecated(ac, av, [&app2] {
         auto&& config = app2.configuration();
         auto conn_server = config["server"].as<std::string>();
@@ -111,14 +129,7 @@ int main(int ac, char** av) {
     }
 
 
-    app_template app;
-    app.add_options()
-            ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
-            ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
-            ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
-            ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
-            ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
-            ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+
 
 
     char _args[] = "Hello";
