@@ -45,20 +45,20 @@ public:
 
         future<> ping(int times) {
             sleep(0);
-            char _packet[PACKET_SIZE];
-            memset(_packet, 0, PACKET_SIZE);
-            memcpy(_packet, "^", 1);
+
+            memset(_send_packet, 0, PACKET_SIZE);
             if(send_size!=0){
-                memset(_packet, 0, PACKET_SIZE);
-                memcpy(_packet, "Hello", send_size);
+                memcpy(_send_packet, "Hello", send_size);
                 send_size=0;
+            }else {
+                memcpy(_send_packet, "^", 1);
             }
 
-            return _write_buf.write(_packet).then([this] {
+            return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
-            }).then([this, times, _packet] {
+            }).then([this, times] {
 
-                std::cout << "WRITE::"<< _packet << std::endl;
+                std::cout << "WRITE::"<< _send_packet << std::endl;
                 if (times > 0) {
                     return ping(times);
                 } else {
