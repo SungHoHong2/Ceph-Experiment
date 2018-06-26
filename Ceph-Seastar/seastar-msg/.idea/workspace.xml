@@ -40,8 +40,8 @@
       <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+            <state relative-caret-position="421">
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -89,6 +89,7 @@
       <find>tcp_server</find>
       <find>ping_report</find>
       <find>ping_test</find>
+      <find>strlen</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -167,12 +168,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="22058000" />
+      <workItem from="1529907379562" duration="22146000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22058000" />
+    <option name="totallyTimeSpent" value="22146000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -252,8 +253,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+        <state relative-caret-position="421">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
         </state>
       </provider>
     </entry>
