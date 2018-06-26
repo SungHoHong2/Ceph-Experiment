@@ -42,13 +42,11 @@ public:
 
         future<> ping() {
 
-            memset(_send_packet, 0, PACKET_SIZE);
-
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
-                memcpy(_send_packet, "^^^^^", 5);
+                memcpy(_send_packet, "\0\0\0\0\0", 5);
             }
 
 
