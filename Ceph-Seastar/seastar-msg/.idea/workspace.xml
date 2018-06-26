@@ -40,8 +40,8 @@
       <file leaf-file-name="server.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+            <state relative-caret-position="536">
+              <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -161,12 +161,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="24999000" />
+      <workItem from="1529907379562" duration="25000000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24999000" />
+    <option name="totallyTimeSpent" value="25000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -246,8 +246,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+        <state relative-caret-position="536">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
         </state>
       </provider>
     </entry>
