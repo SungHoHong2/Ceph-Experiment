@@ -47,6 +47,7 @@ public:
             sleep(0);
             memcpy(_send_packet, "^", 1);
             if(send_size!=0){
+                memset(_send_packet, 0, send_size);
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }
@@ -58,7 +59,6 @@ public:
                 std::cout << "WRITE::"<< _send_packet << std::endl;
                 if (times > 0) {
                     return ping(times);
-//                    return ping(times - 1);
                 } else {
                     return make_ready_future();
                 }
