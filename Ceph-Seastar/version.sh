@@ -75,9 +75,16 @@ git pull origin master
 
 elif [ "$HOSTS" = "seastar_msg_run" ]
 then
-cd /data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
-data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0
 
+    if [ "$HOSTS" = "c3n24" ]
+    then
+      cd /data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
+      /data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234"
+    elif [ "$HOSTS" = "c3n25" ]
+    then
+      cd /data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
+      /data1/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.41 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.40:1234"
+    fi
 
 elif [ "$HOSTS" = "ceph-install" ]
 then
