@@ -12,8 +12,8 @@ void task1(char msg[])
 {
     while(1) {
         while(send_size!=0) sleep(1);
-//        memcpy(send_packet, msg, 6);
-//        send_size=5;
+        memcpy(send_packet, msg, 5);
+        send_size=5;
     }
 }
 
@@ -44,13 +44,11 @@ public:
 
             memset(_send_packet, 0, PACKET_SIZE);
 
-            while(send_size==0) sleep(1);
-
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
-                memcpy(_send_packet, "^", 1);
+                memcpy(_send_packet, "^^^^^", 5);
             }
 
 
