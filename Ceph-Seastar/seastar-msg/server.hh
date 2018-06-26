@@ -59,12 +59,10 @@ public:
     class connection {
         connected_socket _fd;
         input_stream<char> _read_buf;
-        output_stream<char> _write_buf;
     public:
         connection(tcp_server& server, connected_socket&& fd, socket_address addr)
                 : _fd(std::move(fd))
-                , _read_buf(_fd.input())
-                , _write_buf(_fd.output()) {}
+                , _read_buf(_fd.input()){}
         future<> process() {
             return read();
         }
@@ -77,20 +75,12 @@ public:
             return _read_buf.read().then([this] (temporary_buffer<char> buf) {
 
                 if(buf.size()>2) {
-                    std::cout << "LISTEN::" << buf.get() << "  " << buf.size() <<  std::endl;
+                    memcpy(recv_packet, buf.get(),  buf.size());
+                    std::cout << "LISTEN::" << recv_packet << "  " << buf.size() <<  std::endl;
                 }
                 return this->read();
             });
         }
-        future<> do_write(int end) {
-            if (end == 0) {
-                return make_ready_future<>();
-            }
-            return _write_buf.write(str_txbuf).then([this] {
-                return _write_buf.flush();
-            }).then([this, end] {
-                return do_write(end - 1);
-            });
-        }
+
     };
 };
