@@ -12,8 +12,7 @@ void task1(std::string msg)
 {
     while(1) {
         while(send_size!=0) sleep(1);
-        std::cout << "task1 send: " << msg << std::endl;
-        memcpy(send_packet, "hello", 6);
+        memcpy(send_packet, msg, msg.size());
         send_size=6;
     }
 }
