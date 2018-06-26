@@ -8,6 +8,7 @@
 #include <iostream>
 #include <thread>
 
+#include "common.hh"
 #include "server.hh"
 #include "client.hh"
 

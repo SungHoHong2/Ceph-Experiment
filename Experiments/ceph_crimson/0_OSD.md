@@ -25,3 +25,12 @@ OSD::OSD(CephContext *cct_, ObjectStore *store):
 
 ### the solution
 - we will build a seastar that will redirect the nodes based on the ip address right nows
+
+
+### building Seastar version cusotmized to the needs
+- need to modify the packets into fixed size so that there would be no problem
+- polling is designed that is done in the MPI library
+- once the connection is on it sends a fixed fake data.
+- the test will be done on one OSD (OSD sends data to localhost when they use the data)
+- after that I will test it on the server but need permission in the cluster. 3 cluster (one montior, two osds)
+- I don't need to modify the montior so need a node that can execute one.

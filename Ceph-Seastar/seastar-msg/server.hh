@@ -72,11 +72,8 @@ public:
             if (_read_buf.eof()) {
                 return make_ready_future();
             }
-            // Expect 4 bytes cmd from client
+
             return _read_buf.read().then([this] (temporary_buffer<char> buf) {
-                if (buf.size() == 0) {
-                    return make_ready_future();
-                }
 
                 if(buf.size()>2) {
                     std::cout << "LISTEN::" << buf.get() << "  " << buf.size() <<  std::endl;

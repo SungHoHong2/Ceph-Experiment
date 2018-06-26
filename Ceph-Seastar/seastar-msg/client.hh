@@ -5,19 +5,16 @@ static int total_ping_identifier = 0;
 
 class client;
 distributed<client> clients;
-
 transport protocol = transport::TCP;
 
-std::atomic<int> x;
-static std::string packet_data("");
 
 void task1(std::string msg)
 {
     while(1) {
-        while(x==1) sleep(1);
-        std::cout << "task1 says: " << msg << std::endl;
-        packet_data = "howdyhowdy";
-        x=1;
+        while(send_size!=0) sleep(1);
+        std::cout << "task1 send: " << msg << std::endl;
+        memcpy(send_packet, "hello", 6);
+        send_size=6;
     }
 }
 
@@ -48,17 +45,17 @@ public:
 
         future<> ping(int times) {
             sleep(0);
-            std::string str("ping");
-//            if(x==1){
-//                str = packet_data;
-//                x=0;
-//            }
+            memcpy(_send_packet, "^", 1);
+            if(send_size!=0){
+                memcpy(_send_packet, send_packet, send_size);
+                send_size=0;
+            }
 
-            return _write_buf.write(str).then([this] {
+            return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
-            }).then([this, times, str] {
+            }).then([this, times, _send_packet] {
 
-                std::cout << "WRITE::"<< str << std::endl;
+                std::cout << "WRITE::"<< _send_packet << std::endl;
                 if (times > 0) {
                     return ping(times);
 //                    return ping(times - 1);

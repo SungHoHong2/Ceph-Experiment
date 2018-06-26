@@ -690,9 +690,7 @@ flushjournal_out:
 
   std::cout << hostname << "\t::new OSD END" << std::endl;
 
-
   int err = osd->pre_init();
-
   std::cout << hostname << "\t::osd->pre_init()" << std::endl;
 
   if (err < 0) {
