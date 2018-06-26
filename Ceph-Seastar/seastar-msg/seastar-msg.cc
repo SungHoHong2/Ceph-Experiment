@@ -14,6 +14,19 @@
 
 namespace bpo = boost::program_options;
 
+
+void server_task(){
+
+
+}
+
+
+void client_task(){
+
+
+}
+
+
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
 
@@ -50,7 +63,12 @@ int main(int ac, char** av) {
     char _args[] = "Hello";
     std::thread t1(task1, _args);
 
-    std::cout << "SMP" << smp::count << "\n";
+
+//    std::thread tserver(server_task);
+//    std::thread tclient(client_task);
+
+
+
 
     app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
@@ -89,9 +107,9 @@ int main(int ac, char** av) {
     });
 
 
-
-    return app.run_deprecated(ac, av, [&app] {
-        auto&& config = app.configuration();
+    app_template app2;
+    return app2.run_deprecated(ac, av, [&app2] {
+        auto&& config = app2.configuration();
         auto conn_server = config["server"].as<std::string>();
         auto test = config["test"].as<std::string>();
         auto ncon = config["conn"].as<unsigned>();
