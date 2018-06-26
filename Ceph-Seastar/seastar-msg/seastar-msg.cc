@@ -13,6 +13,7 @@
 #include "client.hh"
 
 namespace bpo = boost::program_options;
+std::string arg_host;
 
 
 void server_task(int ac, char** av){
@@ -113,8 +114,6 @@ int main(int ac, char** av) {
     char hostname[150];
     gethostname(hostname, 150);
 
-    std::string arg_host;
-
     if(strcmp("wenji-w1",hostname)==0){
         arg_host = "10.218.104.170:1234";
 
@@ -127,8 +126,6 @@ int main(int ac, char** av) {
         std::cout << "wrong host" << std::endl;
         return 0;
     }
-
-
 
 
 
