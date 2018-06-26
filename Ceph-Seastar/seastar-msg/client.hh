@@ -61,8 +61,8 @@ public:
                     std::cout << "WRITE::" << _send_packet << std::endl;
                 }
 
-                return ping(times);
-                
+                return ping();
+
             });
         }
     };
