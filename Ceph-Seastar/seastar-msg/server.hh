@@ -75,6 +75,7 @@ public:
             return _read_buf.read().then([this] (temporary_buffer<char> buf) {
 
                 if(buf.size()>2) {
+                    memset(recv_packet,0, PACKET_SIZE);
                     memcpy(recv_packet, buf.get(),  buf.size());
                     std::cout << "LISTEN::" << recv_packet << "  " << buf.size() <<  std::endl;
                 }
