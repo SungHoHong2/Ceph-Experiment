@@ -54,7 +54,6 @@ public:
             }
 
 
-
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
             }).then([this] {

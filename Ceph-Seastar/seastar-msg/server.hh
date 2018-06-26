@@ -72,7 +72,7 @@ public:
                 return make_ready_future();
             }
 
-            return _read_buf.read().then([this] (temporary_buffer<char> buf) {
+            return _read_buf.read_exactly(5).then([this] (temporary_buffer<char> buf) {
 
                 if(buf.size()>2) {
                     memset(recv_packet,0, PACKET_SIZE);
