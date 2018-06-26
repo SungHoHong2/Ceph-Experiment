@@ -46,7 +46,7 @@ public:
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
-                memcpy(_send_packet, "\0\0\0\0\0", 5);
+                memcpy(_send_packet, "^^^^^", 5);
             }
 
 
