@@ -46,9 +46,10 @@ public:
         future<> ping(int times) {
             sleep(0);
             char _packet[PACKET_SIZE];
+            memset(_packet, 0, PACKET_SIZE);
             memcpy(_packet, "^", 1);
             if(send_size!=0){
-                memset(_packet, 0, send_size);
+                memset(_packet, 0, PACKET_SIZE);
                 memcpy(_packet, "Hello", send_size);
                 send_size=0;
             }
