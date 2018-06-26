@@ -52,14 +52,7 @@ int main(int ac, char** av) {
 
 
     char _args[] = "Hello";
-    // std::thread t1(task1, _args);
-
-
-    std::thread tserver(server_task);
-    std::thread tclient(client_task);
-
-
-
+    std::thread t1(task1, _args);
 
     app.run_deprecated(ac, av, [&app] {
         auto&& config = app.configuration();
