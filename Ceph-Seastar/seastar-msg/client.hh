@@ -41,9 +41,11 @@ public:
                 , _write_buf(_fd.output()) {}
 
         future<> ping() {
-            sleep(1);
 
             memset(_send_packet, 0, PACKET_SIZE);
+
+            while(send_size==0) sleep(1);
+
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
