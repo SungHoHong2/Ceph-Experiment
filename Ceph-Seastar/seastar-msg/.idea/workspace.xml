@@ -28,29 +28,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+            <state relative-caret-position="76">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.hh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.hh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="821">
-              <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.hh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.hh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="17" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="17" />
+            <state relative-caret-position="137">
+              <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -83,6 +74,7 @@
       <find>_pings_per_connection</find>
       <find>_read_buf</find>
       <find>ping_test</find>
+      <find>total_ping_identifier</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -93,8 +85,8 @@
         <option value="$PROJECT_DIR$/client.cc" />
         <option value="$PROJECT_DIR$/common.hh" />
         <option value="$PROJECT_DIR$/seastar-msg.cc" />
-        <option value="$PROJECT_DIR$/client.hh" />
         <option value="$PROJECT_DIR$/server.hh" />
+        <option value="$PROJECT_DIR$/client.hh" />
       </list>
     </option>
   </component>
@@ -161,12 +153,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529907378281</updated>
-      <workItem from="1529907379562" duration="25228000" />
+      <workItem from="1529907379562" duration="25519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25228000" />
+    <option name="totallyTimeSpent" value="25519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="721" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -230,13 +222,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client.hh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common.hh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -246,8 +231,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+        <state relative-caret-position="137">
+          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client.hh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
