@@ -74,7 +74,7 @@ git pull origin master
 
 
 # sudocmd ceph_seastar_msg seastar_msg_run
-elif [ "$HOSTS" = "seastar_msg_run" ]
+elif [ "$1" = "seastar_msg_run" ]
 then
 
     if [ "$HOSTS" = "c3n24" ]
