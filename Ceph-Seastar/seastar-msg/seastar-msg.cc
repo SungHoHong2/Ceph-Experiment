@@ -58,7 +58,7 @@ void server_task(int ac, char** av){
 
 void client_task(int ac, char** av){
     app_template app2;
-    return app2.run_deprecated(ac, av, [&app2] {
+    app2.run_deprecated(ac, av, [&app2] {
         auto&& config = app2.configuration();
         auto conn_server = config["server"].as<std::string>();
         auto test = config["test"].as<std::string>();
@@ -127,7 +127,9 @@ int main(int ac, char** av) {
 
     std::thread tserver(server_task, ac, av);
     std::thread tclient(client_task, ac, av);
-    
+
+
+
 
 
 }
