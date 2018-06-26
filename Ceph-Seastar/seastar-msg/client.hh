@@ -42,7 +42,7 @@ public:
                 , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
 
-        future<> ping(int times) {
+        future<> ping() {
             sleep(1);
 
             memset(_send_packet, 0, PACKET_SIZE);
@@ -55,42 +55,17 @@ public:
 
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
-            }).then([this, times] {
+            }).then({
 
                 if(strlen(_send_packet)>2) {
                     std::cout << "WRITE::" << _send_packet << std::endl;
                 }
 
-                if (times > 0) {
-                    return ping(times);
-                } else {
-                    return make_ready_future();
-                }
-
+                return ping();
             });
         }
     };
-
-    future<> ping_test(connection *conn) {
-        auto started = lowres_clock::now();
-        return conn->ping(_pings_per_connection).then([started] {
-            auto finished = lowres_clock::now();
-            clients.invoke_on(0, &client::ping_report, started, finished);
-        });
-    }
-
-    void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
-        if (_earliest_started > started)
-            _earliest_started = started;
-        if (_latest_finished < finished)
-            _latest_finished = finished;
-        if (++_num_reported == _concurrent_connections) {
-            clients.stop().then([] {
-                // engine().exit(0);
-            });
-        }
-    }
-
+    
 
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
         _server_addr = server_addr;
