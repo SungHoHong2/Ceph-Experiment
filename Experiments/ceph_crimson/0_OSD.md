@@ -34,5 +34,19 @@ OSD::OSD(CephContext *cct_, ObjectStore *store):
 - the test will be done on one OSD (OSD sends data to localhost when they use the data)
 - after that I will test it on the server but need permission in the cluster. 3 cluster (one montior, two osds)
 - I don't need to modify the montior so need a node that can execute one.
+- I am having trouble using sharding with Seastar,
+- need to experience more about how the sharding is done in Seastar.
+- The data sends fine when only use the client and server interface separately in each node.
+- but the application is not working properly when we combine client and server together.
+- lets take a look how Wenji have done this
+
+
+
+
+
+
+
+
+
 
 Hello^
