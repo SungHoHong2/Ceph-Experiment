@@ -54,9 +54,8 @@ public:
                 return _write_buf.flush();
             }).then([this] {
 
-                if(strlen(_send_packet)>2)
-                    std::cout << "WRITE AFTER::" << _send_packet << std::endl;
-
+                if(strcmp("^^^^^", _send_packet) != 0)
+                std::cout << "WRITE AFTER::" << _send_packet << std::endl;
 
                 return ping();
 
