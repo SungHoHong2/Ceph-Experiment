@@ -12,7 +12,7 @@ void task1(std::string msg)
 {
     while(1) {
         while(send_size!=0) sleep(1);
-        memcpy(send_packet, msg.c_str, msg.length());
+        memcpy(send_packet, msg.c_str, msg.size());
         send_size=6;
     }
 }
