@@ -48,7 +48,7 @@ public:
             memcpy(_send_packet, "^", 1);
             if(send_size!=0){
                 memset(_send_packet, 0, send_size);
-                memcpy(_send_packet, send_packet, send_size);
+                memcpy(_send_packet, "Hello", send_size);
                 send_size=0;
             }
 
