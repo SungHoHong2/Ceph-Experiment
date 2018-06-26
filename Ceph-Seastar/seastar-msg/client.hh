@@ -53,15 +53,17 @@ public:
                 memcpy(_send_packet, "^", 1);
             }
 
+            if(strlen(_send_packet)>2)
             std::cout << "WRITE BEFORE::" << _send_packet << std::endl;
+
 
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
             }).then([this] {
 
-                if(strlen(_send_packet)>2) {
+                if(strlen(_send_packet)>2)
                     std::cout << "WRITE AFTER::" << _send_packet << std::endl;
-                }
+
 
                 return ping();
 
