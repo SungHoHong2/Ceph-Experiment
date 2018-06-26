@@ -38,8 +38,12 @@ OSD::OSD(CephContext *cct_, ObjectStore *store):
 - need to experience more about how the sharding is done in Seastar.
 - The data sends fine when only use the client and server interface separately in each node.
 - but the application is not working properly when we combine client and server together.
-- lets take a look how Wenji have done this
 
+
+
+### use two independent threads
+- use two different threads to run the Seastar client and server application.
+-
 
 
 
