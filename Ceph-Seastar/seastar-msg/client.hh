@@ -8,11 +8,11 @@ distributed<client> clients;
 transport protocol = transport::TCP;
 
 
-void task1(std::string msg)
+void task1(char msg[PACKET_SIZE])
 {
     while(1) {
         while(send_size!=0) sleep(1);
-        memcpy(send_packet, msg, msg.size());
+        memcpy(send_packet, msg, 6);
         send_size=6;
     }
 }
