@@ -1,4 +1,4 @@
-#define PACKET_SIZE 2048
+#define PACKET_SIZE 1024
 char send_packet[PACKET_SIZE];
 char recv_packet[PACKET_SIZE];
 char _send_packet[PACKET_SIZE];
