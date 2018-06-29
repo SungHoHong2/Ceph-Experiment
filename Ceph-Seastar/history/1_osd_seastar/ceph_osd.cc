@@ -107,7 +107,7 @@ int main(int argc, const char **argv)
 {
 
   gethostname(hostname, 150);
-  std::cout << hostname << "::OSD BEGIN" << std::endl;
+  std::cout << hostname << "::CUSTOMIZED OSD BEGIN" << std::endl;
   vector<const char*> args;
   argv_to_vec(argc, argv, args);
   if (args.empty()) {
@@ -774,6 +774,6 @@ flushjournal_out:
     dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
   }
 
-  std::cout << "OSD END" << std::endl;
+  std::cout << "CUSTOMIZED OSD END" << std::endl;
   return 0;
 }
