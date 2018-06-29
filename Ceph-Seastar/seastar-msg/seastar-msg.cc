@@ -91,7 +91,7 @@ int main(int ac, char** av) {
             using namespace std::chrono_literals;
             sleep(1s).then([conn_server, ncon] {
                 clients.start().then([conn_server, ncon]() {
-                    clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
+                    clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, ncon);
                     std::cout << "Seastar TCP client connected to  " << conn_server << " ...\n";
 
                 });
