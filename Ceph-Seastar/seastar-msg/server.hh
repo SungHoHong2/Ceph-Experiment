@@ -59,12 +59,14 @@ public:
     class connection {
         connected_socket _fd;
         input_stream<char> _read_buf;
+        output_stream<char> _write_buf;
     public:
         connection(tcp_server& server, connected_socket&& fd, socket_address addr)
                 : _fd(std::move(fd))
-                , _read_buf(_fd.input()){}
+                , _read_buf(_fd.input())
+                , _write_buf(_fd.output()) {}
         future<> process() {
-            return read();
+            return when_all(read(), write()).discard_result();
         }
         future<> read() {
             usleep(0);
@@ -83,6 +85,11 @@ public:
                 // }
                 return this->read();
             });
+        }
+
+        future<> write() {
+            usleep(0);
+            return this->write();
         }
 
     };
