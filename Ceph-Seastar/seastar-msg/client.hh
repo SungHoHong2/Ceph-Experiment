@@ -6,17 +6,6 @@ class client;
 distributed<client> clients;
 transport protocol = transport::TCP;
 
-
-void task1(char msg[])
-{
-    while(1) {
-        while(send_size!=0) sleep(0);
-        memcpy(send_packet, msg, 5);
-        send_size=5;
-    }
-}
-
-
 class client {
 private:
     static constexpr unsigned _pings_per_connection = 10000;

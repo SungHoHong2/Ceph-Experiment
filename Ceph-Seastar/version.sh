@@ -1,5 +1,5 @@
 HOSTS="$(cat /etc/hostname)"
-HISTORY="1_osd_seastar"
+HISTORY="2_osd_seastar"
 
 if [ "$1" = "host_to_git" ]
 then
@@ -51,7 +51,7 @@ elif [ "$1" = "custom_makefile_test" ]
 then
 SEASTAR_LIBRARY=`pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc`
 
-echo "MAKEFILE BEGIN"
+echo "SEASTAR MAKEFILE BEGIN"
 git pull origin master
 cd /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc               /home/sungho/ceph/src/ceph_osd.cc
@@ -78,7 +78,7 @@ kill -9 `pidof ceph-osd`
 
 cd /home/sungho/ceph/build/bin
 ceph-osd -i 0 -c /etc/ceph/ceph.conf
-echo "MAKEFILE END"
+echo "SEASTAR MAKEFILE END"
 
 # sudocmd ceph_seastar_msg seastar_msg_install
 elif [ "$1" = "seastar_msg_install" ]
