@@ -28,11 +28,11 @@ int main(int ac, char** av) {
     std::string arg_host;
 
     if(strcmp("wenji-w1",hostname)==0){
-        arg_host = "10.218.111.254:1234";
+        arg_host = "10.218.111.253:1234";
 
 
     }else if(strcmp("w2",hostname)==0){
-        arg_host = "10.218.111.253:1234";
+        arg_host = "10.218.111.254:1234";
 
 
     }else if(strcmp("c3n24",hostname)==0){
