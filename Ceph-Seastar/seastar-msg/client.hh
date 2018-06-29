@@ -23,7 +23,6 @@ private:
     unsigned _total_pings;
     unsigned _concurrent_connections;
     ipv4_addr _server_addr;
-    std::string _test;
     lowres_clock::time_point _earliest_started;
     lowres_clock::time_point _latest_finished;
     size_t _processed_bytes;
@@ -64,15 +63,14 @@ public:
     };
 
 
-    future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
+    future<> start(ipv4_addr server_addr, unsigned ncon) {
         _server_addr = server_addr;
         _concurrent_connections = ncon * smp::count;
         _total_pings = _pings_per_connection * _concurrent_connections;
-        _test = test;
 
         for (unsigned i = 0; i < ncon; i++) {
             socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
-            engine().net().connect(make_ipv4_address(server_addr), local, protocol).then([this, test] (connected_socket fd) {
+            engine().net().connect(make_ipv4_address(server_addr), local, protocol).then([this] (connected_socket fd) {
                 auto conn = new connection(std::move(fd));
 
                 conn->process().then_wrapped([conn] (auto&& f) {

@@ -28,20 +28,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="93" column="81" selection-start-line="93" selection-start-column="81" selection-end-line="93" selection-end-column="81" />
+            <state relative-caret-position="591">
+              <caret line="93" column="56" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="96" selection-start-line="96" selection-end-line="96" />
+            <state relative-caret-position="335">
+              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
             </state>
           </provider>
         </entry>
@@ -56,9 +56,10 @@
       <find>ping</find>
       <find>tests</find>
       <find>then_wrapped</find>
-      <find>process</find>
       <find>ping_test</find>
       <find>test_fn</find>
+      <find>process</find>
+      <find>_test</find>
       <find>test</find>
     </findStrings>
     <dirStrings>
@@ -70,8 +71,8 @@
       <list>
         <option value="$PROJECT_DIR$/seastar-msg/common.hh" />
         <option value="$PROJECT_DIR$/seastar-msg/server.hh" />
-        <option value="$PROJECT_DIR$/seastar-msg/client.hh" />
         <option value="$PROJECT_DIR$/seastar-msg/seastar-msg.cc" />
+        <option value="$PROJECT_DIR$/seastar-msg/client.hh" />
       </list>
     </option>
   </component>
@@ -153,12 +154,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="7222000" />
+      <workItem from="1530299095835" duration="7304000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7222000" />
+    <option name="totallyTimeSpent" value="7304000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -206,6 +207,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="93" column="56" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -215,15 +223,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="93" column="81" selection-start-line="93" selection-start-column="81" selection-end-line="93" selection-end-column="81" />
+        <state relative-caret-position="335">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
