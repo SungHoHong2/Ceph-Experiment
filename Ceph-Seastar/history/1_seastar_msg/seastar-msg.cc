@@ -74,7 +74,8 @@ int main(int ac, char** av) {
         enable_tcp = 1;
 
 
-        auto server = new distributed<tcp_server>; // run distributed object
+        if(strcmp("wenji-w1",hostname)==0){
+            auto server = new distributed<tcp_server>; // run distributed object
         server->start().then([server = std::move(server), port] () mutable {
             engine().at_exit([server] {
                 return server->stop();
@@ -86,14 +87,17 @@ int main(int ac, char** av) {
         });
 
 
-        using namespace std::chrono_literals;
-        sleep(10s).then([conn_server, test, ncon] {
-            clients.start().then([conn_server, test, ncon] () {
-                clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
-                std::cout << "Seastar TCP client connected to  " << conn_server << " ...\n";
+        }else if(strcmp("w2",hostname)==0) {
+            using namespace std::chrono_literals;
+            sleep(1s).then([conn_server, test, ncon] {
+                clients.start().then([conn_server, test, ncon]() {
+                    clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
+                    std::cout << "Seastar TCP client connected to  " << conn_server << " ...\n";
 
+                });
             });
-        });
+
+        }
 
         std::cout << "MAIN END" << std::endl;
     });
