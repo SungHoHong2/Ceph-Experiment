@@ -64,7 +64,7 @@ public:
     };
 
     future<> ping_test(connection *conn) {
-        auto started = lowres_clock::now();
+        // auto started = lowres_clock::now();
         return conn->ping();
 //        return conn->ping().then([started] {
 //            auto finished = lowres_clock::now();
