@@ -10,7 +10,7 @@
 ```
 git clone --recursive https://github.com/ceph/ceph.git
 git submodule update --force --init --recursive
-git checkout -b luminous  
+git checkout -b luminous
 ```
 
 <br>
@@ -22,7 +22,6 @@ git checkout -b luminous
 - **run the ceph osd lspools on super user, adding sudo in the cmd line is suffice**
 
 
-
 ### download dependencies
 ```
 ./install-deps.sh
@@ -31,6 +30,19 @@ cd build
 make
 sudo make install
 ```
+
+**pip error**
+```
+sudo apt-get install python-setuptools python-dev build-essential
+sudo easy_install pip
+```
+
+**pip install error**
+```
+export LC_ALL=C
+```
+
+
 
 <br>
 
@@ -52,7 +64,7 @@ Create a /etc/ceph/ceph.conf file
 
 [global]
 fsid = f9a8ed78-92aa-4c20-a42e-bf97431698cf
-mon initial members = node1              
+mon initial members = node1
 mon host = x.x.x.x
 auth cluster required = cephx
 auth service required = cephx

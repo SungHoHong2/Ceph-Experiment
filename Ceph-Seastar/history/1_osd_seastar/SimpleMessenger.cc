@@ -417,10 +417,6 @@ Pipe *SimpleMessenger::connect_rank(const entity_addr_t& addr,
 }
 
 
-
-
-
-
 AuthAuthorizer *SimpleMessenger::get_authorizer(int peer_type, bool force_new)
 {
   return ms_deliver_get_authorizer(peer_type, force_new);
@@ -518,6 +514,7 @@ void SimpleMessenger::submit_message(Message *m, PipeConnection *con,
 
   // local?
   if (my_addr == dest_addr) {
+
     // local
     ldout(cct,20) << "submit_message " << *m << " local" << dendl;
     m->set_connection(local_connection.get());

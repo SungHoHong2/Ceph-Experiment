@@ -28,6 +28,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       if [ "$HOSTS" = "w2" ]
       then
       # export LC_ALL=C
+      # you must! and must! only use sudo in the make install!!!
       # this part is used and not used sometimes
       cd /home/sungho/ceph/build
       make -j 8 && make install -j 8
@@ -43,7 +44,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       ceph-mgr -i 0 -c /etc/ceph/ceph.conf
       fi
 
-
+# sudocmd ceph_seastar_msg seastar_msg_install
 elif [ "$1" = "seastar_msg_install" ]
 then
 git pull origin master
@@ -93,6 +94,12 @@ then
 
 kill -9 `pidof seastar-msg`
 
+git clone https://github.com/SungHoHong2/ceph.git
+
+make ceph-common -j 8 && make ceph-osd -j 8 &&  make ceph-authtool -j 8 make monmaptool -j 8 make ceph-mon -j 8
+
+
+export LC_ALL=C
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
 
 sudo parted -s -a optimal /dev/sdb mklabel gpt
