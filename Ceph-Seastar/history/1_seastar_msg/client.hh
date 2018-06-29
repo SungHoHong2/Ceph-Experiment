@@ -10,7 +10,7 @@ transport protocol = transport::TCP;
 void task1(char msg[])
 {
     while(1) {
-        while(send_size!=0) sleep(0);
+        while(send_size!=0) sleep(1);
         memcpy(send_packet, msg, 5);
         send_size=5;
     }
@@ -41,7 +41,7 @@ public:
 
         future<> ping() {
 
-            sleep(0);
+            sleep(1);
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
@@ -52,8 +52,7 @@ public:
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
             }).then([this] {
-
-                if(strcmp("^^^^^", _send_packet) != 0)
+                // if(strcmp("^^^^^", _send_packet) != 0)
                 std::cout << "WRITE AFTER::" << _send_packet << std::endl;
 
                 return ping();
