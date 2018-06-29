@@ -19,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.hh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="668">
+              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
             </state>
           </provider>
         </entry>
@@ -37,10 +37,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="client.hh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
+            <state relative-caret-position="621">
               <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
             </state>
           </provider>
@@ -61,8 +61,8 @@
       <list>
         <option value="$PROJECT_DIR$/seastar-msg/common.hh" />
         <option value="$PROJECT_DIR$/seastar-msg/seastar-msg.cc" />
-        <option value="$PROJECT_DIR$/seastar-msg/server.hh" />
         <option value="$PROJECT_DIR$/seastar-msg/client.hh" />
+        <option value="$PROJECT_DIR$/seastar-msg/server.hh" />
       </list>
     </option>
   </component>
@@ -144,12 +144,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="3296000" />
+      <workItem from="1530299095835" duration="3440000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3296000" />
+    <option name="totallyTimeSpent" value="3440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -197,13 +197,6 @@
     <entry file="file://$PROJECT_DIR$/seastar-msg/kill.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -213,8 +206,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
+        <state relative-caret-position="621">
           <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="668">
+          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
         </state>
       </provider>
     </entry>
