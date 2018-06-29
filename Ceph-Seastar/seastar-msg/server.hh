@@ -72,15 +72,15 @@ public:
                 return make_ready_future();
             }
 
-            return _read_buf.read().then([this] (temporary_buffer<char> buf) {
+            return _read_buf.read_exactly(5).then([this] (temporary_buffer<char> buf) {
 
-                // if(buf.size()>5) {
+                if(buf.size()>2) {
                    // memset(recv_packet,0, PACKET_SIZE);
                    // memcpy(recv_packet, buf.get(),  buf.size());
 
                     // if(strcmp("^^^^^", recv_packet) != 0)
                     std::cout << "LISTEN::" << buf.get() << "  " << buf.size() <<  std::endl;
-               //  }
+                }
                 return this->read();
             });
         }
