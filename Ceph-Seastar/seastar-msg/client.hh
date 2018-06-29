@@ -51,7 +51,7 @@ public:
                 send_size=0;
             }else {
                 // memcpy(_send_packet, "^^^^^", 5);
-                return ping();
+                return write();
             }
 
             return _write_buf.write(_send_packet).then([this] {
@@ -61,7 +61,7 @@ public:
                 // if(strcmp("^^^^^", _send_packet) != 0)
                 std::cout << "WRITE AFTER::" << _send_packet << std::endl;
 
-                return ping();
+                return write();
 
             });
         }
