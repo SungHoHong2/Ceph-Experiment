@@ -62,7 +62,7 @@ int main(int ac, char** av) {
     char _args[] = "Hello";
     std::thread t1(task1, _args);
 
-    app.run_deprecated(ac, av, [&app] {
+    app.run_deprecated(ac, av, [&app, hostname] {
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
         auto test = config["test"].as<std::string>();
