@@ -55,7 +55,7 @@ public:
                 send_size=0;
             }else {
                 // return write();
-                memset(_send_packet,"^", 5);
+                memcpy(_send_packet, "^^^^^", 5);
             }
 
             return _write_buf.write(_send_packet).then([this] {
