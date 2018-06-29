@@ -7,40 +7,43 @@ distributed<client> clients;
 transport protocol = transport::TCP;
 
 
-void task1(char msg[])
-{
-    while(1) {
-        while(send_size!=0) sleep(1);
-        memcpy(send_packet, msg, 5);
-        send_size=5;
-    }
-}
-
-
 class client {
 private:
     static constexpr unsigned _pings_per_connection = 10000;
     unsigned _total_pings;
     unsigned _concurrent_connections;
     ipv4_addr _server_addr;
-    lowres_clock::time_point _earliest_started;
-    lowres_clock::time_point _latest_finished;
-    size_t _processed_bytes;
-    unsigned _num_reported;
 public:
     class connection {
         connected_socket _fd;
+        input_stream<char> _read_buf;
         output_stream<char> _write_buf;
+
         size_t _bytes_read = 0;
         size_t _bytes_write = 0;
     public:
         connection(connected_socket&& fd)
                 : _fd(std::move(fd))
+                , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
 
         future<> process() {
-            // return when_all(read(), write()).discard_result();
-            return write();
+             return when_all(read(), write()).discard_result();
+        }
+
+        future<> read() {
+            usleep(0);
+            if (_read_buf.eof()) {
+                return make_ready_future();
+            }
+
+            return _read_buf.read_exactly(5).then([this] (temporary_buffer<char> buf) {
+                memset(recv_packet,0, PACKET_SIZE);
+                memcpy(recv_packet, buf.get(),  buf.size());
+
+                std::cout << "LISTEN::" << recv_packet << "  " << buf.size() <<  std::endl;
+                return this->read();
+            });
         }
 
         future<> write() {
@@ -81,8 +84,6 @@ public:
                         std::cout << "request error " << ex.what() << "\n";
                     }
                 });
-
-
 
 
             });
