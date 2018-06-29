@@ -51,6 +51,7 @@ elif [ "$1" = "custom_makefile_test" ]
 then
 echo "MAKEFILE BEGIN"
 git pull origin master
+cd /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc               /home/sungho/ceph/src/ceph_osd.cc
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/OSD.h                     /home/sungho/ceph/src/osd/OSD.h
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home/sungho/ceph/src/msg/simple/SimpleMessenger.cc
