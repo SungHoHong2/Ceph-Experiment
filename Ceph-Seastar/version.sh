@@ -1,6 +1,6 @@
 HOSTS="$(cat /etc/hostname)"
 HISTORY="2_osd_seastar"
-HISTORY_SEASTAR_MSG="1_seastar_msg"
+HISTORY_SEASTAR_MSG="2_seastar_msg"
 
 
 if [ "$1" = "host_to_git" ]
