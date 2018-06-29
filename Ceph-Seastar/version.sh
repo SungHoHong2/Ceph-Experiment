@@ -31,7 +31,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       # you must! and must! only use sudo in the make install!!!
       # this part is used and not used sometimes
       cd /home/sungho/ceph/build
-      make -j 8 && make install -j 8
+      make ceph-osd -j 8 -n && make install -j 8
 
       kill -9 `pidof ceph-osd`
       ceph-osd -i 0 -c /etc/ceph/ceph.conf
@@ -43,6 +43,15 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
       ceph-mon -i wenji -c /etc/ceph/ceph.conf
       ceph-mgr -i 0 -c /etc/ceph/ceph.conf
       fi
+
+# sudocmd ceph_seastar_msg custom_makefile_test
+elif [ "$1" = "custom_makefile_test" ]
+then
+echo "MAKEFILE BEGIN"
+
+
+
+
 
 # sudocmd ceph_seastar_msg seastar_msg_install
 elif [ "$1" = "seastar_msg_install" ]
