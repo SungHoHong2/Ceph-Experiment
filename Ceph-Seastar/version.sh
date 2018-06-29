@@ -128,12 +128,12 @@ then
   if [ "$HOSTS" = "w2" ]
   then
   cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
-  /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg/seastar-msg --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0
+  /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0
 
   elif [ "$HOSTS" = "wenji-w1" ]
   then
   cd /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg
-  /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg/seastar-msg --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.254 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0
+  /home/sungho/Ceph-Experiment/Ceph-Seastar/seastar-msg/seastar-msg --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.254 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0
 
   elif [ "$HOSTS" = "c3n24" ]
   then
