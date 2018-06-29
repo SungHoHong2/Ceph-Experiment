@@ -114,7 +114,7 @@ git pull origin master
 elif [ "$1" = "seastar_msg_to_git" ]
 then
 rm -rf history/$HISTORY_SEASTAR_MSG
-cp -R seastar_msg history/$HISTORY_SEASTAR_MSG
+cp -R seastar-msg history/$HISTORY_SEASTAR_MSG
 git add .
 git commit -m 'seastar_msg_to_git'
 git push origin master
