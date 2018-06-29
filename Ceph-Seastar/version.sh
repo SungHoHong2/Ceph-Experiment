@@ -75,12 +75,14 @@ cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles
 /usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Built target ceph-osd"
 
 /usr/bin/cmake -E cmake_progress_start /home/sungho/ceph/build/CMakeFiles 0
+echo "SEASTAR MAKEFILE END"
 
+elif [ "$1" = "custom_osd_run" ]
+then
 kill -9 `pidof ceph-osd`
-
 cd /home/sungho/ceph/build/bin
 /home/sungho/ceph/build/bin/ceph-osd -i 0 -c /etc/ceph/ceph.conf
-echo "SEASTAR MAKEFILE END"
+
 
 
 elif [ "$1" = "seastar_msg_to_git" ]
