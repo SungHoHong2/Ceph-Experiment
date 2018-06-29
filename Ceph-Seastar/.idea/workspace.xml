@@ -22,8 +22,8 @@
       <file leaf-file-name="server.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+            <state relative-caret-position="606">
+              <caret line="91" column="26" lean-forward="true" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -40,8 +40,8 @@
       <file leaf-file-name="client.hh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="597">
+              <caret line="43" selection-start-line="43" selection-end-line="61" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -54,8 +54,8 @@
       <find>clients</find>
       <find>test</find>
       <find>arg_host</find>
-      <find>ping</find>
       <find>process</find>
+      <find>ping</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -146,12 +146,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="6147000" />
+      <workItem from="1530299095835" duration="6407000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6147000" />
+    <option name="totallyTimeSpent" value="6407000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -208,15 +208,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/client.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="597">
+          <caret line="43" selection-start-line="43" selection-end-line="61" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+        <state relative-caret-position="606">
+          <caret line="91" column="26" lean-forward="true" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
         </state>
       </provider>
     </entry>

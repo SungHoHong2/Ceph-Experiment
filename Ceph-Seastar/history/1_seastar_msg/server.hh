@@ -90,7 +90,22 @@ public:
 
 
         future<> write() {
-            return make_ready_future();
+            usleep(0);
+            if(send_size!=0){
+                memcpy(_send_packet, send_packet, send_size);
+                send_size=0;
+            }else {
+                return write();
+            }
+
+            return _write_buf.write(_send_packet).then([this] {
+                return _write_buf.flush();
+            }).then([this] {
+
+                std::cout << "WRITE AFTER::" << _send_packet << std::endl;
+                return write();
+            });
+
         }
 
 
