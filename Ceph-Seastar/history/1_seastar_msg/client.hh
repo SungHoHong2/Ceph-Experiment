@@ -50,43 +50,18 @@ public:
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
-                // memcpy(_send_packet, "^^^^^", 5);
                 return write();
             }
 
             return _write_buf.write(_send_packet).then([this] {
                 return _write_buf.flush();
             }).then([this] {
-
-                // if(strcmp("^^^^^", _send_packet) != 0)
                 std::cout << "WRITE AFTER::" << _send_packet << std::endl;
-
                 return write();
 
             });
         }
     };
-
-    future<> ping_test(connection *conn) {
-        // auto started = lowres_clock::now();
-        return conn->write();
-//        return conn->ping().then([started] {
-//            auto finished = lowres_clock::now();
-//            clients.invoke_on(0, &client::ping_report, started, finished);
-//        });
-    }
-
-    void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
-        if (_earliest_started > started)
-            _earliest_started = started;
-        if (_latest_finished < finished)
-            _latest_finished = finished;
-        if (++_num_reported == _concurrent_connections) {
-            clients.stop().then([] {
-                // engine().exit(0);
-            });
-        }
-    }
 
 
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
@@ -110,18 +85,6 @@ public:
                 });
 
 
-//
-//                (this->*tests.at(test))(conn).then_wrapped([conn] (auto&& f) {
-//                    delete conn;
-//                    try {
-//                        f.get();
-//                    } catch (std::exception& ex) {
-//                        fprint(std::cerr, "request error: %s\n", ex.what());
-//                    }
-//
-//                });
-
-
 
 
             });
@@ -132,6 +95,4 @@ public:
         return make_ready_future();
     }
 
-    typedef future<> (client::*test_fn)(connection *conn);
-    static const std::map<std::string, test_fn> tests;
 };

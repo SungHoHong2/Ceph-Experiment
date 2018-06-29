@@ -65,7 +65,7 @@ int main(int ac, char** av) {
     app.run_deprecated(ac, av, [&app, hostname] {
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
-        auto test = config["test"].as<std::string>();
+//        auto test = config["test"].as<std::string>();
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
         uint16_t port = config["port"].as<uint16_t>();
@@ -89,8 +89,8 @@ int main(int ac, char** av) {
 
         }else if(strcmp("w2",hostname)==0) {
             using namespace std::chrono_literals;
-            sleep(1s).then([conn_server, test, ncon] {
-                clients.start().then([conn_server, test, ncon]() {
+            sleep(1s).then([conn_server, ncon] {
+                clients.start().then([conn_server, ncon]() {
                     clients.invoke_on_all(&client::start, ipv4_addr{conn_server}, test, ncon);
                     std::cout << "Seastar TCP client connected to  " << conn_server << " ...\n";
 
