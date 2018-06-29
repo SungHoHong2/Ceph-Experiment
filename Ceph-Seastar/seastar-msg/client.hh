@@ -47,6 +47,7 @@ public:
                 send_size=0;
             }else {
                 memcpy(_send_packet, "^^^^^", 5);
+                return ping();
             }
 
             return _write_buf.write(_send_packet).then([this] {
