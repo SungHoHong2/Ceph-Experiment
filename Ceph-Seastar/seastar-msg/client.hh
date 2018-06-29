@@ -39,8 +39,12 @@ public:
                 : _fd(std::move(fd))
                 , _write_buf(_fd.output()) {}
 
-        future<> ping() {
+        future<> process() {
+            // return when_all(read(), write()).discard_result();
+            return write();
+        }
 
+        future<> write() {
             usleep(0);
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
@@ -95,15 +99,31 @@ public:
             socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
             engine().net().connect(make_ipv4_address(server_addr), local, protocol).then([this, test] (connected_socket fd) {
                 auto conn = new connection(std::move(fd));
-                (this->*tests.at(test))(conn).then_wrapped([conn] (auto&& f) {
+
+                conn->process().then_wrapped([conn] (auto&& f) {
                     delete conn;
                     try {
                         f.get();
                     } catch (std::exception& ex) {
-                        fprint(std::cerr, "request error: %s\n", ex.what());
+                        std::cout << "request error " << ex.what() << "\n";
                     }
-
                 });
+
+
+//
+//                (this->*tests.at(test))(conn).then_wrapped([conn] (auto&& f) {
+//                    delete conn;
+//                    try {
+//                        f.get();
+//                    } catch (std::exception& ex) {
+//                        fprint(std::cerr, "request error: %s\n", ex.what());
+//                    }
+//
+//                });
+
+
+
+
             });
         }
         return make_ready_future();
