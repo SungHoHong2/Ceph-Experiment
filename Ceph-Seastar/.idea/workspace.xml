@@ -40,8 +40,8 @@
       <file leaf-file-name="common.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/common.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state relative-caret-position="266">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -167,12 +167,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="8248000" />
+      <workItem from="1530299095835" duration="8321000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8248000" />
+    <option name="totallyTimeSpent" value="8321000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -236,8 +236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/common.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="266">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
