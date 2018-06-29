@@ -7,7 +7,7 @@ char _recv_packet[PACKET_SIZE];
 std::atomic<int> send_size;
 std::atomic<int> recv_size;
 
-int total_number_of_packets = 10;
+int total_number_of_packets = -1;
 void task1(char msg[])
 {
     while(1 && (total_number_of_packets!=0)) {
