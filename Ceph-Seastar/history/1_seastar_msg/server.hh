@@ -66,6 +66,7 @@ public:
                 , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
         future<> process() {
+            return when_all(read(), write()).discard_result();
             return read();
         }
         future<> read() {
@@ -87,5 +88,11 @@ public:
             });
         }
 
-    };
+
+        future<> write() {
+            return make_ready_future();
+        }
+
+
+        };
 };

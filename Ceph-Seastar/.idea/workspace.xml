@@ -22,8 +22,8 @@
       <file leaf-file-name="server.hh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="66" column="45" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+            <state relative-caret-position="666">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
             </state>
           </provider>
         </entry>
@@ -54,8 +54,8 @@
       <find>clients</find>
       <find>test</find>
       <find>arg_host</find>
-      <find>process</find>
       <find>ping</find>
+      <find>process</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -146,12 +146,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="5826000" />
+      <workItem from="1530299095835" duration="6147000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5826000" />
+    <option name="totallyTimeSpent" value="6147000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -215,8 +215,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/server.hh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="66" column="45" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+        <state relative-caret-position="666">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
         </state>
       </provider>
     </entry>
