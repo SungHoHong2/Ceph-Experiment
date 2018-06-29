@@ -14,10 +14,6 @@
 
 namespace bpo = boost::program_options;
 
-
-void server_task(){}
-
-
 int main(int ac, char** av) {
     std::cout << "MAIN BEGIN" << std::endl;
 
