@@ -18,6 +18,7 @@ git commit -m '$HISTORY'
 git push origin master
 
 
+# sudocmd ceph_seastar_msg git_to_server
 elif [ "$1" = "git_to_server" ]
 then
 git pull origin master
@@ -52,6 +53,11 @@ echo "MAKEFILE BEGIN"
 
 
 
+
+
+
+
+echo "MAKEFILE END"
 
 # sudocmd ceph_seastar_msg seastar_msg_install
 elif [ "$1" = "seastar_msg_install" ]

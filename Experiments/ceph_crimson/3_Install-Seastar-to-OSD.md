@@ -1,57 +1,21 @@
-### fixing workstation
-```
-the problem happened in the graphic card driver, and the driver cannot be installed in the recovery mode
-the workstation is not completely normal, even after reinstalling everything.
-the workstation becomes very slow
-```
-
 ### makefile log
+- I think the third part is the one atht will allow you `integrate Seastar`
+- this is the result from `make ceph-osd -j`
 
 ```
-make ceph-osd -n -j 8 >> install_log
-
-make -f src/CMakeFiles/ceph-fuse.dir/build.make src/CMakeFiles/ceph-fuse.dir/depend
-make -f src/CMakeFiles/ceph-mon.dir/build.make src/CMakeFiles/ceph-mon.dir/depend
+make -f CMakeFiles/Makefile2 ceph-osd
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend
-make -f src/CMakeFiles/ceph-mgr.dir/build.make src/CMakeFiles/ceph-mgr.dir/depend
-make -f src/CMakeFiles/cephfs.dir/build.make src/CMakeFiles/cephfs.dir/depend
-cd /home/sungho/ceph/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/ceph /home/sungho/ceph/src /home/sungho/ceph/build /home/sungho/ceph/build/src /home/sungho/ceph/build/src/CMakeFiles/ce
-ph-mon.dir/DependInfo.cmake --color=
-make -f src/CMakeFiles/ceph-mon.dir/build.make src/CMakeFiles/ceph-mon.dir/build
-cd /home/sungho/ceph/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/ceph /home/sungho/ceph/src /home/sungho/ceph/build /home/sungho/ceph/build/src /home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/DependInfo.cmake --color=
-
 make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
 
-cd /home/sungho/ceph/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/ceph /home/sungho/ceph/src /home/sungho/ceph/build /home/sungho/ceph/build/src /home/sungho/ceph/build/src/CMakeFiles/cephfs.dir/DependInfo.cmake --color=
-make -f src/CMakeFiles/cephfs.dir/build.make src/CMakeFiles/cephfs.dir/build
-```
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Building CXX object src/CMakeFiles/ceph-osd.dir/ceph_osd.cc.o"
 
+cd /home/sungho/ceph/build/src && /usr/bin/c++   -DCEPH_LIBDIR=\"/usr/local/lib\" -DCEPH_PKGLIBDIR=\"/usr/local/lib/ceph\" -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D__linux__ -isystem /home/sungho/ceph/build/boost/include -I/home/sungho/ceph/build/src/include -I/home/sungho/ceph/src -isystem /home/sungho/ceph/build/include -I/usr/include/nss -I/usr/include/nspr -isystem /home/sungho/ceph/src/xxHash -isystem /home/sungho/ceph/src/rapidjson/include -I/home/sungho/ceph/src/dmclock/src -I/home/sungho/ceph/src/dmclock/support/src -isystem /home/sungho/ceph/src/googletest/googletest/include -isystem /home/sungho/ceph/src/spdk/include -isystem /home/sungho/ceph/build/src/dpdk/include -isystem /home/sungho/ceph/src/rocksdb/include  -Wall -Wtype-limits -Wignored-qualifiers -Winit-self -Wpointer-arith -Werror=format-security -fno-strict-aliasing -fsigned-char -Wno-unknown-pragmas -rdynamic  -ftemplate-depth-1024 -Wnon-virtual-dtor -Wno-unknown-pragmas -Wno-ignored-qualifiers -Wstrict-null-sentinel -Woverloaded-virtual -fno-new-ttp-matching -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fstack-protector-strong -std=c++17 -fdiagnostics-color=auto -I/usr/include -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O2 -g  -fPIE   -DHAVE_CONFIG_H -D__CEPH__ -D_REENTRANT -D_THREAD_SAFE -D__STDC_FORMAT_MACROS -o CMakeFiles/ceph-osd.dir/ceph_osd.cc.o -c /home/sungho/ceph/src/ceph_osd.cc
 
+/usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num= "Linking CXX executable ../bin/ceph-osd"
 
-
-```c++
-sudo make -f CMakeFiles/Makefile2 src/CMakeFiles/ceph-osd.dir/all
-
-#ceph-osd
-make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend
-cd /home/sungho/ceph/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/ceph /home/sungho/ceph/src /home/sungho/ceph/build /home/sungho/ceph/build/src /home/sungho/ceph/build/src/CMakeFiles/ ceph-osd.dir/DependInfo.cmake --color=
-make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
-
-
-make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend
-cd /home/sungho/ceph/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/ceph /home/sungho/ceph/src
-
-/home/sungho/ceph/build /home/sungho/ceph/build/src /home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/DependInfo.cmake --color=
-make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build
+cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
 
 /usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Built target ceph-osd"
 
-
-
-
-
-```
-
-```
-src/all: src/CMakeFiles/ceph-osd.dir/all
+/usr/bin/cmake -E cmake_progress_start /home/sungho/ceph/build/CMakeFiles 0
 ```
