@@ -52,13 +52,13 @@
 #define dout_context g_ceph_context
 #define dout_subsys ceph_subsys_osd
 
-//#include "core/reactor.hh"
-//#include "core/app-template.hh"
-//#include "core/temporary_buffer.hh"
-//#include "core/future-util.hh"
-//#include "core/distributed.hh"
-//#include "core/sleep.hh"
-//#include <vector>
+#include "core/reactor.hh"
+#include "core/app-template.hh"
+#include "core/temporary_buffer.hh"
+#include "core/future-util.hh"
+#include "core/distributed.hh"
+#include "core/sleep.hh"
+#include <vector>
 
 namespace bpo = boost::program_options;
 
@@ -119,15 +119,15 @@ int main(int argc, const char **argv)
 {
 
   std::string arg_host;
-//  app_template app;
+  app_template app;
   arg_host = "10.218.111.254:1234";
-//  app.add_options()
-//          ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
-//          ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
-//          ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
-//          ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
-//          ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
-//          ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+  app.add_options()
+          ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
+          ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
+          ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
+          ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
+          ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
+          ("smp", bpo::value<unsigned>()->default_value(1), "smp");
 
   gethostname(hostname, 150);
   std::cout << hostname << "::CUSTOMIZED OSD BEGIN" << std::endl;
