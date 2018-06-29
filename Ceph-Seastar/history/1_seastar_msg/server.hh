@@ -30,9 +30,9 @@ public:
                 memset(recv_packet,0, PACKET_SIZE);
                 memcpy(recv_packet, buf.get(),  buf.size());
 
-                // if(strcmp("^^^^^", recv_packet) != 0)
+                if(strcmp("^^^^^", recv_packet) != 0)
                 std::cout << "LISTEN::" << recv_packet << "  " << buf.size() <<  std::endl;
-                // }
+
                 return this->read();
             });
         }

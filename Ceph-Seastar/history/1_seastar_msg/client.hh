@@ -41,7 +41,9 @@ public:
                 memset(recv_packet,0, PACKET_SIZE);
                 memcpy(recv_packet, buf.get(),  buf.size());
 
+                if(strcmp("^^^^^", recv_packet) != 0)
                 std::cout << "LISTEN::" << recv_packet << "  " << buf.size() <<  std::endl;
+
                 return this->read();
             });
         }
@@ -52,7 +54,8 @@ public:
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;
             }else {
-                return write();
+                // return write();
+                memset(_send_packet,"^", 5);
             }
 
             return _write_buf.write(_send_packet).then([this] {
