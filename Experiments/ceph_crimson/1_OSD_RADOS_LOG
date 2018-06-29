@@ -93,7 +93,6 @@ Object prefix: benchmark_data_w2_19915
 sec Cur ops   started  finished  avg MB/s  cur MB/s last lat(s)  avg lat(s)
 0       0         0         0         0         0           -           0
 
-
 ::_send_message(con)
 --> 10.218.106.44:6800/19688 -- osd_op(client.54131.0:1 4.5e 4:7b0dd02b:::benchmark_data_w2_19915_object0:head [set-alloc-hint object_size 4194304 write_size 4194304,write 0~4194304] snapc 0=[] ondisk+write+known_if_redirected e134) v8 -- ?+0 0x56404f271db0 con 0x56404f270960
 ::_send_message(con)

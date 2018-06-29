@@ -1,7 +1,6 @@
 using namespace seastar;
 using namespace net;
 using namespace std::chrono_literals;
-static int total_ping_identifier = 0;
 
 class client;
 distributed<client> clients;

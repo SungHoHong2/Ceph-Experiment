@@ -35,6 +35,14 @@ int main(int ac, char** av) {
         arg_host = "10.218.111.252:1234";
 
 
+    }else if(strcmp("c3n24",hostname)==0){
+        arg_host = "10.107.30.41:1234";
+
+
+    }else if(strcmp("c3n25",hostname)==0){
+        arg_host = "10.107.30.40:1234";
+
+
     } else {
         std::cout << "wrong host" << std::endl;
         return 0;
