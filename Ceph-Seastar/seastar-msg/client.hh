@@ -41,7 +41,7 @@ public:
 
         future<> ping() {
 
-            // sleep(0);
+             sleep(0);
             if(send_size!=0){
                 memcpy(_send_packet, send_packet, send_size);
                 send_size=0;

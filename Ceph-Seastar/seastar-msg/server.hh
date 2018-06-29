@@ -67,7 +67,7 @@ public:
             return read();
         }
         future<> read() {
-            // sleep(0);
+            sleep(0);
             if (_read_buf.eof()) {
                 return make_ready_future();
             }
