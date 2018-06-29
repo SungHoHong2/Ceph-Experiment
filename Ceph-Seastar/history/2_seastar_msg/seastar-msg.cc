@@ -61,7 +61,6 @@ int main(int ac, char** av) {
     app.run_deprecated(ac, av, [&app, hostname] {
         auto&& config = app.configuration();
         auto conn_server = config["server"].as<std::string>();
-//        auto test = config["test"].as<std::string>();
         auto ncon = config["conn"].as<unsigned>();
         auto proto = config["proto"].as<std::string>();
         uint16_t port = config["port"].as<uint16_t>();
