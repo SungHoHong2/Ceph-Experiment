@@ -31,8 +31,8 @@
       <file leaf-file-name="seastar-msg.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="91" column="40" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
+            <state relative-caret-position="782">
+              <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -59,6 +59,7 @@
       <find>process</find>
       <find>ping_test</find>
       <find>test</find>
+      <find>test_fn</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/seastar-msg</dir>
@@ -152,12 +153,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
-      <workItem from="1530299095835" duration="7176000" />
+      <workItem from="1530299095835" duration="7199000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7176000" />
+    <option name="totallyTimeSpent" value="7199000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -221,8 +222,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar-msg/seastar-msg.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="91" column="40" selection-start-line="91" selection-start-column="40" selection-end-line="91" selection-end-column="40" />
+        <state relative-caret-position="782">
+          <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
         </state>
       </provider>
     </entry>

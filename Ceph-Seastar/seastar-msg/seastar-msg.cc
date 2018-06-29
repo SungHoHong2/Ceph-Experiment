@@ -101,14 +101,5 @@ int main(int ac, char** av) {
 
         std::cout << "MAIN END" << std::endl;
     });
-
-
-
-
-
-
 }
 
-const std::map<std::string, client::test_fn> client::tests = {
-        {"ping", &client::ping_test},
-};
