@@ -66,7 +66,7 @@ public:
                 , _read_buf(_fd.input())
                 , _write_buf(_fd.output()) {}
         future<> process() {
-            return when_all(read(), write()).discard_result();
+            return when_all(read());
         }
         future<> read() {
             usleep(0);
@@ -86,11 +86,6 @@ public:
                 return this->read();
             });
         }
-
-        future<> write() {
-            usleep(0);
-            return this->write();
-        }
-
+        
     };
 };
