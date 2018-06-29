@@ -1,12 +1,5 @@
 using namespace seastar;
 
-static std::string str_ping{"ping"};
-static std::string str_pong{"pong"};
-static int tx_msg_size = 4 * 1024;
-static std::string str_txbuf(tx_msg_size, 'X');
-static bool enable_tcp = false;
-static bool enable_sctp = false;
-
 class tcp_server {
     std::vector<server_socket> _tcp_listeners;
     std::vector<server_socket> _sctp_listeners;
@@ -65,21 +58,11 @@ public:
     };
 
     future<> listen(ipv4_addr addr) {
-        if (enable_tcp) {
             listen_options lo;
             lo.proto = transport::TCP;
             lo.reuse_address = true;
             _tcp_listeners.push_back(engine().listen(make_ipv4_address(addr), lo));
             do_accepts(_tcp_listeners);
-        }
-
-        if (enable_sctp) {
-            listen_options lo;
-            lo.proto = transport::SCTP;
-            lo.reuse_address = true;
-            _sctp_listeners.push_back(engine().listen(make_ipv4_address(addr), lo));
-            do_accepts(_sctp_listeners);
-        }
         return make_ready_future<>();
     }
 

@@ -71,8 +71,6 @@ int main(int ac, char** av) {
         uint16_t port = config["port"].as<uint16_t>();
 
         protocol = transport::TCP;
-        enable_tcp = 1;
-
 
         if(strcmp("wenji-w1",hostname)==0){
             auto server = new distributed<tcp_server>; // run distributed object
