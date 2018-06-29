@@ -111,10 +111,6 @@ sudo parted -s -a optimal /dev/sdb mkpart osd-device-0-db 30G 40G
 
 sudo umount /mnt/osd-device-0-data
 sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
-sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-block /mnt/osd-device-0-block
-sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-wal /mnt/osd-device-0-wal
-sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-db /mnt/osd-device-0-db
-
 
 /sbin/mkfs -t ext4 /dev/sdb1
 /sbin/mkfs -t ext4 /dev/sdb2
@@ -122,14 +118,16 @@ sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-db /mnt/osd-device-0-db
 /sbin/mkfs -t ext4 /dev/sdb4
 
 
-sudo ceph-bluestore-tool --cluster=ceph prime-osd-dir --dev /dev/ceph-8676e29c-801c-49d6-9809-1a3486b93a05/osd-block-bd3a04ed-b14e-4a16-b3d9-8b742be019a4 --path /var/lib/ceph/osd/ceph-17
+sudo ceph osd create a81556d7-f7e7-41e1-a379-ee3296ea4a53
+mkdir -p /mnt/osd-device-0-data
+sudo mount -t ext4 /dev/disk/by-partlabel/osd-device-0-data /mnt/osd-device-0-data
+
 sudo ceph-osd -i 0 --mkfs --mkkey --osd-uuid a81556d7-f7e7-41e1-a379-ee3296ea4a53
 sudo ceph auth add osd.0 osd 'allow *' mon 'allow profile osd' mgr 'allow profile osd' -i /mnt/osd-device-0-data/keyring
 
 ceph osd crush add-bucket crush0 host
 ceph osd crush move crush0 root=default
 ceph osd crush add osd.0 1.0 host=crush0
-
 sudo ceph-osd -i 0 -c /etc/ceph/ceph.conf
 
 
