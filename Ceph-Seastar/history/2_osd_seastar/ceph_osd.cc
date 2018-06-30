@@ -357,19 +357,12 @@ int main(int argc, const char **argv)
       bufferlist bl;
       keyring->encode_plaintext(bl);
       int r = bl.write_file(keyring_path.c_str(), 0600);
-      if (r)
-//	derr << TEXT_RED << " ** ERROR: writing new keyring to "
-//             << keyring_path << ": " << cpp_strerror(r) << TEXT_NORMAL
-//             << dendl;
-      else
-//	derr << "created new key in keyring " << keyring_path << dendl;
     }
   }
   if (mkfs) {
     common_init_finish(g_ceph_context);
 
     if (g_conf->get_val<uuid_d>("fsid").is_zero()) {
-  //     derr << "must specify cluster fsid" << dendl;
       forker.exit(-EINVAL);
     }
 
@@ -383,8 +376,6 @@ int main(int argc, const char **argv)
     std::cout << hostname << "\t::mkfs" << std::endl;
 
     if (err < 0) {
-//      derr << TEXT_RED << " ** ERROR: error creating empty object store in "
-//	   << data_path << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
     std::cout << "created object store " << data_path
