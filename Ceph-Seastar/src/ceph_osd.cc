@@ -128,7 +128,7 @@ int main(int argc, const char **argv)
 //          ("smp", bpo::value<unsigned>()->default_value(1), "smp");
 
   gethostname(hostname, 150);
-  std::cout << hostname << "::CUSTOMIZED OSD BEGIN" << std::endl;
+  std::cout << hostname << "::SEASTAR OSD BEGIN" << std::endl;
   std::cout << "DPDK connected to " << arg_host << std::endl;
 
   vector<const char*> args;
