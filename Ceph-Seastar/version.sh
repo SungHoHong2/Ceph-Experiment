@@ -1,5 +1,5 @@
 HOSTS="$(cat /etc/hostname)"
-HISTORY="2_osd_seastar"
+HISTORY="3_osd_seastar"
 HISTORY_SEASTAR_MSG="2_seastar_msg"
 
 
@@ -60,6 +60,8 @@ cd /home/sungho/ceph/build/
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc               /home/sungho/ceph/src/ceph_osd.cc
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/OSD.h                     /home/sungho/ceph/src/osd/OSD.h
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home/sungho/ceph/src/msg/simple/SimpleMessenger.cc
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home/sungho/ceph/build/boost/include/boost/lockfree/spsc_queue.hpp
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home/sungho/ceph/build/boost/src/Boost/boost/lockfree/spsc_queue.hpp
 
 # make -f CMakeFiles/Makefile2 ceph-osd -j 4
 # make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend -j 4
