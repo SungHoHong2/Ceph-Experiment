@@ -30,7 +30,11 @@
       </file>
       <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/history/0_seastar_msg/Makefile">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="35" lean-forward="true" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="server.hh" pinned="false" current-in-tab="false">
@@ -181,12 +185,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530299094472</updated>
       <workItem from="1530299095835" duration="10716000" />
-      <workItem from="1530381054788" duration="718000" />
+      <workItem from="1530381054788" duration="1659000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11434000" />
+    <option name="totallyTimeSpent" value="12375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1164" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -282,7 +286,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/history/0_seastar_msg/Makefile">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="35" lean-forward="true" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
