@@ -443,9 +443,9 @@ int main(int argc, const char **argv)
       goto flushjournal_out;
     }
     store->umount();
-    derr << "flushed journal " << journal_path
-	 << " for object store " << data_path
-	 << dendl;
+//    derr << "flushed journal " << journal_path
+//	 << " for object store " << data_path
+//	 << dendl;
 flushjournal_out:
     delete store;
     forker.exit(err < 0 ? 1 : 0);
