@@ -52,7 +52,7 @@
 #define dout_context g_ceph_context
 #define dout_subsys ceph_subsys_osd
 
-#include "core/reactor.hh"
+// #include "core/reactor.hh"
 //#include "core/app-template.hh"
 //#include "core/temporary_buffer.hh"
 //#include "core/future-util.hh"
@@ -271,13 +271,13 @@ int main(int argc, const char **argv)
 	  decode(e, p);
 	}
 	catch (const buffer::error &e) {
-	  derr << "failed to decode LogEntry at offset " << pos << dendl;
+	  // derr << "failed to decode LogEntry at offset " << pos << dendl;
 	  forker.exit(1);
 	}
-	derr << pos << ":\t" << e << dendl;
+	// derr << pos << ":\t" << e << dendl;
       }
     } else {
-      derr << "unable to open " << dump_pg_log << ": " << error << dendl;
+      // derr << "unable to open " << dump_pg_log << ": " << error << dendl;
     }
     forker.exit(0);
   }
@@ -292,12 +292,12 @@ int main(int argc, const char **argv)
 
 
   if (*end || end == id || whoami < 0) {
-    derr << "must specify '-i #' where # is the osd number" << dendl;
+    // derr << "must specify '-i #' where # is the osd number" << dendl;
     forker.exit(1);
   }
 
   if (data_path.empty()) {
-    derr << "must specify '--osd-data=foo' data path" << dendl;
+    // derr << "must specify '--osd-data=foo' data path" << dendl;
     forker.exit(1);
   }
 
@@ -312,7 +312,7 @@ int main(int argc, const char **argv)
       bl.read_fd(fd, 64);
       if (bl.length()) {
 	store_type = string(bl.c_str(), bl.length() - 1);  // drop \n
-	dout(5) << "object store type is " << store_type << dendl;
+	// dout(5) << "object store type is " << store_type << dendl;
       }
       ::close(fd);
     }
@@ -326,7 +326,7 @@ int main(int argc, const char **argv)
 					   journal_path,
                                            flags);
   if (!store) {
-    derr << "unable to create object store" << dendl;
+    // derr << "unable to create object store" << dendl;
     forker.exit(-ENODEV);
   }
 
@@ -335,7 +335,7 @@ int main(int argc, const char **argv)
     common_init_finish(g_ceph_context);
     KeyRing *keyring = KeyRing::create_empty();
     if (!keyring) {
-      derr << "Unable to get a Ceph keyring." << dendl;
+     //  derr << "Unable to get a Ceph keyring." << dendl;
       forker.exit(1);
     }
 
@@ -350,7 +350,7 @@ int main(int argc, const char **argv)
     int ret = keyring->load(g_ceph_context, keyring_path);
     if (ret == 0 &&
 	keyring->get_auth(ename, eauth)) {
-      derr << "already have key in keyring " << keyring_path << dendl;
+     // derr << "already have key in keyring " << keyring_path << dendl;
     } else {
       eauth.key.create(g_ceph_context, CEPH_CRYPTO_AES);
       keyring->add(ename, eauth);
@@ -358,18 +358,18 @@ int main(int argc, const char **argv)
       keyring->encode_plaintext(bl);
       int r = bl.write_file(keyring_path.c_str(), 0600);
       if (r)
-	derr << TEXT_RED << " ** ERROR: writing new keyring to "
-             << keyring_path << ": " << cpp_strerror(r) << TEXT_NORMAL
-             << dendl;
+//	derr << TEXT_RED << " ** ERROR: writing new keyring to "
+//             << keyring_path << ": " << cpp_strerror(r) << TEXT_NORMAL
+//             << dendl;
       else
-	derr << "created new key in keyring " << keyring_path << dendl;
+//	derr << "created new key in keyring " << keyring_path << dendl;
     }
   }
   if (mkfs) {
     common_init_finish(g_ceph_context);
 
     if (g_conf->get_val<uuid_d>("fsid").is_zero()) {
-      derr << "must specify cluster fsid" << dendl;
+  //     derr << "must specify cluster fsid" << dendl;
       forker.exit(-EINVAL);
     }
 
@@ -383,14 +383,14 @@ int main(int argc, const char **argv)
     std::cout << hostname << "\t::mkfs" << std::endl;
 
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error creating empty object store in "
-	   << data_path << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error creating empty object store in "
+//	   << data_path << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
-    dout(0) << "created object store " << data_path
+    std::cout << "created object store " << data_path
 	    << " for osd." << whoami
 	    << " fsid " << g_conf->get_val<uuid_d>("fsid")
-	    << dendl;
+	    << std::endl;
   }
 
 
@@ -406,13 +406,13 @@ int main(int argc, const char **argv)
     common_init_finish(g_ceph_context);
     int err = store->mkjournal();
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error creating fresh journal "
-           << journal_path << " for object store " << data_path << ": "
-           << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error creating fresh journal "
+//           << journal_path << " for object store " << data_path << ": "
+//           << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
-    derr << "created new journal " << journal_path
-	 << " for object store " << data_path << dendl;
+//    derr << "created new journal " << journal_path
+//	 << " for object store " << data_path << dendl;
     forker.exit(0);
   }
   if (check_wants_journal) {
@@ -446,9 +446,9 @@ int main(int argc, const char **argv)
     common_init_finish(g_ceph_context);
     int err = store->mount();
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error flushing journal " << journal_path
-	   << " for object store " << data_path
-	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error flushing journal " << journal_path
+//	   << " for object store " << data_path
+//	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       goto flushjournal_out;
     }
     store->umount();
@@ -463,14 +463,14 @@ flushjournal_out:
     common_init_finish(g_ceph_context);
     int err = store->dump_journal(cout);
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error dumping journal " << journal_path
-	   << " for object store " << data_path
-	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error dumping journal " << journal_path
+//	   << " for object store " << data_path
+//	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
-    derr << "dumped journal " << journal_path
-	 << " for object store " << data_path
-	 << dendl;
+//    derr << "dumped journal " << journal_path
+//	 << " for object store " << data_path
+//	 << dendl;
     forker.exit(0);
   }
 
@@ -482,15 +482,15 @@ flushjournal_out:
 
     int err = store->mount();
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error mounting store " << data_path
-	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error mounting store " << data_path
+//	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
     err = store->upgrade();
     store->umount();
     if (err < 0) {
-      derr << TEXT_RED << " ** ERROR: error converting store " << data_path
-	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " ** ERROR: error converting store " << data_path
+//	   << ": " << cpp_strerror(-err) << TEXT_NORMAL << dendl;
       forker.exit(1);
     }
     forker.exit(0);
@@ -505,22 +505,22 @@ flushjournal_out:
   std::cout << hostname << "\t::peek_meta" << std::endl;
 
   if (r < 0) {
-    derr << TEXT_RED << " ** ERROR: unable to open OSD superblock on "
-	 << data_path << ": " << cpp_strerror(-r)
-	 << TEXT_NORMAL << dendl;
+//    derr << TEXT_RED << " ** ERROR: unable to open OSD superblock on "
+//	 << data_path << ": " << cpp_strerror(-r)
+//	 << TEXT_NORMAL << dendl;
     if (r == -ENOTSUP) {
-      derr << TEXT_RED << " **        please verify that underlying storage "
-	   << "supports xattrs" << TEXT_NORMAL << dendl;
+//      derr << TEXT_RED << " **        please verify that underlying storage "
+//	   << "supports xattrs" << TEXT_NORMAL << dendl;
     }
     forker.exit(1);
   }
   if (w != whoami) {
-    derr << "OSD id " << w << " != my id " << whoami << dendl;
+//    derr << "OSD id " << w << " != my id " << whoami << dendl;
     forker.exit(1);
   }
   if (strcmp(magic.c_str(), CEPH_OSD_ONDISK_MAGIC)) {
-    derr << "OSD magic " << magic << " != my " << CEPH_OSD_ONDISK_MAGIC
-	 << dendl;
+//    derr << "OSD magic " << magic << " != my " << CEPH_OSD_ONDISK_MAGIC
+//	 << dendl;
     forker.exit(1);
   }
 
@@ -541,10 +541,10 @@ flushjournal_out:
 
 
   if (paddr.is_blank_ip() && !caddr.is_blank_ip()) {
-    derr << TEXT_YELLOW
-	 << " ** WARNING: specified cluster addr but not public addr; we recommend **\n"
-	 << " **          you specify neither or both.                             **"
-	 << TEXT_NORMAL << dendl;
+//    derr << TEXT_YELLOW
+//	 << " ** WARNING: specified cluster addr but not public addr; we recommend **\n"
+//	 << " **          you specify neither or both.                             **"
+//	 << TEXT_NORMAL << dendl;
   }
 
   std::string msg_type = g_conf->get_val<std::string>("ms_type");
@@ -717,8 +717,8 @@ flushjournal_out:
   std::cout << hostname << "\t::osd->pre_init()" << std::endl;
 
   if (err < 0) {
-    derr << TEXT_RED << " ** ERROR: osd pre_init failed: " << cpp_strerror(-err)
-	 << TEXT_NORMAL << dendl;
+//    derr << TEXT_RED << " ** ERROR: osd pre_init failed: " << cpp_strerror(-err)
+//	 << TEXT_NORMAL << dendl;
     forker.exit(1);
   }
 
@@ -737,8 +737,8 @@ flushjournal_out:
 
 
   if (err < 0) {
-    derr << TEXT_RED << " ** ERROR: osd init failed: " << cpp_strerror(-err)
-         << TEXT_NORMAL << dendl;
+//    derr << TEXT_RED << " ** ERROR: osd init failed: " << cpp_strerror(-err)
+//         << TEXT_NORMAL << dendl;
     forker.exit(1);
   }
 
@@ -794,7 +794,7 @@ flushjournal_out:
   char s[20];
   snprintf(s, sizeof(s), "gmon/%d", getpid());
   if ((mkdir(s, 0755) == 0) && (chdir(s) == 0)) {
-    dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
+//    dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
   }
 
   std::cout << "CUSTOMIZED OSD END" << std::endl;
