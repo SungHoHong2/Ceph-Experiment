@@ -52,7 +52,7 @@
 #define dout_context g_ceph_context
 #define dout_subsys ceph_subsys_osd
 
-//#include "core/reactor.hh"
+#include "core/reactor.hh"
 //#include "core/app-template.hh"
 //#include "core/temporary_buffer.hh"
 //#include "core/future-util.hh"
