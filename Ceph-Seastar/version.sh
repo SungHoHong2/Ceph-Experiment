@@ -1,6 +1,6 @@
 HOSTS="$(cat /etc/hostname)"
 HISTORY="3_osd_seastar"
-HISTORY_SEASTAR_MSG="2_seastar_msg"
+HISTORY_SEASTAR_MSG="3_seastar_msg"
 
 
 if [ "$1" = "host_to_git" ]
@@ -11,7 +11,7 @@ mkdir history/$HISTORY
 cp /Users/sunghohong/Documents/Projects/ceph/src/ceph_osd.cc                    src/
 cp /Users/sunghohong/Documents/Projects/ceph/src/osd/OSD.h                      src/
 cp /Users/sunghohong/Documents/Projects/ceph/src/msg/simple/SimpleMessenger.cc  src/
-
+cp /Users/sunghohong/Documents/Projects/ceph/src/os/bluestore/NVMEDevice.cc     src/
 
 cp src/* history/$HISTORY
 cd /Users/sunghohong/Documents/Projects/Ceph-Experiment
@@ -27,6 +27,7 @@ git pull origin master
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/ceph_osd.cc               /home/sungho/ceph/src/ceph_osd.cc
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/OSD.h                     /home/sungho/ceph/src/osd/OSD.h
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home/sungho/ceph/src/msg/simple/SimpleMessenger.cc
+
 
       if [ "$HOSTS" = "w2" ]
       then
@@ -65,6 +66,8 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home/sungho/ceph/build/boost/src/Boost/boost/lockfree/spsc_queue.hpp
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/link.txt                  /home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/link.txt
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/configure.py              /home/sungho/seastar/configure.py
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/NVMEDevice.cc             /home/sungho/ceph/src/os/bluestore/NVMEDevice.cc
+
 
 # make -f CMakeFiles/Makefile2 ceph-osd -j 4
 # make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend -j 4
