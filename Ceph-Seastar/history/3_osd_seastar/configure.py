@@ -814,7 +814,7 @@ with open(buildfile, 'w') as f:
         full_builddir = {srcdir}/$builddir
         cxx = {cxx}
         # we disable _FORTIFY_SOURCE because it generates false positives with longjmp() (core/thread.cc)
-        cxxflags = -std={cpp_dialect} {dbgflag} {fpie} -Wall -Werror -Wno-error=deprecated-declarations -fvisibility=hidden {visibility_flags} -pthread -I{srcdir} -U_FORTIFY_SOURCE {user_cflags} {warnings} {defines}
+        cxxflags = -fPIC -std={cpp_dialect} {dbgflag} {fpie} -Wall -Werror -Wno-error=deprecated-declarations -fvisibility=hidden {visibility_flags} -pthread -I{srcdir} -U_FORTIFY_SOURCE {user_cflags} {warnings} {defines}
         ldflags = {dbgflag} -Wl,--no-as-needed {static} {pie} -fvisibility=hidden {visibility_flags} -pthread {user_ldflags}
         libs = {libs}
         pool link_pool
@@ -852,7 +852,7 @@ with open(buildfile, 'w') as f:
         elif modeval['sanitize']:
             modeval['sanitize'] += ' -DASAN_ENABLED'
         f.write(textwrap.dedent('''\
-            cxxflags_{mode} = {sanitize} {opt} -I$full_builddir/{mode}/gen -I$full_builddir/{mode}/c-ares
+            cxxflags_{mode} = -fPIC {sanitize} {opt} -I$full_builddir/{mode}/gen -I$full_builddir/{mode}/c-ares
             libs_{mode} = {sanitize_libs} {libs}
             rule cxx.{mode}
               command = $cxx -MD -MT $out -MF $out.d $cxxflags_{mode} $cxxflags -c -o $out $in
@@ -904,7 +904,7 @@ with open(buildfile, 'w') as f:
                         Description: Advanced C++ framework for high-performance server applications on modern hardware.
                         Version: 1.0
                         Libs: -L$full_builddir/{mode} -Wl,--whole-archive,-lseastar,--no-whole-archive $cxxflags $cxflags_{mode} -Wl,--no-as-needed {static} {pie} {user_ldflags} {sanitize_libs} {libs}
-                        Cflags: $cxxflags $cxxflags_{mode}
+                        Cflags: -fPIC $cxxflags $cxxflags_{mode}
                         ''').format(**vars)
                 f.write('build $builddir/{}/{}: gen\n  text = {}\n'.format(mode, binary, repr(pc)))
             elif binary.endswith('.a'):
