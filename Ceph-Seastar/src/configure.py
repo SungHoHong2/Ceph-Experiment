@@ -152,7 +152,7 @@ def dialect_supported(dialect, compiler='g++'):
 def detect_membarrier(compiler, flags):
     return try_compile(compiler=compiler, flags=flags, source=textwrap.dedent('''\
         #include <linux/membarrier.h>
-        
+
         int x = MEMBARRIER_CMD_PRIVATE_EXPEDITED | MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED;
         '''))
 

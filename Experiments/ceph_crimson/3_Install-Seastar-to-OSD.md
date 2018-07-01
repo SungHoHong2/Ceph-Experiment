@@ -13,33 +13,118 @@
 - boost 1.58.0 is used by seastar
 - need to find a match
 
-```
-wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.bz2
-bzip2 -d boost_1_67_0.tar.bz2
-tar -xvf boost_1_67_0.tar
-cd boost_1_67_0
-./bootstrap.sh --prefix=/home/sungho/usr && ./b2 stage threading=multi link=shared
-./b2 install --prefix=/home/sungho/usr
-export PATH="home/sungho/usr/lib/:$PATH"
-
-dpkg -S /usr/include/boost/version.hpp
-dpkg -S /home/sungho/ceph/build/boost/src/Boost/boost/version.hpp
-```
-
-
 ### bug found on the boost library in Ceph
 - include/boost/lockfree/spsc_queue.hpp
 - Add #include <boost/next_prior.hpp>; no longer in utility.hpp
 
+
+### Need to recompile Seastar to work with shared libraries
+- modify `build.ninja`
+- recompile Seastar with -fPIC
+- recompile Seastar-DPDK with -fPIC
+  - [update] mk/internal/rte.build-pre.mk
+  - [update] /home/sungho/seastar/dpdk/drivers/net/vmxnet3/Makefile
+  - [update] /home/sungho/seastar/dpdk/drivers/net/i40e/Makefile
+  - [compile] /home/sungho/seastar/build/dpdk/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/ixgbe/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/e1000/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/ring/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/bnxt/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/cxgbe/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/ena/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/enic/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/af_packet/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/ark/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/avp/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/bnx2x/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/bonding/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/dpaa/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/dpaa2/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/failsafe/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/fm10k/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/kni/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/liquidio/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/mlx4/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/mlx5/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/nfp/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/null/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/pcap/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/qede/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/sfc/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/szedata2/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/thunderx/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/tap/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/vhost/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/virtio/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/vmxnet3/Makefile
+  - /home/sungho/seastar/dpdk/drivers/net/xenvirt/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_hash/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_kvargs/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_acl/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_bitratestats/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_cfgfile/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_cmdline/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_cryptodev/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_distributor/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_efd/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_ether/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_eventdev/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_ip_frag/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_jobstats/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_kni/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_latencystats/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_lpm/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_mbuf/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_mempool/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_meter/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_metrics/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_pdump/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_pipeline/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_port/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_power/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_reorder/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_ring/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_sched/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_table/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_timer/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_vhost/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_eal/linuxapp/eal/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_eal/linuxapp/igb_uio/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_eal/linuxapp/kni/Makefile
+  - /home/sungho/seastar/dpdk/lib/librte_mempool/Makefile
+  - /home/sungho/seastar/dpdk/drivers/mempool/ring/Makefile
+
+
+  ### Seastar compilation seems to be unfinished.
+  - /home/sungho/seastar/build/release/libcares-seastar.a  needs be compiled with -fPIC
+  - [compile] build.ninja -j 4
+  - build/release/c-ares/Makefile : carescmake_release c-ares
+  - CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.o
+  - build/release/c-ares/CMakeFiles
+  - need to compile seastar library with `-fPIC`
+
+  - /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir/build.make
+
+  [ceph compile] cd /home/sungho/ceph/build/src
+  cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
+
+  [seastar compile]
+  cd /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir
+  vi build.make
+
+
 ```
-cd /home/sungho/ceph/build
-boost/include/boost/lockfree/spsc_queue.hpp
-boost/src/Boost/boost/lockfree/spsc_queue.hpp                                                           │sungho@wenji-w1:~$
+default_cpp_dialect='gnu++1yi -fPIC
+make[2]: Entering directory '/home/sungho/seastar/build/release/c-ares
 
 
 
-cd /home/sungho/ceph/build/src && /usr/bin/c++  -DCEPH_LIBDIR=\"/usr/local/lib\" -DCEPH_PKGLIBDIR=\"/usr/local/lib/ceph\" -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D__linux__ -isystem /home/sungho/ceph/build/boost/include -I/home/sungho/ceph/build/src/include -I/home/sungho/ceph/src -isystem /home/sungho/ceph/build/include -I/usr/include/nss -I/usr/include/nspr -isystem /home/sungho/ceph/src/xxHash -isystem /home/sungho/ceph/src/rapidjson/include -I/home/sungho/ceph/src/dmclock/src -I/home/sungho/ceph/src/dmclock/support/src -isystem /home/sungho/ceph/src/googletest/googletest/include -isystem /home/sungho/ceph/src/spdk/include -isystem /home/sungho/ceph/build/src/dpdk/include -isystem /home/sungho/ceph/src/rocksdb/include  -Wall -Wtype-limits -Wignored-qualifiers -Winit-self -Wpointer-arith -Werror=format-security -fno-strict-aliasing -fsigned-char -Wno-unknown-pragmas -rdynamic  -ftemplate-depth-1024 -Wnon-virtual-dtor -Wno-unknown-pragmas -Wno-ignored-qualifiers -Wstrict-null-sentinel -Woverloaded-virtual -fno-new-ttp-matching -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fstack-protector-strong -std=c++17 -fdiagnostics-color=auto -I/usr/include -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O2 -g  -fPIE   -DHAVE_CONFIG_H -D__CEPH__ -D_REENTRANT -D_THREAD_SAFE -D__STDC_FORMAT_MACROS `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` -o CMakeFiles/ceph-osd.dir/ceph_osd.cc.o -c /home/sungho/ceph/src/ceph_osd.cc
 
 
+@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sungho/seasta
+r/build/release/c-ares/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/c-ares
+.dir/ares_gethostbyaddr.c.o"
+/usr/bin/gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.
+o   -c /home/sungho/seastar/c-ares/ares_gethostbyaddr.c
 
 ```

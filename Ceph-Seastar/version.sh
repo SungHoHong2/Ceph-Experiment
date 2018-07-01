@@ -63,7 +63,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/SimpleMessenger.cc        /home
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home/sungho/ceph/build/boost/include/boost/lockfree/spsc_queue.hpp
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/spsc_queue.hpp            /home/sungho/ceph/build/boost/src/Boost/boost/lockfree/spsc_queue.hpp
 cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/link.txt                  /home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/link.txt
-
+cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/configure.py              /home/sungho/seastar/configure.py 
 
 # make -f CMakeFiles/Makefile2 ceph-osd -j 4
 # make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend -j 4
