@@ -121,8 +121,6 @@
 
 ### duplicated usage of DPDK in Seastar and Ceph
 - Directed Ceph to use Seastar DPDK
--
-
 
 ```
 sudo ./configure.py --enable-dpdk --compiler g++-5
@@ -135,3 +133,7 @@ problem is we don't support building seastar as a shared library. That option is
 deprecated version of seastar only supports shared-library version
 moving on tot he commit
 ```
+
+### removing the files from SPDK
+- `/home/sungho/ceph/src/spdk`
+- and `make` the file `after removing the unwanted dpdk functions`

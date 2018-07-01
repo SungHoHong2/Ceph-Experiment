@@ -79,9 +79,9 @@ cd /home/sungho/ceph/build/src && /usr/bin/c++  -DCEPH_LIBDIR=\"/usr/local/lib\"
 # /usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num= "Linking CXX executable ../bin/ceph-osd"
 
 cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
+/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Built target ceph-osd"
+/usr/bin/cmake -E cmake_progress_start /home/sungho/ceph/build/CMakeFiles 0
 
-# /usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Built target ceph-osd"
-# /usr/bin/cmake -E cmake_progress_start /home/sungho/ceph/build/CMakeFiles 0
 
 echo "SEASTAR MAKEFILE END"
 
