@@ -154,6 +154,7 @@ r/build/release/c-ares/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building 
 
 
 ### debug the configure.py
+sudo ./configure.py --enable-dpdk --compiler g++-5
 
 ```
 ```

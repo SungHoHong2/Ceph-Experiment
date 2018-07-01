@@ -787,8 +787,7 @@ for root, dirs, files in os.walk('c-ares'):
                       for file in files
                       if file.endswith('.h') or file.endswith('.c')]
 
-print cares_sources
-
+# CHARA got all the cares_sources
 
 cares_sources = ' '.join(cares_sources)
 libs += ' -l' + cares_lib
@@ -800,6 +799,10 @@ libs += ' -l' + cares_lib
 # to the current mode's build directory.
 built_libs = []
 built_libs += ['lib' + cares_lib + '.a']
+
+
+print(args.cc)
+
 
 outdir = 'build'
 buildfile = 'build.ninja'
