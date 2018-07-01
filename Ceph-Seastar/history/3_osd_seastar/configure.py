@@ -803,8 +803,7 @@ built_libs += ['lib' + cares_lib + '.a']
 # CHARA
 # print(args.cc) this is just gcc
 # print(args.cxx)
-args.cc+=" -fPIC"
-args.cxx+=" -fPIC"
+
 
 outdir = 'build'
 buildfile = 'build.ninja'
@@ -883,7 +882,7 @@ with open(buildfile, 'w') as f:
             artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
         f.write(textwrap.dedent('''\
               rule caresmake_{mode}
-                command = make -C build/{mode}/{cares_dir} CC={args.cc}
+                command = make -C build/{mode}/{cares_dir} CC={args.cc} CFLAGS=-fPIC
               rule carescmake_{mode}
                 command = mkdir -p $builddir/{mode}/{cares_dir} && cd $builddir/{mode}/{cares_dir} && CC={args.cc} cmake {cares_opts} {srcdir}/$in
               build $builddir/{mode}/{cares_dir}/Makefile : carescmake_{mode} {cares_dir}
