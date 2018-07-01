@@ -95,7 +95,7 @@
   - /home/sungho/seastar/dpdk/drivers/mempool/ring/Makefile
 
 
-  ### Seastar compilation seems to be unfinished.
+  ### Problem with shared-libraries combined with Ceph.
   - /home/sungho/seastar/build/release/libcares-seastar.a  needs be compiled with -fPIC
   - [compile] build.ninja -j 4
   - build/release/c-ares/Makefile : carescmake_release c-ares
@@ -109,13 +109,36 @@
   cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
 
   [seastar compile]
-  cd /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir
-  vi build.make
+  vi /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir/build.make
+
 
 
 ```
 default_cpp_dialect='gnu++1yi -fPIC
 make[2]: Entering directory '/home/sungho/seastar/build/release/c-ares
+
+
+CMakeFiles/c-ares.dir/ares_gethostbyname.c.o: /home/sungho/seastar/c-ares/ares_gethostbyname.c
+
+
+/home/sungho/seastar/build/release/c-ares
+CMakeFiles/c-ares.dir/all:
+        $(MAKE) -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/depend
+        $(MAKE) -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/build
+        @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sungho/seastar/build
+/release/c-ares/CMakeFiles --progress-num=16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
+37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 "Built target c-ares"
+
+
+make -f CMakeFiles/Makefile2 all
+make -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/depend
+cd /home/sungho/seastar/build/release/c-ares && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/seastar/c-ares /home/sungho/seastar/c-ares /home/sungho/seastar/build/release/c-ares /home/sungho/seastar/build/release/c-ares /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir/DependInfo.cmake --color=
+
+make -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/build
+/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/seastar/build/release/c-ares/CMa
+keFiles --progress-num=16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,4
+3,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 "Built target c-ares"
+
 
 
 
@@ -124,7 +147,13 @@ make[2]: Entering directory '/home/sungho/seastar/build/release/c-ares
 @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sungho/seasta
 r/build/release/c-ares/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/c-ares
 .dir/ares_gethostbyaddr.c.o"
-/usr/bin/gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.
-o   -c /home/sungho/seastar/c-ares/ares_gethostbyaddr.c
+/usr/bin/gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.o  -c /home/sungho/seastar/c-ares/ares_gethostbyaddr.c
 
+```
+
+
+
+### debug the configure.py
+
+```
 ```

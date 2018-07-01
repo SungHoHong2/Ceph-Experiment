@@ -786,6 +786,10 @@ for root, dirs, files in os.walk('c-ares'):
     cares_sources += [os.path.join(root, file)
                       for file in files
                       if file.endswith('.h') or file.endswith('.c')]
+
+print cares_sources
+
+
 cares_sources = ' '.join(cares_sources)
 libs += ' -l' + cares_lib
 
