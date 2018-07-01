@@ -880,6 +880,11 @@ with open(buildfile, 'w') as f:
             ''').format(mode = mode, **modeval))
         f.write('build {mode}: phony $builddir/{mode}/lib{cares_lib}.a {artifacts}\n'.format(mode = mode, cares_lib=cares_lib,
             artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
+
+
+        print('build {mode}: phony $builddir/{mode}/lib{cares_lib}.a {artifacts}\n'.format(mode = mode, cares_lib=cares_lib,
+            artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
+
         f.write(textwrap.dedent('''\
               rule caresmake_{mode}
                 command = make -C build/{mode}/{cares_dir} CC={args.cc}
