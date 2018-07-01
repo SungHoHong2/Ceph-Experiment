@@ -882,7 +882,7 @@ with open(buildfile, 'w') as f:
             artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
         f.write(textwrap.dedent('''\
               rule caresmake_{mode}
-                command = make -C build/{mode}/{cares_dir} CC={args.cc} CFLAGS=-fPIC
+                command = make -C build/{mode}/{cares_dir} CC={args.cc}
               rule carescmake_{mode}
                 command = mkdir -p $builddir/{mode}/{cares_dir} && cd $builddir/{mode}/{cares_dir} && CC={args.cc} cmake {cares_opts} {srcdir}/$in
               build $builddir/{mode}/{cares_dir}/Makefile : carescmake_{mode} {cares_dir}
