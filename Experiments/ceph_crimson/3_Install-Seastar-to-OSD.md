@@ -121,8 +121,7 @@
 
 ### duplicated usage of DPDK in Seastar and Ceph
 - Ceph also have DPDK. we need to remove this and use the DPDK ins the seastar
-- I will configure DPDK as an external Package
-- we have to remove the DPDK features in Ceph.
+- [Attempt #1] Trying to link the DPDK that is used in Ceph.
 
 
 ```
