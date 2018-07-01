@@ -111,7 +111,9 @@ static void usage()
 }
 
 
-//namespace bpo = boost::program_options;
+namespace bpo = boost::program_options;
+using namespace seastar;
+
 
 int main(int argc, const char **argv)
 {
