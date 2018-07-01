@@ -39,8 +39,6 @@
 #include "common/perf_counters.h"
 #include "common/io_priority.h"
 
-#include "NVMEDevice.h"
-
 #define dout_context g_ceph_context
 #define dout_subsys ceph_subsys_bdev
 #undef dout_prefix
