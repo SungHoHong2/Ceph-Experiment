@@ -120,8 +120,8 @@
 
 
 ### duplicated usage of DPDK in Seastar and Ceph
-- Ceph also have DPDK. we need to remove this and use the DPDK ins the seastar
-- [Attempt #1] Trying to link the DPDK that is used in Ceph.
+- Directed Ceph to use Seastar DPDK
+-
 
 
 ```
