@@ -882,8 +882,12 @@ with open(buildfile, 'w') as f:
             artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
 
 
-        print('build {mode}: phony $builddir/{mode}/lib{cares_lib}.a {artifacts}\n'.format(mode = mode, cares_lib=cares_lib,
-            artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
+        # CHARA: this is after building seastar.a
+        # print('build {mode}: phony $builddir/{mode}/lib{cares_lib}.a {artifacts}\n'.format(mode = mode, cares_lib=cares_lib,
+        #     artifacts = str.join(' ', ('$builddir/' + mode + '/' + x for x in build_artifacts))))
+
+
+
 
         f.write(textwrap.dedent('''\
               rule caresmake_{mode}

@@ -113,48 +113,26 @@
 
 
 
-```
-default_cpp_dialect='gnu++1yi -fPIC
-make[2]: Entering directory '/home/sungho/seastar/build/release/c-ares
-
-
-CMakeFiles/c-ares.dir/ares_gethostbyname.c.o: /home/sungho/seastar/c-ares/ares_gethostbyname.c
-
-
-/home/sungho/seastar/build/release/c-ares
-CMakeFiles/c-ares.dir/all:
-        $(MAKE) -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/depend
-        $(MAKE) -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/build
-        @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/sungho/seastar/build
-/release/c-ares/CMakeFiles --progress-num=16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
-37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 "Built target c-ares"
-
-
-make -f CMakeFiles/Makefile2 all
-make -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/depend
-cd /home/sungho/seastar/build/release/c-ares && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/sungho/seastar/c-ares /home/sungho/seastar/c-ares /home/sungho/seastar/build/release/c-ares /home/sungho/seastar/build/release/c-ares /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir/DependInfo.cmake --color=
-
-make -f CMakeFiles/c-ares.dir/build.make CMakeFiles/c-ares.dir/build
-/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/sungho/seastar/build/release/c-ares/CMa
-keFiles --progress-num=16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,4
-3,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 "Built target c-ares"
-
-
-
-
-
-
-@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sungho/seasta
-r/build/release/c-ares/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/c-ares
-.dir/ares_gethostbyaddr.c.o"
-/usr/bin/gcc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/c-ares.dir/ares_gethostbyaddr.c.o  -c /home/sungho/seastar/c-ares/ares_gethostbyaddr.c
-
-```
-
-
-
 ### debug the configure.py
-sudo ./configure.py --enable-dpdk --compiler g++-5
+- https://github.com/scylladb/seastar/commit/f6d0de0ad4634cbf28e54cf0d5862ef9e8eab5ba
+- add set (CMAKE_POSITION_INDEPENDENT_CODE TRUE) at the start of c-ares/CMakeLists.txt
+- ./configure.py --enable-dpdk --compiler g++-5 --mode release --disable-hwloc --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
+
+
+### duplicated usage of DPDK in Seastar and Ceph
+- Ceph also have DPDK. we need to remove this and use the DPDK ins the seastar
+- I will configure DPDK as an external Package
+- we have to remove the DPDK features in Ceph.
+
 
 ```
+sudo ./configure.py --enable-dpdk --compiler g++-5
+sudo ./configure.py --enable-dpdk --compiler g++-5 --mode release --cflags="-fPIC"
+sudo ./configure.py --so --enable-dpdk --compiler g++-5 --mode release --cflags="-fPIC"
+./configure.py --enable-dpdk --compiler g++-5 --mode release --disable-hwloc --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
+
+
+problem is we don't support building seastar as a shared library. That option is deprecated and should be removed.
+deprecated version of seastar only supports shared-library version
+moving on tot he commit
 ```
