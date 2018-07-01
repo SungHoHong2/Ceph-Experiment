@@ -28,8 +28,6 @@
 #include <map>
 #include <thread>
 
-#include <spdk/nvme.h>
-
 #include "include/stringify.h"
 #include "include/types.h"
 #include "include/compat.h"
