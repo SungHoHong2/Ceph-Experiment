@@ -802,10 +802,9 @@ built_libs += ['lib' + cares_lib + '.a']
 
 # CHARA
 # print(args.cc) this is just gcc
-print(args.cxx)
-
-
+# print(args.cxx)
 args.cc+=" -fPIC"
+args.cxx+=" -fPIC"
 
 outdir = 'build'
 buildfile = 'build.ninja'
