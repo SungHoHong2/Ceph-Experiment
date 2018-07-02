@@ -111,26 +111,26 @@ static void usage()
 }
 
 
-//namespace bpo = boost::program_options;
-//using namespace seastar;
+namespace bpo = boost::program_options;
+using namespace seastar;
 
 
 int main(int argc, const char **argv)
 {
 
   std::string arg_host;
-//  app_template app;
-//  arg_host = "10.218.111.254:1234";
-//  app.add_options()
-//          ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
-//          ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
-//          ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
-//          ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
-//          ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
-//          ("smp", bpo::value<unsigned>()->default_value(1), "smp");
+  app_template app;
+  arg_host = "10.218.111.254:1234";
+  app.add_options()
+          ("server", bpo::value<std::string>()->default_value(arg_host), "Server address")
+          ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
+          ("test", bpo::value<std::string>()->default_value("ping"), "test type(ping | rxrx | txtx)")
+          ("conn", bpo::value<unsigned>()->default_value(1), "nr connections per cpu")
+          ("proto", bpo::value<std::string>()->default_value("tcp"), "transport protocol tcp|sctp")
+          ("smp", bpo::value<unsigned>()->default_value(1), "smp");
 
   gethostname(hostname, 150);
-  std::cout << hostname << "::CHARA SEASTAR-OSD BEGIN" << std::endl;
+  std::cout << hostname << "::FRISK SEASTAR-OSD BEGIN" << std::endl;
   std::cout << "DPDK connected to " << arg_host << std::endl;
 
   vector<const char*> args;
