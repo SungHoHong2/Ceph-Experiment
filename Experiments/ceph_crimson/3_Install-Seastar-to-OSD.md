@@ -15,14 +15,8 @@
 
 ### bug found on the boost library in Ceph
 - include/boost/lockfree/spsc_queue.hpp
+- src/Boost/boost/lockfree/spsc_queue.hpp
 - Add #include <boost/next_prior.hpp>; no longer in utility.hpp
-
-```
-
-```
-
-
-
 
 ### Need to recompile Seastar to work with shared libraries
 - modify `build.ninja`
@@ -118,7 +112,6 @@
   vi /home/sungho/seastar/build/release/c-ares/CMakeFiles/c-ares.dir/build.make
 
 
-
 ### debug the configure.py
 - https://github.com/scylladb/seastar/issues/467
 - https://github.com/scylladb/seastar/commit/f6d0de0ad4634cbf28e54cf0d5862ef9e8eab5ba
@@ -203,6 +196,8 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 ### updating the do_cmake.sh and cmakelist.txt
 - there is an interference with the memory profiling
 - I am trying it out by removing the memory profiling
+- google-perftools need to be avoided
+
 
 - it will be good to avoid `spdk` `google-perftools`
   - find_package(Boost 1.67 COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
