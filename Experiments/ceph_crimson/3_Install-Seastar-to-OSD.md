@@ -134,6 +134,7 @@ sudo ./configure.py --enable-dpdk --compiler g++-5
 sudo ./configure.py --enable-dpdk --compiler g++-5 --mode release --cflags="-fPIC"
 sudo ./configure.py --so --enable-dpdk --compiler g++-5 --mode release --cflags="-fPIC"
 ./configure.py --enable-dpdk --compiler g++-5 --mode release --disable-hwloc --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
+./configure.py --compiler g++-5 --mode release --disable-hwloc --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
 
 
 problem is we don't support building seastar as a shared library. That option is deprecated and should be removed.
@@ -197,3 +198,12 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 ../boost/lib/libboost_thread.a ../boost/lib/libboost_chrono.a ../boost/lib/libboost_atomic.a ../boost/lib/libboost_system.a ../boost/lib/libboost_random.a ../boost/lib/libboost_program_options.a
 
 ```
+
+
+### updating the do_cmake.sh and cmakelist.txt
+
+- it will be good to avoid `spdk` `google-perftools`
+  - find_package(Boost 1.67 COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
+  - remove spdk within configure.py
+  - option(WITH_DPDK "Enable DPDK messaging" OFF)
+  - set(TCMALLOC_srcs perfglue/disabled_heap_profiler.cc)
