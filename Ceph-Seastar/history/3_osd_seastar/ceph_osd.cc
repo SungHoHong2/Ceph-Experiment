@@ -43,7 +43,7 @@
 #include "common/errno.h"
 #include "common/pick_address.h"
 
-#include "perfglue/heap_profiler.h"
+//#include "perfglue/heap_profiler.h"
 
 #include "include/assert.h"
 
@@ -156,7 +156,7 @@ int main(int argc, const char **argv)
     args, CEPH_ENTITY_TYPE_OSD,
     CODE_ENVIRONMENT_DAEMON,
     0, "osd_data");
-  ceph_heap_profiler_init();
+  // ceph_heap_profiler_init();
 
   Preforker forker;
 
