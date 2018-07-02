@@ -71,9 +71,10 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/NVMEDevice.cc             /home
 
 # make -f CMakeFiles/Makefile2 ceph-osd -j 4
 # make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/depend -j 4
+
 # make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build  -j 4
 # /usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num=3 "Building CXX object src/CMakeFiles/ceph-osd.dir/ceph_osd.cc.o" -j 4
-#
+
 # cd /home/sungho/ceph/src/spdk
 # make
 

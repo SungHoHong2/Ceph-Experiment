@@ -151,6 +151,13 @@ moving on tot he commit
     - try out using the same version of boostv **the final straw**
     - but I don't agree with this part because isn't the boost library just using as import?
     - `yes in seastar it is fine, but we don't know whether it is okay with Ceph.`
+
+[3] Not All the makes in the version.sh are  working.
+    - make -f src/CMakeFiles/ceph-osd.dir/build.make src/CMakeFiles/ceph-osd.dir/build  -j 4
+    - this part `does not work`
+
+
+
 [X] If this part does not work we definitely need to try out the *Crimson...*
     - because that part for sure they know how to compile it
     - the crimson didnot actually intgerated Ceph with Seastar
