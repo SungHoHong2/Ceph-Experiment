@@ -145,7 +145,7 @@ moving on tot he commit
 
 **experiment**
 - after changing this part it is the cause of the error!
-- NVMDevice.cc should not be changed
+- link.txt is the source of the error
 
 ```
 /home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/link.txt
