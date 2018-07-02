@@ -201,9 +201,24 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 
 
 ### updating the do_cmake.sh and cmakelist.txt
+- there is an interference with the memory profiling
+- I am trying it out by removing the memory profiling
 
 - it will be good to avoid `spdk` `google-perftools`
   - find_package(Boost 1.67 COMPONENTS ${BOOST_COMPONENTS} REQUIRED)
   - remove spdk within configure.py
   - option(WITH_DPDK "Enable DPDK messaging" OFF)
   - set(TCMALLOC_srcs perfglue/disabled_heap_profiler.cc)
+
+```
+export LC_ALL=C
+./do_cmake.sh -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_DPDK=OFF -DWITH_SPDK=OFF
+./do_cmake.sh -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_DPDK=OFF -DWITH_SPDK=OFF -DWITH_SEASTAR=ON
+
+modified the CMakelist.txt
+set(ALLOCATOR "libc")
+build_boost(1.67 -> build_boost(1.58
+
+
+
+```
