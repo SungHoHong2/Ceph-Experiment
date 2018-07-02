@@ -175,4 +175,4 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 
 ### pointer error after compilation
 - the main cause happens with introudcing seastar library.
-- lets specifically find out which part actually causes the fatal blow 
+- lets specifically find out which part actually causes the fatal blow
