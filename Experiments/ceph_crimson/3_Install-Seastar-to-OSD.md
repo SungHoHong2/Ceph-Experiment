@@ -114,6 +114,7 @@
 
 
 ### debug the configure.py
+- https://github.com/scylladb/seastar/issues/467
 - https://github.com/scylladb/seastar/commit/f6d0de0ad4634cbf28e54cf0d5862ef9e8eab5ba
 - add set (CMAKE_POSITION_INDEPENDENT_CODE TRUE) at the start of c-ares/CMakeLists.txt
 - ./configure.py --enable-dpdk --compiler g++-5 --mode release --disable-hwloc --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
@@ -137,3 +138,16 @@ moving on tot he commit
 ### removing the files from SPDK
 - `/home/sungho/ceph/src/spdk`
 - and `make` the file `after removing the unwanted dpdk functions`
+- if the compilation with just screwing up the spdk works well, then it is definitely `Seastar problem`
+- However, if the same error shows up then it is not the Seastar problem it is the `implementation problem.`
+- it turned out `Seastar is fucking up` the Ceph.
+- Exactly which part... I will find out 
+
+
+
+
+### pointer error after compilation
+- need to find out the cause of the error when running the executive file
+- whether this is the reason of the Seastar or the SPDK issue.
+- let us try out with only `luminous` -> it seems that it is free from spdk
+- This wil lelminate all the errors that might have caused.
