@@ -153,9 +153,6 @@ moving on tot he commit
     - `yes in seastar it is fine, but we don't know whether it is okay with Ceph.`
 
 
-
-
-
 [X] If this part does not work we definitely need to try out the *Crimson...*
     - because that part for sure they know how to compile it
     - the crimson didnot actually intgerated Ceph with Seastar
@@ -176,10 +173,6 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 ```
 
 
-
-
 ### pointer error after compilation
-- need to find out the cause of the error when running the executive file
-- whether this is the reason of the Seastar or the SPDK issue.
-- let us try out with only `luminous` -> it seems that it is free from spdk
-- This willelminate all the errors that might have caused.
+- the main cause happens with introudcing seastar library.
+- lets specifically find out which part actually causes the fatal blow 
