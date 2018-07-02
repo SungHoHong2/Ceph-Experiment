@@ -143,6 +143,20 @@ moving on tot he commit
 - it turned out `Seastar is fucking up` the Ceph.
 - Exactly which part... I will find out
 
+**the problem starts from the link**
+
+[0] get the backup verision of the link.txt
+[1] confirm whether the boost library is causing the runtime error
+[2] I need to make sure whether `different version` of boost library is making the error
+    - try out using the same version of boostv **the final straw**
+    - but I don't agree with this part because isn't the boost library just using as import?
+    - `yes in seastar it is fine, but we don't know whether it is okay with Ceph.`
+[X] If this part does not work we definitely need to try out the *Crimson...*
+    - because that part for sure they know how to compile it
+    - the crimson didnot actually intgerated Ceph with Seastar
+    - It is testing the Seastar by bringing some of the Ceph message stack
+
+
 **experiment**
 - after changing this part it is the cause of the error!
 - link.txt is the source of the error
@@ -163,4 +177,4 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 - need to find out the cause of the error when running the executive file
 - whether this is the reason of the Seastar or the SPDK issue.
 - let us try out with only `luminous` -> it seems that it is free from spdk
-- This wil lelminate all the errors that might have caused.
+- This willelminate all the errors that might have caused.
