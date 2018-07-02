@@ -131,6 +131,8 @@ int main(int argc, const char **argv)
 
   gethostname(hostname, 150);
   std::cout << hostname << "::FRISK SEASTAR-OSD BEGIN" << std::endl;
+  std::cout << hostname << "::FRISK SEASTAR-OSD BEGIN" << std::endl;
+
   std::cout << "DPDK connected to " << arg_host << std::endl;
 
   vector<const char*> args;
@@ -790,6 +792,8 @@ flushjournal_out:
 //    dout(0) << "ceph-osd: gmon.out should be in " << s << dendl;
   }
 
-  std::cout << "CUSTOMIZED OSD END" << std::endl;
+
+  std::cout << hostname << "::FRISK SEASTAR-OSD END" << std::endl;
+  std::cout << "FRISK CUSTOMIZED OSD END" << std::endl;
   return 0;
 }
