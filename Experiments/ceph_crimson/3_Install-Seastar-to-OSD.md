@@ -141,7 +141,20 @@ moving on tot he commit
 - if the compilation with just screwing up the spdk works well, then it is definitely `Seastar problem`
 - However, if the same error shows up then it is not the Seastar problem it is the `implementation problem.`
 - it turned out `Seastar is fucking up` the Ceph.
-- Exactly which part... I will find out 
+- Exactly which part... I will find out
+
+**experiment**
+- after changing this part it is the cause of the error!
+- NVMDevice.cc should not be changed
+
+```
+/home/sungho/ceph/build/src/CMakeFiles/ceph-osd.dir/link.txt
+/home/sungho/seastar/configure.py
+/home/sungho/ceph/src/os/bluestore/NVMEDevice.cc
+
+this part is the error
+rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
+```
 
 
 
