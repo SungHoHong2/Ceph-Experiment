@@ -176,3 +176,8 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 ### pointer error after compilation
 - the main cause happens with introudcing seastar library.
 - lets specifically find out which part actually causes the fatal blow
+- https://stackoverflow.com/questions/20297524/c-free-invalid-pointer
+- one reason for this is that Seastar and Ceph are invoking `different DPDK`.
+- let us try without the `DPDK in Seastar` and combine it to the link.txt and the makefile
+
+./configure.py --compiler g++-5 --mode release  --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
