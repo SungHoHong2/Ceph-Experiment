@@ -182,14 +182,12 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
   - DPDK is not the issue.
   - The only issue should be the boost library
   - Right now the two are sharing different boost library
+  - Issue is `evident` because different versions does not contain the right ones.
 
+  ./configure.py --compiler g++-5 --mode release  --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
 
 ```
-
 -lboost_program_options -lboost_system -lboost_filesystem -lstdc++ -lm -lboost_thread
 ../boost/lib/libboost_thread.a ../boost/lib/libboost_chrono.a ../boost/lib/libboost_atomic.a ../boost/lib/libboost_system.a ../boost/lib/libboost_random.a ../boost/lib/libboost_program_options.a
 
 ```
-
-
-./configure.py --compiler g++-5 --mode release  --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
