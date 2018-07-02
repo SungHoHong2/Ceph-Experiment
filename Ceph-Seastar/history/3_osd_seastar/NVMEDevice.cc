@@ -38,8 +38,33 @@
 #include "common/io_priority.h"
 
 
+static constexpr uint16_t data_buffer_default_num = 1024;
+
+static constexpr uint32_t data_buffer_size = 8192;
+
+static constexpr uint16_t inline_segment_num = 32;
+
+enum {
+  l_bluestore_nvmedevice_first = 632430,
+  l_bluestore_nvmedevice_write_lat,
+  l_bluestore_nvmedevice_read_lat,
+  l_bluestore_nvmedevice_flush_lat,
+  l_bluestore_nvmedevice_write_queue_lat,
+  l_bluestore_nvmedevice_read_queue_lat,
+  l_bluestore_nvmedevice_flush_queue_lat,
+  l_bluestore_nvmedevice_queue_ops,
+  l_bluestore_nvmedevice_polling_lat,
+  l_bluestore_nvmedevice_buffer_alloc_failed,
+  l_bluestore_nvmedevice_last
+};
+
 
 struct IORequest {
+  uint16_t cur_seg_idx = 0;
+  uint16_t nseg;
+  uint32_t cur_seg_left = 0;
+  void *inline_segs[inline_segment_num];
+  void **extra_segs = nullptr;
 };
 
 
@@ -53,12 +78,6 @@ static int data_buf_next_sge(void *cb_arg, void **address, uint32_t *length)
 {
   return 0;
 }
-
-int SharedDriverQueueData::alloc_buf_from_pool(Task *t, bool write)
-{
-  return 0;
-}
-
 
 
 class NVMEManager {
