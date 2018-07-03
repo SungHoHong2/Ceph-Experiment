@@ -2,18 +2,18 @@
 #include <string>
 
 
-//#include "core/reactor.hh"
-//#include "core/app-template.hh"
-//#include "core/temporary_buffer.hh"
-//#include "core/future-util.hh"
-//#include "core/distributed.hh"
-//#include "core/sleep.hh"
-//#include <vector>
+#include "core/reactor.hh"
+#include "core/app-template.hh"
+#include "core/temporary_buffer.hh"
+#include "core/future-util.hh"
+#include "core/distributed.hh"
+#include "core/sleep.hh"
+#include <vector>
 
 
 
-//namespace bpo = boost::program_options;
-//using namespace seastar;
+namespace bpo = boost::program_options;
+using namespace seastar;
 
 
 int main(int argc, const char **argv)
