@@ -187,7 +187,7 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
   ./configure.py --compiler g++-5 --mode release  --cflags="-DSEASTAR_DEFAULT_ALLOCATOR -fPIC"
 
 ```
--lboost_program_options -lboost_system -lboost_filesystem -lstdc++ -lm -lboost_thread
+ -lboost_program_options -lboost_system -lboost_filesystem -lstdc++ -lm -lboost_thread
 ../boost/lib/libboost_thread.a ../boost/lib/libboost_chrono.a ../boost/lib/libboost_atomic.a ../boost/lib/libboost_system.a ../boost/lib/libboost_random.a ../boost/lib/libboost_program_options.a
 
 ```
@@ -197,6 +197,7 @@ rc/tcmalloc.cc:278] Attempt to free invalid pointer 0x60000005efc0
 - there is an interference with the memory profiling
 - I am trying it out by removing the memory profiling
 - google-perftools need to be avoided
+- changing the boost version of Ceph is not allowed
 
 
 - it will be good to avoid `spdk` `google-perftools`
@@ -213,7 +214,6 @@ export LC_ALL=C
 modified the CMakelist.txt
 set(ALLOCATOR "libc")
 build_boost(1.67 -> build_boost(1.58
-
 
 
 ```
