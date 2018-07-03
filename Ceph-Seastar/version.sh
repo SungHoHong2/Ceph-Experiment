@@ -87,7 +87,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/configure.py              /home
 
 # cd /home/sungho/ceph/build/src && /usr/bin/c++ -nostartfiles -g  -fPIC $SEASTAR_LIBRARY -o CMakeFiles/ceph-osd.dir/ceph_osd.cc.o -c /home/sungho/ceph/src/ceph_osd.cc
 
-cd /home/sungho/ceph/build/src && /usr/bin/c++ -nostartfiles -g  -fPIC $SEASTAR_LIBRARY -o CMakeFiles/ceph-osd.dir/ceph_osd -c /home/sungho/ceph/src/ceph_osd.cc
+cd /home/sungho/ceph/build/src && /usr/bin/c++ -nostartfiles -g  -fPIC $SEASTAR_LIBRARY -o /home/sungho/ceph/build/bin/ceph-osd -c /home/sungho/ceph/src/ceph_osd.cc
 
 
 
