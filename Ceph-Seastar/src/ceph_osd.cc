@@ -19,6 +19,8 @@ using namespace seastar;
 int main(int argc, const char **argv)
 {
   std::cout << "::FRISK SEASTAR-OSD START" << std::endl;
+
+
   std::cout << "FRISK CUSTOMIZED OSD END" << std::endl;
   return 0;
 }
