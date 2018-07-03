@@ -85,7 +85,7 @@ cp /home/sungho/Ceph-Experiment/Ceph-Seastar/src/configure.py              /home
 # # /usr/bin/cmake -E cmake_progress_start /home/sungho/ceph/build/CMakeFiles 0
 
 
-cd /home/sungho/ceph/build/src && /usr/bin/c++ -g -fPIC $SEASTAR_LIBRARY -o CMakeFiles/ceph-osd.dir/ceph_osd.cc.o -c /home/sungho/ceph/src/ceph_osd.cc
+cd /home/sungho/ceph/build/src && /usr/bin/c++ -g -nostartfiles -fPIC $SEASTAR_LIBRARY -o CMakeFiles/ceph-osd.dir/ceph_osd.cc.o -c /home/sungho/ceph/src/ceph_osd.cc
 
 # /usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num= "Linking CXX executable ../bin/ceph-osd"
 cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
