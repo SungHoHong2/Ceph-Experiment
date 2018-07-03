@@ -1,5 +1,5 @@
 HOSTS="$(cat /etc/hostname)"
-HISTORY="3_osd_seastar"
+HISTORY="4_osd_seastar"
 HISTORY_SEASTAR_MSG="3_seastar_msg"
 
 
