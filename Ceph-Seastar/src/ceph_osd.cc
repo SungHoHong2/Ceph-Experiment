@@ -59,9 +59,9 @@
 //#include <vector>
 
 
-int main(){
+int main(int argc, const char **argv){
 
-  std::cout << "HELLO EMPTY" << std::endl;
+
 
   return 0;
 }
