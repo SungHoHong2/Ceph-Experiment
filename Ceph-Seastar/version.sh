@@ -92,7 +92,7 @@ cd /home/sungho/ceph/build/src && /usr/bin/c++ -nostartfiles -g  -fPIC $SEASTAR_
 
 
 # /usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/sungho/ceph/build/CMakeFiles --progress-num= "Linking CXX executable ../bin/ceph-osd"
-cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
+# cd /home/sungho/ceph/build/src && /usr/bin/cmake -E cmake_link_script CMakeFiles/ceph-osd.dir/link.txt --verbose=
 
 
 
