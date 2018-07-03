@@ -82,34 +82,6 @@ void handle_osd_signal(int signum)
     osd->handle_signal(signum);
 }
 
-static void usage()
-{
-  cout << "usage: ceph-osd -i <ID> [flags]\n"
-       << "  --osd-data PATH data directory\n"
-       << "  --osd-journal PATH\n"
-       << "                    journal file or block device\n"
-       << "  --mkfs            create a [new] data directory\n"
-       << "  --mkkey           generate a new secret key. This is normally used in combination with --mkfs\n"
-       << "  --monmap          specify the path to the monitor map. This is normally used in combination with --mkfs\n"
-       << "  --osd-uuid        specify the OSD's fsid. This is normally used in combination with --mkfs\n"
-       << "  --keyring         specify a path to the osd keyring. This is normally used in combination with --mkfs\n"
-       << "  --convert-filestore\n"
-       << "                    run any pending upgrade operations\n"
-       << "  --flush-journal   flush all data out of journal\n"
-       << "  --mkjournal       initialize a new journal\n"
-       << "  --check-wants-journal\n"
-       << "                    check whether a journal is desired\n"
-       << "  --check-allows-journal\n"
-       << "                    check whether a journal is allowed\n"
-       << "  --check-needs-journal\n"
-       << "                    check whether a journal is required\n"
-       << "  --debug_osd <N>   set debug level (e.g. 10)\n"
-       << "  --get-device-fsid PATH\n"
-       << "                    get OSD fsid for the given block device\n"
-       << std::endl;
-  generic_server_usage();
-}
-
 
 //namespace bpo = boost::program_options;
 //using namespace seastar;
