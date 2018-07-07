@@ -15,9 +15,11 @@ static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static int rx_msg_size = 4 * 1024;
 static std::string str_txbuf(tx_msg_size, 'X');
-//static std::string str_pong(tx_msg_size, 'X');
-static std::string str_ping{"ping"};
-static std::string str_pong{"pong"};
+//static std::string str_ping{"ping"};
+//static std::string str_pong{"pong"};
+static int pingpong_size = 4;
+static std::string str_ping(tx_msg_size, 'X');
+static std::string str_pong(tx_msg_size, 'X');
 
 
 
@@ -89,7 +91,7 @@ public:
                 return make_ready_future();
             }
             // Expect 4 bytes cmd from client
-            return _read_buf.read_exactly(4).then([this] (temporary_buffer<char> buf) {
+            return _read_buf.read_exactly(pingpong_size).then([this] (temporary_buffer<char> buf) {
                 if (buf.size() == 0) {
                     return make_ready_future();
                 }
