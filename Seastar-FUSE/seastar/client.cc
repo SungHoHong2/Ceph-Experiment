@@ -1,7 +1,6 @@
 #include "core/app-template.hh"
 #include "core/future-util.hh"
 #include "core/distributed.hh"
-#include <chrono>
 
 using namespace seastar;
 using namespace net;
@@ -199,8 +198,8 @@ public:
 
 
             // CHARA: CORRECT_TIME
-            static_end = chrono::high_resolution_clock::now();
-            std::cout << "sec::" << chrono::duration_cast<chrono::seconds>(end_time - start_time).count() << std::endl;
+            // static_end = chrono::high_resolution_clock::now();
+            // std::cout << "sec::" << chrono::duration_cast<chrono::seconds>(end_time - start_time).count() << std::endl;
 
 
             auto elapsed = _latest_finished - _earliest_started;
