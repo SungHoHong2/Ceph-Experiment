@@ -38,12 +38,11 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/temp_file"
 rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
 
-echo "READ" >> temp_file
+echo "READ" >> $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "READ:" >> $TEMP_FILE_LOG
-echo "WRITE" >> temp_file
+echo "WRITE" >>  $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:" >> $TEMP_FILE_LOG
-wait
-echo "RANDRW" >> temp_file
+echo "RANDRW" >> $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:|READ:" >> $TEMP_FILE_LOG
 
 
