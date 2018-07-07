@@ -33,7 +33,7 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 elif [ "$1" = "FIO_TESTS" ]
 then
 FILENAME_ARG="/dev/sdb"
-fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 10M  --group_reporting -name=mytest
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 100M  --group_reporting -name=mytest
 
 
 
