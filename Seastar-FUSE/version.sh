@@ -33,7 +33,6 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 elif [ "$1" = "FIO_TESTS" ]
 then
 FILENAME_ARG="/dev/sdb"
-
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/temp_file"
 rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
@@ -43,7 +42,9 @@ fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -nu
 echo "WRITE" >>  $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:" >> $TEMP_FILE_LOG
 echo "RANDRW" >> $TEMP_FILE_LOG
-fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:" | grep "READ:" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:\|READ:" >> $TEMP_FILE_LOG
+
+
 
 
 # sudo fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=2 --runtime=240 --group_reporting
