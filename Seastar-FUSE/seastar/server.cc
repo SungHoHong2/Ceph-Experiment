@@ -18,8 +18,8 @@ static std::string str_txbuf(tx_msg_size, 'X');
 static int pingpong_size = 4 * 1024;
 static std::string str_ping(pingpong_size, 'X');
 static std::string str_pong(pingpong_size, 'X');
-static std::string str_txtx{pingpong_size, 'T'};
-static std::string str_rxrx{pingpong_size, 'R'};
+static std::string str_txtx(pingpong_size, 'T');
+static std::string str_rxrx(pingpong_size, 'R');
 
 
 
