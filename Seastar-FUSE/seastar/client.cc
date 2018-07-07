@@ -227,7 +227,7 @@ public:
 
 
         // CHARA: CORRECT_TIME
-        static_start = chrono::high_resolution_clock::now();
+        static_start = std::chrono::high_resolution_clock::now();
 
         for (unsigned i = 0; i < ncon; i++) {
             socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
