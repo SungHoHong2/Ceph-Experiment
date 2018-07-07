@@ -151,7 +151,7 @@ public:
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout,"Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Total PingPong: %u\n", _total_pings);
-            fprint(std::cout, "Total Time(Micro-Secs): %f\n", usecs);
+//            fprint(std::cout, "Total Time(Micro-Secs): %f\n", usecs);
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Requests/Sec: %f\n",
                    static_cast<double>(_total_pings) / secs);
@@ -176,7 +176,7 @@ public:
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout, "Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Bytes Received(MiB): %u\n", _processed_bytes/1024/1024);
-            fprint(std::cout, "Total Time(Micro-Secs): %f\n", usecs);
+//            fprint(std::cout, "Total Time(Micro-Secs): %f\n", usecs);
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
                    static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
