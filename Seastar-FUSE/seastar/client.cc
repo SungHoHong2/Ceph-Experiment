@@ -7,7 +7,7 @@ using namespace net;
 using namespace std::chrono_literals;
 
 static int rx_msg_size = 4 * 1024;
-static int tx_msg_total_size = 40 * 1024 * 1024;
+static int tx_msg_total_size = 30 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static std::string str_txbuf(tx_msg_size, 'X');
@@ -16,7 +16,8 @@ static std::string str_txbuf(tx_msg_size, 'X');
 static int pingpong_size = 4 * 1024;
 static std::string str_ping(pingpong_size, 'X');
 static std::string str_pong(pingpong_size, 'X');
-
+static std::string str_txtx{pingpong_size, 'T'};
+static std::string str_rxrx{pingpong_size, "R"};
 
 class client;
 distributed<client> clients;
@@ -109,7 +110,7 @@ public:
 
 
         future<size_t> rxrx() {
-            return _write_buf.write("rxrx").then([this] {
+            return _write_buf.write(str_rxrx).then([this] {
                 return _write_buf.flush();
             }).then([this] {
                 return do_write(tx_msg_nr).then([this] {
@@ -121,7 +122,7 @@ public:
         }
 
         future<size_t> txtx() {
-            return _write_buf.write("txtx").then([this] {
+            return _write_buf.write(str_txtx).then([this] {
                 return _write_buf.flush();
             }).then([this] {
                 return do_read().then([this] {

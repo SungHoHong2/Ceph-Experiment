@@ -7,10 +7,8 @@
 
 using namespace seastar;
 
-static std::string str_txtx{"txtx"};
-static std::string str_rxrx{"rxrx"};
 static std::string str_unknow{"unknow cmd"};
-static int tx_msg_total_size = 40 * 1024 * 1024;
+static int tx_msg_total_size = 30 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static int rx_msg_size = 4 * 1024;
@@ -20,6 +18,8 @@ static std::string str_txbuf(tx_msg_size, 'X');
 static int pingpong_size = 4 * 1024;
 static std::string str_ping(pingpong_size, 'X');
 static std::string str_pong(pingpong_size, 'X');
+static std::string str_txtx{pingpong_size, 'T'};
+static std::string str_rxrx{pingpong_size, "R"};
 
 
 
