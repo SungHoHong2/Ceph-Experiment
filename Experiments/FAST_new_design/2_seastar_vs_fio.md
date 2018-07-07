@@ -12,6 +12,11 @@
 ### need to be sure how FIO generates the read and write
 
 
+### Seastar Test
+- pingpnog
+- RX (server) - currently w2 will be the server
+- TX (server) - currently w2 will be the server
+
 
 ### What is this IO_tester?
 - this part is using filesystem
