@@ -12,7 +12,6 @@ Although there is no option for removing the heap profile, the implementation an
 
 
 
-
 http://goog-perftools.sourceforge.net/doc/tcmalloc.html
 
 TCMalloc can consume significant amount of CPU when it doesn’t have enough thread cache available.
