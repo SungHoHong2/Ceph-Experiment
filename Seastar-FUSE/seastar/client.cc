@@ -11,7 +11,9 @@ static int tx_msg_total_size = 100 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static std::string str_txbuf(tx_msg_size, 'X');
-static std::string str_ping(tx_msg_size, 'X');
+//static std::string str_ping(tx_msg_size, 'X');
+static std::string str_ping{"ping"};
+static std::string str_pong{"pong"};
 
 
 class client;
@@ -71,13 +73,13 @@ public:
             return _write_buf.write(str_ping).then([this] {
                 return _write_buf.flush();
             }).then([this, times] {
-                return _read_buf.read_exactly(tx_msg_size).then([this, times] (temporary_buffer<char> buf) {
-                    if (buf.size() != tx_msg_size) {
+                return _read_buf.read_exactly(4).then([this, times] (temporary_buffer<char> buf) {
+                    if (buf.size() != 4) {
                         fprint(std::cerr, "illegal packet received: %d\n", buf.size());
                         return make_ready_future();
                     }
                     auto str = std::string(buf.get(), buf.size());
-                    if (str != "pong") {
+                    if (str != str_pong) {
                         fprint(std::cerr, "illegal packet received: %d\n", buf.size());
                         return make_ready_future();
                     }
