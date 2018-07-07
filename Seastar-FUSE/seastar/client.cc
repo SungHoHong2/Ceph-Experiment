@@ -19,8 +19,8 @@ static std::string str_pong(pingpong_size, 'X');
 static std::string str_txtx(pingpong_size, 'T');
 static std::string str_rxrx(pingpong_size, 'R');
 
-static lowres_clock::time_point static_start;
-static lowres_clock::time_point static_end;
+static std::chrono::time_point  static_start;
+static std::chrono::time_point  static_end;
 
 
 class client;
