@@ -19,6 +19,10 @@ static std::string str_pong(pingpong_size, 'X');
 static std::string str_txtx(pingpong_size, 'T');
 static std::string str_rxrx(pingpong_size, 'R');
 
+static lowres_clock::time_point static_start;
+static lowres_clock::time_point static_end;
+
+
 class client;
 distributed<client> clients;
 
@@ -173,6 +177,10 @@ public:
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Requests/Sec: %f\n",
                    static_cast<double>(_total_pings) / secs);
+
+
+
+
             clients.stop().then([] {
                 engine().exit(0);
             });
@@ -187,6 +195,13 @@ public:
             _latest_finished = finished;
         _processed_bytes += bytes;
         if (++_num_reported == _concurrent_connections) {
+
+
+            // CHARA: CORRECT_TIME
+            static_end = chrono::high_resolution_clock::now();
+            std::cout << "sec::" << chrono::duration_cast<chrono::seconds>(end_time - start_time).count() << std::endl;
+
+
             auto elapsed = _latest_finished - _earliest_started;
             auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
             auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
@@ -209,6 +224,10 @@ public:
         _concurrent_connections = ncon * smp::count;
         _total_pings = _pings_per_connection * _concurrent_connections;
         _test = test;
+
+
+        // CHARA: CORRECT_TIME
+        static_start = chrono::high_resolution_clock::now();
 
         for (unsigned i = 0; i < ncon; i++) {
             socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
