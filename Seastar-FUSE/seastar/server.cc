@@ -175,7 +175,7 @@ namespace bpo = boost::program_options;
 int main(int ac, char** av) {
     app_template app;
     app.add_options()
-            ("port", bpo::value<uint16_t>()->default_value(10000), "TCP server port")
+            ("port", bpo::value<uint16_t>()->default_value(1234), "TCP server port")
             ("tcp", bpo::value<std::string>()->default_value("yes"), "tcp listen")
             ("sctp", bpo::value<std::string>()->default_value("no"), "sctp listen") ;
     return app.run_deprecated(ac, av, [&] {
