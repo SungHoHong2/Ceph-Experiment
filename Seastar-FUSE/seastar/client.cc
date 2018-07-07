@@ -87,8 +87,8 @@ public:
                         return make_ready_future();
                     }
 
-                    sleep(0);
-                    std::cout << "received packet size: " << buf.size() << std::endl;
+                    // sleep(0);
+                    // std::cout << "received packet size: " << buf.size() << std::endl;
 
                     if (times > 0) {
                         return ping(times - 1);

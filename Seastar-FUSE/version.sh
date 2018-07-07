@@ -30,6 +30,15 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
     ./server --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.254 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --smp 1
     fi
 
+elif [ "$1" = "FIO_TESTS" ]
+then
+# sudo fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=2 --runtime=240 --group_reporting
+sudo fio --filename=/dev/sdb --iodepth=1 --numjobs 1 --direct=1 --rw=randwrite --bs=4k --size 512M --group_reporting
+
+
+
+
+
 else
 echo "no argument"
 
