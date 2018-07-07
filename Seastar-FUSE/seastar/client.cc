@@ -19,8 +19,8 @@ static std::string str_pong(pingpong_size, 'X');
 static std::string str_txtx(pingpong_size, 'T');
 static std::string str_rxrx(pingpong_size, 'R');
 
-static int static_start;
-static int static_end;
+static long int static_start;
+// static int static_end;
 
 
 class client;
