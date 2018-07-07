@@ -12,14 +12,13 @@ static std::string str_txtx{"txtx"};
 static std::string str_rxrx{"rxrx"};
 static std::string str_pong{"pong"};
 static std::string str_unknow{"unknow cmd"};
-// static int tx_msg_total_size = 100 * 1024 * 1024;
+static int tx_msg_total_size = 100 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
-// static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
-// static int rx_msg_size = 4 * 1024;
+static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
+static int rx_msg_size = 4 * 1024;
 static std::string str_txbuf(tx_msg_size, 'X');
 static bool enable_tcp = false;
 static bool enable_sctp = false;
-
 class tcp_server {
     std::vector<server_socket> _tcp_listeners;
     std::vector<server_socket> _sctp_listeners;
@@ -86,33 +85,33 @@ public:
                 return make_ready_future();
             }
             // Expect 4 bytes cmd from client
-            return _read_buf.read_exactly(4).then([this] (temporary_buffer<char> buf) {
+            size_t n = 4;
+            return _read_buf.read_exactly(n).then([this] (temporary_buffer<char> buf) {
                 if (buf.size() == 0) {
                     return make_ready_future();
                 }
                 auto cmd = std::string(buf.get(), buf.size());
                 // pingpong test
-                // if (cmd == str_ping) {
-                // this is where you get the string ping!
-                return _write_buf.write(cmd).then([this] {
-                    return _write_buf.flush();
-                }).then([this] {
-                    return this->read();
-                });
-                // server tx test
-                // } else if (cmd == str_txtx) {
-                // return tx_test();
-                // server tx test
-                // } else if (cmd == str_rxrx) {
-                // return rx_test();
-                // unknow test
-                // } else {
-                //     return _write_buf.write(str_unknow).then([this] {
-                //         return _write_buf.flush();
-                //     }).then([] {
-                //         return make_ready_future();
-                //     });
-                // }
+                if (cmd == str_ping) {
+                    return _write_buf.write(str_pong).then([this] {
+                        return _write_buf.flush();
+                    }).then([this] {
+                        return this->read();
+                    });
+                    // server tx test
+                } else if (cmd == str_txtx) {
+                    return tx_test();
+                    // server tx test
+                } else if (cmd == str_rxrx) {
+                    return rx_test();
+                    // unknow test
+                } else {
+                    return _write_buf.write(str_unknow).then([this] {
+                        return _write_buf.flush();
+                    }).then([] {
+                        return make_ready_future();
+                    });
+                }
             });
         }
         future<> do_write(int end) {
@@ -125,27 +124,27 @@ public:
                 return do_write(end - 1);
             });
         }
-        // future<> tx_test() {
-        //     return do_write(tx_msg_nr).then([this] {
-        //         return _write_buf.close();
-        //     }).then([] {
-        //         return make_ready_future<>();
-        //     });
-        // }
-        // future<> do_read() {
-        //     return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
-        //         if (buf.size() == 0) {
-        //             return make_ready_future();
-        //         } else {
-        //             return do_read();
-        //         }
-        //     });
-        // }
-        // future<> rx_test() {
-        //     return do_read().then([] {
-        //         return make_ready_future<>();
-        //     });
-        // }
+         future<> tx_test() {
+             return do_write(tx_msg_nr).then([this] {
+                 return _write_buf.close();
+             }).then([] {
+                 return make_ready_future<>();
+             });
+         }
+         future<> do_read() {
+             return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
+                 if (buf.size() == 0) {
+                     return make_ready_future();
+                 } else {
+                     return do_read();
+                 }
+             });
+         }
+         future<> rx_test() {
+             return do_read().then([] {
+                 return make_ready_future<>();
+             });
+         }
     };
 };
 
@@ -171,18 +170,11 @@ int main(int ac, char** av) {
 
 
         auto server = new distributed<tcp_server>; // run distributed object
-        // The distributed template manages a sharded service,
-        // by creating a copy of the service on each shard, providing mechanisms
-        // to communicate with each shard's copy, and a way to stop the service.
-
-
-        //Starts Service by constructing an instance on every logical core with a copy of args passed to the constructor.
         server->start().then([server = std::move(server), port] () mutable {
             engine().at_exit([server] {
                 return server->stop();
             });
             server->invoke_on_all(&tcp_server::listen, ipv4_addr{port});
-            // Invoke a method on all Service instances in parallel.
         }).then([port] {
             std::cout << "Seastar TCP server listening on port " << port << " ...\n";
         });
