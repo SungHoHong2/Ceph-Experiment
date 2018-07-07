@@ -10,3 +10,10 @@
   - 1 thread
 
 ### need to be sure how FIO generates the read and write
+
+
+
+### What is this IO_tester?
+- this part is using filesystem
+- https://github.com/scylladb/seastar/blob/master/apps/io_tester/io_tester.cc
+-
