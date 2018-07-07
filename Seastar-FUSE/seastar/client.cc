@@ -76,6 +76,7 @@ public:
                 return _write_buf.flush();
             }).then([this, times] {
                 return _read_buf.read_exactly(pingpong_size).then([this, times] (temporary_buffer<char> buf) {
+
                     if (buf.size() != pingpong_size) {
                         fprint(std::cerr, "illegal packet received: %d\n", buf.size());
                         return make_ready_future();
@@ -85,6 +86,10 @@ public:
                         fprint(std::cerr, "illegal packet received: %d\n", buf.size());
                         return make_ready_future();
                     }
+
+                    sleep(0);
+                    cout << "received packet size: " << buf.size() << endl;
+
                     if (times > 0) {
                         return ping(times - 1);
                     } else {

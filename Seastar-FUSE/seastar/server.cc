@@ -97,6 +97,10 @@ public:
                 }
                 auto cmd = std::string(buf.get(), buf.size());
                     // pingpong test
+
+                    sleep(0);
+                    cout << "received packet size: " << buf.size() << endl;
+
                 if (cmd == str_ping) {
                     return _write_buf.write(str_pong).then([this] {
                         return _write_buf.flush();
