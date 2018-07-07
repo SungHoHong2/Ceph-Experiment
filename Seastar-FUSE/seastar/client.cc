@@ -202,7 +202,7 @@ public:
             // std::cout << "sec::" << chrono::duration_cast<chrono::seconds>(end_time - start_time).count() << std::endl;
 
 
-            auto elapsed = _latest_finished - _earliest_started;
+            auto elapsed = finished - started;
             auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
             auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
             fprint(std::cout, "========== %s ============\n", _test);
@@ -227,7 +227,9 @@ public:
 
 
         // CHARA: CORRECT_TIME
-        static_start = std::chrono::high_resolution_clock::now();
+        auto temp_start = std::chrono::high_resolution_clock::now();
+        static_start=chrono::duration_cast<chrono::microseconds>(temp_start).count();
+
 
         for (unsigned i = 0; i < ncon; i++) {
             socket_address local = socket_address(::sockaddr_in{AF_INET, INADDR_ANY, {0}});
