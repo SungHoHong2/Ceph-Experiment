@@ -7,7 +7,7 @@ using namespace net;
 using namespace std::chrono_literals;
 
 static int rx_msg_size = 4 * 1024;
-static int tx_msg_total_size = 30 * 1024 * 1024;
+static int tx_msg_total_size = 40 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static std::string str_txbuf(tx_msg_size, 'X');
@@ -51,7 +51,7 @@ public:
             return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
                 _bytes_read += buf.size();
 
-                std::cout << "howdy: " << buf.size << std::endl;
+               // std::cout << "howdy: " << buf.size << std::endl;
 
                 if (buf.size() == 0) {
                     return make_ready_future();
@@ -66,7 +66,7 @@ public:
                 return make_ready_future();
             }
 
-            std::cout << "howdy " << end <<  std::endl;
+            // std::cout << "howdy " << end <<  std::endl;
 
             return _write_buf.write(str_txbuf).then([this] {
 

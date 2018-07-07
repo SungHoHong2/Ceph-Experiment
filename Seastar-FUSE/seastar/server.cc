@@ -10,7 +10,7 @@ using namespace seastar;
 static std::string str_txtx{"txtx"};
 static std::string str_rxrx{"rxrx"};
 static std::string str_unknow{"unknow cmd"};
-static int tx_msg_total_size = 30 * 1024 * 1024;
+static int tx_msg_total_size = 40 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static int rx_msg_size = 4 * 1024;
@@ -127,7 +127,7 @@ public:
                 return make_ready_future<>();
             }
 
-            std::cout << "do_write::" << end << std::endl;
+            // std::cout << "do_write::" << end << std::endl;
             return _write_buf.write(str_txbuf).then([this] {
                 return _write_buf.flush();
             }).then([this, end] {
