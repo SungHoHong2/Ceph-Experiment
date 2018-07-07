@@ -36,11 +36,15 @@ FILENAME_ARG="/dev/sdb"
 
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 rm -rf temp_file && touch temp_file # | grep "READ:"
-fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "READ:"
+
+echo "READ" >> temp_file
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "READ:" >> temp_file
 wait
-fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:"
+echo "WRITE" >> temp_file
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:" >> temp_file
 wait
-fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep ": io="
+echo "RANDRW" >> temp_file
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 30M  --group_reporting -name=mytest | grep "WRITE:|READ:" >> temp_file
 
 
 # sudo fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=2 --runtime=240 --group_reporting
