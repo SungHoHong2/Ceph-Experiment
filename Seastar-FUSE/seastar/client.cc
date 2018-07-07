@@ -63,6 +63,9 @@ public:
                 return make_ready_future();
             }
             return _write_buf.write(str_txbuf).then([this] {
+
+                std::cout << "howdy " << end <<  std::endl;
+
                 _bytes_write += tx_msg_size;
                 return _write_buf.flush();
             }).then([this, end] {
