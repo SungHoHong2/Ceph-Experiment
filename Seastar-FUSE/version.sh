@@ -17,6 +17,7 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
       fi
 
 elif [ "$1" = "seastar_make" ]
+then
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
     if [ "$HOSTS" = "w2" ]
     then
