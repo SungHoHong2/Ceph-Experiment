@@ -21,7 +21,7 @@ then
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
     if [ "$HOSTS" = "w2" ]
     then
-    ./client --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --server "10.218.111.254:1234" --smp 1
+    ./client --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --server "10.218.111.254:1234"
 
     elif [ "$HOSTS" = "w1" ]
     then
