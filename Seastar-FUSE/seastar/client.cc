@@ -14,8 +14,8 @@ static std::string str_txbuf(tx_msg_size, 'X');
 //static std::string str_ping{"ping"};
 //static std::string str_pong{"pong"};
 static int pingpong_size = 4;
-static std::string str_ping(tx_msg_size, 'X');
-static std::string str_pong(tx_msg_size, 'X');
+static std::string str_ping(pingpong_size, 'X');
+static std::string str_pong(pingpong_size, 'X');
 
 
 class client;
