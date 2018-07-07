@@ -99,7 +99,7 @@ public:
                     // pingpong test
 
                     sleep(0);
-                    cout << "received packet size: " << buf.size() << endl;
+                    std::cout << "received packet size: " << buf.size() << std::endl;
 
                 if (cmd == str_ping) {
                     return _write_buf.write(str_pong).then([this] {

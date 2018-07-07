@@ -88,7 +88,7 @@ public:
                     }
 
                     sleep(0);
-                    cout << "received packet size: " << buf.size() << endl;
+                    std::cout << "received packet size: " << buf.size() << std::endl;
 
                     if (times > 0) {
                         return ping(times - 1);
