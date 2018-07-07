@@ -32,8 +32,13 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 
 elif [ "$1" = "FIO_TESTS" ]
 then
+FILENAME_ARG="/dev/sdb"
+
+echo "fio -filename=$FILENAME_ARG -direct=1 -thread -rw=randread -bs=16k -numjobs=64 -size 512M -name=mytest --group_reporting"
+
+
 # sudo fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=2 --runtime=240 --group_reporting
-sudo fio --filename=/dev/sdb --iodepth=1 --numjobs 1 --direct=1 --rw=randwrite --bs=4k --size 512M --group_reporting
+# sudo fio --filename=/dev/sdb --iodepth=1 --numjobs 1 --direct=1 --rw=randwrite --bs=4k --size 512M --group_reporting –-name=benchtest
 
 
 
