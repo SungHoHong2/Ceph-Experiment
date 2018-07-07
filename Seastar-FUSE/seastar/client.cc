@@ -7,7 +7,7 @@ using namespace net;
 using namespace std::chrono_literals;
 
 static int rx_msg_size = 4 * 1024;
-static int tx_msg_total_size = 100 * 1024 * 1024;
+static int tx_msg_total_size = 30 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static std::string str_txbuf(tx_msg_size, 'X');
@@ -25,7 +25,7 @@ transport protocol = transport::TCP;
 
 class client {
 private:
-    static constexpr unsigned _pings_per_connection = 10000;
+    static constexpr unsigned _pings_per_connection = 7500; // (30 megabytes) / (4 kilobytes)
     unsigned _total_pings;
     unsigned _concurrent_connections;
     ipv4_addr _server_addr;
@@ -161,7 +161,7 @@ public:
             fprint(std::cout, "========== ping ============\n");
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout,"Connections: %u\n", _concurrent_connections);
-            fprint(std::cout, "Total PingPong: %u\n", _total_pings);
+            fprint(std::cout, "Total PingPong (30 megabytes)/(4 kilobytes): %u\n", _total_pings);
             fprint(std::cout, "Total Time(Micro-Secs): %f\n", static_cast<double>(usecs));
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Requests/Sec: %f\n",
