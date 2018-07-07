@@ -19,7 +19,7 @@ static std::string str_pong(pingpong_size, 'X');
 static std::string str_txtx(pingpong_size, 'T');
 static std::string str_rxrx(pingpong_size, 'R');
 
-static long int static_start;
+// static long int static_start;
 // static int static_end;
 
 
@@ -227,8 +227,8 @@ public:
 
 
         // CHARA: CORRECT_TIME
-        auto temp_start = std::chrono::high_resolution_clock::now();
-        static_start=chrono::duration_cast<chrono::microseconds>(temp_start).count();
+//        auto temp_start = std::chrono::high_resolution_clock::now();
+//        static_start=chrono::duration_cast<chrono::microseconds>(temp_start).count();
 
 
         for (unsigned i = 0; i < ncon; i++) {
