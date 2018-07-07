@@ -67,8 +67,6 @@ public:
                 return make_ready_future();
             }
 
-             std::cout << "do_write " << end <<  std::endl;
-
             return _write_buf.write(str_txbuf).then([this] {
 
 
