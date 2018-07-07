@@ -1,3 +1,5 @@
+# /home/sungho/Ceph-Experiment/Seastar-FUSE
+
 HOSTS="$(cat /etc/hostname)"
 HISTORY="4_osd_seastar"
 HISTORY_SEASTAR_MSG="3_seastar_msg"
