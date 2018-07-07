@@ -16,7 +16,7 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
       g++ `pkg-config --cflags --libs /home/sungho/seastar/build/release/seastar.pc` client.cc -o client
       fi
 
-elif [ "$1" = "seastar_make" ]
+elif [ "$1" = "seastar_run" ]
 then
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
     if [ "$HOSTS" = "w2" ]
