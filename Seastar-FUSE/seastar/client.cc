@@ -25,12 +25,10 @@ static std::string str_rxrx(pingpong_size, 'R');
 
 class client;
 distributed<client> clients;
-
 transport protocol = transport::TCP;
 
 class client {
 private:
-    static constexpr unsigned _pings_per_connection = 7500; // (30 megabytes) / (4 kilobytes)
     unsigned _total_pings;
     unsigned _concurrent_connections;
     ipv4_addr _server_addr;
@@ -53,10 +51,22 @@ public:
                 , _write_buf(_fd.output()) {}
 
         future<> do_read() {
-            return _read_buf.read_exactly(rx_msg_size).then([this] (temporary_buffer<char> buf) {
+
+
+            // CHARA: IO-LATENCY
+            auto read_started = lowres_clock::now();
+
+
+            return _read_buf.read_exactly(rx_msg_size).then([this, read_started](temporary_buffer<char> buf) {
                 _bytes_read += buf.size();
 
-               // std::cout << "howdy: " << buf.size << std::endl;
+
+                auto read_finished = lowres_clock::now();
+                auto elapsed = read_finished - read_started;
+                auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+
+                std::cout << "READ: " << buf.size << "::" << msecs << std::endl;
+                
 
                 if (buf.size() == 0) {
                     return make_ready_future();
@@ -138,7 +148,7 @@ public:
 
     future<> ping_test(connection *conn) {
         auto started = lowres_clock::now();
-        return conn->ping(_pings_per_connection).then([started] {
+        return conn->ping(tx_msg_nr).then([started] {
             auto finished = lowres_clock::now();
             clients.invoke_on(0, &client::ping_report, started, finished);
         });
@@ -179,8 +189,6 @@ public:
             fprint(std::cout, "Total Time(Secs): %f\n", secs);
             fprint(std::cout, "Requests/Sec: %f\n",
                    static_cast<double>(_total_pings) / secs);
-
-
 
 
             clients.stop().then([] {
@@ -224,7 +232,7 @@ public:
     future<> start(ipv4_addr server_addr, std::string test, unsigned ncon) {
         _server_addr = server_addr;
         _concurrent_connections = ncon * smp::count;
-        _total_pings = _pings_per_connection * _concurrent_connections;
+        _total_pings = tx_msg_nr * _concurrent_connections;
         _test = test;
 
 
