@@ -169,7 +169,7 @@ public:
 
 
             auto elapsed = finished - started;
-            auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+            auto usecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
             auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
             fprint(std::cout, "========== ping ============\n");
             fprint(std::cout, "Server: %s\n", _server_addr);
