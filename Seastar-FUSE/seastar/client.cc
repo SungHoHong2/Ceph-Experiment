@@ -63,7 +63,7 @@ public:
 
                 auto read_finished = lowres_clock::now();
                 auto elapsed = read_finished - read_started;
-                auto msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+                auto msecs = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count();
 
                 std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
 
