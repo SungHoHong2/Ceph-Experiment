@@ -109,7 +109,7 @@ public:
                     // sleep(0);
                     // std::cout << "received packet size: " << buf.size() << std::endl;
 
-                    auto ended = lowres_clock::now();
+                    auto ping_finished = lowres_clock::now();
                     auto elapsed = ping_finished - ping_started;
                     auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                     std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
