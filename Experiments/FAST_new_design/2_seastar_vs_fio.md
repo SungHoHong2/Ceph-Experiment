@@ -23,6 +23,23 @@
 - https://github.com/scylladb/seastar/blob/master/apps/io_tester/io_tester.cc
 
 
+### 2nd version
+- IO latency is the latency for the single IO
+- IO latency should be collected in
+```
+ lat (usec): min=384, max=92280, avg=2968.69, stdev=13764.82
+```
+- and seastar also needs to caculate the time based on this. (workstation 1G)
+- additionally after this we can test it also in the server server 10G
+
+
+### Fuse-related to cache
+- https://github.com/ibizaman/pcachefs
+- https://sourceforge.net/projects/fuse-cache/
+- https://github.com/Doloops/mcachefs
+
+
+
 
 ### Test Configuration
 sungho@w1:~$ lsblk
