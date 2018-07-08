@@ -55,18 +55,13 @@ public:
 
             // CHARA: IO-LATENCY
             auto read_started = lowres_clock::now();
-
-
             return _read_buf.read_exactly(rx_msg_size).then([this, read_started](temporary_buffer<char> buf) {
                 _bytes_read += buf.size();
 
-
                 auto read_finished = lowres_clock::now();
                 auto elapsed = read_finished - read_started;
-                auto msecs = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count();
-
+                auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                 std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
-
 
                 if (buf.size() == 0) {
                     return make_ready_future();
@@ -93,10 +88,13 @@ public:
 
 
         future<> ping(int times) {
+
+            auto ping_started = lowres_clock::now();
+
             return _write_buf.write(str_ping).then([this] {
                 return _write_buf.flush();
             }).then([this, times] {
-                return _read_buf.read_exactly(pingpong_size).then([this, times] (temporary_buffer<char> buf) {
+                return _read_buf.read_exactly(pingpong_size).then([this, times, ping_started] (temporary_buffer<char> buf) {
 
                     if (buf.size() != pingpong_size) {
                         fprint(std::cerr, "illegal packet received: %d\n", buf.size());
@@ -110,6 +108,12 @@ public:
 
                     // sleep(0);
                     // std::cout << "received packet size: " << buf.size() << std::endl;
+
+                    auto ended = lowres_clock::now();
+                    auto elapsed = ping_finished - ping_started;
+                    auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
+
 
                     if (times > 0) {
                         return ping(times - 1);
