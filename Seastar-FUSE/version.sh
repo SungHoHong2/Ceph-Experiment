@@ -33,7 +33,7 @@ cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 elif [ "$1" = "FIO_TESTS" ]
 then
 FILENAME_ARG="/dev/sdb"
-SEARCH_TEXT="lat (\|clat ("
+SEARCH_TEXT="read :\|write :\|lat (\|clat ("
 cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/temp_file"
 rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
