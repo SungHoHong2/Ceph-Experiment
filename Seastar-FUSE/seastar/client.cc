@@ -65,8 +65,8 @@ public:
                 auto elapsed = read_finished - read_started;
                 auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
 
-                std::cout << "READ: " << buf.size << "::" << msecs << std::endl;
-                
+                std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
+
 
                 if (buf.size() == 0) {
                     return make_ready_future();
