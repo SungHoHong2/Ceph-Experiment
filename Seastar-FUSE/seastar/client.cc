@@ -93,7 +93,7 @@ public:
 
             return _write_buf.write(str_ping).then([this] {
                 return _write_buf.flush();
-            }).then([this, times] {
+            }).then([this, times, ping_started] {
                 return _read_buf.read_exactly(pingpong_size).then([this, times, ping_started] (temporary_buffer<char> buf) {
 
                     if (buf.size() != pingpong_size) {
