@@ -117,7 +117,7 @@ then
 elif [ "$1" = "FUSE_EXAMPLE" ]
 then
 git pull origin master
-g++ fuse/stupid.cc -o fuse/stupid && fuse/stupid
+g++ -D_FILE_OFFSET_BITS=64 fuse/stupid.cc -o fuse/stupid && fuse/stupid
 
 
 
