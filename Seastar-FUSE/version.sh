@@ -37,6 +37,7 @@ then
   cd /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar
   SEARCH_TEXT="AVG\|STDEV"
   TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/seastar_file"
+  rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
 
   echo "PING" >> $TEMP_FILE_LOG
   ./client --dpdk-pmd --network-stack native --dhcp 0 --host-ipv4-addr 10.218.111.253 --netmask-ipv4-addr 255.255.248.0 --gw-ipv4-addr 10.218.111.1 --collectd 0 --server "10.218.111.254:1234" --test ping --smp 1 | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
