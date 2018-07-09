@@ -88,14 +88,11 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
   return strlen( selectedText ) - offset;
 }
 
-
 static struct fuse_operations operations = {
-        getattr	: do_getattr,
-        readdir	: do_readdir,
-        read	: do_read,
+        .getattr	= do_getattr,
+        .readdir	= do_readdir,
+        .read		= do_read,
 };
-
-
 
 int main( int argc, char *argv[] ){
 
