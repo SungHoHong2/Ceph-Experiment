@@ -9,7 +9,7 @@ using namespace seastar;
 
 static std::string str_unknow{"unknow cmd"};
 //static int tx_msg_total_size = 30 * 1024 * 1024; // 30 MB
-static int tx_msg_total_size = 1000 * 1024 * 1024; // 1 GB
+static int tx_msg_total_size = 10000 * 1024 * 1024; // 10 GB
 
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
