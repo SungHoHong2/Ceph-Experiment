@@ -12,8 +12,9 @@ static int tx_msg_total_size = 30 * 1024 * 1024; // 30 MB
 // static int tx_msg_total_size = 10 * 1024 * 1024 * 1024; // 10GB
 
 static int tx_msg_size = 4 * 1024;
-static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
-           tx_msg_nr = 2500000;
+// static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
+static int tx_msg_nr = 2500000;
+
 
 static int rx_msg_size = 4 * 1024;
 static std::string str_txbuf(tx_msg_size, 'X');
