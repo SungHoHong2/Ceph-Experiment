@@ -19,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar/client.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+            <state relative-caret-position="608">
+              <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -37,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.cc" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar/server.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1685">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="335">
+              <caret line="135" column="25" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -50,7 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rxrx</find>
       <find>rx_test</find>
       <find>rxtx_report</find>
       <find>rx_msg_size</find>
@@ -62,7 +61,6 @@
       <find>con</find>
       <find>do_write</find>
       <find>do_read</find>
-      <find>tx_test</find>
       <find>couot</find>
       <find>cout</find>
       <find>started</find>
@@ -80,6 +78,8 @@
       <find>secs</find>
       <find>_total_pings</find>
       <find>tx_msg_nr</find>
+      <find>txtx</find>
+      <find>tx_test</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -163,12 +163,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530985204678</updated>
       <workItem from="1530985206042" duration="10936000" />
-      <workItem from="1531073510522" duration="6440000" />
+      <workItem from="1531073510522" duration="6731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17376000" />
+    <option name="totallyTimeSpent" value="17667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -227,13 +227,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar/client_back.cc" />
     <entry file="file://$PROJECT_DIR$/seastar/server_back.cc" />
-    <entry file="file://$PROJECT_DIR$/seastar/server.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1685">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/seastar/time_example.cc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -250,8 +243,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar/client.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+        <state relative-caret-position="608">
+          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/seastar/server.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="135" column="25" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="25" />
         </state>
       </provider>
     </entry>
