@@ -97,7 +97,7 @@ static struct fuse_operations operations = {
 
 
 
-int main(){
+int main( int argc, char *argv[] )
 
   std::cout << "FUSE BEGIN" << std::endl;
   return fuse_main( argc, argv, &operations, NULL );
