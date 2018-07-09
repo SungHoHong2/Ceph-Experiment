@@ -9,3 +9,8 @@ rados -p scbench cleanup
 ceph osd pool create scbench 100 100
 rados bench -p scbench 10 write --no-cleanup
 ```
+
+elif [ "$1" = "ceph_seastar_fuse" ]
+then
+cd /data1/sungho/Ceph-Experiment/Seastar-FUSE
+/data1/sungho/Ceph-Experiment/Seastar-FUSE/version.sh $2 $3
