@@ -45,12 +45,12 @@ then
     elif [ "$HOSTS" = "c3n24" ]
     then
     cd /data1/sungho/Ceph-Experiment/Seastar-FUSE/seastar
-    /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar/client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test "$2" --smp 1
+    ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test "$2" --smp 1
 
     elif [ "$HOSTS" = "c3n25" ]
     then
     cd /data1/sungho/Ceph-Experiment/Seastar-FUSE/seastar
-    /home/sungho/Ceph-Experiment/Seastar-FUSE/seastar/server --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.41 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --smp 1
+    ./server --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.41 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --smp 1
     fi
 
 elif [ "$1" = "SEASTAR_TESTS" ]
