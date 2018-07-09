@@ -63,7 +63,7 @@ public:
                 } else {
                     auto read_finished = lowres_clock::now();
                     auto elapsed = read_finished - read_started;
-                    auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                     std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
                     return do_read();
                 }
@@ -82,7 +82,7 @@ public:
             }).then([this, end, write_started] {
                 auto write_finished = lowres_clock::now();
                 auto elapsed = write_finished - write_started;
-                auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                 std::cout << "WRITE: " << "::" << msecs << std::endl;
                 return do_write(end - 1);
             });
