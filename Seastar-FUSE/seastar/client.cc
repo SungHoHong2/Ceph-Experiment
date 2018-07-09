@@ -203,7 +203,7 @@ public:
             fprint(std::cout, "========== ping ============\n");
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout,"Connections: %u\n", _concurrent_connections);
-            fprint(std::cout, "Total PingPong (30 megabytes)/(4 kilobytes): %u\n", _total_pings);
+            fprint(std::cout, "Total PingPongs: %u\n", _total_pings);
             fprint(std::cout, "Total Time(micro): %f\n", static_cast<double>(usecs));
 //            fprint(std::cout, "Total Time(Secs): %f\n", secs);
 //            fprint(std::cout, "Requests/Sec: %f\n", static_cast<double>(_total_pings) / secs);
