@@ -80,11 +80,11 @@ then
   rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
 
   echo "PING" >> $TEMP_FILE_LOG
-  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test ping --smp 1
+  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test ping --smp 1 | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
   echo "TXTX" >> $TEMP_FILE_LOG
-  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test txtx --smp 1
+  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test txtx --smp 1 | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
   echo "RXRX" >> $TEMP_FILE_LOG
-  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test rxrx --smp 1
+  ./client --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.40 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --server "10.107.30.41:1234" --test rxrx --smp 1 | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
 
   fi
 
