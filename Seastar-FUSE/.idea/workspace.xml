@@ -22,8 +22,8 @@
       <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar/client.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="215" column="12" selection-start-line="215" selection-start-column="12" selection-end-line="215" selection-end-column="12" />
+            <state relative-caret-position="451">
+              <caret line="186" column="27" selection-start-line="186" selection-start-column="27" selection-end-line="186" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -50,7 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rxrx_test</find>
       <find>rxrx</find>
       <find>rx_test</find>
       <find>rxtx_report</find>
@@ -80,6 +79,7 @@
       <find>_concurrent_connections</find>
       <find>ncon</find>
       <find>auto</find>
+      <find>secs</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -163,12 +163,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530985204678</updated>
       <workItem from="1530985206042" duration="10936000" />
-      <workItem from="1531073510522" duration="5401000" />
+      <workItem from="1531073510522" duration="5577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16337000" />
+    <option name="totallyTimeSpent" value="16513000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -250,8 +250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar/client.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="215" column="12" selection-start-line="215" selection-start-column="12" selection-end-line="215" selection-end-column="12" />
+        <state relative-caret-position="451">
+          <caret line="186" column="27" selection-start-line="186" selection-start-column="27" selection-end-line="186" selection-end-column="27" />
         </state>
       </provider>
     </entry>

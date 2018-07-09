@@ -168,13 +168,13 @@ public:
         });
     }
 
+
     void ping_report(lowres_clock::time_point started, lowres_clock::time_point finished) {
         if (_earliest_started > started)
             _earliest_started = started;
         if (_latest_finished < finished)
             _latest_finished = finished;
         if (++_num_reported == _concurrent_connections) {
-
 
             int size = samples.size();
             double avg =0;
@@ -184,9 +184,6 @@ public:
             }
 
             avg = avg/size;
-            std::cout <<"avg: " << avg << std::endl;
-
-
             double variance = 0;
             double t = samples[0];
             for (int i = 1; i < size; i++)
@@ -198,7 +195,6 @@ public:
 
             double std_var = variance / (size - 1);
             double std_dev = sqrt(std_var);
-            std::cout <<"std_dev: " << std_dev << std::endl;
 
 
             auto elapsed = finished - started;
@@ -213,7 +209,7 @@ public:
 //            fprint(std::cout, "Requests/Sec: %f\n", static_cast<double>(_total_pings) / secs);
             fprint(std::cout, "AVG per request(micro): %f\n", avg);
             fprint(std::cout, "STDEV per request(micro): %f\n", std_dev);
-            
+
             clients.stop().then([] {
                 engine().exit(0);
             });
@@ -242,10 +238,10 @@ public:
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout, "Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Bytes Received(MiB): %u\n", _processed_bytes/1024/1024);
-            fprint(std::cout, "Total Time(Micro-Secs): %f\n", static_cast<double>(usecs));
-            fprint(std::cout, "Total Time(Secs): %f\n", secs);
-            fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
-                   static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
+            // fprint(std::cout, "Total Time(Micro-Secs): %f\n", static_cast<double>(usecs));
+            // fprint(std::cout, "Total Time(Secs): %f\n", secs);
+            // fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
+            //       static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
             clients.stop().then([] {
                 engine().exit(0);
             });
