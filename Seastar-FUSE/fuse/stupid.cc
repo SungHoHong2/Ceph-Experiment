@@ -93,12 +93,12 @@ static struct fuse_operations operations = {
         getattr	: do_getattr,
         readdir	: do_readdir,
         read	: do_read,
-};
+}
 
 
 
 int main( int argc, char *argv[] ){
-  
+
   std::cout << "FUSE BEGIN" << std::endl;
   return fuse_main( argc, argv, &operations, NULL );
 }
