@@ -51,9 +51,6 @@ public:
                 , _write_buf(_fd.output()) {}
 
         future<> do_read() {
-
-
-            // CHARA: IO-LATENCY
             auto read_started = lowres_clock::now();
             return _read_buf.read_exactly(rx_msg_size).then([this, read_started](temporary_buffer<char> buf) {
                 _bytes_read += buf.size();
@@ -63,7 +60,7 @@ public:
                 } else {
                     auto read_finished = lowres_clock::now();
                     auto elapsed = read_finished - read_started;
-                    long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                     std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
                     return do_read();
                 }
@@ -82,7 +79,7 @@ public:
             }).then([this, end, write_started] {
                 auto write_finished = lowres_clock::now();
                 auto elapsed = write_finished - write_started;
-                long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                 std::cout << "WRITE: " << "::" << msecs << std::endl;
                 return do_write(end - 1);
             });
@@ -111,7 +108,7 @@ public:
                     if (times > 0) {
                         auto ping_finished = lowres_clock::now();
                         auto elapsed = ping_finished - ping_started;
-                        long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                        double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                         std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
                         return ping(times - 1);
                     } else {
