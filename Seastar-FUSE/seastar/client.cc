@@ -1,3 +1,5 @@
+#include <math.h>
+#include <vector>
 #include "core/app-template.hh"
 #include "core/future-util.hh"
 #include "core/distributed.hh"
@@ -11,16 +13,12 @@ static int tx_msg_total_size = 30 * 1024 * 1024;
 static int tx_msg_size = 4 * 1024;
 static int tx_msg_nr = tx_msg_total_size / tx_msg_size;
 static std::string str_txbuf(tx_msg_size, 'X');
-//static std::string str_ping{"ping"};
-//static std::string str_pong{"pong"};
 static int pingpong_size = 4 * 1024;
 static std::string str_ping(pingpong_size, 'X');
 static std::string str_pong(pingpong_size, 'X');
 static std::string str_txtx(pingpong_size, 'T');
 static std::string str_rxrx(pingpong_size, 'R');
-
-// static long int static_start;
-// static int static_end;
+static std::vector<double> samples;
 
 
 class client;
@@ -60,7 +58,7 @@ public:
                 } else {
                     auto read_finished = lowres_clock::now();
                     auto elapsed = read_finished - read_started;
-                    double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    double msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
                     std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
                     return do_read();
                 }
@@ -79,7 +77,7 @@ public:
             }).then([this, end, write_started] {
                 auto write_finished = lowres_clock::now();
                 auto elapsed = write_finished - write_started;
-                double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                double msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
                 std::cout << "WRITE: " << "::" << msecs << std::endl;
                 return do_write(end - 1);
             });
@@ -108,8 +106,10 @@ public:
                     if (times > 0) {
                         auto ping_finished = lowres_clock::now();
                         auto elapsed = ping_finished - ping_started;
-                        double msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-                        std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
+                        double msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
+                        // std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
+                        samples.push_back(msecs);
+
                         return ping(times - 1);
                     } else {
                         return make_ready_future();
@@ -176,19 +176,44 @@ public:
         if (++_num_reported == _concurrent_connections) {
 
 
+            int size = samples.size();
+            double avg =0;
+            for (int i = 0; i < size; i++)
+            {
+                avg += samples[i];
+            }
+
+            avg = avg/size;
+            std::cout <<"avg: " << avg << std::endl;
+
+
+            double variance = 0;
+            double t = samples[0];
+            for (int i = 1; i < size; i++)
+            {
+                t += samples[i];
+                double diff = ((i + 1) * samples[i]) - t;
+                variance += (diff * diff) / ((i + 1.0) *i);
+            }
+
+            double std_var = variance / (size - 1);
+            double std_dev = sqrt(std_var);
+            std::cout <<"std_dev: " << std_dev << std::endl;
+
+
             auto elapsed = finished - started;
-            auto usecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+            auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
             auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
             fprint(std::cout, "========== ping ============\n");
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout,"Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Total PingPong (30 megabytes)/(4 kilobytes): %u\n", _total_pings);
-            fprint(std::cout, "Total Time(Micro-Secs): %f\n", static_cast<double>(usecs));
-            fprint(std::cout, "Total Time(Secs): %f\n", secs);
-            fprint(std::cout, "Requests/Sec: %f\n",
-                   static_cast<double>(_total_pings) / secs);
-
-
+            fprint(std::cout, "Total Time(micro): %f\n", static_cast<double>(usecs));
+//            fprint(std::cout, "Total Time(Secs): %f\n", secs);
+//            fprint(std::cout, "Requests/Sec: %f\n", static_cast<double>(_total_pings) / secs);
+            fprint(std::cout, "AVG per request(micro): %f\n", avg);
+            fprint(std::cout, "STDEV per request(micro): %f\n", std_dev);
+            
             clients.stop().then([] {
                 engine().exit(0);
             });

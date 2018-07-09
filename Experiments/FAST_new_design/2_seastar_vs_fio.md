@@ -33,11 +33,18 @@
 - additionally after this we can test it also in the server server 10G
 
 
+
+### Fuse Tutorial
+- http://www.oug.org/files/presentations/losug-fuse.pdf
+
+
 ### Fuse-related to cache
 - https://github.com/ibizaman/pcachefs
 - https://sourceforge.net/projects/fuse-cache/
 - https://github.com/Doloops/mcachefs
 
+- https://github.com/kahing/catfs
+  -  Catfs allows you to have cached access to another (possibily remote) filesystem.
 
 
 
