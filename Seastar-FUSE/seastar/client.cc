@@ -59,7 +59,9 @@ public:
                     auto read_finished = lowres_clock::now();
                     auto elapsed = read_finished - read_started;
                     double msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-                    std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
+                    // std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
+                    samples.push_back(msecs);
+
                     return do_read();
                 }
             });
@@ -78,7 +80,9 @@ public:
                 auto write_finished = lowres_clock::now();
                 auto elapsed = write_finished - write_started;
                 double msecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-                std::cout << "WRITE: " << "::" << msecs << std::endl;
+                // std::cout << "WRITE: " << "::" << msecs << std::endl;
+                samples.push_back(msecs);
+
                 return do_write(end - 1);
             });
         }
@@ -226,9 +230,25 @@ public:
         if (++_num_reported == _concurrent_connections) {
 
 
-            // CHARA: CORRECT_TIME
-            // static_end = chrono::high_resolution_clock::now();
-            // std::cout << "sec::" << chrono::duration_cast<chrono::seconds>(end_time - start_time).count() << std::endl;
+            int size = samples.size();
+            double avg =0;
+            for (int i = 0; i < size; i++)
+            {
+                avg += samples[i];
+            }
+
+            avg = avg/size;
+            double variance = 0;
+            double t = samples[0];
+            for (int i = 1; i < size; i++)
+            {
+                t += samples[i];
+                double diff = ((i + 1) * samples[i]) - t;
+                variance += (diff * diff) / ((i + 1.0) *i);
+            }
+
+            double std_var = variance / (size - 1);
+            double std_dev = sqrt(std_var);
 
 
             auto elapsed = finished - started;
@@ -239,6 +259,9 @@ public:
             fprint(std::cout, "Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Bytes Received(MiB): %u\n", _processed_bytes/1024/1024);
             fprint(std::cout, "Total Time(micro): %f\n", static_cast<double>(usecs));
+            fprint(std::cout, "AVG per request(micro): %f\n", avg);
+            fprint(std::cout, "STDEV per request(micro): %f\n", std_dev);
+
             // fprint(std::cout, "Total Time(Secs): %f\n", secs);
             // fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
             //       static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
