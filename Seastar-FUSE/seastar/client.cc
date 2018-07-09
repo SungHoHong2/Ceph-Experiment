@@ -58,14 +58,13 @@ public:
             return _read_buf.read_exactly(rx_msg_size).then([this, read_started](temporary_buffer<char> buf) {
                 _bytes_read += buf.size();
 
-                auto read_finished = lowres_clock::now();
-                auto elapsed = read_finished - read_started;
-                auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-                std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
-
                 if (buf.size() == 0) {
                     return make_ready_future();
                 } else {
+                    auto read_finished = lowres_clock::now();
+                    auto elapsed = read_finished - read_started;
+                    auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                    std::cout << "READ: " << buf.size() << "::" << msecs << std::endl;
                     return do_read();
                 }
             });
@@ -76,12 +75,15 @@ public:
                 return make_ready_future();
             }
 
+            auto write_started = lowres_clock::now();
             return _write_buf.write(str_txbuf).then([this] {
-
-
                 _bytes_write += tx_msg_size;
                 return _write_buf.flush();
-            }).then([this, end] {
+            }).then([this, end, write_started] {
+                auto write_finished = lowres_clock::now();
+                auto elapsed = write_finished - write_started;
+                auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                std::cout << "WRITE: " << buf.size() << "::" << msecs << std::endl;
                 return do_write(end - 1);
             });
         }
@@ -106,16 +108,11 @@ public:
                         return make_ready_future();
                     }
 
-                    // sleep(0);
-                    // std::cout << "received packet size: " << buf.size() << std::endl;
-
-                    auto ping_finished = lowres_clock::now();
-                    auto elapsed = ping_finished - ping_started;
-                    auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-                    std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
-
-
                     if (times > 0) {
+                        auto ping_finished = lowres_clock::now();
+                        auto elapsed = ping_finished - ping_started;
+                        auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                        std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
                         return ping(times - 1);
                     } else {
                         return make_ready_future();
