@@ -119,7 +119,9 @@ then
 git pull origin master
 FUSE_DIR=`pkg-config fuse --cflags --libs`
 
-g++ -X $FUSE_DIR fuse/stupid.cc -o fuse/stupid && fuse/stupid
+g++ $FUSE_DIR fuse/stupid.cc -o fuse/stupid && fuse/stupid
+
+gcc $FUSE_DIR fuse/stupid.c -o fuse/stupid && fuse/stupid
 
 
 
