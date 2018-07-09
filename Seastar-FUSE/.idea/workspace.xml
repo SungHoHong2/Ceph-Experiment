@@ -19,20 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="client.cc" pinned="false" current-in-tab="false">
+      <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar/client.cc">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="277">
-              <caret line="15" column="16" selection-start-line="15" selection-end-line="16" />
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.cc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.cc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/seastar/server.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+            <state relative-caret-position="290">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -88,8 +88,8 @@
         <option value="$PROJECT_DIR$/seastar/server_back.cc" />
         <option value="$PROJECT_DIR$/seastar/time_example.cc" />
         <option value="$PROJECT_DIR$/seastar/avg_std.cc" />
-        <option value="$PROJECT_DIR$/seastar/client.cc" />
         <option value="$PROJECT_DIR$/seastar/server.cc" />
+        <option value="$PROJECT_DIR$/seastar/client.cc" />
       </list>
     </option>
   </component>
@@ -163,12 +163,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530985204678</updated>
       <workItem from="1530985206042" duration="10936000" />
-      <workItem from="1531073510522" duration="7925000" />
+      <workItem from="1531073510522" duration="7979000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18861000" />
+    <option name="totallyTimeSpent" value="18915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -241,17 +241,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seastar/client.cc">
+    <entry file="file://$PROJECT_DIR$/seastar/server.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="15" column="16" selection-start-line="15" selection-end-line="16" />
+        <state relative-caret-position="290">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/seastar/server.cc">
+    <entry file="file://$PROJECT_DIR$/seastar/client.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+        <state relative-caret-position="277">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
