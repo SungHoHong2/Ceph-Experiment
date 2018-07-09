@@ -199,7 +199,7 @@ public:
 
             auto elapsed = finished - started;
             auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-            auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
+            // auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
             fprint(std::cout, "========== ping ============\n");
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout,"Connections: %u\n", _concurrent_connections);
@@ -233,7 +233,7 @@ public:
 
             auto elapsed = finished - started;
             auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count();
-            auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
+            // auto secs = static_cast<double>(usecs) / static_cast<double>(1000 * 1000);
             fprint(std::cout, "========== %s ============\n", _test);
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout, "Connections: %u\n", _concurrent_connections);
