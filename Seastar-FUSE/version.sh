@@ -51,7 +51,6 @@ then
     then
     cd /data1/sungho/Ceph-Experiment/Seastar-FUSE/seastar
     ./server --dpdk-pmd --dpdk-port-index 1 --network-stack native --dhcp 0 --host-ipv4-addr 10.107.30.41 --netmask-ipv4-addr 255.255.254.0 --gw-ipv4-addr 10.107.30.1 --collectd 0 --smp 1
-
     fi
 
 elif [ "$1" = "SEASTAR_TESTS" ]
