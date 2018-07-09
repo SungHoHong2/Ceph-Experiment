@@ -117,7 +117,9 @@ then
 elif [ "$1" = "FUSE_EXAMPLE" ]
 then
 git pull origin master
-g++ -D_FILE_OFFSET_BITS=64 fuse/stupid.cc -o fuse/stupid && fuse/stupid
+FUSE_DIR=`pkg-config fuse --cflags --libs`
+
+g++ $FUSE_DIR fuse/stupid.cc -o fuse/stupid && fuse/stupid
 
 
 
