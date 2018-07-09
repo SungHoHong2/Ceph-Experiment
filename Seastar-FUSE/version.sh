@@ -114,6 +114,13 @@ then
   # sudo fio --filename=/dev/sdb --iodepth=1 --numjobs 1 --direct=1 --rw=randwrite --bs=4k --size 512M --group_reporting –-name=benchtest
   fi
 
+elif [ "$1" = "FUSE_EXAMPLE" ]
+then
+g++ fuse/stupid.cc -o stupid $$ fuse/stupid
+
+
+
+
 else
 echo "no argument"
 
