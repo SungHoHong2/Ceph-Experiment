@@ -116,7 +116,8 @@ then
 
 elif [ "$1" = "FUSE_EXAMPLE" ]
 then
-g++ fuse/stupid.cc -o stupid $$ fuse/stupid
+git pull origin master
+g++ fuse/stupid.cc -o fuse/stupid && fuse/stupid
 
 
 
