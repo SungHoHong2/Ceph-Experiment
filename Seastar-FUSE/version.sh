@@ -107,6 +107,9 @@ then
   echo "RANDRW" >> $TEMP_FILE_LOG
   fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 1G --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
 
+
+  fio -filename="/dev/sdb" -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size 1G  --group_reporting -name=mytest
+
   # sudo fio --name=randwrite --ioengine=libaio --iodepth=1 --rw=randwrite --bs=4k --direct=0 --size=512M --numjobs=2 --runtime=240 --group_reporting
   # sudo fio --filename=/dev/sdb --iodepth=1 --numjobs 1 --direct=1 --rw=randwrite --bs=4k --size 512M --group_reporting –-name=benchtest
   fi
