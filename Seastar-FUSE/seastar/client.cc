@@ -83,7 +83,7 @@ public:
                 auto write_finished = lowres_clock::now();
                 auto elapsed = write_finished - write_started;
                 auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-                std::cout << "WRITE: " << buf.size() << "::" << msecs << std::endl;
+                std::cout << "WRITE: " << "::" << msecs << std::endl;
                 return do_write(end - 1);
             });
         }
