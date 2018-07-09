@@ -111,7 +111,7 @@ public:
                     if (times > 0) {
                         auto ping_finished = lowres_clock::now();
                         auto elapsed = ping_finished - ping_started;
-                        auto msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+                        long int msecs = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
                         std::cout << "PING: " << buf.size() << "::" << msecs << std::endl;
                         return ping(times - 1);
                     } else {
