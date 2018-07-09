@@ -22,8 +22,8 @@
       <file leaf-file-name="client.cc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/seastar/client.cc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="205" column="45" lean-forward="true" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+            <state relative-caret-position="336">
+              <caret line="151" column="11" lean-forward="true" selection-start-line="151" selection-start-column="11" selection-end-line="151" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -70,16 +70,16 @@
       <find>CHARA</find>
       <find>fp_ms</find>
       <find>static_star</find>
-      <find>tx_msg_nr</find>
       <find>pingpong_size</find>
       <find>ping</find>
       <find>_pings_per_connection</find>
-      <find>_total_pings</find>
       <find>pings_per</find>
       <find>_concurrent_connections</find>
       <find>ncon</find>
       <find>auto</find>
       <find>secs</find>
+      <find>_total_pings</find>
+      <find>tx_msg_nr</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -163,12 +163,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530985204678</updated>
       <workItem from="1530985206042" duration="10936000" />
-      <workItem from="1531073510522" duration="5704000" />
+      <workItem from="1531073510522" duration="5863000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16640000" />
+    <option name="totallyTimeSpent" value="16799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -250,8 +250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/seastar/client.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="205" column="45" lean-forward="true" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+        <state relative-caret-position="336">
+          <caret line="151" column="11" lean-forward="true" selection-start-line="151" selection-start-column="11" selection-end-line="151" selection-end-column="11" />
         </state>
       </provider>
     </entry>
