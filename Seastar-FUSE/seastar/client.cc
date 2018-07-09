@@ -238,7 +238,7 @@ public:
             fprint(std::cout, "Server: %s\n", _server_addr);
             fprint(std::cout, "Connections: %u\n", _concurrent_connections);
             fprint(std::cout, "Bytes Received(MiB): %u\n", _processed_bytes/1024/1024);
-            // fprint(std::cout, "Total Time(Micro-Secs): %f\n", static_cast<double>(usecs));
+            fprint(std::cout, "Total Time(micro): %f\n", static_cast<double>(usecs));
             // fprint(std::cout, "Total Time(Secs): %f\n", secs);
             // fprint(std::cout, "Bandwidth(Gbits/Sec): %f\n",
             //       static_cast<double>((_processed_bytes * 8)) / (1000 * 1000 * 1000) / secs);
