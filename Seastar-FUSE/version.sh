@@ -147,7 +147,7 @@ sudo mount -t ext4 /dev/sdc2 /mnt/sdd_cache
 echo "FILESYSTEM SETUP is complete"
 
 
-elif [ "$1" = "FUSE_MCACHEFS_USE_HDD" ]
+elif [ "$1" = "FUSE_MCACHEFS_PERF" ]
 then
 echo "mcachefs /media/input /media/output"
 echo "The target filesystem: slow filesystem that cache accesses to"
@@ -158,7 +158,7 @@ echo "non-buffered I/O involves reading or writing data one element at a time"
 
 SEARCH_TEXT="read :\|write:\|lat (\|clat ("
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/hdd_fuse_vs_local"
-TEST_SIZE="10M"
+TEST_SIZE="1G"
 FILENAME_ARG="/dev/sdb1"
 
 sudo umount /mnt/hdd_cache
