@@ -158,7 +158,7 @@ echo "non-buffered I/O involves reading or writing data one element at a time"
 
 SEARCH_TEXT="read :\|write:\|lat (\|clat ("
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/hdd_fuse_vs_local"
-TEST_SIZE="1G"
+TEST_SIZE="10M"
 FILENAME_ARG="/dev/sdb1"
 
 sudo umount /mnt/hdd_cache
