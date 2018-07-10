@@ -158,9 +158,8 @@ echo "non-buffered I/O involves reading or writing data one element at a time"
 
 SEARCH_TEXT="read :\|write:\|lat (\|clat ("
 TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/hdd_fuse_vs_local"
-TEST_SIZE="10M"
+TEST_SIZE="1G"
 FILENAME_ARG="/dev/sdb1"
-
 
 sudo umount /mnt/hdd_cache
 sudo umount /mnt/ssd_cache
@@ -191,7 +190,7 @@ echo "RANDRW" >> $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
 
 
-echo "HDD PERFORMANCE with FUSE-SDD" >> $TEMP_FILE_LOG
+echo "HDD PERFORMANCE with FUSE-SSD" >> $TEMP_FILE_LOG
 wait
 sudo umount /mnt/hdd_cache
 wait
@@ -207,13 +206,18 @@ echo "RANDRW" >> $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
 
 
- #
- # fio -filename="/mnt/sdb1" -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size 1G  --group_reporting -name=mytest
- #
- # fio -filename="/mnt/sdb1" -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size 1G  --group_reporting -name=mytest
- #
- #
-
+echo "SSD PERFORMANCE" >> $TEMP_FILE_LOG
+FILENAME_ARG="/dev/sdc1"
+wait
+sudo umount /mnt/hdd_cache
+wait
+sudo umount /mnt/ssd_cache
+echo "RANDREAD" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDWRITE" >>  $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDRW" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
 
 
 
