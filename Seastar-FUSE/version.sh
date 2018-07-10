@@ -199,7 +199,7 @@ sudo umount /mnt/hdd_cache
 wait
 sudo umount /mnt/ssd_cache
 wait
-/home/sungho/mcachefs/src/mcachefs /dev/sdc2 /mnt/sdd_cache
+/home/sungho/mcachefs/src/mcachefs /dev/sdc2 /mnt/ssd_cache
 wait
 echo "RANDREAD" >> $TEMP_FILE_LOG
 fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
