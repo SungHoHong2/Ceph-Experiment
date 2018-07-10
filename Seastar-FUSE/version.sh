@@ -125,6 +125,26 @@ gcc $FUSE_DIR fuse/stupid.c -o fuse/stupid && fuse/stupid
 
 
 
+elif [ "$1" = "FUSE_MCACHEFS_SETUP" ]
+then
+echo "FILESYSTEM SETUP begin"
+sudo parted -s -a optimal /dev/sdb mklabel gpt
+sudo parted -s -a optimal /dev/sdb mkpart fuse_local_storage 0% 50%
+sudo parted -s -a optimal /dev/sdb mkpart fuse_local_storage 50% 100%
+/sbin/mkfs -t ext4 /dev/sdb1
+/sbin/mkfs -t ext4 /dev/sdb2
+sudo mount -t ext4 /dev/sdb1 /mnt/hdd_storage
+sudo mount -t ext4 /dev/sdb2 /mnt/hdd_cache
+
+sudo parted -s -a optimal /dev/sdc mklabel gpt
+sudo parted -s -a optimal /dev/sdc mkpart fuse_local_storage 0% 50%
+sudo parted -s -a optimal /dev/sdc mkpart fuse_local_storage 50% 100%
+/sbin/mkfs -t ext4 /dev/sdc1
+/sbin/mkfs -t ext4 /dev/sdc2
+sudo mount -t ext4 /dev/sdc1 /mnt/sdd_storage
+sudo mount -t ext4 /dev/sdc2 /mnt/sdd_cache
+echo "FILESYSTEM SETUP is complete"
+
 
 else
 echo "no argument"
