@@ -124,7 +124,6 @@ FUSE_DIR=`pkg-config fuse --cflags --libs`
 gcc $FUSE_DIR fuse/stupid.c -o fuse/stupid && fuse/stupid
 
 
-
 elif [ "$1" = "FUSE_MCACHEFS_SETUP" ]
 then
 echo "FILESYSTEM SETUP begin"
@@ -148,6 +147,66 @@ sudo parted -s -a optimal /dev/sdc mkpart fuse_local_storage 50% 100%
 sudo mount -t ext4 /dev/sdc1 /mnt/sdd_storage
 sudo mount -t ext4 /dev/sdc2 /mnt/sdd_cache
 echo "FILESYSTEM SETUP is complete"
+
+
+elif [ "$1" = "FUSE_MCACHEFS_USE_HDD" ]
+then
+echo "mcachefs /media/input /media/output"
+echo "The target filesystem: slow filesystem that cache accesses to"
+echo "the backing filesystem: mcachefs can stash stuff which it has copied"
+
+echo "--direct: If true, use non-buffered I/O"
+echo "non-buffered I/O involves reading or writing data one element at a time"
+
+SEARCH_TEXT="read :\|write:\|lat (\|clat ("
+TEMP_FILE_LOG="/home/sungho/Ceph-Experiment/Seastar-FUSE/hdd_fuse_vs_local"
+TEST_SIZE="10M"
+FILENAME_ARG="/dev/sdb1"
+
+rm -rf $TEMP_FILE_LOG && touch $TEMP_FILE_LOG # | grep "READ:"
+echo "HDD PERFORMANCE" >> $TEMP_FILE_LOG
+
+echo "RANDREAD" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDWRITE" >>  $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDRW" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+
+
+echo "HDD PERFORMANCE with FUSE-HDD" >> $TEMP_FILE_LOG
+wait
+sudo umount /mnt/hdd_cache
+/home/sungho/mcachefs/src/mcachefs /dev/sdb2 /mnt/hdd_cache
+wait
+echo "RANDREAD" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDWRITE" >>  $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDRW" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+
+
+echo "HDD PERFORMANCE with FUSE-SDD" >> $TEMP_FILE_LOG
+wait
+sudo umount /mnt/ssd_cache
+/home/sungho/mcachefs/src/mcachefs /dev/sdc2 /mnt/sdd_cache
+wait
+echo "RANDREAD" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randread -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDWRITE" >>  $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randwrite -bs=4k -numjobs=1 -size $TEST_SIZE  --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+echo "RANDRW" >> $TEMP_FILE_LOG
+fio -filename=$FILENAME_ARG -direct=1 -iodepth=1 -thread -rw=randrw -bs=4k -numjobs=1 -size $TEST_SIZE --group_reporting -name=mytest | grep "$SEARCH_TEXT" >> $TEMP_FILE_LOG
+
+
+
+
+
+
+
+
+
 
 
 else
