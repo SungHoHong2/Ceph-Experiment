@@ -128,6 +128,10 @@ gcc $FUSE_DIR fuse/stupid.c -o fuse/stupid && fuse/stupid
 elif [ "$1" = "FUSE_MCACHEFS_SETUP" ]
 then
 echo "FILESYSTEM SETUP begin"
+sudo umount /mnt/hdd_storage
+sudo umount /mnt/hdd_cache
+sudo umount /mnt/ssd_storage
+sudo umount /mnt/ssd_cache
 sudo parted -s -a optimal /dev/sdb mklabel gpt
 sudo parted -s -a optimal /dev/sdb mkpart fuse_local_storage 0% 50%
 sudo parted -s -a optimal /dev/sdb mkpart fuse_local_storage 50% 100%
