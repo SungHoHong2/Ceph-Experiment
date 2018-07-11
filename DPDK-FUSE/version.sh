@@ -9,4 +9,9 @@ elif [ "$1" = "git_to_remote" ]
 git pull origin master
 
 
+
+
+
+
+
 fi
