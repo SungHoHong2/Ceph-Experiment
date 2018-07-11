@@ -29,13 +29,13 @@ sudo parted -s -a optimal /dev/sdc mkpart fuse_local_storage 50% 100%
 sudo mount -t ext4 /dev/sdc1 /mnt/sdd_storage
 sudo mount -t ext4 /dev/sdc2 /mnt/sdd_cache
 
-
+echo 3 > /proc/sys/vm/drop_cache
 
 mcachefs /media/input /media/output
-
-
-
 ```
+
+### use plain DPDK with FUSE
+- test it with Multi-process Sample Application
 
 
 
