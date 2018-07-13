@@ -31,8 +31,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="235" column="12" selection-start-line="235" selection-start-column="12" selection-end-line="235" selection-end-column="12" />
+            <state relative-caret-position="307">
+              <caret line="253" column="20" selection-start-line="253" selection-start-column="20" selection-end-line="253" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -41,8 +41,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rx_rings</find>
-      <find>ring</find>
       <find>ports-&gt;num_ports == 0</find>
       <find>ports</find>
       <find>progname</find>
@@ -71,6 +69,8 @@
       <find>print_stats</find>
       <find>pi</find>
       <find>print_sta</find>
+      <find>ptk_len</find>
+      <find>pkt_len</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -213,12 +213,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="9449000" />
+      <workItem from="1531502171702" duration="9476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17426000" />
+    <option name="totallyTimeSpent" value="17453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -538,8 +538,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="235" column="12" selection-start-line="235" selection-start-column="12" selection-end-line="235" selection-end-column="12" />
+        <state relative-caret-position="307">
+          <caret line="253" column="20" selection-start-line="253" selection-start-column="20" selection-end-line="253" selection-end-column="20" />
         </state>
       </provider>
     </entry>
