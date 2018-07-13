@@ -34,7 +34,7 @@
 #include <rte_malloc.h>
 #include <rte_string_fns.h>
 
-int main(){
+int main(int argc, char *argv[]){
 
     /* initialise the system */
     if (init(argc, argv) < 0 )
