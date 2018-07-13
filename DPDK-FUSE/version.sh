@@ -9,11 +9,11 @@ then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process
 make
 
-# elif ["$1" = "multiprocess_simple_mp" ]
-# then
-# /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
-# /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=secondary
-# #  simple_mp > send hello_secondary
+elif ["$1" = "multiprocess_simple_mp" ]
+then
+/home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
+/home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=secondary
+#  simple_mp > send hello_secondary
 #
 # ./mp_server/build/mp_server -c 6 -n 4 -- -p 3 -n 2
 # ./mp_client/build/mp_client -c 8 -n 4 --proc-type=auto -- -n 0
