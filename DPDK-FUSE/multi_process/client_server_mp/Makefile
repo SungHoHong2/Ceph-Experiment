@@ -17,6 +17,8 @@
 #       contributors may be used to endorse or promote products derived
 #       from this software without specific prior written permission.
 #
+$(error "Please define RTE_SDK environment variable")
+endif
 #   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 #   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 #   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -30,8 +32,6 @@
 #   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ifeq ($(RTE_SDK),)
-$(error "Please define RTE_SDK environment variable")
-endif
 
 # Default target, can be overriden by command line or environment
 RTE_TARGET ?= x86_64-native-linuxapp-gcc

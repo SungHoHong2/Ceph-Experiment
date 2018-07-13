@@ -22,8 +22,8 @@
       <file leaf-file-name="stupid.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fuse/stupid.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+            <state relative-caret-position="343">
+              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -155,12 +155,12 @@
       <workItem from="1531073510522" duration="8545000" />
       <workItem from="1531157628039" duration="1927000" />
       <workItem from="1531240271472" duration="866000" />
-      <workItem from="1531327454405" duration="840000" />
+      <workItem from="1531327454405" duration="961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23114000" />
+    <option name="totallyTimeSpent" value="23235000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -290,8 +290,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fuse/stupid.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
+        <state relative-caret-position="343">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
         </state>
       </provider>
     </entry>
