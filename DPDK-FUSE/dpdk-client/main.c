@@ -576,7 +576,7 @@ main(int argc, char **argv)
 	/* create memory pool for send data */
 	if (test_pktmbuf_pool == NULL) {
 		test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-													NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_SIZE, rte_socket_id());
+													NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 1024, rte_socket_id());
 	}
 
 	nb_ports = rte_eth_dev_count();
