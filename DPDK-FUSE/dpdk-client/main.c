@@ -174,9 +174,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	 int pkt_len = rte_pktmbuf_pkt_len(m);
 
 
-
-	 /*
-* 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+		struct rte_mbuf *rm[1];
+ 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 		data = rte_pktmbuf_append(rm[0], PKT_SIZE);
 		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
 		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
@@ -187,32 +186,32 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 		if (sent){
 			port_statistics[portid].tx += sent;
 		}
-	  */
 
 
 
 
-	 // sleep(1);
-	 // printf("pkt_len: %d\n",pkt_len);
-		m = rte_pktmbuf_alloc(test_pktmbuf_pool);
-		char *_m;
-		_m = rte_pktmbuf_append(m, 1024);
-		pkt_len = rte_pktmbuf_pkt_len(m);
-		rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 
-	// printf("pkt_len after: %d\n",pkt_len);
-		// memset(_m, '*', rte_pktmbuf_pkt_len(m));
-
-		// rte_pktmbuf_dump(stdout, m, 1024);
-
-	if (mac_updating)
-		l2fwd_mac_updating(m, dst_port);
-
-
-	buffer = tx_buffer[dst_port];
-	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-	if (sent)
-		port_statistics[dst_port].tx += sent;
+//	 // sleep(1);
+//	 // printf("pkt_len: %d\n",pkt_len);
+//		m = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//		char *_m;
+//		_m = rte_pktmbuf_append(m, 1024);
+//		pkt_len = rte_pktmbuf_pkt_len(m);
+//		rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+//
+//	// printf("pkt_len after: %d\n",pkt_len);
+//		// memset(_m, '*', rte_pktmbuf_pkt_len(m));
+//
+//		// rte_pktmbuf_dump(stdout, m, 1024);
+//
+//	if (mac_updating)
+//		l2fwd_mac_updating(m, dst_port);
+//
+//
+//	buffer = tx_buffer[dst_port];
+//	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+//	if (sent)
+//		port_statistics[dst_port].tx += sent;
 
 
 
