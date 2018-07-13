@@ -45,7 +45,7 @@
  */
 #define PACKET_READ_SIZE 32
 
-void *pkts[PKT_READ_SIZE];
+void *pkts[PACKET_READ_SIZE];
 /*
  * Local buffers to put packets in, used to send packets in bursts to the
  * clients
