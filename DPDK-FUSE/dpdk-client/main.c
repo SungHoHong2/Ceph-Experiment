@@ -46,6 +46,7 @@
 #include <getopt.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include <rte_common.h>
 #include <rte_log.h>
