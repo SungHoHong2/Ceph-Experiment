@@ -20,6 +20,7 @@ then
 
 
 elif ["$1" = "dpdk_server_make"]
+then
 
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
 make
