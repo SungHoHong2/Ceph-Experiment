@@ -49,6 +49,7 @@
 uint8_t num_clients;
 
 static const char *progname;
+extern struct port_info *ports;
 
 /**
  * Prints out usage information to stdout
