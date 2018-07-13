@@ -31,8 +31,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+            <state relative-caret-position="569">
+              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
             </state>
           </provider>
         </entry>
@@ -41,7 +41,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>struct rte_ring *rx_q;</find>
       <find>rx_q</find>
       <find>even</find>
       <find>application requires an even number of ports to use</find>
@@ -71,14 +70,15 @@
       <find>\</find>
       <find>enqueue_rx_packet</find>
       <find>flush_rx_queue</find>
+      <find>rte_eth_tx_burst</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
       <dir>$PROJECT_DIR$/multi_process</dir>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
-      <dir>$PROJECT_DIR$/multi_process/client_server_mp/mp_server</dir>
       <dir>$PROJECT_DIR$/dpdk-client</dir>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp/mp_client</dir>
+      <dir>$PROJECT_DIR$/multi_process/client_server_mp/mp_server</dir>
     </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -214,12 +214,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="4005000" />
+      <workItem from="1531502171702" duration="4299000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11982000" />
+    <option name="totallyTimeSpent" value="12276000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -495,8 +495,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
+        <state relative-caret-position="569">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
         </state>
       </provider>
     </entry>
