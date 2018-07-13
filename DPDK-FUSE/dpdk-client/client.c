@@ -136,20 +136,20 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
                 printf("CHARA: max_ports: %d, optarg: %s\n", max_ports, optarg);
 
                 if (parse_portmask(max_ports, optarg) != 0){
-                    usage();
+                    usage(progname);
                     return -1;
                 }
                 break;
             case 'n':
                 printf("CHARA: optarg: %s\n", optarg);
                 if (parse_num_clients(optarg) != 0){
-                    usage();
+                    usage(progname);
                     return -1;
                 }
                 break;
             default:
                 printf("ERROR: Unknown option '%c'\n", opt);
-                usage();
+                usage(progname);
                 return -1;
         }
     }
