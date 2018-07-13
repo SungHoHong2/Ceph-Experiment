@@ -19,20 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="179" column="26" selection-start-line="179" selection-end-line="180" />
+            <state relative-caret-position="326">
+              <caret line="173" column="7" selection-start-line="173" selection-start-column="7" selection-end-line="173" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
+            <state relative-caret-position="557">
+              <caret line="190" column="45" lean-forward="true" selection-start-line="190" selection-start-column="45" selection-end-line="190" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -41,7 +41,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>i</find>
       <find>rte_mempool_lookup</find>
       <find>configure_tx_buffer</find>
       <find>configure_output_ports</find>
@@ -71,6 +70,7 @@
       <find>timer_tsc</find>
       <find>l2fwd_simple_forward</find>
       <find>l2fwd_mac_updating</find>
+      <find>sleep</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -95,8 +95,8 @@
         <option value="$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c" />
         <option value="$PROJECT_DIR$/dpdk-client/Makefile" />
         <option value="$PROJECT_DIR$/dpdk-server/Makefile" />
-        <option value="$PROJECT_DIR$/dpdk-client/main.c" />
         <option value="$PROJECT_DIR$/dpdk-server/main.c" />
+        <option value="$PROJECT_DIR$/dpdk-client/main.c" />
       </list>
     </option>
   </component>
@@ -213,12 +213,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="8482000" />
+      <workItem from="1531502171702" duration="8513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16459000" />
+    <option name="totallyTimeSpent" value="16490000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -519,17 +519,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
+    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="179" column="26" selection-start-line="179" selection-end-line="180" />
+        <state relative-caret-position="557">
+          <caret line="190" column="45" lean-forward="true" selection-start-line="190" selection-start-column="45" selection-end-line="190" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
+    <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
+        <state relative-caret-position="326">
+          <caret line="173" column="7" selection-start-line="173" selection-start-column="7" selection-end-line="173" selection-end-column="7" />
         </state>
       </provider>
     </entry>
