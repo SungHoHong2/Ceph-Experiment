@@ -72,7 +72,7 @@ handle_packet(struct rte_mbuf *buf)
         printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
 
 
-    sent = rte_eth_tx_burst(portid, 0, buf, 1);
+    sent = rte_eth_tx_burst(0, 0, buf, 1);
 
     if (sent)
         printf("CHARA::rte_eth_tx_burst::%d\n,",sent);
