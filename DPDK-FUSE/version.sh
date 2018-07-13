@@ -18,7 +18,7 @@ make
 elif [ "$1" = "dpdk_client_kill" ]
 then
 kill -9 `pidof dpdk-client`
-
+kill -9 `pidof dpdk-server`
 else
 echo "no argument"
 

@@ -181,8 +181,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-
-
 	// if (mac_updating)
 	//	l2fwd_mac_updating(m, dst_port);
 
@@ -250,24 +248,24 @@ l2fwd_main_loop(void)
 
 			}
 
-//			/* if timer is enabled */
-//			if (timer_period > 0) {
-//
-//				/* advance the timer */
-//				timer_tsc += diff_tsc;
-//
-//				/* if timer has reached its timeout */
-//				if (unlikely(timer_tsc >= timer_period)) {
-//
-//					/* do this only on master core */
-//					if (lcore_id == rte_get_master_lcore()) {
-//						print_stats();
-//						/* reset the timer */
-//						timer_tsc = 0;
-//					}
-//				}
-//			}
-//			prev_tsc = cur_tsc;
+			/* if timer is enabled */
+			if (timer_period > 0) {
+
+				/* advance the timer */
+				timer_tsc += diff_tsc;
+
+				/* if timer has reached its timeout */
+				if (unlikely(timer_tsc >= timer_period)) {
+
+					/* do this only on master core */
+					if (lcore_id == rte_get_master_lcore()) {
+						print_stats();
+						/* reset the timer */
+						timer_tsc = 0;
+					}
+				}
+			}
+			prev_tsc = cur_tsc;
 		}
 
 		/*
@@ -287,9 +285,9 @@ l2fwd_main_loop(void)
 			for (j = 0; j < nb_rx; j++) {
 				m = pkts_burst[j];
 
-				sleep(1);
+				// sleep(1);
 				int pkt_len = rte_pktmbuf_pkt_len(m);
-				printf("received: %d\n",pkt_len);
+				// printf("received: %d\n",pkt_len);
 
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
