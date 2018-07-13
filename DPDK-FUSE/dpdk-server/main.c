@@ -34,6 +34,12 @@
 #include <rte_malloc.h>
 #include <rte_string_fns.h>
 
+
+#include "common.h"
+#include "args.h"
+#include "init.h"
+
+
 int main(int argc, char *argv[]){
 
     /* initialise the system */

@@ -25,8 +25,8 @@
             <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="450">
-                    <caret line="267" column="17" lean-forward="true" selection-start-line="267" selection-end-line="268" />
+                  <state relative-caret-position="559">
+                    <caret line="36" selection-start-line="36" selection-end-line="38" selection-end-column="17" />
                   </state>
                 </provider>
               </entry>
@@ -50,8 +50,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="673">
-              <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+            <state relative-caret-position="730">
+              <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -207,12 +207,12 @@
       <option name="presentableId" value="Default" />
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
-      <workItem from="1531416050810" duration="2173000" />
+      <workItem from="1531416050810" duration="2202000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3676000" />
+    <option name="totallyTimeSpent" value="3705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -380,15 +380,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="267" column="17" lean-forward="true" selection-start-line="267" selection-end-line="268" />
+        <state relative-caret-position="559">
+          <caret line="36" selection-start-line="36" selection-end-line="38" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+        <state relative-caret-position="730">
+          <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
         </state>
       </provider>
     </entry>
