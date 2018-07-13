@@ -84,6 +84,7 @@ struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
 /* shared data from server. We update statistics here */
 static volatile struct tx_stats *tx_stats;
 
+static const char *progname;
 
 /*
  * print a usage message
