@@ -155,7 +155,7 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
     }
 
     if (ports->num_ports == 0 || num_clients == 0){
-        usage();
+        usage(progname);
         return -1;
     }
 
