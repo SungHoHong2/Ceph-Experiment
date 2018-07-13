@@ -67,9 +67,9 @@ handle_packet(struct rte_mbuf *buf)
     int sent;
     struct rte_eth_dev_tx_buffer *buffer = tx_buffer[0];
     // sent = rte_eth_tx_buffer_flush(0, 0, buffer);
-    sent = rte_eth_tx_buffer(0, 0, buffer, buf);
-    if (sent)
-        printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
+    // sent = rte_eth_tx_buffer(0, 0, buffer, buf);
+    // if (sent)
+    //    printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
 
 
     sent = rte_eth_tx_burst(0, 0, buf, 1);
