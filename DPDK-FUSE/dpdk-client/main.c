@@ -174,10 +174,14 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	sleep(1);
 	printf("pkt_len: %d\n",pkt_len);
 
+	char *_m;
+	_m = rte_pktmbuf_append(m, 1024);
 
-//	char *_m;
-//	_m = rte_pktmbuf_append(m, 1024);
-//	memset(_m, '*', rte_pktmbuf_pkt_len(m));
+	pkt_len = rte_pktmbuf_pkt_len(m);
+	printf("pkt_len after: %d\n",pkt_len);
+
+
+	//	memset(_m, '*', rte_pktmbuf_pkt_len(m));
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
