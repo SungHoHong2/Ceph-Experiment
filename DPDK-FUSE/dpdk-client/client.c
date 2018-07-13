@@ -254,49 +254,49 @@ main(int argc, char *argv[])
     if (rte_eth_dev_count() == 0)
         rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
 
-    rx_ring = rte_ring_lookup(get_rx_queue_name(client_id));
-    if (rx_ring == NULL)
-        rte_exit(EXIT_FAILURE, "Cannot get RX ring - is server process running?\n");
-
-    mp = rte_mempool_lookup(PKTMBUF_POOL_NAME);
-    if (mp == NULL)
-        rte_exit(EXIT_FAILURE, "Cannot get mempool for mbufs\n");
-
-    mz = rte_memzone_lookup(MZ_PORT_INFO);
-    if (mz == NULL)
-        rte_exit(EXIT_FAILURE, "Cannot get port info structure\n");
-    ports = mz->addr;
-    tx_stats = &(ports->tx_stats[client_id]);
-
-    configure_output_ports(ports);
-
-    RTE_LOG(INFO, APP, "Finished Process Init.\n");
-
-    printf("\nClient process %d handling packets\n", client_id);
-    printf("[Press Ctrl-C to quit ...]\n");
-
-    for (;;) {
-        uint16_t i, rx_pkts;
-        uint8_t port;
-
-        rx_pkts = rte_ring_dequeue_burst(rx_ring, pkts,
-                                         PKT_READ_SIZE, NULL);
-
-        if (unlikely(rx_pkts == 0)){
-            if (need_flush)
-                for (port = 0; port < ports->num_ports; port++) {
-                    sent = rte_eth_tx_buffer_flush(ports->id[port], client_id,
-                                                   tx_buffer[port]);
-                    if (unlikely(sent))
-                        tx_stats->tx[port] += sent;
-                }
-            need_flush = 0;
-            continue;
-        }
-
-        for (i = 0; i < rx_pkts; i++)
-            handle_packet(pkts[i]);
-
-        need_flush = 1;
-    }
+//    rx_ring = rte_ring_lookup(get_rx_queue_name(client_id));
+//    if (rx_ring == NULL)
+//        rte_exit(EXIT_FAILURE, "Cannot get RX ring - is server process running?\n");
+//
+//    mp = rte_mempool_lookup(PKTMBUF_POOL_NAME);
+//    if (mp == NULL)
+//        rte_exit(EXIT_FAILURE, "Cannot get mempool for mbufs\n");
+//
+//    mz = rte_memzone_lookup(MZ_PORT_INFO);
+//    if (mz == NULL)
+//        rte_exit(EXIT_FAILURE, "Cannot get port info structure\n");
+//    ports = mz->addr;
+//    tx_stats = &(ports->tx_stats[client_id]);
+//
+//    configure_output_ports(ports);
+//
+//    RTE_LOG(INFO, APP, "Finished Process Init.\n");
+//
+//    printf("\nClient process %d handling packets\n", client_id);
+//    printf("[Press Ctrl-C to quit ...]\n");
+//
+//    for (;;) {
+//        uint16_t i, rx_pkts;
+//        uint8_t port;
+//
+//        rx_pkts = rte_ring_dequeue_burst(rx_ring, pkts,
+//                                         PKT_READ_SIZE, NULL);
+//
+//        if (unlikely(rx_pkts == 0)){
+//            if (need_flush)
+//                for (port = 0; port < ports->num_ports; port++) {
+//                    sent = rte_eth_tx_buffer_flush(ports->id[port], client_id,
+//                                                   tx_buffer[port]);
+//                    if (unlikely(sent))
+//                        tx_stats->tx[port] += sent;
+//                }
+//            need_flush = 0;
+//            continue;
+//        }
+//
+//        for (i = 0; i < rx_pkts; i++)
+//            handle_packet(pkts[i]);
+//
+//        need_flush = 1;
+//    }
 }
