@@ -200,7 +200,7 @@ l2fwd_main_loop(void)
 	struct rte_mbuf *m;
 	int sent;
 	unsigned lcore_id;
-	uint64_t prev_tsc, diff_tsc, cur_tsc, timer_tsc;
+	uint64_t prev_tsc, diff_tsc, cur_tsc;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
 	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
@@ -208,7 +208,6 @@ l2fwd_main_loop(void)
 	struct rte_eth_dev_tx_buffer *buffer;
 
 	prev_tsc = 0;
-	timer_tsc = 0;
 
 	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
