@@ -80,7 +80,7 @@ handle_packet(struct rte_mbuf *buf)
 static void
 flush_rx_queue(uint16_t client)
 {
-    uint16_t j;
+    uint16_t j, sent;
     struct client *cl;
     uint16_t i, rx_pkts;
 
@@ -102,9 +102,9 @@ flush_rx_queue(uint16_t client)
     }
 
     if (unlikely(rx_pkts == 0)) {
-            sent = rte_eth_tx_buffer_flush(ports->id[port], 0, tx_buffer[port]);
+            sent = rte_eth_tx_buffer_flush(ports->id[0], 0, tx_buffer[0]);
     }
-    
+
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx: %d\n", cl->stats.rx);
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx_drop: %d\n", cl->stats.rx_drop);
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_dequeue_burst::rx_pkts: %d\n", rx_pkts);
