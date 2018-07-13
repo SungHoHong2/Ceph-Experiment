@@ -175,8 +175,8 @@ int main(int argc, char *argv[]){
     // I think this guy is just used by other cores
     // rte_eal_mp_remote_launch(sleep_lcore, NULL, SKIP_MASTER);
 
-
-    do_packet_forwarding();
+    rte_eal_mp_remote_launch(do_packet_forwarding, NULL, CALL_MASTER);
+    // do_packet_forwarding();
 
     return 0;
 }
