@@ -68,8 +68,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="763">
-              <caret line="177" column="4" selection-start-line="177" selection-start-column="4" selection-end-line="177" selection-end-column="4" />
+            <state relative-caret-position="532">
+              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
             </state>
           </provider>
         </entry>
@@ -87,7 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rx</find>
       <find>tx</find>
       <find>rte_eth_tx_buffer_flush</find>
       <find>mp_ser</find>
@@ -106,8 +105,6 @@
       <find>SKIP_MASTER</find>
       <find>sleep_lcore</find>
       <find>rte_eal_mp_remote_launch</find>
-      <find>process_packets</find>
-      <find>flush_rx_queue</find>
       <find>rte_ring_enqueue_bulk</find>
       <find>enqueue_rx_packet</find>
       <find>struct rte_ring *rx_q;</find>
@@ -117,6 +114,9 @@
       <find>do_packet_forwarding</find>
       <find>port_num</find>
       <find>stats.rx_drop</find>
+      <find>rx</find>
+      <find>flush_rx_queue</find>
+      <find>process_packets</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
@@ -239,12 +239,12 @@
       <option name="presentableId" value="Default" />
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
-      <workItem from="1531416050810" duration="6214000" />
+      <workItem from="1531416050810" duration="6366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7717000" />
+    <option name="totallyTimeSpent" value="7869000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -452,8 +452,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="177" column="4" selection-start-line="177" selection-start-column="4" selection-end-line="177" selection-end-column="4" />
+        <state relative-caret-position="532">
+          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
         </state>
       </provider>
     </entry>
