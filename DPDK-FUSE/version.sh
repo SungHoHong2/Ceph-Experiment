@@ -39,6 +39,10 @@ cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
 make
 ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
 
+elif [ "$1" = "dpdk_client_kill" ]
+then
+kill -9 `pidof dpdk-client`
+
 else
 echo "no argument"
 
