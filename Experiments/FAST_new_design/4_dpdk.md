@@ -34,3 +34,16 @@ perform level-2 forwarding of packets by sending each packet out on a different 
 2. Use FUSE for simple file storage
 3. COMBINE fuse that stores data from client to server and returns the result back
 4  compare with the result that does not use FUSE as a file storage
+
+
+PORTS
+-----
+Port 0: 'a0:36:9f:83:ab:bc'     Port 1: 'a0:36:9f:83:ab:bd'
+
+Port 0 - rx:      6589  tx:      5793
+Port 1 - rx:      6643  tx:      5713
+
+CLIENTS
+-------
+Client  0 - rx:     11633, rx_drop:      1599
+            tx:     11506, tx_drop:         0
