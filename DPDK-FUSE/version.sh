@@ -13,11 +13,11 @@ elif [ "$1" = "multiprocess_tutorial" ]
 then
   if [ "$2" = "server" ]
   then
-  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_server/build/mp_server -c 0x3 -n 4 -- -p 0x1 -n 1
+  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_server/build/mp_server -c 0x3 -n 4 -- -p 0x3 -n 1
 
   elif [ "$2" = "client" ]
   then
-  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_client/build/mp_client -c 0x1 -n 4 --proc-type=auto -- -n 0
+  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_client/build/mp_client -c 0x4 -n 4 --proc-type=auto -- -n 0
 
   # ./mp_server/build/mp_server -c 0x3 -n 4 -- -p 0x3 -n 1
   # ./mp_client/build/mp_client -c 0x4 -n 4 --proc-type=auto -- -n 0

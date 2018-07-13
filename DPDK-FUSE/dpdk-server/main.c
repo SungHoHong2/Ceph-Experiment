@@ -39,12 +39,40 @@
 #include "args.h"
 #include "init.h"
 
+/*
+ * When doing reads from the NIC or the client queues,
+ * use this batch size
+ */
+#define PACKET_READ_SIZE 32
+
+/*
+ * Local buffers to put packets in, used to send packets in bursts to the
+ * clients
+ */
+struct client_rx_buf {
+    struct rte_mbuf *buffer[PACKET_READ_SIZE];
+    uint16_t count;
+};
+
+/* One buffer per client rx queue - dynamically allocate array */
+static struct client_rx_buf *cl_rx_buf;
+
+
+
+
 
 int main(int argc, char *argv[]){
 
     /* initialise the system */
     if (init(argc, argv) < 0 )
         return -1;
+
+    RTE_LOG(INFO, APP, "Finished Process Init.\n");
+
+    /* allocate Local buffers */
+    cl_rx_buf = calloc(num_clients, sizeof(cl_rx_buf[0]));
+
+
 
 
 
