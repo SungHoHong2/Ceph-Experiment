@@ -96,23 +96,15 @@ flush_rx_queue(uint16_t client)
             rte_pktmbuf_free(cl_rx_buf[client].buffer[j]);
         cl->stats.rx_drop += cl_rx_buf[client].count;
     }
-    else
+    else {
         cl->stats.rx += cl_rx_buf[client].count;
         rx_pkts = rte_ring_dequeue_burst(cl->rx_q, pkts, PACKET_READ_SIZE, NULL);
-
-    if (unlikely(rx_pkts == 0)) {
-        if (need_flush)
-            for (port = 0; port < ports->num_ports; port++) {
-                sent = rte_eth_tx_buffer_flush(ports->id[port], 0,
-                                               tx_buffer[port]);
-                if (unlikely(sent))
-                    tx_stats->tx[port] += sent;
-            }
-        need_flush = 0;
-        continue;
     }
 
-
+    if (unlikely(rx_pkts == 0)) {
+            sent = rte_eth_tx_buffer_flush(ports->id[port], 0, tx_buffer[port]);
+    }
+    
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx: %d\n", cl->stats.rx);
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx_drop: %d\n", cl->stats.rx_drop);
     // RTE_LOG(INFO, APP, "CHARA: rte_ring_dequeue_burst::rx_pkts: %d\n", rx_pkts);
