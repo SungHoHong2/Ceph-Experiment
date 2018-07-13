@@ -74,7 +74,6 @@ flush_rx_queue(uint16_t client)
 
     cl = &clients[client];
 
-    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk\n");
     if (rte_ring_enqueue_bulk(cl->rx_q, (void **)cl_rx_buf[client].buffer,
                               cl_rx_buf[client].count, NULL) == 0){
         for (j = 0; j < cl_rx_buf[client].count; j++)
@@ -84,6 +83,8 @@ flush_rx_queue(uint16_t client)
     else
         cl->stats.rx += cl_rx_buf[client].count;
 
+    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx: %d\n", cl->stats.rx);
+    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx_drop: %d\n", cl->stats.rx_drop);
     cl_rx_buf[client].count = 0;
 }
 
