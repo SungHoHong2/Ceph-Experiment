@@ -22,8 +22,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
+            <state relative-caret-position="388">
+              <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -32,7 +32,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rte_ring_enqueue_bulk</find>
       <find>pkts</find>
       <find>PKT_READ_SIZE</find>
       <find>i</find>
@@ -62,6 +61,7 @@
       <find>l2fwd_main_loop</find>
       <find>l2fwd_simple_forward</find>
       <find>pkt</find>
+      <find>MAX_PKT_BURST</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -204,12 +204,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="7192000" />
+      <workItem from="1531502171702" duration="7458000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15169000" />
+    <option name="totallyTimeSpent" value="15435000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -519,8 +519,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="220" column="4" selection-start-line="220" selection-start-column="4" selection-end-line="220" selection-end-column="4" />
+        <state relative-caret-position="388">
+          <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
         </state>
       </provider>
     </entry>
