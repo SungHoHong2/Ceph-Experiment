@@ -181,13 +181,17 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	if (mac_updating)
-		l2fwd_mac_updating(m, dst_port);
 
-	buffer = tx_buffer[dst_port];
-	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-	if (sent)
-		port_statistics[dst_port].tx += sent;
+	
+
+	// if (mac_updating)
+	//	l2fwd_mac_updating(m, dst_port);
+
+	// buffer = tx_buffer[dst_port];
+
+	// sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+	// if (sent)
+	//	port_statistics[dst_port].tx += sent;
 }
 
 /* main processing loop */
@@ -264,7 +268,6 @@ l2fwd_main_loop(void)
 					}
 				}
 			}
-
 			prev_tsc = cur_tsc;
 		}
 
@@ -276,6 +279,9 @@ l2fwd_main_loop(void)
 			portid = qconf->rx_port_list[i];
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
+
+
+
 
 			port_statistics[portid].rx += nb_rx;
 
