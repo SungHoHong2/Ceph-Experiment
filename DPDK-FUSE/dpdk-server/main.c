@@ -212,13 +212,12 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	if (mac_updating)
-		l2fwd_mac_updating(m, dst_port);
-
-	buffer = tx_buffer[dst_port];
-	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-	if (sent)
-		port_statistics[dst_port].tx += sent;
+//	if (mac_updating)
+//		l2fwd_mac_updating(m, dst_port);
+//	buffer = tx_buffer[dst_port];
+//	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+//	if (sent)
+//		port_statistics[dst_port].tx += sent;
 }
 
 /* main processing loop */
