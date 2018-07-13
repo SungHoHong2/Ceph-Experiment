@@ -8,6 +8,7 @@ if [ "$1" = "multiprocess_make"]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process
 make
+
 elif ["$1" = "multiprocess_simple_mp"]
 then
 /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
@@ -21,7 +22,6 @@ then
 
 elif ["$1" = "dpdk_server_make"]
 then
-
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
 make
 ./build/dpdk-server
