@@ -60,6 +60,28 @@ static struct client_rx_buf *cl_rx_buf;
 
 
 
+static void
+process_packets(uint32_t port_num __rte_unused,
+                struct rte_mbuf *pkts[], uint16_t rx_count)
+{
+    uint16_t i;
+    uint8_t client = 0;
+
+    RTE_LOG(INFO, APP, "CHARA: process_packets\n");
+    
+//    for (i = 0; i < rx_count; i++) {
+//        enqueue_rx_packet(client, pkts[i]);
+//
+//        if (++client == num_clients)
+//            client = 0;
+//    }
+//
+//    for (i = 0; i < num_clients; i++)
+//        flush_rx_queue(i);
+}
+
+
+
 /*
  * Function called by the master lcore of the DPDK process.
  */
@@ -76,15 +98,14 @@ do_packet_forwarding(void)
         sleep(1);
         RTE_LOG(INFO, APP, "CHARA: reading from port\n");
 
+        /* read a port */
+        rx_count = rte_eth_rx_burst(ports->id[port_num], 0, \
+				buf, PACKET_READ_SIZE);
+        ports->rx_stats.rx[port_num] += rx_count;
 
-//        /* read a port */
-//        rx_count = rte_eth_rx_burst(ports->id[port_num], 0, \
-//				buf, PACKET_READ_SIZE);
-//        ports->rx_stats.rx[port_num] += rx_count;
-//
-//        /* Now process the NIC packets read */
-//        if (likely(rx_count > 0))
-//            process_packets(port_num, buf, rx_count);
+        /* Now process the NIC packets read */
+        if (likely(rx_count > 0))
+            process_packets(port_num, buf, rx_count);
 //
 //        /* move to next port */
 //        if (++port_num == ports->num_ports)
