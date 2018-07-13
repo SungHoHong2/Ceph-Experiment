@@ -46,6 +46,8 @@
 #define PACKET_READ_SIZE 32
 
 void *pkts[PACKET_READ_SIZE];
+struct rte_eth_dev_tx_buffer *tx_buffer[0];
+
 /*
  * Local buffers to put packets in, used to send packets in bursts to the
  * clients
@@ -59,6 +61,17 @@ struct client_rx_buf {
 static struct client_rx_buf *cl_rx_buf;
 
 
+static void
+handle_packet(struct rte_mbuf *buf)
+{
+    int sent;
+    struct rte_eth_dev_tx_buffer *buffer = tx_buffer[0];
+    // sent = rte_eth_tx_buffer_flush(0, 0, buffer);
+    sent = rte_eth_tx_buffer(0, client_id, buffer, buf);
+    if (sent)
+        printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
+    
+}
 
 /*
  * send a burst of traffic to a client, assuming there are packets
@@ -87,27 +100,26 @@ flush_rx_queue(uint16_t client)
         cl->stats.rx += cl_rx_buf[client].count;
         rx_pkts = rte_ring_dequeue_burst(cl->rx_q, pkts, PACKET_READ_SIZE, NULL);
 
-//    rx_pkts = rte_ring_dequeue_burst(rx_ring, pkts,
-//                                     PKT_READ_SIZE, NULL);
-//
-//    if (unlikely(rx_pkts == 0)){
-//        if (need_flush)
-//            for (port = 0; port < ports->num_ports; port++) {
-//                sent = rte_eth_tx_buffer_flush(ports->id[port], client_id,
-//                                               tx_buffer[port]);
-//                if (unlikely(sent))
-//                    tx_stats->tx[port] += sent;
-//            }
-//        need_flush = 0;
-//        continue;
-//
-//    for (i = 0; i < rx_pkts; i++)
-//        handle_packet(pkts[i]);
+    if (unlikely(rx_pkts == 0)) {
+        if (need_flush)
+            for (port = 0; port < ports->num_ports; port++) {
+                sent = rte_eth_tx_buffer_flush(ports->id[port], client_id,
+                                               tx_buffer[port]);
+                if (unlikely(sent))
+                    tx_stats->tx[port] += sent;
+            }
+        need_flush = 0;
+        continue;
+    }
 
-    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx: %d\n", cl->stats.rx);
-    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx_drop: %d\n", cl->stats.rx_drop);
-    RTE_LOG(INFO, APP, "CHARA: rte_ring_dequeue_burst::rx_pkts: %d\n", rx_pkts);
+
+    // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx: %d\n", cl->stats.rx);
+    // RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk::stats.rx_drop: %d\n", cl->stats.rx_drop);
+    // RTE_LOG(INFO, APP, "CHARA: rte_ring_dequeue_burst::rx_pkts: %d\n", rx_pkts);
     cl_rx_buf[client].count = 0;
+
+    for (i = 0; i < rx_pkts; i++)
+        handle_packet(pkts[i]);
 }
 
 
@@ -129,7 +141,7 @@ process_packets(uint32_t port_num __rte_unused,
 {
     uint16_t i;
     uint8_t client = 0;
-    RTE_LOG(INFO, APP, "CHARA: process_packets\n");
+    // RTE_LOG(INFO, APP, "CHARA: process_packets\n");
 
     for (i = 0; i < rx_count; i++) {
         enqueue_rx_packet(client, pkts[i]);
