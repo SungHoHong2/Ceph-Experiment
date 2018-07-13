@@ -169,7 +169,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	dst_port = l2fwd_dst_ports[portid];
 
 
-	int pkt_len = rte_pktmbuf_pkt_len(m);
+	// int pkt_len = rte_pktmbuf_pkt_len(m);
 
 	// sleep(1);
 	// printf("pkt_len: %d\n",pkt_len);

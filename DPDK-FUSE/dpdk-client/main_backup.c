@@ -1,6 +1,40 @@
+/*-
+ *   BSD LICENSE
+ *
+ *   Copyright(c) 2010-2016 Intel Corporation. All rights reserved.
+ *   All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following conditions
+ *   are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in
+ *       the documentation and/or other materials provided with the
+ *       distribution.
+ *     * Neither the name of Intel Corporation nor the names of its
+ *       contributors may be used to endorse or promote products derived
+ *       from this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ *   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ *   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ *   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ *   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ *   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ *   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <sys/types.h>
@@ -108,51 +142,6 @@ struct l2fwd_port_statistics port_statistics[RTE_MAX_ETHPORTS];
 /* A tsc-based timer responsible for triggering statistics printout */
 static uint64_t timer_period = 10; /* default period is 10 seconds */
 
-/* Print out statistics on packets dropped */
-static void
-print_stats(void)
-{
-	uint64_t total_packets_dropped, total_packets_tx, total_packets_rx;
-	unsigned portid;
-
-	total_packets_dropped = 0;
-	total_packets_tx = 0;
-	total_packets_rx = 0;
-
-	const char clr[] = { 27, '[', '2', 'J', '\0' };
-	const char topLeft[] = { 27, '[', '1', ';', '1', 'H','\0' };
-
-	/* Clear screen and move to top left */
-	printf("%s%s", clr, topLeft);
-
-	printf("\nPort statistics ====================================");
-
-	for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++) {
-		/* skip disabled ports */
-		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
-			continue;
-		printf("\nStatistics for port %u ------------------------------"
-			   "\nPackets sent: %24"PRIu64
-					   "\nPackets received: %20"PRIu64
-							   "\nPackets dropped: %21"PRIu64,
-			   portid,
-			   port_statistics[portid].tx,
-			   port_statistics[portid].rx,
-			   port_statistics[portid].dropped);
-
-		total_packets_dropped += port_statistics[portid].dropped;
-		total_packets_tx += port_statistics[portid].tx;
-		total_packets_rx += port_statistics[portid].rx;
-	}
-	printf("\nAggregate statistics ==============================="
-		   "\nTotal packets sent: %18"PRIu64
-				   "\nTotal packets received: %14"PRIu64
-						   "\nTotal packets dropped: %15"PRIu64,
-		   total_packets_tx,
-		   total_packets_rx,
-		   total_packets_dropped);
-	printf("\n====================================================\n");
-}
 
 static void
 l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
@@ -162,11 +151,9 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 
-	/* 02:00:00:00:00:xx */
-	/* 00:1B:21:A6:D4:D4 w2*/
-
+	/* A0:36:9F:83:AB:BC w1*/
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
+	*((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -181,14 +168,31 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	// if (mac_updating)
-	//	l2fwd_mac_updating(m, dst_port);
 
-	// buffer = tx_buffer[dst_port];
+	int pkt_len = rte_pktmbuf_pkt_len(m);
 
-	// sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-	// if (sent)
-	//	port_statistics[dst_port].tx += sent;
+	// sleep(1);
+	// printf("pkt_len: %d\n",pkt_len);
+
+	//	char *_m;
+	//	_m = rte_pktmbuf_append(m, 1024);
+	//
+	//	pkt_len = rte_pktmbuf_pkt_len(m);
+	// printf("pkt_len after: %d\n",pkt_len);
+
+	// memset(_m, '*', rte_pktmbuf_pkt_len(m));
+
+	if (mac_updating)
+		l2fwd_mac_updating(m, dst_port);
+
+
+	buffer = tx_buffer[dst_port];
+	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+	if (sent)
+		port_statistics[dst_port].tx += sent;
+
+
+
 }
 
 /* main processing loop */
@@ -199,7 +203,7 @@ l2fwd_main_loop(void)
 	struct rte_mbuf *m;
 	int sent;
 	unsigned lcore_id;
-	uint64_t prev_tsc, diff_tsc, cur_tsc, timer_tsc;
+	uint64_t prev_tsc, diff_tsc, cur_tsc;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
 	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
@@ -207,7 +211,6 @@ l2fwd_main_loop(void)
 	struct rte_eth_dev_tx_buffer *buffer;
 
 	prev_tsc = 0;
-	timer_tsc = 0;
 
 	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
@@ -248,24 +251,6 @@ l2fwd_main_loop(void)
 
 			}
 
-			/* if timer is enabled */
-			if (timer_period > 0) {
-
-				/* advance the timer */
-				timer_tsc += diff_tsc;
-
-				/* if timer has reached its timeout */
-				if (unlikely(timer_tsc >= timer_period)) {
-
-					/* do this only on master core */
-					if (lcore_id == rte_get_master_lcore()) {
-						print_stats();
-						/* reset the timer */
-						timer_tsc = 0;
-					}
-				}
-			}
-			prev_tsc = cur_tsc;
 		}
 
 		/*
@@ -277,9 +262,6 @@ l2fwd_main_loop(void)
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
 
-
-
-
 			port_statistics[portid].rx += nb_rx;
 
 			for (j = 0; j < nb_rx; j++) {
@@ -288,6 +270,14 @@ l2fwd_main_loop(void)
 				l2fwd_simple_forward(m, portid);
 			}
 		}
+
+
+
+
+
+
+
+
 	}
 }
 
