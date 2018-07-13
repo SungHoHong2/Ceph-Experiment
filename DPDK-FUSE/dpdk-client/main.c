@@ -129,6 +129,8 @@ static const struct rte_eth_conf port_conf = {
 };
 
 struct rte_mempool * l2fwd_pktmbuf_pool = NULL;
+struct rte_mempool * test_pktmbuf_pool = NULL;
+
 
 /* Per-port statistics struct */
 struct l2fwd_port_statistics {
@@ -192,7 +194,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	 // sleep(1);
 	 // printf("pkt_len: %d\n",pkt_len);
-		m = rte_pktmbuf_alloc(l2fwd_pktmbuf_pool);
+		m = rte_pktmbuf_alloc(test_pktmbuf_pool);
 		char *_m;
 		_m = rte_pktmbuf_append(m, 1024);
 		pkt_len = rte_pktmbuf_pkt_len(m);
@@ -571,6 +573,12 @@ main(int argc, char **argv)
 	if (l2fwd_pktmbuf_pool == NULL)
 		rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
+	/* create memory pool for send data */
+	if (test_pktmbuf_pool == NULL) {
+		test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
+													NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_SIZE, rte_socket_id());
+	}
+
 	nb_ports = rte_eth_dev_count();
 	if (nb_ports == 0)
 		rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
@@ -579,6 +587,7 @@ main(int argc, char **argv)
 	for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
 		l2fwd_dst_ports[portid] = 0;
 	last_port = 0;
+
 
 	/*
 	 * Each logical core is assigned a dedicated TX queue on each port.
@@ -660,6 +669,7 @@ main(int argc, char **argv)
 		if (ret < 0)
 			rte_exit(EXIT_FAILURE, "rte_eth_rx_queue_setup:err=%d, port=%u\n",
 					 ret, (unsigned) portid);
+
 
 		/* init one TX queue on each port */
 		fflush(stdout);
