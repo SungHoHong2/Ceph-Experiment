@@ -67,10 +67,10 @@ handle_packet(struct rte_mbuf *buf)
     int sent;
     struct rte_eth_dev_tx_buffer *buffer = tx_buffer[0];
     // sent = rte_eth_tx_buffer_flush(0, 0, buffer);
-    sent = rte_eth_tx_buffer(0, client_id, buffer, buf);
+    sent = rte_eth_tx_buffer(0, 0, buffer, buf);
     if (sent)
         printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
-    
+
 }
 
 /*
@@ -103,7 +103,7 @@ flush_rx_queue(uint16_t client)
     if (unlikely(rx_pkts == 0)) {
         if (need_flush)
             for (port = 0; port < ports->num_ports; port++) {
-                sent = rte_eth_tx_buffer_flush(ports->id[port], client_id,
+                sent = rte_eth_tx_buffer_flush(ports->id[port], 0,
                                                tx_buffer[port]);
                 if (unlikely(sent))
                     tx_stats->tx[port] += sent;
