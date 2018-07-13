@@ -58,6 +58,15 @@ struct client_rx_buf {
 static struct client_rx_buf *cl_rx_buf;
 
 
+/*
+ * marks a packet down to be sent to a particular client process
+ */
+static inline void
+enqueue_rx_packet(uint8_t client, struct rte_mbuf *buf)
+{
+    RTE_LOG(INFO, APP, "CHARA: enqueue_rx_packet\n");
+    cl_rx_buf[client].buffer[cl_rx_buf[client].count++] = buf;
+}
 
 
 static void
@@ -66,18 +75,17 @@ process_packets(uint32_t port_num __rte_unused,
 {
     uint16_t i;
     uint8_t client = 0;
-
     RTE_LOG(INFO, APP, "CHARA: process_packets\n");
-    
-//    for (i = 0; i < rx_count; i++) {
-//        enqueue_rx_packet(client, pkts[i]);
-//
-//        if (++client == num_clients)
-//            client = 0;
-//    }
-//
-//    for (i = 0; i < num_clients; i++)
-//        flush_rx_queue(i);
+
+    for (i = 0; i < rx_count; i++) {
+        enqueue_rx_packet(client, pkts[i]);
+
+        if (++client == num_clients)
+            client = 0;
+    }
+
+    for (i = 0; i < num_clients; i++)
+        flush_rx_queue(i);
 }
 
 
