@@ -71,6 +71,13 @@ handle_packet(struct rte_mbuf *buf)
     if (sent)
         printf("CHARA::rte_eth_tx_buffer::%d\n,",sent);
 
+
+    sent = rte_eth_tx_burst(portid, 0, buf, 1);
+
+    if (sent)
+        printf("CHARA::rte_eth_tx_burst::%d\n,",sent);
+
+
 }
 
 /*
@@ -169,7 +176,7 @@ do_packet_forwarding(void)
         rx_count = rte_eth_rx_burst(ports->id[port_num], 0, \
 				buf, PACKET_READ_SIZE);
         ports->rx_stats.rx[port_num] += rx_count;
-        RTE_LOG(INFO, APP, "CHARA: rte_eth_rx_burst::%d\n", rx_count);
+         RTE_LOG(INFO, APP, "CHARA: rte_eth_rx_burst::%d\n", rx_count);
 
 
         /* Now process the NIC packets read */
