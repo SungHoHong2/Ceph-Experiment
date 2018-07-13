@@ -180,7 +180,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 		printf("pkt_len after: %d\n",pkt_len);
 		// memset(_m, '*', rte_pktmbuf_pkt_len(m));
 
-		rte_pktmbuf_dump(stdout, m, 1024);
+		// rte_pktmbuf_dump(stdout, m, 1024);
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
