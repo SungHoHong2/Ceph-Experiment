@@ -19,14 +19,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="args.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="132" selection-start-line="132" selection-end-line="176" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="client.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-client/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="216" column="20" lean-forward="true" selection-start-line="216" selection-start-column="20" selection-end-line="216" selection-end-column="20" />
+            <state relative-caret-position="915">
+              <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
               <folding>
-                <marker date="1531515194732" expanded="true" signature="7414:8952" ph="..." />
+                <marker date="1531515578591" expanded="true" signature="7860:9398" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="init.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="179" column="24" lean-forward="true" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="335">
+              <caret line="79" column="16" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -35,10 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>num_clients</find>
-      <find>progname</find>
-      <find>PORTMASK: hexadecimal bitmask of ports to use</find>
-      <find>usage</find>
       <find>max_ports</find>
       <find>optarg</find>
       <find>parse_portmask</find>
@@ -65,6 +88,10 @@
       <find>i</find>
       <find>rte_mempool_lookup</find>
       <find>PKTMBUF_POOL_NAME</find>
+      <find>configure_tx_buffer</find>
+      <find>configure_output_ports</find>
+      <find>rx_rings</find>
+      <find>ring</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
@@ -205,12 +232,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="1283000" />
+      <workItem from="1531502171702" duration="1601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9260000" />
+    <option name="totallyTimeSpent" value="9578000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -395,20 +422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2698">
-          <caret line="142" column="31" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2679">
-          <caret line="141" column="23" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/init.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1216">
@@ -451,13 +464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_client/client.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
@@ -465,12 +471,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="79" column="16" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="179" column="24" lean-forward="true" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="132" selection-start-line="132" selection-end-line="176" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-client/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="216" column="20" lean-forward="true" selection-start-line="216" selection-start-column="20" selection-end-line="216" selection-end-column="20" />
+        <state relative-caret-position="915">
+          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
           <folding>
-            <marker date="1531515194732" expanded="true" signature="7414:8952" ph="..." />
+            <marker date="1531515578591" expanded="true" signature="7860:9398" ph="..." />
           </folding>
         </state>
       </provider>

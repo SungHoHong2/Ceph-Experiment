@@ -117,31 +117,48 @@ parse_client_num(const char *client)
 /*
  * Parse the application arguments to the client app.
  */
-static int
-parse_app_args(int argc, char *argv[])
+int
+parse_app_args(uint8_t max_ports, int argc, char *argv[])
 {
     int option_index, opt;
     char **argvopt = argv;
-    const char *progname = NULL;
     static struct option lgopts[] = { /* no long options */
             {NULL, 0, 0, 0 }
     };
     progname = argv[0];
 
-    while ((opt = getopt_long(argc, argvopt, "n:", lgopts,
+    while ((opt = getopt_long(argc, argvopt, "n:p:", lgopts,
                               &option_index)) != EOF){
         switch (opt){
+            case 'p':
+
+                printf("CHARA: max_ports: %d, optarg: %s\n", max_ports, optarg);
+
+                if (parse_portmask(max_ports, optarg) != 0){
+                    usage();
+                    return -1;
+                }
+                break;
             case 'n':
-                if (parse_client_num(optarg) != 0){
-                    usage(progname);
+                printf("CHARA: optarg: %s\n", optarg);
+                if (parse_num_clients(optarg) != 0){
+                    usage();
                     return -1;
                 }
                 break;
             default:
-                usage(progname);
+                printf("ERROR: Unknown option '%c'\n", opt);
+                usage();
                 return -1;
         }
     }
+
+    if (ports->num_ports == 0 || num_clients == 0){
+        usage();
+        return -1;
+    }
+
+
     return 0;
 }
 

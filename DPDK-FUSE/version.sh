@@ -37,7 +37,7 @@ elif [ "$1" = "dpdk_client_make" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
 make
-./build/dpdk-client -c 0x3 -n 4 -- -p 0x1 -- -n 1
+./build/dpdk-client -c 0x3 -n 4 -- -p 0x1 -n 1
 
 else
 echo "no argument"
