@@ -31,7 +31,7 @@ elif [ "$1" = "dpdk_server_make" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
 make
-./build/dpdk-server
+./build/dpdk-server -c 0x3 -n 4 -- -p 0x3 -n 1
 
 
 else
