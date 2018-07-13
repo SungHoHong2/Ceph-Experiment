@@ -28,7 +28,6 @@ make
 #
 
 else
-then
-echo "no argument"  
+echo "no argument"
 
 fi
