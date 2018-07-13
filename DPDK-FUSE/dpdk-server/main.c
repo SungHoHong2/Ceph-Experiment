@@ -60,6 +60,43 @@ static struct client_rx_buf *cl_rx_buf;
 
 
 
+/*
+ * Function called by the master lcore of the DPDK process.
+ */
+static void
+do_packet_forwarding(void)
+{
+    unsigned port_num = 0; /* indexes the port[] array */
+
+    RTE_LOG(INFO, APP, "CHARA: loop start\n");
+
+    for (;;) {
+        struct rte_mbuf *buf[PACKET_READ_SIZE];
+        uint16_t rx_count;
+        sleep(1);
+        RTE_LOG(INFO, APP, "CHARA: reading from port\n");
+
+
+//        /* read a port */
+//        rx_count = rte_eth_rx_burst(ports->id[port_num], 0, \
+//				buf, PACKET_READ_SIZE);
+//        ports->rx_stats.rx[port_num] += rx_count;
+//
+//        /* Now process the NIC packets read */
+//        if (likely(rx_count > 0))
+//            process_packets(port_num, buf, rx_count);
+//
+//        /* move to next port */
+//        if (++port_num == ports->num_ports)
+//            port_num = 0;
+    }
+
+
+
+}
+
+
+
 
 int main(int argc, char *argv[]){
 
@@ -67,15 +104,17 @@ int main(int argc, char *argv[]){
     if (init(argc, argv) < 0 )
         return -1;
 
-    RTE_LOG(INFO, APP, "Finished Process Init.\n");
+    RTE_LOG(INFO, APP, "CHARA: Finished Process Init.\n");
 
     /* allocate Local buffers */
     cl_rx_buf = calloc(num_clients, sizeof(cl_rx_buf[0]));
 
+    /* put all other cores to sleep bar master */
+    // I think this guy is just used by other cores
+    // rte_eal_mp_remote_launch(sleep_lcore, NULL, SKIP_MASTER);
 
 
-
-
+    do_packet_forwarding();
 
     return 0;
 }

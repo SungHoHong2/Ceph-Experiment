@@ -25,8 +25,8 @@
             <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="583">
-                    <caret line="274" column="20" selection-start-line="274" selection-end-line="275" />
+                  <state relative-caret-position="697">
+                    <caret line="280" column="28" selection-start-line="280" selection-start-column="4" selection-end-line="280" selection-end-column="28" />
                   </state>
                 </provider>
               </entry>
@@ -68,8 +68,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+            <state relative-caret-position="286">
+              <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -104,12 +104,16 @@
       <find>parse_portmask</find>
       <find>cl_rx_buf</find>
       <find>client_rx_buf</find>
+      <find>SKIP_MASTER</find>
+      <find>sleep_lcore</find>
+      <find>do_packet_forwarding</find>
+      <find>rte_eal_mp_remote_launch</find>
     </findStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$/multi_process/client_server_mp/mp_server</dir>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
       <dir>$PROJECT_DIR$/multi_process</dir>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
+      <dir>$PROJECT_DIR$/multi_process/client_server_mp/mp_server</dir>
     </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -226,12 +230,12 @@
       <option name="presentableId" value="Default" />
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
-      <workItem from="1531416050810" duration="4272000" />
+      <workItem from="1531416050810" duration="4600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5775000" />
+    <option name="totallyTimeSpent" value="6103000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -432,15 +436,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="274" column="20" selection-start-line="274" selection-end-line="275" />
+        <state relative-caret-position="697">
+          <caret line="280" column="28" selection-start-line="280" selection-start-column="4" selection-end-line="280" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+        <state relative-caret-position="286">
+          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
         </state>
       </provider>
     </entry>
