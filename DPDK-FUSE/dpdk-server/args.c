@@ -141,6 +141,9 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
                               &option_index)) != EOF){
         switch (opt){
             case 'p':
+
+                printf("CHARA: max_ports: %d, %s\n", max_ports, optarg);
+
                 if (parse_portmask(max_ports, optarg) != 0){
                     usage();
                     return -1;
