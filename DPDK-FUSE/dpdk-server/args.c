@@ -142,7 +142,7 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
         switch (opt){
             case 'p':
 
-                printf("CHARA: max_ports: %d, %s\n", max_ports, optarg);
+                printf("CHARA: max_ports: %d, optarg: %s\n", max_ports, optarg);
 
                 if (parse_portmask(max_ports, optarg) != 0){
                     usage();
@@ -150,6 +150,10 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
                 }
                 break;
             case 'n':
+
+
+                printf("CHARA: optarg: %s\n", optarg);
+
                 if (parse_num_clients(optarg) != 0){
                     usage();
                     return -1;
