@@ -136,9 +136,10 @@ do_packet_forwarding(void)
         struct rte_mbuf *buf[PACKET_READ_SIZE];
         uint16_t rx_count;
         sleep(1);
-        RTE_LOG(INFO, APP, "CHARA: reading from port\n");
+        RTE_LOG(INFO, APP, "CHARA: reading from port num: %d\n", port_num);
 
         /* read a port */
+
         rx_count = rte_eth_rx_burst(ports->id[port_num], 0, \
 				buf, PACKET_READ_SIZE);
         ports->rx_stats.rx[port_num] += rx_count;
@@ -146,7 +147,7 @@ do_packet_forwarding(void)
         /* Now process the NIC packets read */
         if (likely(rx_count > 0))
             process_packets(port_num, buf, rx_count);
-//
+
 //        /* move to next port */
 //        if (++port_num == ports->num_ports)
 //            port_num = 0;
