@@ -85,9 +85,8 @@ flush_rx_queue(uint16_t client)
     }
     else
         cl->stats.rx += cl_rx_buf[client].count;
-        rx_pkts = rte_ring_dequeue_burst(rx_ring, pkts, PKT_READ_SIZE, NULL);
-
-
+        rx_pkts = rte_ring_dequeue_burst(cl->rx_q, pkts, PKT_READ_SIZE, NULL);
+        
 //    rx_pkts = rte_ring_dequeue_burst(rx_ring, pkts,
 //                                     PKT_READ_SIZE, NULL);
 //
