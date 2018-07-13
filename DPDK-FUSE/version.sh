@@ -9,7 +9,7 @@ then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process
 make
 
-elif ["$1" = "multiprocess_simple_mp" ]
+elif [ "$1" = "multiprocess_tutorial" ]
 then
 /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
 /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=secondary
