@@ -47,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="args.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="args.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="151" column="30" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
+            <state relative-caret-position="782">
+              <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
             </state>
           </provider>
         </entry>
@@ -59,17 +59,17 @@
       <file leaf-file-name="init.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="269" column="35" selection-start-line="269" selection-start-column="18" selection-end-line="269" selection-end-column="35" />
+            <state relative-caret-position="411">
+              <caret line="239" column="41" lean-forward="true" selection-start-line="239" selection-start-column="41" selection-end-line="239" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="135" column="47" lean-forward="true" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="47" />
+            <state relative-caret-position="611">
+              <caret line="168" lean-forward="true" selection-start-line="168" selection-end-line="168" />
             </state>
           </provider>
         </entry>
@@ -87,8 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>client_tx</find>
-      <find>forward</find>
       <find>tx-&gt;</find>
       <find>do_stats_display</find>
       <find>rx</find>
@@ -117,6 +115,8 @@
       <find>enqueue_rx_packet</find>
       <find>struct rte_ring *rx_q;</find>
       <find>rx_q</find>
+      <find>even</find>
+      <find>application requires an even number of ports to use</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
@@ -135,8 +135,8 @@
         <option value="$PROJECT_DIR$/dpdk-server/init.c" />
         <option value="$PROJECT_DIR$/dpdk-server/init.h" />
         <option value="$PROJECT_DIR$/dpdk-server/args.h" />
-        <option value="$PROJECT_DIR$/dpdk-server/args.c" />
         <option value="$PROJECT_DIR$/dpdk-server/main.c" />
+        <option value="$PROJECT_DIR$/dpdk-server/args.c" />
       </list>
     </option>
   </component>
@@ -239,12 +239,12 @@
       <option name="presentableId" value="Default" />
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
-      <workItem from="1531416050810" duration="5605000" />
+      <workItem from="1531416050810" duration="5684000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7108000" />
+    <option name="totallyTimeSpent" value="7187000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -415,13 +415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="151" column="30" lean-forward="true" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/init.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -443,17 +436,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
+    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="269" column="35" selection-start-line="269" selection-start-column="18" selection-end-line="269" selection-end-column="35" />
+        <state relative-caret-position="611">
+          <caret line="168" lean-forward="true" selection-start-line="168" selection-end-line="168" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
+    <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="135" column="47" lean-forward="true" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="47" />
+        <state relative-caret-position="411">
+          <caret line="239" column="41" lean-forward="true" selection-start-line="239" selection-start-column="41" selection-end-line="239" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
         </state>
       </provider>
     </entry>

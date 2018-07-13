@@ -171,9 +171,6 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
         return -1;
     }
 
-    if (ports->num_ports % 2 != 0){
-        printf("ERROR: application requires an even number of ports to use\n");
-        return -1;
-    }
+
     return 0;
 }
