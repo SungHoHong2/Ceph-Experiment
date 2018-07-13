@@ -11,13 +11,20 @@ make
 
 elif [ "$1" = "multiprocess_tutorial" ]
 then
-/home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
-/home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=secondary
- # simple_mp > send hello_secondary
+  if [ "$2" = "server" ]
+  then
+  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_server/build/mp_server -c 0x3 -n 4 -- -p 0x3 -n 1
 
-./mp_server/build/mp_server -c 6 -n 4 -- -p 3 -n 2
-./mp_client/build/mp_client -c 8 -n 4 --proc-type=auto -- -n 0
-./mp_client/build/mp_client -c 10 -n 4 --proc-type=auto -- -n 1
+  elif [ "$2" = "client" ]
+  then
+  /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/client_server_mp/mp_client/build/mp_client -c 0x4 -n 4 --proc-type=auto -- -n 0
+
+  # ./mp_server/build/mp_server -c 0x3 -n 4 -- -p 0x3 -n 1
+  # ./mp_client/build/mp_client -c 0x4 -n 4 --proc-type=auto -- -n 0
+  # -c : core running
+  # -n : number of clients
+  # -p : ports
+  fi
 
 
 elif [ "$1" = "dpdk_server_make" ]
