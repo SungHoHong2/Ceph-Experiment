@@ -176,7 +176,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 		struct rte_mbuf *rm[1];
  		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-		data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+		data = rte_pktmbuf_append(rm[0], 1024);
 		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
 		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 		l2fwd_mac_updating(rm[0], portid);
