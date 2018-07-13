@@ -171,13 +171,34 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	 int pkt_len = rte_pktmbuf_pkt_len(m);
 
+
+
+	 /*
+* 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+		data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+		l2fwd_mac_updating(rm[0], portid);
+
+		sent = rte_eth_tx_burst(portid, 0, rm, 1);
+
+		if (sent){
+			port_statistics[portid].tx += sent;
+		}
+	  */
+
+
+
+
 	 // sleep(1);
 	 // printf("pkt_len: %d\n",pkt_len);
-
+		m[0] = rte_pktmbuf_alloc(l2fwd_pktmbuf_pool);
 		char *_m;
 		_m = rte_pktmbuf_append(m, 1024);
 		pkt_len = rte_pktmbuf_pkt_len(m);
-		// printf("pkt_len after: %d\n",pkt_len);
+		rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+
+	// printf("pkt_len after: %d\n",pkt_len);
 		// memset(_m, '*', rte_pktmbuf_pkt_len(m));
 
 		// rte_pktmbuf_dump(stdout, m, 1024);
