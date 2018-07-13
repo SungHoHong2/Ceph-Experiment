@@ -58,6 +58,37 @@ struct client_rx_buf {
 static struct client_rx_buf *cl_rx_buf;
 
 
+
+/*
+ * send a burst of traffic to a client, assuming there are packets
+ * available to be sent to this client
+ */
+static void
+flush_rx_queue(uint16_t client)
+{
+    uint16_t j;
+    struct client *cl;
+
+    if (cl_rx_buf[client].count == 0)
+        return;
+
+    cl = &clients[client];
+
+    RTE_LOG(INFO, APP, "CHARA: rte_ring_enqueue_bulk\n");
+    if (rte_ring_enqueue_bulk(cl->rx_q, (void **)cl_rx_buf[client].buffer,
+                              cl_rx_buf[client].count, NULL) == 0){
+        for (j = 0; j < cl_rx_buf[client].count; j++)
+            rte_pktmbuf_free(cl_rx_buf[client].buffer[j]);
+        cl->stats.rx_drop += cl_rx_buf[client].count;
+    }
+    else
+        cl->stats.rx += cl_rx_buf[client].count;
+
+    cl_rx_buf[client].count = 0;
+}
+
+
+
 /*
  * marks a packet down to be sent to a particular client process
  */
