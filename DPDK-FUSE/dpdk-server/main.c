@@ -36,6 +36,12 @@
 
 int main(){
 
-    printf("howdy dpdk\n");
+    /* initialise the system */
+    if (init(argc, argv) < 0 )
+        return -1;
+
+
+
+
     return 0;
 }
