@@ -17,68 +17,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="658">
-                    <caret line="197" column="38" selection-start-line="197" selection-start-column="38" selection-end-line="197" selection-end-column="38" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="init.c" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/init.c">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="380">
-                    <caret line="64" selection-start-line="64" selection-end-line="64" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="args.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1911">
-              <caret line="142" column="31" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="init.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-381">
-              <caret line="141" column="23" lean-forward="true" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+            <state relative-caret-position="658">
+              <caret line="107" column="52" selection-start-line="107" selection-start-column="52" selection-end-line="107" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dpdk-server/init.h">
+      <file leaf-file-name="client.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_client/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="46" column="25" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="25" />
+            <state relative-caret-position="679">
+              <caret line="295" lean-forward="true" selection-start-line="295" selection-end-line="297" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -87,9 +41,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tx</find>
-      <find>rte_eth_tx_buffer_flush</find>
-      <find>mp_ser</find>
       <find>INFO</find>
       <find>APP</find>
       <find>init</find>
@@ -105,7 +56,6 @@
       <find>SKIP_MASTER</find>
       <find>sleep_lcore</find>
       <find>rte_eal_mp_remote_launch</find>
-      <find>rte_ring_enqueue_bulk</find>
       <find>enqueue_rx_packet</find>
       <find>struct rte_ring *rx_q;</find>
       <find>rx_q</find>
@@ -117,6 +67,10 @@
       <find>rx</find>
       <find>flush_rx_queue</find>
       <find>process_packets</find>
+      <find>rte_ring_enqueue_bulk</find>
+      <find>handle_packet</find>
+      <find>pkts</find>
+      <find>i</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/multi_process/client_server_mp</dir>
@@ -136,6 +90,7 @@
         <option value="$PROJECT_DIR$/dpdk-server/init.h" />
         <option value="$PROJECT_DIR$/dpdk-server/args.h" />
         <option value="$PROJECT_DIR$/dpdk-server/args.c" />
+        <option value="$PROJECT_DIR$/multi_process/client_server_mp/mp_client/client.c" />
         <option value="$PROJECT_DIR$/dpdk-server/main.c" />
       </list>
     </option>
@@ -183,6 +138,13 @@
               <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
               <item name="multi_process" type="462c0819:PsiDirectoryNode" />
               <item name="client_server_mp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
+              <item name="multi_process" type="462c0819:PsiDirectoryNode" />
+              <item name="client_server_mp" type="462c0819:PsiDirectoryNode" />
+              <item name="mp_client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
@@ -239,12 +201,13 @@
       <option name="presentableId" value="Default" />
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
-      <workItem from="1531416050810" duration="6366000" />
+      <workItem from="1531416050810" duration="6474000" />
+      <workItem from="1531502171702" duration="546000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7869000" />
+    <option name="totallyTimeSpent" value="8523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -253,19 +216,19 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18802084" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,6 +238,34 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2698">
+          <caret line="142" column="31" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2679">
+          <caret line="141" column="23" lean-forward="true" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/init.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="46" column="25" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3021">
+          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -359,13 +350,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_client/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="281" column="44" selection-start-line="281" selection-start-column="44" selection-end-line="281" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
@@ -384,13 +368,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="56" column="22" lean-forward="true" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/init.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
         </state>
       </provider>
     </entry>
@@ -424,22 +401,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/init.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
+        <state relative-caret-position="874">
           <caret line="46" column="25" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/args.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1911">
+        <state relative-caret-position="2698">
           <caret line="142" column="31" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/init.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-381">
-          <caret line="141" column="23" lean-forward="true" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+        <state relative-caret-position="2679">
+          <caret line="141" column="23" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -450,10 +427,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_server/init.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1216">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_process/client_server_mp/mp_client/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="679">
+          <caret line="295" lean-forward="true" selection-start-line="295" selection-end-line="297" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+        <state relative-caret-position="658">
+          <caret line="107" column="52" selection-start-line="107" selection-start-column="52" selection-end-line="107" selection-end-column="52" />
         </state>
       </provider>
     </entry>
