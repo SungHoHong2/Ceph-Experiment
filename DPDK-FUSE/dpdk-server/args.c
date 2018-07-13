@@ -97,6 +97,7 @@ parse_portmask(uint8_t max_ports, const char *portmask)
         count++;
     }
 
+    printf("CHARA: port count: %d\n", count);
     return 0;
 }
 
@@ -118,6 +119,8 @@ parse_num_clients(const char *clients)
         return -1;
 
     num_clients = (uint8_t)temp;
+
+    printf("CHARA: num_clients: %d\n", num_clients);
     return 0;
 }
 
@@ -150,10 +153,7 @@ parse_app_args(uint8_t max_ports, int argc, char *argv[])
                 }
                 break;
             case 'n':
-
-
                 printf("CHARA: optarg: %s\n", optarg);
-
                 if (parse_num_clients(optarg) != 0){
                     usage();
                     return -1;
