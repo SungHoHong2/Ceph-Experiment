@@ -254,7 +254,7 @@ l2fwd_main_loop(void)
 				int pkt_len = rte_pktmbuf_pkt_len(m);
 				printf("pkt_len after: %d\n",pkt_len);
 
-				rte_pktmbuf_dump(stdout, m, MBUF_TEST_DATA_LEN);
+				rte_pktmbuf_dump(stdout, m, 1024);
 
 
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
