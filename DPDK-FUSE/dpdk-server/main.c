@@ -95,7 +95,7 @@ flush_rx_queue(uint16_t client)
 static inline void
 enqueue_rx_packet(uint8_t client, struct rte_mbuf *buf)
 {
-    RTE_LOG(INFO, APP, "CHARA: enqueue_rx_packet\n");
+    // RTE_LOG(INFO, APP, "CHARA: enqueue_rx_packet\n");
     cl_rx_buf[client].buffer[cl_rx_buf[client].count++] = buf;
 }
 
