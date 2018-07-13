@@ -13,7 +13,7 @@ please change the definition of the RTE_TARGET environment variable)
 endif
 
 # binary name
-APP = mp_server
+APP = dpdk-server
 
 # all source are stored in SRCS-y
 SRCS-y := main.c init.c args.c
