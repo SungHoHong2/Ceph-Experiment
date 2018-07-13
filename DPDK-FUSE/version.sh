@@ -4,12 +4,12 @@ export RTE_TARGET=x86_64-native-linuxapp-gcc
 git pull origin master
 
 
-if [ "$1" = "multiprocess_make"]
+if [ "$1" = "multiprocess_make" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process
 make
 
-elif ["$1" = "multiprocess_simple_mp"]
+elif ["$1" = "multiprocess_simple_mp" ]
 then
 /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=primary
 /home/sungho/Ceph-Experiment/DPDK-FUSE/multi_process/simple_mp/build/simple_mp -c 3 -n 4 --proc-type=secondary
@@ -20,7 +20,7 @@ then
 ./mp_client/build/mp_client -c 10 -n 4 --proc-type=auto -- -n 1
 
 
-elif ["$1" = "dpdk_server_make"]
+elif ["$1" = "dpdk_server_make" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
 make
