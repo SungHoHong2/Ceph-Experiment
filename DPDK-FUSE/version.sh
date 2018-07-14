@@ -41,7 +41,7 @@ then
 elif [ "$1" = "ssfs_client" ]
 then
   ls -l /mnt/ssd_cache/test
-  cat /mnt/ssd_cache/test/file349
+  cat /mnt/ssd_cache/test/client
 
 
 else
