@@ -227,6 +227,39 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 		port_statistics[dst_port].tx += sent;
 }
 
+
+
+
+void
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len)
+{
+	unsigned int i, out, ofs;
+	const unsigned char *data = buf;
+	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
+
+	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
+	ofs = 0;
+	while (ofs < len) {
+		/* format the line in the buffer, then use printf to output to screen */
+		out = snprintf(line, LINE_LEN, "%08X:", ofs);
+		for (i = 0; ((ofs + i) < len) && (i < 16); i++)
+			out += snprintf(line+out, LINE_LEN - out, " %02X", (data[ofs+i] & 0xff));
+		for(; i <= 16; i++)
+			out += snprintf(line+out, LINE_LEN - out, " | ");
+		for(i = 0; (ofs < len) && (i < 16); i++, ofs++) {
+			unsigned char c = data[ofs];
+			if ( (c < ' ') || (c > '~'))
+				c = '.';
+			out += snprintf(line+out, LINE_LEN - out, "%c", c);
+		}
+		fprintf(f, "%s\n", line);
+	}
+	fflush(f);
+}
+
+
+
+
 /* main processing loop */
 static void
 l2fwd_main_loop(void)
@@ -323,18 +356,6 @@ l2fwd_main_loop(void)
 
 				char *rtn = NULL;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
-				printf("%s\n",rtn);
-				rtn+=1;
-				printf("%s\n",rtn);
-				rtn+=1;
-				printf("%s\n",rtn);
-
-//				struct ether_hdr *eth_hdr = rte_pktmbuf_mtod(m, struct ether_hdr *);
-//				rte_eth_macaddr_get(0, &eth_hdr->d_addr);
-//				rte_eth_macaddr_get(0 ^ 1, &eth_hdr->s_addr);
-//				eth_hdr->ether_type;
-
-				//CHARA BEGIN
 
 				if(rtn!=NULL) {
 
@@ -346,22 +367,9 @@ l2fwd_main_loop(void)
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						rtn+=rte_mbuf_packet_length;
-						printf("%s\n",rtn);
-
-						rtn+=1;
-						printf("%s\n",rtn);
-
-						rtn+=2;
-						printf("%s\n",rtn);
-
-						rtn+=3;
-						printf("%s\n",rtn);
-
-
 					}
-
-
-					rte_pktmbuf_dump(stdout, m, 1024);
+					dpdk_packet_hexdump(stdout, m, 1024);
+					// rte_pktmbuf_dump(stdout, m, 1024);
 				}
 
 				//CHARA END
