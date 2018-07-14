@@ -392,12 +392,10 @@ l2fwd_main_loop(void)
 					int header_length =  rte_mbuf_packet_length - 1024;
 
 
-					if(rte_mbuf_packet_length>0){
+					if(header_length>0){
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024);
-
-						// dpdk_packet_hexdump(stdout, "CHARA", m, 1024);
 					}
 					// rte_pktmbuf_dump(stdout, m, 1024);
 
