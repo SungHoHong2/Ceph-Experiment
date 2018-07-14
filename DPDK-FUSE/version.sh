@@ -36,6 +36,8 @@ echo "--direct: If true, use non-buffered I/O"
 echo "non-buffered I/O involves reading or writing data one element at a time"
 
 cp /Users/sunghohong/Documents/Projects/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs.c /home/sungho/mcachefs/src
+cd /home/sungho/mcachefs/src
+make
 
 #  /sbin/mkfs -t ext4 /dev/sdb2
 umount /mnt/hdd_cache
