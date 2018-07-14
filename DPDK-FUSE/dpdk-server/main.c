@@ -322,9 +322,9 @@ l2fwd_main_loop(void)
 				m = pkts_burst[j];
 				// rte_pktmbuf_dump(stdout, m, 1024);
 				// rte_pktmbuf_mtod_offset(m, );
-			    struct message *msg=NULL;
+//			    struct message *msg=NULL;
 
-//				char *rtn;
+				char *rtn;
 //				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
 //				rtn+=sizeof(struct ether_hdr);
 //
@@ -333,11 +333,11 @@ l2fwd_main_loop(void)
 //					rte_pktmbuf_dump(stdout, m, 1024);
 //				}
 
-				msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
+				rtn = rte_pktmbuf_mtod_offset(m, char *, sizeof(struct message));
 				// msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
 
 				if(msg!=NULL) {
-					printf("rte_pktmbuf_mtod_offset: %s\n", msg->data);  // lenght of the offset: 456
+					printf("rte_pktmbuf_mtod_offset: %s\n", rtn);  // lenght of the offset: 456
 					rte_pktmbuf_dump(stdout, m, 1024);
 
 				}
