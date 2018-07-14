@@ -356,26 +356,6 @@ l2fwd_main_loop(void)
 				m = pkts_burst[j];
 
 
-
-					unsigned nb_segs = m->nb_segs;
-
-					while (m && nb_segs != 0) {
-						__rte_mbuf_sanity_check(m, 0);
-
-						fprintf(f, "  segment at %p, data=%p, data_len=%u\n",
-								m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
-						len = dump_len;
-						if (len > m->data_len)
-							len = m->data_len;
-						if (len != 0)
-							rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void *), len);
-						dump_len -= len;
-						m = m->next;
-						nb_segs --;
-					}
-
-
-
 					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 					int header_length =  rte_mbuf_packet_length - 1024;
 
@@ -384,7 +364,27 @@ l2fwd_main_loop(void)
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						rtn+=rte_mbuf_packet_length;
-						dpdk_packet_hexdump(stdout, "CHARA", m, 1024);
+
+
+
+						unsigned nb_segs = m->nb_segs;
+
+						while (m && nb_segs != 0) {
+							__rte_mbuf_sanity_check(m, 0);
+
+							fprintf(stdout, "  segment at %p, data=%p, data_len=%u\n",
+									m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
+							len = dump_len;
+							if (len > m->data_len)
+								len = m->data_len;
+							if (len != 0)
+								rte_hexdump(stdout, NULL, rte_pktmbuf_mtod(m, void *), len);
+							dump_len -= len;
+							m = m->next;
+							nb_segs --;
+						}
+
+						// dpdk_packet_hexdump(stdout, "CHARA", m, 1024);
 					}
 					// rte_pktmbuf_dump(stdout, m, 1024);
 
