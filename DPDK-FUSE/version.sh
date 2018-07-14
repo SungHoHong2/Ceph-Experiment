@@ -26,7 +26,7 @@ then
   kill -9 `pidof dpdk-server`
 
 
-elif [ "$1" = "FUSE_MCACHEFS_PERF" ]
+elif [ "$1" = "mcachefs_make" ]
 then
 echo "mcachefs /media/input /media/output"
 echo "The target filesystem: slow filesystem that cache accesses to"
@@ -34,6 +34,8 @@ echo "the backing filesystem: mcachefs can stash stuff which it has copied"
 
 echo "--direct: If true, use non-buffered I/O"
 echo "non-buffered I/O involves reading or writing data one element at a time"
+
+cp /Users/sunghohong/Documents/Projects/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs.c /home/sungho/mcachefs/src
 
 #  /sbin/mkfs -t ext4 /dev/sdb2
 umount /mnt/hdd_cache
