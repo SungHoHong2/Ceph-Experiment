@@ -2,18 +2,24 @@ export RTE_SDK=/home/sungho/dpdk-stable-17.05.2
 export DESTDIR=/usr/local
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 git pull origin master
+HOSTS="$(cat /etc/hostname)"
 
-if [ "$1" = "dpdk_server_make" ]
-then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
-make
-./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
 
-elif [ "$1" = "dpdk_client_make" ]
+if [ "$1" = "dpdk_application_make" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
-make
-./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+  if [ "$HOSTS" = "w1" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
+  make
+  ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+
+  elif [ "$HOSTS" = "w2" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
+  make
+  ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+  fi
+
 
 elif [ "$1" = "dpdk_client_kill" ]
 then
