@@ -324,18 +324,20 @@ l2fwd_main_loop(void)
 				// rte_pktmbuf_mtod_offset(m, );
 				struct message *msg=NULL;
 
-
-				msg = rte_pktmbuf_mtod(m, struct message *);
-				if(msg!=NULL) {
-					printf("rte_pktmbuf_mtod: %s\n", msg->data);  // lenght of the offset: 456
+				char *rtn;
+				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
+				if(rtn!=NULL) {
+					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
 				}
 
 
-				msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
 
-				if(msg!=NULL) {
-					printf("rte_pktmbuf_mtod_offset: %s\n", msg->data);  // lenght of the offset: 456
-				}
+
+//				msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
+//
+//				if(msg!=NULL) {
+//					printf("rte_pktmbuf_mtod_offset: %s\n", msg->data);  // lenght of the offset: 456
+//				}
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
 				// printf("pkt_len after: %d\n",pkt_len);
