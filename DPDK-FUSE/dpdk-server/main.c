@@ -323,6 +323,11 @@ l2fwd_main_loop(void)
 
 				char *rtn = NULL;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
+				printf("%s\n",rtn);
+				rtn+=1;
+				printf("%s\n",rtn);
+				rtn+=1;
+				printf("%s\n",rtn);
 
 //				struct ether_hdr *eth_hdr = rte_pktmbuf_mtod(m, struct ether_hdr *);
 //				rte_eth_macaddr_get(0, &eth_hdr->d_addr);
