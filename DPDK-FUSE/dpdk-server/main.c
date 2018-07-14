@@ -326,7 +326,8 @@ l2fwd_main_loop(void)
 
 				char *rtn = NULL;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
-				rtn = m->data_off;
+
+				rtn = (char *)(m)->buf_addr + (m)->data_off;
 
 				struct ether_hdr *eth;
 				// eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
