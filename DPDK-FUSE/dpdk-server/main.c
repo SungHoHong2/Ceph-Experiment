@@ -286,7 +286,7 @@ dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int star
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
-			fprintf("len: %d\n",len);
+			fprintf(f,"len: %d\n",len);
 			rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len);
 		}
 
