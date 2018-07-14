@@ -257,7 +257,6 @@ l2fwd_main_loop(void)
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
 
-	int sent;
 	unsigned lcore_id;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
