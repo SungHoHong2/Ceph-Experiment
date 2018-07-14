@@ -174,7 +174,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	struct rte_eth_dev_tx_buffer *buffer;
 
 	dst_port = l2fwd_dst_ports[portid];
-	
+
 	char* data;
 	struct message obj;
 	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
