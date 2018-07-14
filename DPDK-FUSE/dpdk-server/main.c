@@ -325,22 +325,27 @@ l2fwd_main_loop(void)
 //			    struct message *msg=NULL;
 
 				char *rtn = NULL;
-//				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
-//				rtn+=sizeof(struct ether_hdr);
-//
-//				if(rtn!=NULL) {
-//					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
-//					rte_pktmbuf_dump(stdout, m, 1024);
-//				}
+				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
 
-				rtn = rte_pktmbuf_mtod_offset(m, char *, sizeof(struct message));
-				// msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
+				struct ether_hdr *eth;
+				eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
+				rtn+=sizeof(eth);
 
 				if(rtn!=NULL) {
-					printf("rte_pktmbuf_mtod_offset: %s\n", rtn);  // lenght of the offset: 456
+					printf("length hdr: %d", sizeof(struct ether_hdr));
+					printf("length eth: %d", sizeof(struct eth));
+					// 336
+					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
 					rte_pktmbuf_dump(stdout, m, 1024);
-
 				}
+
+//				rtn = rte_pktmbuf_mtod_offset(m, char *, sizeof(struct message));
+				// msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
+
+//				if(rtn!=NULL) {
+//					printf("rte_pktmbuf_mtod_offset: %s\n", rtn);  // lenght of the offset: 456
+//					rte_pktmbuf_dump(stdout, m, 1024);
+//				}
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
 				// printf("pkt_len after: %d\n",pkt_len);
