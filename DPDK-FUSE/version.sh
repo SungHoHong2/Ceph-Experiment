@@ -35,7 +35,11 @@ echo "the backing filesystem: mcachefs can stash stuff which it has copied"
 echo "--direct: If true, use non-buffered I/O"
 echo "non-buffered I/O involves reading or writing data one element at a time"
 
-cp /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs.c /home/sungho/mcachefs/src
+cp /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs.c            /home/sungho/mcachefs/src
+cp /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs-lowlevel.c   /home/sungho/mcachefs/src
+
+
+
 cd /home/sungho/mcachefs/src
 make
 
