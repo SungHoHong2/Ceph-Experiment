@@ -368,7 +368,7 @@ l2fwd_main_loop(void)
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						rtn+=rte_mbuf_packet_length;
 					}
-					dpdk_packet_hexdump(stdout, m, 1024);
+					dpdk_packet_hexdump(stdout, "CHARA", m, 1024);
 					// rte_pktmbuf_dump(stdout, m, 1024);
 				}
 
