@@ -363,10 +363,9 @@ l2fwd_main_loop(void)
 					if(rte_mbuf_packet_length>0){
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-						rtn+=rte_mbuf_packet_length;
 
-
-
+						int dump_len = 1024;
+						unsigned int len;
 						unsigned nb_segs = m->nb_segs;
 
 						while (m && nb_segs != 0) {
