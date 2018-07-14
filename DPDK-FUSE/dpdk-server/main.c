@@ -339,11 +339,19 @@ l2fwd_main_loop(void)
 
 					char addr_buf[ETHER_ADDR_FMT_SIZE];
 					ether_format_addr(addr_buf, ETHER_ADDR_FMT_SIZE, &l2fwd_ports_eth_addr[0]);
-					printf("%s\n", addr_buf);
+
+					print_ethaddr(" Address:", &ports_eth_addr[portid]);
+					printf(", ");
+					print_ethaddr("Destination:",
+								  (const struct ether_addr *)&dest_eth_addr[portid]);
+					printf(", ");
 
 
 					// 336
 					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
+					printf("rte_pktmbuf_mtod: %d\n", ETHER_ADDR_FMT_SIZE);
+
+
 					rte_pktmbuf_dump(stdout, m, 1024);
 				}
 
