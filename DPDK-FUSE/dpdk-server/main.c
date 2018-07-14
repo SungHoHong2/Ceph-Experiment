@@ -342,6 +342,17 @@ l2fwd_main_loop(void)
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						rtn+=rte_mbuf_packet_length;
 						printf("%s\n",rtn);
+
+						rtn+=1;
+						printf("%s\n",rtn);
+
+						rtn+=2;
+						printf("%s\n",rtn);
+
+						rtn+=3;
+						printf("%s\n",rtn);
+
+
 					}
 
 
