@@ -222,6 +222,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	char* data;
 	struct message obj;
+	obj->data="howdyhowdy!";
 	struct message *msg =&obj;
 	data = rte_pktmbuf_append(m, sizeof(struct message));
 
@@ -235,6 +236,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 	if (sent)
 		port_statistics[dst_port].tx += sent;
+
 
 	// memset(_m, '*', rte_pktmbuf_pkt_len(m));
 	// printf("pkt_len after: %d\n",pkt_len);
