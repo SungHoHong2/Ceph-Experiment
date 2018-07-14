@@ -331,10 +331,7 @@ l2fwd_main_loop(void)
 				eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 				// rtn+=sizeof(eth);
 
-				struct rte_mbuf *m_last;
-				m_last = rte_pktmbuf_lastseg(m);
-				rtn=(char *)m_last->buf_addr;
-				rtn-=1024;
+				rtn = m->buf_addr;
 
 
 				if(rtn!=NULL) {
