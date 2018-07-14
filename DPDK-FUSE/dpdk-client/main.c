@@ -174,18 +174,13 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	struct rte_eth_dev_tx_buffer *buffer;
 
 	dst_port = l2fwd_dst_ports[portid];
-
+	
 	char* data;
-//	struct message obj;
-//	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
-//
-//	struct message *msg =&obj;
+	struct message obj;
+	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
 
-	char obj;
-	strncpy(obj, "hellohellohellohellohellohellohellohello", 100);
-	char *msg =&obj;
-
-	data = rte_pktmbuf_append(m, sizeof(char  message));
+	struct message *msg =&obj;
+	data = rte_pktmbuf_append(m, sizeof(struct message));
 
 	if (data != NULL)
 		rte_memcpy(data, msg, sizeof(struct message));
