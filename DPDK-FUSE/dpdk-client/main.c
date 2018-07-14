@@ -176,7 +176,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	dst_port = l2fwd_dst_ports[portid];
 
 	char* data;
-	struct message obj;
+	struct message obj; // for some reason the struct cannot be interpreted by it!???
 	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 1024);
 
 	struct message *msg =&obj;
