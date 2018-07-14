@@ -240,6 +240,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
 	ofs = start;
+
+	struct message *msg = (struct message *) &buf;
+	printf("msg is it here?: %s\n", msg->data);
+
 	while (ofs < len) {
 		/* format the line in the buffer, then use printf to output to screen */
 		fprintf(f,"ofs: %d ::",ofs);
