@@ -22,8 +22,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="339" column="68" lean-forward="true" selection-start-line="339" selection-start-column="68" selection-end-line="339" selection-end-column="68" />
+            <state relative-caret-position="155">
+              <caret line="327" column="31" lean-forward="true" selection-start-line="327" selection-start-column="31" selection-end-line="327" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -63,7 +63,6 @@
       <find>RTE_MBUF_SIZE</find>
       <find>test_pktmbuf_pool</find>
       <find>pkt_len</find>
-      <find>msg</find>
       <find>l2fwd_simple_forward</find>
       <find>test_m</find>
       <find>print_stats</find>
@@ -71,6 +70,7 @@
       <find>hdr</find>
       <find>struct ether_hdr</find>
       <find>l2fwd_mac_updating</find>
+      <find>msg</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -210,12 +210,12 @@
       <updated>1531349653559</updated>
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
-      <workItem from="1531502171702" duration="16590000" />
+      <workItem from="1531502171702" duration="16628000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24567000" />
+    <option name="totallyTimeSpent" value="24605000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -556,8 +556,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="339" column="68" lean-forward="true" selection-start-line="339" selection-start-column="68" selection-end-line="339" selection-end-column="68" />
+        <state relative-caret-position="155">
+          <caret line="327" column="31" lean-forward="true" selection-start-line="327" selection-start-column="31" selection-end-line="327" selection-end-column="31" />
         </state>
       </provider>
     </entry>
