@@ -48,10 +48,12 @@
 #include <rte_mbuf.h>
 
 
-
 int main( int argc, char *argv[] )
 {
     printf("FUSE-DPDK BEGIN\n");
 
+
+
+    printf("FUSE-DPDK END\n");
     return 0;
 }
