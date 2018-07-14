@@ -34,7 +34,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <sys/types.h>
@@ -47,6 +46,8 @@
 #include <getopt.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <unistd.h>
+
 
 #include <rte_common.h>
 #include <rte_log.h>
@@ -72,12 +73,12 @@
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
 
-static volatile bool force_quit;
-
 
 struct message {
 	char data[1024];
 };
+
+static volatile bool force_quit;
 
 /* MAC updating enabled by default */
 static int mac_updating = 1;
@@ -134,8 +135,6 @@ static const struct rte_eth_conf port_conf = {
 };
 
 struct rte_mempool * l2fwd_pktmbuf_pool = NULL;
-struct rte_mempool * test_pktmbuf_pool = NULL;
-
 
 /* Per-port statistics struct */
 struct l2fwd_port_statistics {
@@ -149,7 +148,6 @@ struct l2fwd_port_statistics port_statistics[RTE_MAX_ETHPORTS];
 /* A tsc-based timer responsible for triggering statistics printout */
 static uint64_t timer_period = 10; /* default period is 10 seconds */
 
-
 static void
 l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 {
@@ -158,9 +156,9 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 
-	/* A0:36:9F:83:AB:BC w1*/
+	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
+	*((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -175,36 +173,82 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	char* data;
-//	struct message obj;
-//	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
-//
-//	struct message *msg =&obj;
-
-	char obj;
-	strncpy(obj, "hellohellohellohellohellohellohellohelloCHARA!", 100);
-	char *msg =&obj;
-
-	data = rte_pktmbuf_append(m, sizeof(char)*100);
-
-	if (data != NULL)
-		rte_memcpy(data, msg, sizeof(char)*100);
-
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
-
 	buffer = tx_buffer[dst_port];
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 	if (sent)
 		port_statistics[dst_port].tx += sent;
-
-	// rte_pktmbuf_dump(stdout, m, 1024);
-
-
-
-
-
 }
+
+
+void
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
+{
+	int LINE_LEN = 128;
+	unsigned int i, out, ofs;
+	const unsigned char *data = buf;
+	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
+
+	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
+	ofs = start;
+
+	struct message *msg = (struct message *) &buf;
+	printf("msg is it here?: %s\n", msg->data);
+
+	while (ofs < len) {
+		/* format the line in the buffer, then use printf to output to screen */
+		fprintf(f,"ofs: %d ::",ofs);
+		out = snprintf(line, LINE_LEN, "%08X:", ofs);
+		for(i = 0; (ofs < len) && (i < 16); i++, ofs++) {
+			unsigned char c = data[ofs];
+			if ( (c < ' ') || (c > '~'))
+				c = '.';
+			out += snprintf(line+out, LINE_LEN - out, "%c", c);
+		}
+		fprintf(f, "%s\n", line);
+	}
+	fflush(f);
+}
+
+
+/* dump a mbuf on console */
+void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int start)
+{
+	unsigned int len;
+	unsigned nb_segs;
+	// len = start;
+
+	__rte_mbuf_sanity_check(m, 1);
+
+	fprintf(f, "dump mbuf at %p, phys=%"PRIx64", buf_len=%u\n",
+			m, (uint64_t)m->buf_physaddr, (unsigned)m->buf_len);
+	fprintf(f, "  pkt_len=%"PRIu32", ol_flags=%"PRIx64", nb_segs=%u, "
+													  "in_port=%u\n", m->pkt_len, m->ol_flags,
+			(unsigned)m->nb_segs, (unsigned)m->port);
+	nb_segs = m->nb_segs;
+
+	while (m && nb_segs != 0) {
+		__rte_mbuf_sanity_check(m, 0);
+
+		fprintf(f, "  segment at %p, data=%p, data_len=%u\n",
+				m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
+		len = dump_len;
+
+		if (len > m->data_len)
+			len = m->data_len;
+		if (len != 0) {
+			fprintf(f,"dpdk_packet_hexdump len: %d\n",len);
+			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
+		}
+
+		dump_len -= len;
+		m = m->next;
+		nb_segs --;
+	}
+}
+
+
 
 /* main processing loop */
 static void
@@ -212,16 +256,10 @@ l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
-	int sent;
+
 	unsigned lcore_id;
-	uint64_t prev_tsc, diff_tsc, cur_tsc;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
-	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
-							   BURST_TX_DRAIN_US;
-	struct rte_eth_dev_tx_buffer *buffer;
-
-	prev_tsc = 0;
 
 	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
@@ -243,27 +281,6 @@ l2fwd_main_loop(void)
 
 	while (!force_quit) {
 
-		cur_tsc = rte_rdtsc();
-
-		/*
-		 * TX burst queue drain
-		 */
-		diff_tsc = cur_tsc - prev_tsc;
-		if (unlikely(diff_tsc > drain_tsc)) {
-
-			for (i = 0; i < qconf->n_rx_port; i++) {
-
-				portid = l2fwd_dst_ports[qconf->rx_port_list[i]];
-				buffer = tx_buffer[portid];
-
-				sent = rte_eth_tx_buffer_flush(portid, 0, buffer);
-				if (sent)
-					port_statistics[portid].tx += sent;
-
-			}
-
-		}
-
 		/*
 		 * Read packet from RX queues
 		 */
@@ -273,22 +290,24 @@ l2fwd_main_loop(void)
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
 
-			port_statistics[portid].rx += nb_rx;
 
 			for (j = 0; j < nb_rx; j++) {
+
+				//CHARA BEGIN
 				m = pkts_burst[j];
+					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+					int header_length =  rte_mbuf_packet_length - 1024;
+
+					if(header_length>0){
+						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
+					}
+				//CHARA END
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
 			}
 		}
-
-
-
-
-
-
-
-
 	}
 }
 
@@ -561,12 +580,6 @@ main(int argc, char **argv)
 	if (l2fwd_pktmbuf_pool == NULL)
 		rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
-	/* create memory pool for send data */
-	if (test_pktmbuf_pool == NULL) {
-		test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-													NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 1024, rte_socket_id());
-	}
-
 	nb_ports = rte_eth_dev_count();
 	if (nb_ports == 0)
 		rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
@@ -575,7 +588,6 @@ main(int argc, char **argv)
 	for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
 		l2fwd_dst_ports[portid] = 0;
 	last_port = 0;
-
 
 	/*
 	 * Each logical core is assigned a dedicated TX queue on each port.
@@ -657,7 +669,6 @@ main(int argc, char **argv)
 		if (ret < 0)
 			rte_exit(EXIT_FAILURE, "rte_eth_rx_queue_setup:err=%d, port=%u\n",
 					 ret, (unsigned) portid);
-
 
 		/* init one TX queue on each port */
 		fflush(stdout);

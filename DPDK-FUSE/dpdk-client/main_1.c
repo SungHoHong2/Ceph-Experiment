@@ -175,20 +175,60 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	char* data;
-//	struct message obj;
-//	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
+//		int pkt_len = rte_pktmbuf_pkt_len(m);
+//		char *data;
 //
-//	struct message *msg =&obj;
+//		struct rte_mbuf *rm[1];
+// 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//		data = rte_pktmbuf_append(rm[0], 1024);
+//		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+//		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//		l2fwd_mac_updating(rm[0], portid);
+//
+//		sent = rte_eth_tx_burst(portid, 0, rm, 1);
+//
+//		if (sent){
+//			port_statistics[portid].tx += sent;
+//		}
 
-	char obj;
-	strncpy(obj, "hellohellohellohellohellohellohellohelloCHARA!", 100);
-	char *msg =&obj;
+	// rte_pktmbuf_dump(stdout, m, 1024);
 
-	data = rte_pktmbuf_append(m, sizeof(char)*100);
+
+// SECOND ATTEMPT
+//	char *_m;
+//	_m = rte_pktmbuf_append(m, 1024);
+//	int pkt_len = rte_pktmbuf_pkt_len(m);
+//	rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+//
+//	if (mac_updating)
+//		l2fwd_mac_updating(m, dst_port);
+//
+//	buffer = tx_buffer[dst_port];
+//	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+//	if (sent)
+//		port_statistics[dst_port].tx += sent;
+//
+//	// memset(_m, '*', rte_pktmbuf_pkt_len(m));
+//	// printf("pkt_len after: %d\n",pkt_len);
+//	 rte_pktmbuf_dump(stdout, m, 1024);
+
+
+// CHARA HINT
+//	char* data;
+//
+//	data = rte_pktmbuf_append(pkt, sizeof(struct message));
+//	if (data != NULL)
+//		rte_memcpy(data, msg, sizeof(struct message));
+
+	char* data;
+	struct message obj;
+	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
+
+	struct message *msg =&obj;
+	data = rte_pktmbuf_append(m, sizeof(struct message));
 
 	if (data != NULL)
-		rte_memcpy(data, msg, sizeof(char)*100);
+		rte_memcpy(data, msg, sizeof(struct message));
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
