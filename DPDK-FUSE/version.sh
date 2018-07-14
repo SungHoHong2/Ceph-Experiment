@@ -26,19 +26,22 @@ then
   kill -9 `pidof dpdk-server`
 
 
-elif [ "$1" = "ssfs_run" ]
+elif [ "$1" = "ssfs_setup" ]
+then
+  umount /mnt/ssd_cache
+  sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
+  mkdir /mnt/ssd_cache/test
+
+elif [ "$1" = "ssfs_make" ]
 then
   cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs
-  make
-  # umount /mnt/ssd_cache
-  # sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
-  # mkdir /mnt/ssd_cache/test
-  ./ssfs -f /mnt/ssd_cache/test
+  make && ./ssfs -f /mnt/ssd_cache/test
 
+elif [ "$1" = "ssfs_client" ]
+then
+  ls -l /mnt/ssd_cache/test
+  cat /mnt/ssd_cache/test/file349
 
-  # running the file system
-  # ls -l /mnt/ssd_cache/test
-  # cat /mnt/ssd_cache/test/file349
 
 else
 echo "no argument"
