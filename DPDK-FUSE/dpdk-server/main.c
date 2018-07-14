@@ -334,11 +334,14 @@ l2fwd_main_loop(void)
 				struct rte_mbuf *m_last;
 				m_last = rte_pktmbuf_lastseg(m);
 				rtn=(char *)m_last->buf_addr;
+				rtn-=1024;
 
 
 				if(rtn!=NULL) {
 					printf("length hdr: %ld\n", sizeof(struct ether_hdr));
 					printf("length eth: %ld\n", sizeof(eth));
+					printf("length message: %ld\n", sizeof(struct message));
+
 					// 336
 					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
 					rte_pktmbuf_dump(stdout, m, 1024);
