@@ -322,7 +322,7 @@ l2fwd_main_loop(void)
 				m = pkts_burst[j];
 				// rte_pktmbuf_dump(stdout, m, 1024);
 				// rte_pktmbuf_mtod_offset(m, );
-				struct message *msg=NULL;
+				// struct message *msg=NULL;
 
 				char *rtn;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
