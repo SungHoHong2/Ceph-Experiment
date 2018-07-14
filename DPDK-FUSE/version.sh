@@ -36,7 +36,7 @@ elif [ "$1" = "ssfs_make" ]
 then
   cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs
   make
-  # ./ssfs -f /mnt/ssd_cache/test
+  ./FUSE-basic/ssfs/build/app/ssfs  -f /mnt/ssd_cache/test
 
 elif [ "$1" = "ssfs_client" ]
 then
