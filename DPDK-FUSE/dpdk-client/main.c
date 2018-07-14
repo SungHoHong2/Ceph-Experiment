@@ -193,7 +193,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	_m = rte_pktmbuf_append(m, 1024);
 	int pkt_len = rte_pktmbuf_pkt_len(m);
 	rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-	memset(_m, '*', rte_pktmbuf_pkt_len(m));
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
@@ -202,6 +201,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 	if (sent)
 		port_statistics[dst_port].tx += sent;
+
+	// memset(_m, '*', rte_pktmbuf_pkt_len(m));
 
 	// printf("pkt_len after: %d\n",pkt_len);
 	 rte_pktmbuf_dump(stdout, m, 1024);
