@@ -324,7 +324,7 @@ l2fwd_main_loop(void)
 				// rte_pktmbuf_dump(stdout, m, 1024);
 				// rte_pktmbuf_mtod_offset(m, );
 				struct message *msg=NULL;
-				msg = rte_pktmbuf_mtod_offset(m, (struct message *), sizeof(struct message));
+				msg = rte_pktmbuf_mtod_offset(m, struct message *, sizeof(struct message));
 
 				if(msg!=NULL) {
 					printf("length of DPDK offset: %ld\n", strlen(msg));  // lenght of the offset: 456
