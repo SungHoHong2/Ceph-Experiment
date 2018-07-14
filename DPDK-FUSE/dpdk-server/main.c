@@ -231,7 +231,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 
 void
-dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len)
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
 	int LINE_LEN = 128;
 	unsigned int i, out, ofs;
@@ -239,7 +239,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
 
 	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
-	ofs = 0;
+	ofs = start;
 	while (ofs < len) {
 		/* format the line in the buffer, then use printf to output to screen */
 		fprintf(f,"ofs: %d ::",ofs);
@@ -284,7 +284,7 @@ dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int star
 			len = m->data_len;
 		if (len != 0) {
 			fprintf(f,"dpdk_packet_hexdump len: %d\n",len);
-			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len);
+			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
 		}
 
 		dump_len -= len;
