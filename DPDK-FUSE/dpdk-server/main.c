@@ -316,11 +316,10 @@ l2fwd_main_loop(void)
 			for (j = 0; j < nb_rx; j++) {
 
 				m = pkts_burst[j];
-				rte_pktmbuf_dump(stdout, m, 1024);
+				rte_pktmbuf_dump(stdout, m, 32);
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
 				// printf("pkt_len after: %d\n",pkt_len);
-
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
 			}
