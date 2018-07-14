@@ -320,11 +320,15 @@ l2fwd_main_loop(void)
 			for (j = 0; j < nb_rx; j++) {
 
 				m = pkts_burst[j];
+
 				char *rtn = NULL;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
+				rtn+=343;
 
-				rtn = (char *)(m)->buf_addr + (m)->data_off;
-
+//				struct ether_hdr *eth_hdr = rte_pktmbuf_mtod(m, struct ether_hdr *);
+//				rte_eth_macaddr_get(0, &eth_hdr->d_addr);
+//				rte_eth_macaddr_get(0 ^ 1, &eth_hdr->s_addr);
+//				eth_hdr->ether_type;
 
 				//CHARA BEGIN
 
