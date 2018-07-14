@@ -37,5 +37,7 @@ perform level-2 forwarding of packets by sending each packet out on a different 
   - https://stackoverflow.com/questions/38726332/dpdk-rte-mbuf-payload-data-initialization-or-updation-modification
 
 
-  - lets test the packet in the userspace and then go aack
-  -
+### constructing the char array into struct
+  - you have allocated the string, but it seems that we still cannot identify the struct
+  - first send the data using char array
+  - and then change that into struct and see what happens 
