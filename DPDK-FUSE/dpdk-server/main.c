@@ -328,6 +328,7 @@ l2fwd_main_loop(void)
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
 				if(rtn!=NULL) {
 					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
+					rte_pktmbuf_dump(stdout, m, 1024);
 				}
 
 
