@@ -53,7 +53,8 @@ mcachefs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     (void) offset;
     (void) info;
 
-    Log("readdir '%s'\n", path);
+
+    printf("readdir '%s'\n", path);
 
     memset(&st, 0, sizeof(struct stat));
     st.st_mode = S_IFDIR;
@@ -64,7 +65,7 @@ mcachefs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     if (res)
         return res;
 
-    Log("READDIR path='%s'\n", path);
+    printf("READDIR path='%s'\n", path);
     mfather = mcachefs_metadata_find(path);
 
     if (!mfather)
@@ -73,7 +74,7 @@ mcachefs_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     for (mchild = mcachefs_metadata_get_child(mfather); mchild; mchild =
          mcachefs_metadata_get(mchild->next))
     {
-        Log("READDIR    '%s' (%p, next=%llu)\n", mchild->d_name, mchild,
+        printf("READDIR    '%s' (%p, next=%llu)\n", mchild->d_name, mchild,
             mchild->next);
         res = filler(buf, mchild->d_name, &(mchild->st), 0);
         if (res)

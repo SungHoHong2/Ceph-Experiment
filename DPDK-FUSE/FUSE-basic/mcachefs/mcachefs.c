@@ -19,9 +19,7 @@ int
 main(int argc, char *argv[])
 {
 
-
-    printf("MAIN BEGIN\n");
-    
+    printf("CHARA::MAIN BEGIN\n");
 
     LOG_FD = stderr;
     struct mcachefs_config *config;
