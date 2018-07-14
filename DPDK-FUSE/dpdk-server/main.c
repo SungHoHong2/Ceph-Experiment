@@ -328,17 +328,35 @@ l2fwd_main_loop(void)
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
 
 				struct ether_hdr *eth;
-				eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
+				// eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 				// rtn+=sizeof(eth);
 
-				rtn = m->buf_addr;
+				// rtn = m->buf_addr;
+
+//				m->buf_addr      = data - RTE_PKTMBUF_HEADROOM;
+//				m->buf_physaddr  = tr.addr - RTE_PKTMBUF_HEADROOM;
+//				return true;
+//			}
+//
+//			static bool init_noninline_rx_mbuf(rte_mbuf* m,
+//											   size_t size = mbuf_data_size) {
+//				if (!refill_rx_mbuf(m, size)) {
+//					return false;
+//				}
+//				// The below fields stay constant during the execution.
+//				m->buf_len       = size + RTE_PKTMBUF_HEADROOM;
+//				m->data_off      = RTE_PKTMBUF_HEADROOM;
+//				return true;
+
 
 
 				if(rtn!=NULL) {
 					printf("length hdr: %ld\n", sizeof(struct ether_hdr));
 					printf("length eth: %ld\n", sizeof(eth));
-					printf("length eth: %ld\n", sizeof(m->buf_addr));
-
+					printf("length m->buf_add: %ld\n", sizeof(m->buf_addr));
+					printf("length m->buf_physaddr: %ld\n", sizeof(m->buf_physaddr));
+					printf("length m->buf_len: %ld\n", sizeof(m->buf_len));
+					printf("length m->data_off: %ld\n", sizeof(m->data_off));
 					printf("length message: %ld\n", sizeof(struct message));
 
 					// 336
