@@ -328,7 +328,7 @@ l2fwd_main_loop(void)
 
 				if(msg!=NULL) {
 					printf("length of DPDK offset: %ld\n", strlen(msg));  // lenght of the offset: 456
-					printf("data of DPDK offset: %s\n", msg.data);  // lenght of the offset: 456
+					printf("data of DPDK offset: %s\n", msg->data);  // lenght of the offset: 456
 				}
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
