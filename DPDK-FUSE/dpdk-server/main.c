@@ -233,6 +233,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len)
 {
+	int LINE_LEN = 128;
 	unsigned int i, out, ofs;
 	const unsigned char *data = buf;
 	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
