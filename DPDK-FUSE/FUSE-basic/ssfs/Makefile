@@ -1,9 +1,16 @@
-COMPILER = gcc
-FILESYSTEM_FILES = ssfs.c
+ifeq ($(RTE_SDK),)
+$(error "Please define RTE_SDK environment variable")
+endif
 
-build: $(FILESYSTEM_FILES)
-	$(COMPILER) $(FILESYSTEM_FILES) -o ssfs `pkg-config fuse --cflags --libs`
-	echo 'To Mount: ./ssfs -f [mount point]'
+# Default target, can be overriden by command line or environment
+RTE_TARGET ?= x86_64-native-linuxapp-gcc
 
-clean:
-	rm ssfs
+include $(RTE_SDK)/mk/rte.vars.mk
+
+# binary name
+APP = dpdk-fuse-server
+
+# all source are stored in SRCS-y
+SRCS-y := ssfs.c
+
+CFLAGS += -O3 `pkg-config fuse --cflags --libs`
