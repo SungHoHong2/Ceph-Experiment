@@ -26,31 +26,19 @@ then
   kill -9 `pidof dpdk-server`
 
 
-elif [ "$1" = "mcachefs_make" ]
+
+
+
+elif [ "$1" = "ssfs_run" ]
 then
-echo "mcachefs /media/input /media/output"
-echo "The target filesystem: slow filesystem that cache accesses to"
-echo "the backing filesystem: mcachefs can stash stuff which it has copied"
-
-echo "--direct: If true, use non-buffered I/O"
-echo "non-buffered I/O involves reading or writing data one element at a time"
-
-cp /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs.c            /home/sungho/mcachefs/src
-cp /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/mcachefs/mcachefs-lowlevel.c   /home/sungho/mcachefs/src
-
-
-
-cd /home/sungho/mcachefs/src
-make
-
-#  /sbin/mkfs -t ext4 /dev/sdb2
-umount /mnt/hdd_cache
-/home/sungho/mcachefs/src/mcachefs /dev/sdb2 /mnt/hdd_cache
-
-
-
-
-
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs
+  make
+  # umount /mnt/hdd_cache
+  # umount /mnt/ssd_cache
+  # sudo mount -t ext4 /dev/sdb2 /mnt/hdd_cache
+  # sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
+  # mkdir /mnt/ssd_cache/test
+  ./ssfs -f /mnt/ssd_cache/test
 
 else
 echo "no argument"
