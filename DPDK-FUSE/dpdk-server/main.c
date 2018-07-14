@@ -265,7 +265,7 @@ dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int star
 {
 	unsigned int len;
 	unsigned nb_segs;
-	len = start;
+	// len = start;
 
 	__rte_mbuf_sanity_check(m, 1);
 
@@ -282,13 +282,18 @@ dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int star
 		fprintf(f, "  segment at %p, data=%p, data_len=%u\n",
 				m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
 		len = dump_len;
+
 		if (len > m->data_len)
 			len = m->data_len;
-		if (len != 0)
-			rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void *), len);
+		if (len != 0) {
+			fprintf("len: %d\n",len);
+			rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len);
+		}
+
 		dump_len -= len;
 		m = m->next;
 		nb_segs --;
+
 	}
 }
 
