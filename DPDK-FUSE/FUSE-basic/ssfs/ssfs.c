@@ -62,8 +62,8 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
 
     if ( strcmp( path, "/" ) == 0 ) // If the user is trying to show the files/directories of the root directory show the following
     {
-        filler( buffer, "file54", NULL, 0 );
-        filler( buffer, "file349", NULL, 0 );
+        filler( buffer, "client", NULL, 0 );
+        filler( buffer, "server", NULL, 0 );
     }
 
     return 0;
@@ -73,16 +73,16 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 {
     printf( "--> Trying to read %s, %u, %u\n", path, offset, size );
 
-    char file54Text[] = "Hello World From File54!";
-    char file349Text[] = "Hello World From File349!";
+    char client[] = "Hello World From CLIENT!";
+    char server[] = "Hello World From SERVER!";
     char *selectedText = NULL;
 
     // ... //
 
-    if ( strcmp( path, "/file54" ) == 0 )
-        selectedText = file54Text;
-    else if ( strcmp( path, "/file349" ) == 0 )
-        selectedText = file349Text;
+    if ( strcmp( path, "/client" ) == 0 )
+        selectedText = client;
+    else if ( strcmp( path, "/server" ) == 0 )
+        selectedText = server;
     else
         return -1;
 
