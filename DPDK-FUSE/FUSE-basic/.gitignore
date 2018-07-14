@@ -1,0 +1,4 @@
+*.o
+mcachefs
+*~
+/gmon.out
