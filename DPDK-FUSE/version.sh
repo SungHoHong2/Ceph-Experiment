@@ -20,12 +20,30 @@ then
   ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
   fi
 
-
 elif [ "$1" = "dpdk_client_kill" ]
 then
-kill -9 `pidof dpdk-client`
-kill -9 `pidof dpdk-server`
+  kill -9 `pidof dpdk-client`
+  kill -9 `pidof dpdk-server`
+
+
+elif [ "$1" = "FUSE_MCACHEFS_PERF" ]
+then
+echo "mcachefs /media/input /media/output"
+echo "The target filesystem: slow filesystem that cache accesses to"
+echo "the backing filesystem: mcachefs can stash stuff which it has copied"
+
+echo "--direct: If true, use non-buffered I/O"
+echo "non-buffered I/O involves reading or writing data one element at a time"
+
+#  /sbin/mkfs -t ext4 /dev/sdb2
+umount /mnt/hdd_cache
+/home/sungho/mcachefs/src/mcachefs /dev/sdb2 /mnt/hdd_cache
+
+
+
+
+
+
 else
 echo "no argument"
-
 fi

@@ -40,4 +40,12 @@ perform level-2 forwarding of packets by sending each packet out on a different 
 ### constructing the char array into struct
   - you have allocated the string, but it seems that we still cannot identify the struct
   - first send the data using char array
-  - and then change that into struct and see what happens 
+  - and then change that into struct and see what happens
+
+### implement FUSE
+  - basic data store
+  - the client will request for data store and FUSE will store it
+  - and then it will return the response to the client
+  - this method will be compared with TCP version
+  - The results will be an single IO latency
+  - `for the comparison of results, lets ask Ming and Wenji for more details`
