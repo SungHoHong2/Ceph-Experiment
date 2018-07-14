@@ -190,7 +190,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	sleep(1);
 	char *_m;
-	_m = rte_pktmbuf_append(m, 32);
+	_m = rte_pktmbuf_append(m, 1024);
 	int pkt_len = rte_pktmbuf_pkt_len(m);
 	rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 
