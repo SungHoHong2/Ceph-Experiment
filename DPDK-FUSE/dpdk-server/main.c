@@ -187,9 +187,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 {
 	unsigned int ofs;
 	const unsigned char *data = buf;
-	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
-
-	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
 	ofs = start;
 	data+=ofs;
 	struct message *msg = (struct message *) data;
