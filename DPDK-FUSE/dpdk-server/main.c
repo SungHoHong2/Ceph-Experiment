@@ -332,8 +332,8 @@ l2fwd_main_loop(void)
 				rtn+=sizeof(eth);
 
 				if(rtn!=NULL) {
-					printf("length hdr: %d", sizeof(struct ether_hdr));
-					printf("length eth: %d", sizeof(eth));
+					printf("length hdr: %ld", sizeof(struct ether_hdr));
+					printf("length eth: %ld", sizeof(eth));
 					// 336
 					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
 					rte_pktmbuf_dump(stdout, m, 1024);
