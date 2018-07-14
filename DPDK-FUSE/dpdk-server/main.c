@@ -259,6 +259,38 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 }
 
 
+/* dump a mbuf on console */
+void
+dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len)
+{
+	unsigned int len;
+	unsigned nb_segs;
+
+	__rte_mbuf_sanity_check(m, 1);
+
+	fprintf(f, "dump mbuf at %p, phys=%"PRIx64", buf_len=%u\n",
+			m, (uint64_t)m->buf_physaddr, (unsigned)m->buf_len);
+	fprintf(f, "  pkt_len=%"PRIu32", ol_flags=%"PRIx64", nb_segs=%u, "
+													  "in_port=%u\n", m->pkt_len, m->ol_flags,
+			(unsigned)m->nb_segs, (unsigned)m->port);
+	nb_segs = m->nb_segs;
+
+	while (m && nb_segs != 0) {
+		__rte_mbuf_sanity_check(m, 0);
+
+		fprintf(f, "  segment at %p, data=%p, data_len=%u\n",
+				m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
+		len = dump_len;
+		if (len > m->data_len)
+			len = m->data_len;
+		if (len != 0)
+			rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void *), len);
+		dump_len -= len;
+		m = m->next;
+		nb_segs --;
+	}
+}
+
 
 
 /* main processing loop */
@@ -363,25 +395,7 @@ l2fwd_main_loop(void)
 					if(rte_mbuf_packet_length>0){
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-
-						int dump_len = 1024;
-						unsigned int len;
-						unsigned nb_segs = m->nb_segs;
-
-						while (m && nb_segs != 0) {
-							__rte_mbuf_sanity_check(m, 0);
-
-							fprintf(stdout, "  segment at %p, data=%p, data_len=%u\n",
-									m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
-							len = dump_len;
-							if (len > m->data_len)
-								len = m->data_len;
-							if (len != 0)
-								rte_hexdump(stdout, NULL, rte_pktmbuf_mtod(m, void *), len);
-							dump_len -= len;
-							m = m->next;
-							nb_segs --;
-						}
+						dpdk_pktmbuf_dump(stdout, m, 1024);
 
 						// dpdk_packet_hexdump(stdout, "CHARA", m, 1024);
 					}
