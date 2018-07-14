@@ -45,6 +45,5 @@ APP = dpdk-packet
 SRCS-y := main.c
 
 CFLAGS += -O3
-CFLAGS += $(WERROR_FLAGS)
 
 include $(RTE_SDK)/mk/rte.extapp.mk
