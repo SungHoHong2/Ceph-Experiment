@@ -337,6 +337,8 @@ l2fwd_main_loop(void)
 				if(rtn!=NULL) {
 					printf("length hdr: %ld\n", sizeof(struct ether_hdr));
 					printf("length eth: %ld\n", sizeof(eth));
+					printf("length eth: %ld\n", sizeof(m->buf_addr));
+
 					printf("length message: %ld\n", sizeof(struct message));
 
 					// 336
