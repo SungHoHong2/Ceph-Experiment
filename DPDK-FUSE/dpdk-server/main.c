@@ -199,7 +199,7 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0x000000000002 + ((uint64_t)dest_portid << 40);
+	*((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -228,6 +228,8 @@ l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
+	struct rte_mbuf *test_m;
+
 	int sent;
 	unsigned lcore_id;
 	uint64_t prev_tsc, diff_tsc, cur_tsc, timer_tsc;
@@ -290,7 +292,7 @@ l2fwd_main_loop(void)
 
 					/* do this only on master core */
 					if (lcore_id == rte_get_master_lcore()) {
-						print_stats();
+						// print_stats();
 						/* reset the timer */
 						timer_tsc = 0;
 					}
@@ -314,6 +316,7 @@ l2fwd_main_loop(void)
 			for (j = 0; j < nb_rx; j++) {
 
 				m = pkts_burst[j];
+				rte_pktmbuf_dump(stdout, m, 1024);
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
 				// printf("pkt_len after: %d\n",pkt_len);
