@@ -10,7 +10,7 @@
 
 int main( int argc, char *argv[] )
 {
-    printf("FUSE-DPDK BEGIN");
+    printf("FUSE-DPDK BEGIN\n");
 
     return 0;
 }
