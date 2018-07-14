@@ -228,7 +228,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	data = rte_pktmbuf_append(m, sizeof(struct message));
 
 	if (data != NULL)
-	rte_memcpy(data, msg, sizeof(struct message));
+		rte_memcpy(data, msg, sizeof(struct message));
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
@@ -238,10 +238,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	if (sent)
 		port_statistics[dst_port].tx += sent;
 
-
-	// memset(_m, '*', rte_pktmbuf_pkt_len(m));
-	// printf("pkt_len after: %d\n",pkt_len);
-	rte_pktmbuf_dump(stdout, m, 1024);
+	// rte_pktmbuf_dump(stdout, m, 1024);
 
 
 

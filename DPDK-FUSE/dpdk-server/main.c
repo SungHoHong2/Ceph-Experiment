@@ -73,6 +73,11 @@
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
 
+
+struct message {
+	char data[1024];
+};
+
 static volatile bool force_quit;
 
 /* MAC updating enabled by default */
@@ -316,7 +321,15 @@ l2fwd_main_loop(void)
 			for (j = 0; j < nb_rx; j++) {
 
 				m = pkts_burst[j];
-				rte_pktmbuf_dump(stdout, m, 1024);
+				// rte_pktmbuf_dump(stdout, m, 1024);
+				// rte_pktmbuf_mtod_offset(m, );
+				struct message *msg=NULL;
+				msg = rte_pktmbuf_mtod_offset(m, (struct message *), sizeof(struct message));
+
+				if(msg!=NULL) {
+					printf("length of DPDK offset: %ld\n", strlen(msg));  // lenght of the offset: 456
+					printf("data of DPDK offset: %s\n", msg.data);  // lenght of the offset: 456
+				}
 
 				// pkt_len = rte_pktmbuf_pkt_len(m);
 				// printf("pkt_len after: %d\n",pkt_len);
