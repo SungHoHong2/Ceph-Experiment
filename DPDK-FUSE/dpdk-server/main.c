@@ -329,7 +329,12 @@ l2fwd_main_loop(void)
 
 				struct ether_hdr *eth;
 				eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
-				rtn+=sizeof(eth);
+				// rtn+=sizeof(eth);
+
+				struct rte_mbuf *m_last;
+				m_last = rte_pktmbuf_lastseg(m);
+				rtn+=(char *)m_last->buf_addr;
+
 
 				if(rtn!=NULL) {
 					printf("length hdr: %ld\n", sizeof(struct ether_hdr));
