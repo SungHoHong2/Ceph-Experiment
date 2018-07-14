@@ -73,8 +73,8 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 {
     printf( "--> Trying to read %s, %u, %u\n", path, offset, size );
 
-    char client[] = "Hello World From CLIENT!";
-    char server[] = "Hello World From SERVER!";
+    char client[] = "Hello World From CLIENT!\n";
+    char server[] = "Hello World From SERVER!\n";
     char *selectedText = NULL;
 
     // ... //
