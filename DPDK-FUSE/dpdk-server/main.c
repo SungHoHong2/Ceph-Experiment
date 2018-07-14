@@ -323,7 +323,6 @@ l2fwd_main_loop(void)
 
 				char *rtn = NULL;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
-				rtn+=343;
 
 //				struct ether_hdr *eth_hdr = rte_pktmbuf_mtod(m, struct ether_hdr *);
 //				rte_eth_macaddr_get(0, &eth_hdr->d_addr);
@@ -333,29 +332,17 @@ l2fwd_main_loop(void)
 				//CHARA BEGIN
 
 				if(rtn!=NULL) {
-//					printf("length hdr: %ld\n", sizeof(struct ether_hdr));
-//					printf("length eth: %ld\n", sizeof(eth));
-//					printf("length m->buf_add: %ld\n", sizeof(m->buf_addr));
-//					printf("length m->buf_physaddr: %ld\n", sizeof(m->buf_physaddr));
-//					printf("length m->buf_len: %ld\n", sizeof(m->buf_len));
-//					printf("length m->data_off: %ld\n", sizeof(m->data_off));
-//					printf("length message: %ld\n", sizeof(struct message));
 
-//					 char addr_buf[ETHER_ADDR_FMT_SIZE];
-//					 ether_format_addr(addr_buf, ETHER_ADDR_FMT_SIZE, &l2fwd_ports_eth_addr[0]);
+					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+					int header_length =  rte_mbuf_packet_length - 1024;
 
 
-
-
-
-//					print_ethaddr("Destination:",
-//								  (const struct ether_addr *)&dest_eth_addr[portid]);
-//					printf(", ");
-
-
-					// 336
-					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
-					printf("rte_pktmbuf_mtod: %d\n", ETHER_ADDR_FMT_SIZE);
+					if(rte_mbuf_packet_length>0){
+						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						rtn+=rte_mbuf_packet_length;
+						printf("%s\n",rtn);
+					}
 
 
 					rte_pktmbuf_dump(stdout, m, 1024);
