@@ -188,7 +188,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	// rte_pktmbuf_dump(stdout, m, 1024);
 
-	usleep(0);
+	sleep(1);
 	char *_m;
 	_m = rte_pktmbuf_append(m, 32);
 	int pkt_len = rte_pktmbuf_pkt_len(m);
