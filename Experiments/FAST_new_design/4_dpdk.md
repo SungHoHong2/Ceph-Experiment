@@ -33,4 +33,7 @@ perform level-2 forwarding of packets by sending each packet out on a different 
   - it seems that crafting the packets or counting the packets within the tx and rx queue section does not work
   - when we remove the sleep then it is definitely sending something
   - `proved that we receive the data by using rte_pktmbuf_dump`
+  - `if you add sleep in one client the won't be transferred`
+  - https://stackoverflow.com/questions/38726332/dpdk-rte-mbuf-payload-data-initialization-or-updation-modification
+
   
