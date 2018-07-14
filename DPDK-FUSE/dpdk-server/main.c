@@ -261,10 +261,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 /* dump a mbuf on console */
 void
-dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len)
+dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int start)
 {
 	unsigned int len;
 	unsigned nb_segs;
+	len = start;
 
 	__rte_mbuf_sanity_check(m, 1);
 
@@ -391,11 +392,10 @@ l2fwd_main_loop(void)
 					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 					int header_length =  rte_mbuf_packet_length - 1024;
 
-
 					if(header_length>0){
 						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-						dpdk_pktmbuf_dump(stdout, m, 1024);
+						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
 					}
 					// rte_pktmbuf_dump(stdout, m, 1024);
 
