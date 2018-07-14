@@ -337,14 +337,14 @@ l2fwd_main_loop(void)
 //					printf("length m->data_off: %ld\n", sizeof(m->data_off));
 //					printf("length message: %ld\n", sizeof(struct message));
 
-					char addr_buf[ETHER_ADDR_FMT_SIZE];
-					ether_format_addr(addr_buf, ETHER_ADDR_FMT_SIZE, &l2fwd_ports_eth_addr[0]);
+					// char addr_buf[ETHER_ADDR_FMT_SIZE];
+					// ether_format_addr(addr_buf, ETHER_ADDR_FMT_SIZE, &l2fwd_ports_eth_addr[0]);
 
-					print_ethaddr(" Address:", &ports_eth_addr[portid]);
+					print_ethaddr(" Address:", &l2fwd_ports_eth_addr[portid]);
 					printf(", ");
-					print_ethaddr("Destination:",
-								  (const struct ether_addr *)&dest_eth_addr[portid]);
-					printf(", ");
+//					print_ethaddr("Destination:",
+//								  (const struct ether_addr *)&dest_eth_addr[portid]);
+//					printf(", ");
 
 
 					// 336
