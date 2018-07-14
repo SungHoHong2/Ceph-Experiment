@@ -176,19 +176,16 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	dst_port = l2fwd_dst_ports[portid];
 
 	char* data;
-//	struct message obj;
-//	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
-//
-//	struct message *msg =&obj;
+	struct message obj;
+	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
 
-	char obj;
-	strncpy(obj, "hellohellohellohellohellohellohellohelloCHARA!", 100);
-	char *msg =&obj;
+	struct message *msg =&obj;
+
 
 	data = rte_pktmbuf_append(m, sizeof(char)*100);
 
 	if (data != NULL)
-		rte_memcpy(data, msg, sizeof(char)*100);
+		rte_memcpy(data, msg->data, sizeof(char)*100);
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
