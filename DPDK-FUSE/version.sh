@@ -40,6 +40,7 @@ then
   # mkdir /mnt/ssd_cache/test
   ./ssfs -f /mnt/ssd_cache/test
 
+
 else
 echo "no argument"
 fi
