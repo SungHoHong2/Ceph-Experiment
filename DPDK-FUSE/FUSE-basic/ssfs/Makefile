@@ -8,27 +8,22 @@ RTE_TARGET ?= x86_64-native-linuxapp-gcc
 include $(RTE_SDK)/mk/rte.vars.mk
 
 
-COMPILER = gcc
-FILESYSTEM_FILES = ssfs.c
+# COMPILER = gcc
+# FILESYSTEM_FILES = ssfs.c
 
-build: $(FILESYSTEM_FILES)
-	$(COMPILER) $(FILESYSTEM_FILES) -o ssfs `pkg-config fuse --cflags --libs`
-	echo 'To Mount: ./ssfs -f [mount point]'
+# build: $(FILESYSTEM_FILES)
+# 	$(COMPILER) $(FILESYSTEM_FILES) -o ssfs `pkg-config fuse --cflags --libs`
+#	echo 'To Mount: ./ssfs -f [mount point]'
 
-clean:
-	rm ssfs
-
-
-
+# clean:
+#	rm ssfs
 
 
 
 # binary name
-# APP = dpdk-server
+APP = dpdk-fuse-server
 
 # all source are stored in SRCS-y
-# SRCS-y := main.c
-
-# CFLAGS += -O3
-
-# include $(RTE_SDK)/mk/rte.extapp.mk
+SRCS-y := ssfs.c
+CFLAGS += -O3 -D_FILE_OFFSET_BITS=64 -I/usr/include/fuse -lfuse -pthread
+include $(RTE_SDK)/mk/rte.extapp.mk
