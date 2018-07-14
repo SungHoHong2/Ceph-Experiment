@@ -242,13 +242,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = 0;
 	while (ofs < len) {
 		/* format the line in the buffer, then use printf to output to screen */
-		fprintf(f,"ofs: %d\n",ofs);
-
+		fprintf(f,"ofs: %d ::",ofs);
 		out = snprintf(line, LINE_LEN, "%08X:", ofs);
-		for (i = 0; ((ofs + i) < len) && (i < 16); i++)
-			out += snprintf(line+out, LINE_LEN - out, " %02X", (data[ofs+i] & 0xff));
-		for(; i <= 16; i++)
-			out += snprintf(line+out, LINE_LEN - out, " | ");
 		for(i = 0; (ofs < len) && (i < 16); i++, ofs++) {
 			unsigned char c = data[ofs];
 			if ( (c < ' ') || (c > '~'))
