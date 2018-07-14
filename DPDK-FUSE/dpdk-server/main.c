@@ -195,7 +195,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 	struct message *msg = (struct message *) &buf;
 	data+=ofs;
-	fprintf("msg: %s\n", data);
+	fprintf(f,"msg: %s\n", data);
 
 //	while (ofs < len) {
 //		/* format the line in the buffer, then use printf to output to screen */
