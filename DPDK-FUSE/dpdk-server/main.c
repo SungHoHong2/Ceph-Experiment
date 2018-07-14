@@ -242,6 +242,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = 0;
 	while (ofs < len) {
 		/* format the line in the buffer, then use printf to output to screen */
+		fprintf(f,"ofs: %d\n",ofs);
+
 		out = snprintf(line, LINE_LEN, "%08X:", ofs);
 		for (i = 0; ((ofs + i) < len) && (i < 16); i++)
 			out += snprintf(line+out, LINE_LEN - out, " %02X", (data[ofs+i] & 0xff));
@@ -286,8 +288,8 @@ dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int star
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
-			fprintf(f,"len: %d\n",len);
-			rte_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len);
+			fprintf(f,"dpdk_packet_hexdump len: %d\n",len);
+			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len);
 		}
 
 		dump_len -= len;
