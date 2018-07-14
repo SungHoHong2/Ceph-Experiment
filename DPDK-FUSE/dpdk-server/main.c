@@ -193,22 +193,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
 	ofs = start;
 
-	struct message *msg = (struct message *) &buf;
 	data+=ofs;
-	fprintf(f,"msg: %s\n", data);
-
-//	while (ofs < len) {
-//		/* format the line in the buffer, then use printf to output to screen */
-//		fprintf(f,"ofs: %d ::",ofs);
-//		out = snprintf(line, LINE_LEN, "%08X:", ofs);
-//		for(i = 0; (ofs < len) && (i < 16); i++, ofs++) {
-//			unsigned char c = data[ofs];
-//			if ( (c < ' ') || (c > '~'))
-//				c = '.';
-//			out += snprintf(line+out, LINE_LEN - out, "%c", c);
-//		}
-//		fprintf(f, "%s\n", line);
-//	}
+	struct message *msg = (struct message *) &data;
+	fprintf(f,"msg: %s\n", msg->data);
 	fflush(f);
 }
 
