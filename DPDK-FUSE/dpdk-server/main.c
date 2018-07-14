@@ -326,6 +326,8 @@ l2fwd_main_loop(void)
 
 				char *rtn;
 				rtn = rte_pktmbuf_mtod(m, char *); // points to the start of the data
+				rtn+=sizeof(struct ether_hdr);
+
 				if(rtn!=NULL) {
 					printf("rte_pktmbuf_mtod: %s\n", rtn);  // lenght of the offset: 456
 					rte_pktmbuf_dump(stdout, m, 1024);
