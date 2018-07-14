@@ -18,8 +18,12 @@ FILE *LOG_FD;
 int
 main(int argc, char *argv[])
 {
-    LOG_FD = stderr;
 
+
+    printf("MAIN BEGIN\n");
+    
+
+    LOG_FD = stderr;
     struct mcachefs_config *config;
 
     printf("mcachefs " __MCACHEFS_VERSION__ " starting up...\n");
