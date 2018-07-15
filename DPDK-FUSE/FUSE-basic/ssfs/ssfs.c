@@ -367,6 +367,7 @@ l2fwd_parse_args(int argc, char **argv)
         switch (opt) {
             /* portmask */
             case 'p':
+                printf("optarg: %s\n",optarg);
                 l2fwd_enabled_port_mask = l2fwd_parse_portmask(optarg);
                 if (l2fwd_enabled_port_mask == 0) {
                     printf("invalid portmask\n");
@@ -377,6 +378,7 @@ l2fwd_parse_args(int argc, char **argv)
 
                 /* nqueue */
             case 'q':
+                printf("optarg: %s\n",optarg);
                 l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue(optarg);
                 if (l2fwd_rx_queue_per_lcore == 0) {
                     printf("invalid queue number\n");
@@ -387,6 +389,7 @@ l2fwd_parse_args(int argc, char **argv)
 
                 /* timer period */
             case 'T':
+                printf("optarg: %s\n",optarg);
                 timer_secs = l2fwd_parse_timer_period(optarg);
                 if (timer_secs < 0) {
                     printf("invalid timer period\n");
