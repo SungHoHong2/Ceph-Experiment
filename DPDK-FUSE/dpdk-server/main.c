@@ -559,14 +559,14 @@ main(int argc, char **argv)
 //            NULL
 //    };
 
+    int dpdk_argc = 12;
 
-    for(j=0; j<argc; j++){
+    for(j=0; j<dpdk_argc; j++){
         printf("args[%d]=%s\n",j,*dpdk_argv);
         *dpdk_argv++;
     }
 
 
-    int dpdk_argc = 12;
 
 
 	/* init EAL */
