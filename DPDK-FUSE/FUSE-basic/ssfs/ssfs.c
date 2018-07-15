@@ -649,8 +649,35 @@ void *PrintHello(void *threadarg) {
         l2fwd_dst_ports[portid] = 0;
     last_port = 0;
 
+    /*
+     * Each logical core is assigned a dedicated TX queue on each port.
+     */
+    for (portid = 0; portid < nb_ports; portid++) {
+        /* skip ports that are not enabled */
+        if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
+            continue;
+
+        if (nb_ports_in_mask % 2) {
+            l2fwd_dst_ports[portid] = last_port;
+            l2fwd_dst_ports[last_port] = portid;
+        }
+        else
+            last_port = portid;
+
+        nb_ports_in_mask++;
+
+        rte_eth_dev_info_get(portid, &dev_info);
+    }
+    if (nb_ports_in_mask % 2) {
+        printf("Notice: odd number of ports in portmask.\n");
+        l2fwd_dst_ports[last_port] = last_port;
+    }
+
+    rx_lcore_id = 0;
+    qconf = NULL;
 
 
+    
 
 
     printf("DPDK END\n");
