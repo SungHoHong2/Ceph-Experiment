@@ -745,6 +745,17 @@ void *PrintHello(void *threadarg) {
     check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 
 
+    ret = 0;
+    /* launch per-lcore init on every lcore */
+    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
+    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+        if (rte_eal_wait_lcore(lcore_id) < 0) {
+            ret = -1;
+            break;
+        }
+    }
+    
+
     printf("DPDK END\n");
 }
 
@@ -756,7 +767,7 @@ int main( int argc, char **argv )
     struct thread_data td[2];
     td[0].c = argc;
     td[0].v = argv;
-     int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
+    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
