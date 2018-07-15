@@ -381,7 +381,7 @@ l2fwd_parse_args(int argc, char **argv)
                 /* nqueue */
             case 'q':
                 printf("optarg: %s\n",optarg);
-                l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("0x1");
+                l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("1");
                 if (l2fwd_rx_queue_per_lcore == 0) {
                     printf("invalid queue number\n");
                     l2fwd_usage(prgname);
