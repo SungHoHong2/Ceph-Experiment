@@ -702,7 +702,82 @@ void *PrintHello(void *threadarg) {
 
     nb_ports_available = nb_ports;
 
+/* Initialise each port */
+    for (portid = 0; portid < nb_ports; portid++) {
+        /* skip ports that are not enabled */
+        if ((l2fwd_enabled_port_mask & (1 << portid)) == 0) {
+            printf("Skipping disabled port %u\n", (unsigned) portid);
+            nb_ports_available--;
+            continue;
+        }
+        /* init port */
+        printf("Initializing port %u... ", (unsigned) portid);
+        fflush(stdout);
+        ret = rte_eth_dev_configure(portid, 1, 1, &port_conf);
+        if (ret < 0)
+            rte_exit(EXIT_FAILURE, "Cannot configure device: err=%d, port=%u\n",
+                     ret, (unsigned) portid);
 
+        rte_eth_macaddr_get(portid,&l2fwd_ports_eth_addr[portid]);
+
+        /* init one RX queue */
+        fflush(stdout);
+        ret = rte_eth_rx_queue_setup(portid, 0, nb_rxd,
+                                     rte_eth_dev_socket_id(portid),
+                                     NULL,
+                                     l2fwd_pktmbuf_pool);
+        if (ret < 0)
+            rte_exit(EXIT_FAILURE, "rte_eth_rx_queue_setup:err=%d, port=%u\n",
+                     ret, (unsigned) portid);
+
+        /* init one TX queue on each port */
+        fflush(stdout);
+        ret = rte_eth_tx_queue_setup(portid, 0, nb_txd,
+                                     rte_eth_dev_socket_id(portid),
+                                     NULL);
+        if (ret < 0)
+            rte_exit(EXIT_FAILURE, "rte_eth_tx_queue_setup:err=%d, port=%u\n",
+                     ret, (unsigned) portid);
+
+        /* Initialize TX buffers */
+        tx_buffer[portid] = rte_zmalloc_socket("tx_buffer",
+                                               RTE_ETH_TX_BUFFER_SIZE(MAX_PKT_BURST), 0,
+                                               rte_eth_dev_socket_id(portid));
+        if (tx_buffer[portid] == NULL)
+            rte_exit(EXIT_FAILURE, "Cannot allocate buffer for tx on port %u\n",
+                     (unsigned) portid);
+
+        rte_eth_tx_buffer_init(tx_buffer[portid], MAX_PKT_BURST);
+
+        ret = rte_eth_tx_buffer_set_err_callback(tx_buffer[portid],
+                                                 rte_eth_tx_buffer_count_callback,
+                                                 &port_statistics[portid].dropped);
+        if (ret < 0)
+            rte_exit(EXIT_FAILURE, "Cannot set error callback for "
+                                   "tx buffer on port %u\n", (unsigned) portid);
+
+        /* Start device */
+        ret = rte_eth_dev_start(portid);
+        if (ret < 0)
+            rte_exit(EXIT_FAILURE, "rte_eth_dev_start:err=%d, port=%u\n",
+                     ret, (unsigned) portid);
+
+        printf("done: \n");
+
+        rte_eth_promiscuous_enable(portid);
+
+        printf("Port %u, MAC address: %02X:%02X:%02X:%02X:%02X:%02X\n\n",
+               (unsigned) portid,
+               l2fwd_ports_eth_addr[portid].addr_bytes[0],
+               l2fwd_ports_eth_addr[portid].addr_bytes[1],
+               l2fwd_ports_eth_addr[portid].addr_bytes[2],
+               l2fwd_ports_eth_addr[portid].addr_bytes[3],
+               l2fwd_ports_eth_addr[portid].addr_bytes[4],
+               l2fwd_ports_eth_addr[portid].addr_bytes[5]);
+
+        /* initialize port stats */
+        memset(&port_statistics, 0, sizeof(port_statistics));
+    }
 
 
     printf("DPDK END\n");
