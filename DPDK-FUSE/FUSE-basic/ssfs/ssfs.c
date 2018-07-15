@@ -145,7 +145,9 @@ void *PrintHello(void *threadarg)
 
     int argc = my_data->c;
     char **argv = my_data->v;
-    fuse_main( argc, argv, &operations, NULL );
+
+
+
 }
 
 
@@ -164,9 +166,8 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
     printf("AFTER Thread\n");
 
-
-
-
+    fuse_main( argc, argv, &operations, NULL );
+    
 
     printf("FUSE-DPDK END\n");
     return 0;
