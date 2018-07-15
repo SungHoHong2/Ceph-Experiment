@@ -779,6 +779,13 @@ void *PrintHello(void *threadarg) {
         memset(&port_statistics, 0, sizeof(port_statistics));
     }
 
+    if (!nb_ports_available) {
+        rte_exit(EXIT_FAILURE,
+                 "All available ports are disabled. Please set portmask.\n");
+    }
+
+    check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
+
 
     printf("DPDK END\n");
 }
