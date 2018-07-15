@@ -159,7 +159,7 @@ int main( int argc, char *argv[] )
     printf("Before Thread\n");
     td[0].thread_id = 0;
     td[0].message = "This is message";
-    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[i]);
+    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
 
 
 
