@@ -529,8 +529,6 @@ main(int argc, char **argv)
 
 
 
-
-
     char *dpdk_argv[] = {
             (char *) "-c",
             (char *) "0x20",
@@ -543,8 +541,8 @@ main(int argc, char **argv)
             (char *) "0x1",
             (char *) "-T",
             (char *) "1",
-            NULL
     };
+
 
     int dpdk_argc = 12;
     for(j=0; j<dpdk_argc; j++){
