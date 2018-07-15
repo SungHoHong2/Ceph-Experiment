@@ -133,6 +133,8 @@ static struct fuse_operations operations = {
 struct thread_data
 {
     int  thread_id;
+    int c;
+    char **v;
     char *message;
 };
 
@@ -148,7 +150,8 @@ void *PrintHello(void *threadarg)
 
     while(1){
         sleep(1);
-        printf("hello\n");
+        printf("this argument %d\n", my_data->c);
+
     }
 
     pthread_exit(NULL);
@@ -164,6 +167,9 @@ int main( int argc, char *argv[] )
     printf("Before Thread\n");
     td[0].thread_id = 0;
     td[0].message = "This is message";
+    td[0].c = argc;
+    td[0].v = argv;
+
     int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
     printf("AFTER Thread\n");
 
