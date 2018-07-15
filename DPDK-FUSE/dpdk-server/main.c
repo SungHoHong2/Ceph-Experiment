@@ -522,10 +522,10 @@ main(int argc, char **argv)
 	unsigned nb_ports_in_mask = 0;
 
     int j=0;
-//    for(j=0; j<argc; j++){
-//        printf("args[%d]=%s\n",j,*argv);
-//        *argv++;
-//    }
+    for(j=0; j<argc; j++){
+        printf("args[%d]=%s\n",j,*argv);
+        *argv++;
+    }
 
     int count = 12;
     char** dpdk_argv;
@@ -547,17 +547,17 @@ main(int argc, char **argv)
         dpdk_argv[11]="1";
 
 
-    int dpdk_argc = 1;
-    for(j=0; j<argc; j++){
-        printf("args[%d]=%s\n",j,*dpdk_argv);
-        *dpdk_argv++;
-    }
+//    int dpdk_argc = 1;
+//    for(j=0; j<argc; j++){
+//        printf("args[%d]=%s\n",j,*dpdk_argv);
+//        *dpdk_argv++;
+//    }
 
 
     printf("howdy?\n");
 
 	/* init EAL */
-	ret = rte_eal_init(argc, argv);
+	ret = rte_eal_init(argc, dpdk_argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
