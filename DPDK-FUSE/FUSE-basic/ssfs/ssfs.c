@@ -144,7 +144,7 @@ void *PrintHello(void *threadarg)
     my_data = (struct thread_data *) threadarg;
 
     int argc = my_data->c;
-    char *argv[] = my_data->v;
+    char **argv = my_data->v;
 
     while(1){
         sleep(1);
