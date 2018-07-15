@@ -528,20 +528,29 @@ main(int argc, char **argv)
     }
 
 
+    int count = 10;
+    char** dpdk_argv;
+    dpdk_argv = malloc(count * sizeof(char*));      // allocate the array to hold the pointer
+    for (size_t i = 0; i < count; i += 1)
+        dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
-    char *dpdk_argv[] = {
-            (char *) "-c",
-            (char *) "0x20",
-            (char *) "-n",
-            (char *) "4",
-            (char *) "--",
-            (char *) "-q",
-            (char *) "8",
-            (char *) "-p",
-            (char *) "0x1",
-            (char *) "-T",
-            (char *) "1",
-    };
+    dpdk_argv[0] = "-c";
+    dpdk_argv[0] = "-2";
+
+//
+//    char *dpdk_argv[] = {
+//            (char *) "-c",
+//            (char *) "0x20",
+//            (char *) "-n",
+//            (char *) "4",
+//            (char *) "--",
+//            (char *) "-q",
+//            (char *) "8",
+//            (char *) "-p",
+//            (char *) "0x1",
+//            (char *) "-T",
+//            (char *) "1",
+//    };
 
 
     int dpdk_argc = 12;
