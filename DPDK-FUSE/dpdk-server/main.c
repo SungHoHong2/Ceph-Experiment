@@ -523,7 +523,7 @@ main(int argc, char **argv)
 
     int j=0;
     for(j=0; j<argc; j++){
-        printf("args[%d]=%s\n",j,argv);
+        printf("args[%d]=%s\n",j,*argv);
     }
 
 
