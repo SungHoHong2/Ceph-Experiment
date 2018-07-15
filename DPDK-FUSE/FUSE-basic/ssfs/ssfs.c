@@ -145,16 +145,7 @@ void *PrintHello(void *threadarg)
 
     int argc = my_data->c;
     char **argv = my_data->v;
-
-    while(1){
-        sleep(1);
-        printf("this argument %d\n", argc);
-
-
-
-
-
-    }
+    fuse_main( argc, argv, &operations, NULL );
 }
 
 
@@ -176,7 +167,6 @@ int main( int argc, char **argv )
 
 
 
-    fuse_main( argc, argv, &operations, NULL );
 
     printf("FUSE-DPDK END\n");
     return 0;
