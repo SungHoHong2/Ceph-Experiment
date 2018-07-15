@@ -146,9 +146,9 @@ void *PrintHello(void *threadarg)
     int argc = my_data->c;
     char **argv = my_data->v;
 
-    sleep(3);
 
-
+    sleep(5);
+    
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
     int ret;
@@ -175,13 +175,23 @@ void *PrintHello(void *threadarg)
     };
 
     int dpdk_argc = 12;
-
     /* init EAL */
     ret = rte_eal_init(dpdk_argc, dpdk_argv);
     if (ret < 0)
         rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
     argc -= ret;
     argv += ret;
+
+}
+
+
+int main( int argc, char **argv )
+{
+    printf("FUSE-DPDK BEGIN\n");
+
+
+
+
 
     pthread_t threads[2];
     struct thread_data td[2];
@@ -190,16 +200,6 @@ void *PrintHello(void *threadarg)
     td[0].message = "This is message";
     td[0].c = argc;
     td[0].v = argv;
-    
-
-
-
-}
-
-
-int main( int argc, char **argv )
-{
-    printf("FUSE-DPDK BEGIN\n");
 
     int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
     printf("AFTER Thread\n");
