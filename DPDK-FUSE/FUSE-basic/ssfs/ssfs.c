@@ -713,9 +713,6 @@ void *PrintHello(void *threadarg) {
             continue;
         }
 
-
-
-
         /* init port */
         printf("Initializing port %u... ", (unsigned) portid);
         fflush(stdout);

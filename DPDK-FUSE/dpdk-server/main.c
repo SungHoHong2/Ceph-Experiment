@@ -521,8 +521,29 @@ main(int argc, char **argv)
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
 
+
+
+
+    char *dpdk_argv[] = {
+            (char *) "-c",
+            (char *) "0x20",
+            (char *) "-n",
+            (char *) "4",
+            (char *) "--",
+            (char *) "-q",
+            (char *) "8",
+            (char *) "-p",
+            (char *) "0x1",
+            (char *) "-T",
+            (char *) "1",
+            NULL
+    };
+
+    int dpdk_argc = 12;
+
+
 	/* init EAL */
-	ret = rte_eal_init(argc, argv);
+	ret = rte_eal_init(dpdk_argc, dpdk_argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
