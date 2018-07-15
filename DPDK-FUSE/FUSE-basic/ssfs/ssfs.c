@@ -148,12 +148,34 @@ void *PrintHello(void *threadarg)
 
 
 
+
+
 }
 
 
 int main( int argc, char **argv )
 {
     printf("FUSE-DPDK BEGIN\n");
+
+    struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_info dev_info;
+    int ret;
+    uint8_t nb_ports;
+    uint8_t nb_ports_available;
+    uint8_t portid, last_port;
+    unsigned lcore_id, rx_lcore_id;
+    unsigned nb_ports_in_mask = 0;
+
+    /* init EAL */
+    ret = rte_eal_init(argc, argv);
+    if (ret < 0)
+        rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
+    argc -= ret;
+    argv += ret;
+
+    
+
+
 
     pthread_t threads[2];
     struct thread_data td[2];
@@ -167,7 +189,7 @@ int main( int argc, char **argv )
     printf("AFTER Thread\n");
 
     fuse_main( argc, argv, &operations, NULL );
-    
+
 
     printf("FUSE-DPDK END\n");
     return 0;
