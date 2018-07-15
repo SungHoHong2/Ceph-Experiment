@@ -141,20 +141,20 @@ struct thread_data
 void *PrintHello(void *threadarg)
 {
     struct thread_data *my_data;
-
     my_data = (struct thread_data *) threadarg;
 
-//    cout << "Thread ID : " << my_data->thread_id ;
-//
-//    cout << " Message : " << my_data->message << endl;
+    int argc = my_data->c;
+    char *argv[] = my_data->v;
 
     while(1){
         sleep(1);
-        printf("this argument %d\n", my_data->c);
+        printf("this argument %d\n", argc);
+
+
+
+
 
     }
-
-    pthread_exit(NULL);
 }
 
 
