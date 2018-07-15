@@ -550,7 +550,7 @@ main(int argc, char **argv)
 
     int dpdk_argc = 1;
     for(j=0; j<argc; j++){
-        printf("args[%d]=%s\n",j,*argv);
+        printf("args[%d]=%s\n",j,*dpdk_argv);
         *dpdk_argv++;
     }
 
@@ -558,7 +558,7 @@ main(int argc, char **argv)
     printf("END\n");
 
 	/* init EAL */
-	ret = rte_eal_init(argc, dpdk_argv);
+	ret = rte_eal_init(argc, argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
