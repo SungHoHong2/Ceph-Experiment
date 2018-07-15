@@ -36,7 +36,8 @@ elif [ "$1" = "ssfs_client" ]
 then
   ls -l /mnt/ssd_cache/test
   cat /mnt/ssd_cache/test/client
-  sudo kill -9 `pidof ssfs`
+  umount -l ssd_cache/
+  sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
 
 
 elif [ "$1" = "ssfs_make_experiment" ]
