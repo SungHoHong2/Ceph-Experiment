@@ -596,22 +596,25 @@ void *PrintHello(void *threadarg) {
     unsigned nb_ports_in_mask = 0;
 
 
-    char *dpdk_argv[] = {
-            (char *) "-c",
-            (char *) "0x20",
-            (char *) "-n",
-            (char *) "4",
-            (char *) "--",
-            (char *) "-q",
-            (char *) "8",
-            (char *) "-p",
-            (char *) "0x1",
-            (char *) "-T",
-            (char *) "1",
-            NULL
-    };
-
     int dpdk_argc = 12;
+    char** dpdk_argv;
+    dpdk_argv = malloc(dpdk_argc * sizeof(char*));
+    for (size_t i = 0; i < dpdk_argc; i += 1)
+        dpdk_argv[i] = malloc(255 * sizeof(char));
+
+    dpdk_argv[0]="./sfss";
+    dpdk_argv[1]="-c";
+    dpdk_argv[2]="0x2";
+    dpdk_argv[3]="-n";
+    dpdk_argv[4]="4";
+    dpdk_argv[5]="--";
+    dpdk_argv[6]="-q";
+    dpdk_argv[7]="8";
+    dpdk_argv[8]="-p";
+    dpdk_argv[9]="0x1";
+    dpdk_argv[10]="-T";
+    dpdk_argv[11]="1";
+
     /* init EAL */
     ret = rte_eal_init(dpdk_argc, dpdk_argv);
     if (ret < 0)
