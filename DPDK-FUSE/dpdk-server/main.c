@@ -528,7 +528,7 @@ main(int argc, char **argv)
     }
 
 
-    char *dpdk_argv[12];
+    char **dpdk_argv;
     *dpdk_argv[0]="./ssfs";
     *dpdk_argv[1]="-c";
     *dpdk_argv[2]="0x20";
