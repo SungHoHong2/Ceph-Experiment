@@ -169,7 +169,7 @@ int main( int argc, char **argv )
 
     char *dpdk_argv[] = {
             (char*)"-c",
-            (char*)"0x2",
+            (char*)"0x20",
             (char*)"-n",
             (char*)"4",
             (char*)"--",
@@ -190,8 +190,6 @@ int main( int argc, char **argv )
         rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
     argc -= ret;
     argv += ret;
-
-
 
     pthread_t threads[2];
     struct thread_data td[2];
