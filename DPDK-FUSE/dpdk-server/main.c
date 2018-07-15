@@ -521,6 +521,10 @@ main(int argc, char **argv)
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
 
+    int j=0;
+    for(j=0; j<argc; j++){
+        printf("args[%d]=%s\n",j,*argv[j]);
+    }
 
 
 
