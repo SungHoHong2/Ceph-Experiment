@@ -574,8 +574,7 @@ struct thread_data
     char *message;
 };
 
-void *PrintHello(void *threadarg)
-{
+void *PrintHello(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 
@@ -598,17 +597,17 @@ void *PrintHello(void *threadarg)
 
 
     char *dpdk_argv[] = {
-            (char*)"-c",
-            (char*)"0x20",
-            (char*)"-n",
-            (char*)"4",
-            (char*)"--",
-            (char*)"-q",
-            (char*)"8",
-            (char*)"-p",
-            (char*)"0x1",
-            (char*)"-T",
-            (char*)"1",
+            (char *) "-c",
+            (char *) "0x20",
+            (char *) "-n",
+            (char *) "4",
+            (char *) "--",
+            (char *) "-q",
+            (char *) "8",
+            (char *) "-p",
+            (char *) "0x1",
+            (char *) "-T",
+            (char *) "1",
             NULL
     };
 
@@ -649,14 +648,9 @@ void *PrintHello(void *threadarg)
     for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
         l2fwd_dst_ports[portid] = 0;
     last_port = 0;
-
-
-
-
-
-
+    
     printf("DPDK END\n");
-
+}
 
 int main( int argc, char **argv )
 {
