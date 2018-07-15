@@ -142,9 +142,9 @@ void *PrintHello(void *threadarg)
 
     my_data = (struct thread_data *) threadarg;
 
-    cout << "Thread ID : " << my_data->thread_id ;
-
-    cout << " Message : " << my_data->message << endl;
+//    cout << "Thread ID : " << my_data->thread_id ;
+//
+//    cout << " Message : " << my_data->message << endl;
 
     pthread_exit(NULL);
 }
