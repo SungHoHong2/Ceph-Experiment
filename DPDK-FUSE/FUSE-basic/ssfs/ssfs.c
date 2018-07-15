@@ -155,17 +155,14 @@ int main( int argc, char *argv[] )
     printf("FUSE-DPDK BEGIN\n");
 
     pthread_t threads[2];
-    struct thread_data td[NUM_THREADS];
-
-    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[i]);
-
-    pthread_t thread_id;
+    struct thread_data td[2];
     printf("Before Thread\n");
     td[0].thread_id = 0;
     td[0].message = "This is message";
-    pthread_create(&thread_id, NULL, myThreadFun, NULL);
-    pthread_join(thread_id, NULL);
-    printf("After Thread\n");
+    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[i]);
+
+
+
 
 
 
