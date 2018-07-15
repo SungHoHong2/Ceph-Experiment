@@ -548,14 +548,14 @@ main(int argc, char **argv)
         dpdk_argv[11]="1";
 
 
-    int dpdk_argc = 11;
-    for(j=0; j<dpdk_argc; j++){
+    int dpdk_argc = 1;
+    for(j=0; j<argc; j++){
         printf("args[%d]=%s\n",j,*dpdk_argv);
         *dpdk_argv++;
     }
 
 	/* init EAL */
-	ret = rte_eal_init(dpdk_argc, dpdk_argv);
+	ret = rte_eal_init(argc, dpdk_argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
