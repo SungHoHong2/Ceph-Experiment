@@ -46,6 +46,7 @@ then
 
 elif [ "$1" = "ssfs_make_experiment" ]
 then
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs
 mkdir -p /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs/build
 make -C /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs/build -f /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs/Makefile \
 	S=/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs O=/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs/build SRCDIR=/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs
