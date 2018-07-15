@@ -132,5 +132,10 @@ static struct fuse_operations operations = {
 int main( int argc, char *argv[] )
 {
     printf("FUSE-DPDK BEGIN\n");
-    return fuse_main( argc, argv, &operations, NULL );
+
+    fuse_main( argc, argv, &operations, NULL );
+    
+    printf("FUSE-DPDK END\n");
+    return 0;
+
 }
