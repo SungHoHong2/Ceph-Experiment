@@ -664,7 +664,7 @@ int main( int argc, char **argv )
     struct thread_data td[2];
     td[0].c = argc;
     td[0].v = argv;
-    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
+    // int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
