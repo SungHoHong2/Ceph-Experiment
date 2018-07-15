@@ -363,7 +363,7 @@ l2fwd_parse_args(int argc, char **argv)
     l2fwd_enabled_port_mask = l2fwd_parse_portmask("8");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("0x1");
     timer_secs = l2fwd_parse_timer_period("1");
-    return 1;
+    return 0;
 }
 
 /* Check the link status of all ports in up to 9s, and print them finally */
