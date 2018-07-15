@@ -183,10 +183,43 @@ void *PrintHello(void *threadarg)
         rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
     argc -= ret;
     argv += ret;
-    
-    printf("DPDK END\n");
 
-}
+    force_quit = false;
+    signal(SIGINT, signal_handler);
+    signal(SIGTERM, signal_handler);
+
+    /* parse application arguments (after the EAL ones) */
+    ret = l2fwd_parse_args(argc, argv);
+    if (ret < 0)
+        rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
+
+    printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
+
+    /* convert to number of cycles */
+    timer_period *= rte_get_timer_hz();
+
+    /* create the mbuf pool */
+    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
+                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
+                                                 rte_socket_id());
+    if (l2fwd_pktmbuf_pool == NULL)
+        rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
+
+    nb_ports = rte_eth_dev_count();
+    if (nb_ports == 0)
+        rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
+
+    /* reset l2fwd_dst_ports */
+    for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
+        l2fwd_dst_ports[portid] = 0;
+    last_port = 0;
+
+
+
+
+
+
+    printf("DPDK END\n");
 
 
 int main( int argc, char **argv )
