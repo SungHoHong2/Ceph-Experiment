@@ -533,6 +533,7 @@ main(int argc, char **argv)
     for (size_t i = 0; i < count; i += 1)
         dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
+
         dpdk_argv[0]="./build/dpdk-server";
         dpdk_argv[1]="-c";
         dpdk_argv[2]="0x2";
@@ -547,14 +548,11 @@ main(int argc, char **argv)
         dpdk_argv[11]="1";
 
 
-    int dpdk_argc = 12;
+    int dpdk_argc = 11;
     for(j=0; j<dpdk_argc; j++){
         printf("args[%d]=%s\n",j,*dpdk_argv);
         *dpdk_argv++;
     }
-
-
-
 
 	/* init EAL */
 	ret = rte_eal_init(dpdk_argc, dpdk_argv);
