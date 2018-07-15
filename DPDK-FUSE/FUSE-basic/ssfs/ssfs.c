@@ -146,6 +146,11 @@ void *PrintHello(void *threadarg)
 //
 //    cout << " Message : " << my_data->message << endl;
 
+    while(1){
+        sleep(1);
+        printf("hello\n");
+    }
+
     pthread_exit(NULL);
 }
 
@@ -160,8 +165,7 @@ int main( int argc, char *argv[] )
     td[0].thread_id = 0;
     td[0].message = "This is message";
     int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
-
-
+    printf("AFTER Thread\n");
 
 
 
