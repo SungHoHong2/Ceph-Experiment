@@ -522,10 +522,10 @@ main(int argc, char **argv)
 	unsigned nb_ports_in_mask = 0;
 
     int j=0;
-    for(j=0; j<argc; j++){
-        printf("args[%d]=%s\n",j,*argv);
-        *argv++;
-    }
+//    for(j=0; j<argc; j++){
+//        printf("args[%d]=%s\n",j,*argv);
+//        *argv++;
+//    }
 
     int count = 12;
     char** dpdk_argv;
