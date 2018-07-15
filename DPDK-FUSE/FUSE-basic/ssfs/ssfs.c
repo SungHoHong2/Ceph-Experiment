@@ -129,12 +129,48 @@ static struct fuse_operations operations = {
         .read		= do_read,
 };
 
+
+struct thread_data
+{
+    int  thread_id;
+    char *message;
+};
+
+void *PrintHello(void *threadarg)
+{
+    struct thread_data *my_data;
+
+    my_data = (struct thread_data *) threadarg;
+
+    cout << "Thread ID : " << my_data->thread_id ;
+
+    cout << " Message : " << my_data->message << endl;
+
+    pthread_exit(NULL);
+}
+
+
 int main( int argc, char *argv[] )
 {
     printf("FUSE-DPDK BEGIN\n");
 
+    pthread_t threads[2];
+    struct thread_data td[NUM_THREADS];
+
+    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[i]);
+
+    pthread_t thread_id;
+    printf("Before Thread\n");
+    td[0].thread_id = 0;
+    td[0].message = "This is message";
+    pthread_create(&thread_id, NULL, myThreadFun, NULL);
+    pthread_join(thread_id, NULL);
+    printf("After Thread\n");
+
+
+
     fuse_main( argc, argv, &operations, NULL );
-    
+
     printf("FUSE-DPDK END\n");
     return 0;
 
