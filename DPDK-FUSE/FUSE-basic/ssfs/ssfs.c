@@ -158,7 +158,7 @@ void *PrintHello(void *threadarg)
 }
 
 
-int main( int argc, char *argv[] )
+int main( int argc, char **argv )
 {
     printf("FUSE-DPDK BEGIN\n");
 
