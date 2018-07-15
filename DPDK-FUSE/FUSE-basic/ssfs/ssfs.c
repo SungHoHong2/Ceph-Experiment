@@ -759,12 +759,7 @@ int main( int argc, char **argv )
      int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
 
     printf("FUSE BEGIN\n");
-    // fuse_main( argc, argv, &operations, NULL );
+    fuse_main( argc, argv, &operations, NULL );
     printf("FUSE END\n");
-
-
-    while(1){};
-
     return 0;
-
 }
