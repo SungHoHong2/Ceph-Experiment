@@ -534,23 +534,18 @@ main(int argc, char **argv)
     for (size_t i = 0; i < count; i += 1)
         dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
-    dpdk_argv[0] = "-c";
-    dpdk_argv[0] = "-2";
-
-//
-//    char *dpdk_argv[] = {
-//            (char *) "-c",
-//            (char *) "0x20",
-//            (char *) "-n",
-//            (char *) "4",
-//            (char *) "--",
-//            (char *) "-q",
-//            (char *) "8",
-//            (char *) "-p",
-//            (char *) "0x1",
-//            (char *) "-T",
-//            (char *) "1",
-//    };
+        dpdk_argv[0]="./build/dpdk-server";
+        dpdk_argv[1]="-c";
+        dpdk_argv[2]="0x2";
+        dpdk_argv[3]="-n";
+        dpdk_argv[4]="4";
+        dpdk_argv[5]="--";
+        dpdk_argv[6]="-q";
+        dpdk_argv[7]="8";
+        dpdk_argv[8]="-p";
+        dpdk_argv[9]="0x1";
+        dpdk_argv[10]="-T";
+        dpdk_argv[11]="1";
 
 
     int dpdk_argc = 12;
