@@ -538,7 +538,7 @@ main(int argc, char **argv)
     dpdk_argv[6]="-q";
     dpdk_argv[7]="8";
     dpdk_argv[8]="-p";
-    dpdk_argv[0]="0x1";
+    dpdk_argv[9]="0x1";
     dpdk_argv[10]="-T";
     dpdk_argv[11]="1";
 
@@ -561,7 +561,7 @@ main(int argc, char **argv)
 
     for(j=0; j<argc; j++){
         printf("args[%d]=%s\n",j,*dpdk_argv);
-        *argv++;
+        *dpdk_argv++;
     }
 
 
