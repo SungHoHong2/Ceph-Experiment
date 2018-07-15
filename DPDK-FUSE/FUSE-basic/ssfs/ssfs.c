@@ -627,7 +627,7 @@ void *PrintHello(void *threadarg) {
     signal(SIGTERM, signal_handler);
 
     /* parse application arguments (after the EAL ones) */
-    ret = l2fwd_parse_args(argc, argv);
+    ret = l2fwd_parse_args(dpdk_argc, dpdk_argv);
     if (ret < 0)
         rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
 
