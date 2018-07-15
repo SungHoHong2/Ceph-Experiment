@@ -554,7 +554,7 @@ main(int argc, char **argv)
 //    }
 
 
-    printf("howdy?\n");
+    printf("END\n");
 
 	/* init EAL */
 	ret = rte_eal_init(argc, dpdk_argv);
