@@ -533,7 +533,6 @@ main(int argc, char **argv)
     for (size_t i = 0; i < count; i += 1)
         dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
-
         dpdk_argv[0]="./build/dpdk-server";
         dpdk_argv[1]="-c";
         dpdk_argv[2]="0x2";
@@ -555,7 +554,7 @@ main(int argc, char **argv)
     }
 
 	/* init EAL */
-	ret = rte_eal_init(argc, dpdk_argv);
+	ret = rte_eal_init(argc, argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
