@@ -584,7 +584,7 @@ void *PrintHello(void *threadarg) {
     int argc = my_data->c;
     char **argv = my_data->v;
 
-    sleep(5);
+    sleep(10);
 
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
