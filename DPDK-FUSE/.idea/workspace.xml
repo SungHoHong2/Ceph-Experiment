@@ -28,11 +28,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="266">
+              <caret line="14" column="56" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dpdk_log" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/dpdk_log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -41,7 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pkt_len</find>
       <find>test_m</find>
       <find>print_stats</find>
       <find>strlen</find>
@@ -71,6 +79,7 @@
       <find>mcachefs_oper</find>
       <find>mcachefs_read</find>
       <find>fuse_main_real</find>
+      <find>-I/usr/include/fuse</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -104,6 +113,7 @@
         <option value="$PROJECT_DIR$/FUSE-basic/mcachefs/mcachefs-lowlevel.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs/Makefile" />
+        <option value="$PROJECT_DIR$/FUSE-basic/ssfs/dpdk_log" />
       </list>
     </option>
   </component>
@@ -203,12 +213,12 @@
       <workItem from="1531349654941" duration="1503000" />
       <workItem from="1531416050810" duration="6474000" />
       <workItem from="1531502171702" duration="20831000" />
-      <workItem from="1531594117953" duration="11078000" />
+      <workItem from="1531594117953" duration="11255000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39886000" />
+    <option name="totallyTimeSpent" value="40063000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -244,13 +254,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/multi_process/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_process/simple_mp/main.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2698">
@@ -582,8 +585,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        <state relative-caret-position="266">
+          <caret line="14" column="56" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/dpdk_log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
         </state>
       </provider>
     </entry>
