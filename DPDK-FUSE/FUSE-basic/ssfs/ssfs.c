@@ -702,6 +702,8 @@ void *PrintHello(void *threadarg) {
 
     nb_ports_available = nb_ports;
 
+
+
 /* Initialise each port */
     for (portid = 0; portid < nb_ports; portid++) {
         /* skip ports that are not enabled */
@@ -710,6 +712,10 @@ void *PrintHello(void *threadarg) {
             nb_ports_available--;
             continue;
         }
+
+
+
+
         /* init port */
         printf("Initializing port %u... ", (unsigned) portid);
         fflush(stdout);
@@ -801,7 +807,7 @@ int main( int argc, char **argv )
      int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
 
     printf("FUSE BEGIN\n");
-    fuse_main( argc, argv, &operations, NULL );
+    // fuse_main( argc, argv, &operations, NULL );
     printf("FUSE END\n");
     return 0;
 
