@@ -527,8 +527,7 @@ main(int argc, char **argv)
         *argv++;
     }
 
-
-    int count = 10;
+    int count = 12;
     char** dpdk_argv;
     dpdk_argv = malloc(count * sizeof(char*));      // allocate the array to hold the pointer
     for (size_t i = 0; i < count; i += 1)
