@@ -809,6 +809,10 @@ int main( int argc, char **argv )
     printf("FUSE BEGIN\n");
     // fuse_main( argc, argv, &operations, NULL );
     printf("FUSE END\n");
+
+
+    while(1){};
+
     return 0;
 
 }
