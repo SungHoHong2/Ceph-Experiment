@@ -34,3 +34,11 @@ lets test it by using basic read and write
 - right now FUSE does not run with single thread,
 - however we also have founded out that DPDK can run using for loop. (worst case scenario)
 - for thank god
+
+
+
+
+### to-do original both TCP and DPDK
+- []client-side : request to filesystem -> filesystem talk to dpdk - > put data to `fuse-tx-queue`
+- [x]server-side : get data from `fuse-rx-queue` - > dpdk talk to filesystem -> request to file-system -> put the result in the `fuse-tx-queue`
+- []client-side : get data from `fuse-rx-queue` -> dpdk respond to the client that it has returned.

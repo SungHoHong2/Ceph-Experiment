@@ -46,11 +46,21 @@
 #include <rte_ethdev.h>
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
-
+#include <sys/queue.h>
 
 struct message {
     char data[1024];
 };
+
+struct fuse_message
+{
+    struct message *msg;
+    TAILQ_ENTRY(node) nodes;
+};
+
+TAILQ_HEAD(head_s, fuse_message) fuse_tx_queue;
+TAILQ_HEAD(head_s, fuse_message) fuse_rx_queue;
+
 
 static volatile bool force_quit;
 
@@ -109,18 +119,6 @@ static const struct rte_eth_conf port_conf = {
 };
 
 struct rte_mempool * l2fwd_pktmbuf_pool = NULL;
-
-/* Per-port statistics struct */
-struct l2fwd_port_statistics {
-    uint64_t tx;
-    uint64_t rx;
-    uint64_t dropped;
-} __rte_cache_aligned;
-struct l2fwd_port_statistics port_statistics[RTE_MAX_ETHPORTS];
-
-#define MAX_TIMER_PERIOD 86400 /* 1 day max */
-/* A tsc-based timer responsible for triggering statistics printout */
-static uint64_t timer_period = 10; /* default period is 10 seconds */
 
 static void
 l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
@@ -191,8 +189,6 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     }
 }
 
-
-
 /* main processing loop */
 static void
 l2fwd_main_loop(void)
@@ -261,20 +257,6 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
     return 0;
 }
 
-/* display usage */
-static void
-l2fwd_usage(const char *prgname)
-{
-    printf("%s [EAL options] -- -p PORTMASK [-q NQ]\n"
-           "  -p PORTMASK: hexadecimal bitmask of ports to configure\n"
-           "  -q NQ: number of queue (=ports) per lcore (default is 1)\n"
-           "  -T PERIOD: statistics will be refreshed each PERIOD seconds (0 to disable, 10 default, 86400 maximum)\n"
-           "  --[no-]mac-updating: Enable or disable MAC addresses updating (enabled by default)\n"
-           "      When enabled:\n"
-           "       - The source MAC address is replaced by the TX port MAC address\n"
-           "       - The destination MAC address is replaced by 02:00:00:00:00:TX_PORT_ID\n",
-           prgname);
-}
 
 static int
 l2fwd_parse_portmask(const char *portmask)
@@ -481,13 +463,11 @@ static struct fuse_operations operations = {
 
 struct thread_data
 {
-    int  thread_id;
     int c;
     char **v;
-    char *message;
 };
 
-void *PrintHello(void *threadarg) {
+void *dpdk_msg_launch(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 
@@ -546,8 +526,7 @@ void *PrintHello(void *threadarg) {
 
     printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
 
-    /* convert to number of cycles */
-    timer_period *= rte_get_timer_hz();
+
 
     /* create the mbuf pool */
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
@@ -720,15 +699,53 @@ void *PrintHello(void *threadarg) {
     printf("DPDK END\n");
 }
 
+
+void *fuse_tx_launch(void *threadarg) {
+
+    printf("FUSE-TX BEGIN\n");
+    struct fuse_message * e = NULL;
+    while (!TAILQ_EMPTY(&fuse_tx_queue))
+    {
+        e = TAILQ_FIRST(&fuse_tx_queue);
+        printf("%s\n", e->message);
+        TAILQ_REMOVE(&head, e, nodes);
+        free(e);
+        e = NULL;
+    }
+}
+
+
+
+void *fuse_rx_launch(void *threadarg) {
+
+    printf("FUSE-RX BEGIN\n");
+    struct fuse_message * e = NULL;
+    while (!TAILQ_EMPTY(&fuse_rx_queue))
+    {
+        e = TAILQ_FIRST(&fuse_rx_queue);
+        printf("%s\n", e->message);
+        TAILQ_REMOVE(&head, e, nodes);
+        free(e);
+        e = NULL;
+    }
+}
+
+
+
 int main( int argc, char **argv )
 {
-    printf("FUSE-DPDK BEGIN\n");
 
-    pthread_t threads[2];
-    struct thread_data td[2];
+    TAILQ_INIT(&fuse_tx_queue);
+    TAILQ_INIT(&fuse_rx_queue);
+
+    printf("FUSE-DPDK BEGIN\n");
+    pthread_t threads[3];
+    struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
-    int rc = pthread_create(&threads[0], NULL, PrintHello, (void *)&td[0]);
+    int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
+        rc = pthread_create(&threads[1], NULL, fuse_tx_launch, (void *)&td[1]);
+        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, (void *)&td[2]);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
