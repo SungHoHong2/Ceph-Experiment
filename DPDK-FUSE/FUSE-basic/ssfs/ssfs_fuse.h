@@ -80,6 +80,15 @@ void *fuse_tx_launch(void *threadarg) {
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
+
+
+        sleep(1);
+
+        struct fuse_message * e = NULL;
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, "howdy");
+        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+
     }
 }
 
