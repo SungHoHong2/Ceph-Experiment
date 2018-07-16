@@ -110,16 +110,13 @@ void *fuse_rx_launch() {
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
-//            file = fopen("/mnt/ssd_cache/test/client", "r");
-//            if (file) {
-//                while ((c = getc(file)) != EOF)
-//                    printf("%c",(char)c);
-//                fclose(file);
-//            }
-
+            file = fopen("/mnt/ssd_cache/test/client", "r");
+            if (file) {
+                while ((c = getc(file)) != EOF)
+                    printf("%c",(char)c);
+                fclose(file);
+            }
         }
-
-
         pthread_mutex_unlock(&rx_lock);
     }
 }
