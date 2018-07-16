@@ -83,7 +83,7 @@ int main(){
     struct thread_data td[3];
 
     printf("??\n");
-    int rc = pthread_create(&threads[0], NULL, fuse_tx_launch, (void *)&td[10);
+    int rc = pthread_create(&threads[0], NULL, fuse_tx_launch, (void *)&td[10]);
     printf("??\n");
     rc = pthread_create(&threads[1], NULL, fuse_rx_launch, (void *)&td[1]);
 
