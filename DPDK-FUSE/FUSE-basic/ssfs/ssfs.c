@@ -69,19 +69,19 @@ void *fuse_tx_launch() {
 
 void *fuse_rx_launch() {
 
-    printf("FUSE-RX BEGIN\n");
-    struct fuse_message * e = NULL;
-    while(1) {
-        pthread_mutex_lock(&rx_lock);
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("recv msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&rx_lock);
-    }
+//    printf("FUSE-RX BEGIN\n");
+//    struct fuse_message * e = NULL;
+//    while(1) {
+//        pthread_mutex_lock(&rx_lock);
+//        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+//            e = TAILQ_FIRST(&fuse_rx_queue);
+//            printf("recv msg in FUSE: %s\n", e->data);
+//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+//            free(e);
+//            e = NULL;
+//        }
+//        pthread_mutex_unlock(&rx_lock);
+//    }
 }
 
 
