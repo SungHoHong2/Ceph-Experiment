@@ -42,7 +42,7 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
 
 static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 {
-    printf( "--> Trying to read %s, %u, %u\n", path, offset, size );
+    printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
 
     char client[] = "Hello World From CLIENT!\n";
     char server[] = "Hello World From SERVER!\n";
@@ -75,20 +75,20 @@ void *fuse_tx_launch(void *threadarg) {
     struct fuse_message * e = NULL;
 
     while(1) {
+
+        sleep(1);
+        struct fuse_message *e = NULL;
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, "howdy");
+        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+
+
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             free(e);
             e = NULL;
-
-            sleep(1);
-
-            struct fuse_message *e = NULL;
-            e = malloc(sizeof(struct fuse_message));
-            strcpy(e->data, "howdy");
-            TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-
         }
     }
 
