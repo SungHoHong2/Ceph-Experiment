@@ -94,18 +94,18 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
+
+        struct message *msg =&obj;
+        data = rte_pktmbuf_append(m, sizeof(struct message));
+
+        if (data != NULL)
+            rte_memcpy(data, msg, sizeof(struct message));
+
+        if (mac_updating)
+            l2fwd_mac_updating(m, dst_port);
     }
     pthread_mutex_unlock(&tx_lock);
 
-
-    struct message *msg =&obj;
-    data = rte_pktmbuf_append(m, sizeof(struct message));
-
-    if (data != NULL)
-        rte_memcpy(data, msg, sizeof(struct message));
-
-    if (mac_updating)
-        l2fwd_mac_updating(m, dst_port);
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
