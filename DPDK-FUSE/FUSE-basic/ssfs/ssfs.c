@@ -55,7 +55,7 @@ struct message {
 struct fuse_message
 {
     struct message *msg;
-    TAILQ_ENTRY(node) nodes;
+    TAILQ_ENTRY(fuse_message) nodes;
 };
 
 TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
