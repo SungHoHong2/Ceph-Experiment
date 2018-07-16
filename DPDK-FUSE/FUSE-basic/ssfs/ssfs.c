@@ -68,7 +68,6 @@ void *fuse_tx_launch() {
 
         pthread_mutex_lock(&tx_lock);
 
-        printf("sending queues\n");
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, "howdy");
@@ -95,8 +94,6 @@ void *fuse_rx_launch() {
 
     struct fuse_message * e = NULL;
     while(1) {
-        printf("checking recv queues\n");
-
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
