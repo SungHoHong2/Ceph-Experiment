@@ -60,7 +60,8 @@ TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
 TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 
 
-void *fuse_tx_launch(void *threadarg) {
+void *fuse_tx_launch() {
+    printf("FUSE-TX BEGIN\n");
     while(1) {
         sleep(1);
          printf("sending data man?\n");
@@ -80,7 +81,7 @@ void *fuse_tx_launch(void *threadarg) {
 }
 
 
-void *fuse_rx_launch(void *threadarg) {
+void *fuse_rx_launch() {
 
     printf("FUSE-RX BEGIN\n");
 
@@ -112,8 +113,8 @@ int main( int argc, char **argv )
     td[0].c = argc;
     td[0].v = argv;
     int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
-        rc = pthread_create(&threads[1], NULL, fuse_tx_launch, (void *)&td[1]);
-        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, (void *)&td[2]);
+        rc = pthread_create(&threads[1], NULL, fuse_tx_launch, NULL);
+        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
