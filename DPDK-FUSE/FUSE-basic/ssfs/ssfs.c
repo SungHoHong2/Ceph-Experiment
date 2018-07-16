@@ -91,7 +91,7 @@ void *fuse_rx_launch() {
 
     struct fuse_message * e = NULL;
     while(1) {
-
+        sleep(1);
         printf("checking recv queues\n");
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
