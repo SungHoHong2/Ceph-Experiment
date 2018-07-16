@@ -97,8 +97,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     ofs = start;
     data+=ofs;
     struct message *msg = (struct message *) data;
-    fprintf(f,"recv msg in DPDK: %s\n", msg->data);
-
+    // fprintf(f,"recv msg in DPDK: %s\n", msg->data);
 
     pthread_mutex_lock(&rx_lock);
     struct fuse_message * e = NULL;
@@ -106,8 +105,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     strcpy(e->data, msg->data);
     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
     pthread_mutex_unlock(&rx_lock);
-
-
+    
     fflush(f);
 }
 
