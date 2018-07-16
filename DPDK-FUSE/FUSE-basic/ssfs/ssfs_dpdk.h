@@ -106,7 +106,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message * e = NULL;
     e = malloc(sizeof(struct fuse_message));
     strcpy(e->data, msg->data);
-    TAILQ_INSERT_TAIL(&rx_head, e, nodes);
+    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
     fflush(f);
 }
 
