@@ -91,6 +91,7 @@ void *fuse_rx_launch() {
     struct fuse_message * e = NULL;
     FILE * file;
     char *buffer = NULL;
+    int rtn;
 
     while(1) {
         int c;
@@ -108,7 +109,7 @@ void *fuse_rx_launch() {
 //                    printf("%c",(char)c);
 
                 buffer = (char*) malloc(sizeof(char) * 1024 );
-                fread(buffer, sizeof(char), 1024, file);
+                rtn = fread(buffer, sizeof(char), 1024, file);
                 printf("%s",buffer);
 
 
