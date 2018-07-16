@@ -31,14 +31,12 @@ elif [ "$1" = "ssfs_setup" ]
 then
   umount -l /mnt/ssd_cache
   sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
-  mkdir /mnt/ssd_cache/test
+  # mkdir /mnt/ssd_cache/test
 
 elif [ "$1" = "ssfs_client" ]
 then
   ls -l /mnt/ssd_cache/test
   cat /mnt/ssd_cache/test/client
-  # umount -l ssd_cache/
-  # sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
 
 elif [ "$1" = "ssfs_make_experiment" ]
 then
