@@ -58,19 +58,18 @@ struct fuse_message
 
 TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
 TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
+pthread_mutex_t rx_lock;
 
 
 void *fuse_tx_launch() {
     printf("FUSE-TX BEGIN\n");
     while(1) {
-
         sleep(1);
         printf("sending queues\n");
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, "howdy");
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-
 
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
@@ -91,8 +90,9 @@ void *fuse_rx_launch() {
 
     struct fuse_message * e = NULL;
     while(1) {
-        sleep(1);
         printf("checking recv queues\n");
+
+        pthread_mutex_lock(&lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             printf("recv msg in FUSE: %s\n", e->data);
@@ -100,6 +100,8 @@ void *fuse_rx_launch() {
             free(e);
             e = NULL;
         }
+        pthread_mutex_unlock(&rx_lock);
+
     }
 }
 
@@ -114,32 +116,10 @@ int main( int argc, char **argv )
     TAILQ_INIT(&fuse_rx_queue);
 
 
-//    struct fuse_message *e = NULL;
-//    e = malloc(sizeof(struct fuse_message));
-//    strcpy(e->data, "howdy");
-//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//
-//    e = malloc(sizeof(struct fuse_message));
-//    strcpy(e->data, "howdy");
-//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//
-//
-//    e = malloc(sizeof(struct fuse_message));
-//    strcpy(e->data, "howdy");
-//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//
-//
-//    e = malloc(sizeof(struct fuse_message));
-//    strcpy(e->data, "howdy");
-//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//
-//    while (!TAILQ_EMPTY(&fuse_rx_queue)) {
-//            e = TAILQ_FIRST(&fuse_rx_queue);
-//            printf("recv msg in FUSE: %s\n", e->data);
-//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-//            free(e);
-//            e = NULL;
-//        }
+    if (pthread_mutex_init(&rx_lock, NULL) != 0) {
+        printf("\n mutex init has failed\n");
+        return 1;
+    }
 
     printf("FUSE-DPDK BEGIN\n");
     pthread_t threads[3];
