@@ -108,7 +108,7 @@ void *fuse_rx_launch() {
 //                    printf("%c",(char)c);
 
                 buffer = (char*) malloc(sizeof(char) * 1024 );
-                read_size = fread(buffer, sizeof(char), 1024, file);
+                fread(buffer, sizeof(char), 1024, file);
                 printf("%s",buffer);
 
 
