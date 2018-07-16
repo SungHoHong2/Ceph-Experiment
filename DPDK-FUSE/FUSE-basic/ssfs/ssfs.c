@@ -52,19 +52,19 @@
 
 
 void *fuse_tx_launch() {
-    printf("FUSE-TX BEGIN\n");
-    while(1) {
-        pthread_mutex_lock(&tx_lock);
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&tx_lock);
-    }
-}
+//    printf("FUSE-TX BEGIN\n");
+//    while(1) {
+//        pthread_mutex_lock(&tx_lock);
+//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//            e = TAILQ_FIRST(&fuse_tx_queue);
+//            printf("send msg in FUSE: %s\n", e->data);
+//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//            free(e);
+//            e = NULL;
+//        }
+//        pthread_mutex_unlock(&tx_lock);
+//    }
+//}
 
 
 void *fuse_rx_launch() {
@@ -83,7 +83,6 @@ void *fuse_rx_launch() {
         pthread_mutex_unlock(&rx_lock);
     }
 }
-
 
 
 
