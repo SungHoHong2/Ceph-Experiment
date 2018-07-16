@@ -545,7 +545,7 @@ void *dpdk_msg_launch(void *threadarg) {
 
         printf("done: \n");
 
-        rte_eth_promiscuous_enable(portid);
+        // rte_eth_promiscuous_enable(portid);
 
         printf("Port %u, MAC address: %02X:%02X:%02X:%02X:%02X:%02X\n\n",
                (unsigned) portid,
