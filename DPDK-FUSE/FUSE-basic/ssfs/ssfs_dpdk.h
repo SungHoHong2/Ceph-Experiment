@@ -88,12 +88,11 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         l2fwd_mac_updating(m, dst_port);
     buffer = tx_buffer[dst_port];
 
-
-
+    
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("send msg in FUSE: %s\n", e->data);
+        printf("send msg in DPDK: %s\n", e->data);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
