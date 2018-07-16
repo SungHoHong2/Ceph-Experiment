@@ -45,4 +45,3 @@ lets test it by using basic read and write
 
 - running DPDK first creates error in FUSE
 - separate memory is not allowed when we use DPDK.
--

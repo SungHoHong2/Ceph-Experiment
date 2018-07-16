@@ -97,7 +97,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     }
     pthread_mutex_unlock(&tx_lock);
 
-    
+
     struct message *msg =&obj;
     data = rte_pktmbuf_append(m, sizeof(struct message));
 
