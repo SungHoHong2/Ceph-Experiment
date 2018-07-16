@@ -203,7 +203,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	unsigned int ofs;
 	const unsigned char *data = buf;
 	ofs = start;
-	data+=ofs;msg = (struct message *) data;
+	data+=ofs;
+	struct message *msg = (struct message *) data;
 	fprintf(f,"recv msg: %s\n", msg->data);
 	fflush(f);
 }
