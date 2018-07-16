@@ -49,8 +49,8 @@
       <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/ssfs_dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="95" column="17" lean-forward="true" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+            <state relative-caret-position="336">
+              <caret line="36" column="23" lean-forward="true" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -187,12 +187,6 @@
               <item name="FUSE-basic" type="462c0819:PsiDirectoryNode" />
               <item name="ssfs" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
-              <item name="FUSE-basic" type="462c0819:PsiDirectoryNode" />
-              <item name="ssfs_org" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -248,21 +242,20 @@
       <workItem from="1531416050810" duration="6474000" />
       <workItem from="1531502171702" duration="20831000" />
       <workItem from="1531594117953" duration="21414000" />
-      <workItem from="1531683293935" duration="13087000" />
+      <workItem from="1531683293935" duration="13382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63309000" />
+    <option name="totallyTimeSpent" value="63604000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18802084" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32976654" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -617,8 +610,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="95" column="17" lean-forward="true" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+        <state relative-caret-position="336">
+          <caret line="36" column="23" lean-forward="true" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
         </state>
       </provider>
     </entry>
