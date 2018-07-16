@@ -64,7 +64,7 @@ void *fuse_tx_launch() {
 //        }
 //        pthread_mutex_unlock(&tx_lock);
 //    }
-//}
+}
 
 
 void *fuse_rx_launch() {
