@@ -665,8 +665,6 @@ void *dpdk_msg_launch(void *threadarg) {
                l2fwd_ports_eth_addr[portid].addr_bytes[4],
                l2fwd_ports_eth_addr[portid].addr_bytes[5]);
 
-        /* initialize port stats */
-        memset(&port_statistics, 0, sizeof(port_statistics));
     }
 
     if (!nb_ports_available) {
@@ -699,7 +697,7 @@ void *fuse_tx_launch(void *threadarg) {
     while (!TAILQ_EMPTY(&fuse_tx_queue))
     {
         e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("%s\n", e->msg);
+        printf("%s\n", e->msg->message);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
@@ -715,7 +713,7 @@ void *fuse_rx_launch(void *threadarg) {
     while (!TAILQ_EMPTY(&fuse_rx_queue))
     {
         e = TAILQ_FIRST(&fuse_rx_queue);
-        printf("%s\n", e->msg);
+        printf("%s\n", e->msg->message);
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
         free(e);
         e = NULL;
