@@ -22,8 +22,8 @@
       <file leaf-file-name="test2.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/queue/test2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="846">
-              <caret line="90" column="1" lean-forward="true" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="1" />
+            <state relative-caret-position="784">
+              <caret line="87" column="71" lean-forward="true" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -251,12 +251,12 @@
       <workItem from="1531416050810" duration="6474000" />
       <workItem from="1531502171702" duration="20831000" />
       <workItem from="1531594117953" duration="21414000" />
-      <workItem from="1531683293935" duration="6338000" />
+      <workItem from="1531683293935" duration="6498000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56560000" />
+    <option name="totallyTimeSpent" value="56720000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -620,8 +620,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/queue/test2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="846">
-          <caret line="90" column="1" lean-forward="true" selection-start-line="90" selection-start-column="1" selection-end-line="90" selection-end-column="1" />
+        <state relative-caret-position="784">
+          <caret line="87" column="71" lean-forward="true" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
         </state>
       </provider>
     </entry>
