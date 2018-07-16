@@ -97,12 +97,16 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     ofs = start;
     data+=ofs;
     struct message *msg = (struct message *) data;
-    fprintf(f,"recv msg: %s\n", msg->data);
+    fprintf(f,"recv msg in DPDK: %s\n", msg->data);
 
-    char testbuff[1024];
-    strcpy(testbuff,msg->data);
-    fprintf(f,"copied recv msg: %s\n", testbuff);
+    //  char testbuff[1024];
+    //  strcpy(testbuff,msg->data);
+    //  fprintf(f,"copied recv msg: %s\n", testbuff);
 
+    struct fuse_message * e = NULL;
+    e = malloc(sizeof(struct fuse_message));
+    strcpy(e->data, msg->data);
+    TAILQ_INSERT_TAIL(&rx_head, e, nodes);
     fflush(f);
 }
 

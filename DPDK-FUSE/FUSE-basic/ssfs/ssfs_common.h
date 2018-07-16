@@ -4,7 +4,7 @@ struct message {
 
 struct fuse_message
 {
-    struct message *msg;
+    char data[1024];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 

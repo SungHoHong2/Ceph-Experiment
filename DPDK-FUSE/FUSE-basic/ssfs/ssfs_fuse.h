@@ -76,7 +76,7 @@ void *fuse_tx_launch(void *threadarg) {
     while (!TAILQ_EMPTY(&fuse_tx_queue))
     {
         e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("%s\n", e->msg->data);
+        printf("send msg in FUSE: %s\n", e->data);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
@@ -92,7 +92,7 @@ void *fuse_rx_launch(void *threadarg) {
     while (!TAILQ_EMPTY(&fuse_rx_queue))
     {
         e = TAILQ_FIRST(&fuse_rx_queue);
-        printf("%s\n", e->msg->data);
+        printf("recv msg in FUSE: %s\n", e->data);
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
         free(e);
         e = NULL;
