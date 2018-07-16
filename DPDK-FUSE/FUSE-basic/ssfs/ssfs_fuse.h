@@ -90,6 +90,7 @@ void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
     FILE * file;
+    char *buffer = NULL;
 
     while(1) {
         int c;
@@ -103,10 +104,25 @@ void *fuse_rx_launch() {
             e = NULL;
             file = fopen("/mnt/ssd_cache/test/server", "r");
             if (file) {
-                while ((c = getc(file)) != EOF)
-                    printf("%c",(char)c);
+//                while ((c = getc(file)) != EOF)
+//                    printf("%c",(char)c);
+
+                buffer = (char*) malloc(sizeof(char) * 1024 );
+                read_size = fread(buffer, sizeof(char), 1024, file);
+                printf("%s",buffer);
+
+
                 fclose(file);
             }
+
+//            pthread_mutex_lock(&tx_lock);
+//            e = malloc(sizeof(struct fuse_message));
+//            strcpy(e->data, msg->data);
+//            TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+//            pthread_mutex_unlock(&tx_lock);
+
+
+
         }
         pthread_mutex_unlock(&rx_lock);
     }
