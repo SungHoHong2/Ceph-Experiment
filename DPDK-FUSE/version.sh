@@ -29,9 +29,16 @@ then
 # RUNNING THE FUSE-DPDK BEGN
 elif [ "$1" = "ssfs_setup" ]
 then
+  if [ "$HOSTS" = "w1" ]
+  then
   umount -l /mnt/ssd_cache
   sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
   # mkdir /mnt/ssd_cache/test
+  elif [ "$HOSTS" = "w2" ]
+  then
+  umount -l /mnt/ssd_cache
+  sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
+  fi
 
 elif [ "$1" = "ssfs_client" ]
 then
