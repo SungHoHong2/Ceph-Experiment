@@ -81,7 +81,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     int sent;
     struct rte_eth_dev_tx_buffer *buffer;
     struct fuse_message * e = NULL;
-
+    char* data;
+    struct message obj;
     dst_port = l2fwd_dst_ports[portid];
 
 
@@ -89,18 +90,14 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
         printf("send msg in DPDK: %s\n", e->data);
+        strncpy(obj.data, e->data, 100);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
     }
     pthread_mutex_unlock(&tx_lock);
 
-
-
-    char* data;
-    struct message obj;
-    strncpy(obj.data, "discodsicodiscodsicodisco!!!", 100);
-
+    
     struct message *msg =&obj;
     data = rte_pktmbuf_append(m, sizeof(struct message));
 

@@ -203,8 +203,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	unsigned int ofs;
 	const unsigned char *data = buf;
 	ofs = start;
-	data+=ofs;
-	struct message *msg = (struct message *) data;
+	data+=ofs;msg = (struct message *) data;
 	fprintf(f,"recv msg: %s\n", msg->data);
 	fflush(f);
 }
@@ -216,6 +215,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 	unsigned nb_segs;
 	__rte_mbuf_sanity_check(m, 1);
 	nb_segs = m->nb_segs;
+	struct message *
 
 	while (m && nb_segs != 0) {
 		__rte_mbuf_sanity_check(m, 0);
