@@ -19,6 +19,8 @@ int main (int arc, char * argv [])
     // This macro creates the data type for the head of the queue
     // for nodes of type 'struct node'
     TAILQ_HEAD(head_s, node) head;
+
+
     // Initialize the head before use
     TAILQ_INIT(&head);
 

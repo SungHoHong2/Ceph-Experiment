@@ -58,8 +58,8 @@ struct fuse_message
     TAILQ_ENTRY(node) nodes;
 };
 
-TAILQ_HEAD(head_s, fuse_message) fuse_tx_queue;
-TAILQ_HEAD(head_s, fuse_message) fuse_rx_queue;
+TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
+TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 
 
 static volatile bool force_quit;
@@ -734,6 +734,7 @@ void *fuse_rx_launch(void *threadarg) {
 
 int main( int argc, char **argv )
 {
+
 
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
