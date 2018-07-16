@@ -61,17 +61,17 @@ int main( int argc, char **argv )
         return 1;
     }
 
-    printf("FUSE-DPDK BEGIN\n");
+    printf("FUSE-DPDK-CLIENT BEGIN\n");
     pthread_t threads[3];
     struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
     int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
-//        rc = pthread_create(&threads[1], NULL, fuse_tx_launch, NULL);
+        rc = pthread_create(&threads[1], NULL, fuse_tx_perf_launch, NULL);
         rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
-    printf("FUSE BEGIN\n");
+    printf("FUS-CLIENT BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
-    printf("FUSE END\n");
+    printf("FUSE-CLIENT END\n");
     return 0;
 }
