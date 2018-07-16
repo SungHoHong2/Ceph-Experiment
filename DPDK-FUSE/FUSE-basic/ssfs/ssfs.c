@@ -50,29 +50,11 @@
 #include "ssfs_fuse.h"
 
 
-struct fuse_message
-{
-    char data[1024];
-    TAILQ_ENTRY(fuse_message) nodes;
-};
-
-TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
-TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
-pthread_mutex_t rx_lock;
-pthread_mutex_t tx_lock;
-
 
 void *fuse_tx_launch() {
     printf("FUSE-TX BEGIN\n");
     while(1) {
-
         pthread_mutex_lock(&tx_lock);
-
-        struct fuse_message *e = NULL;
-        e = malloc(sizeof(struct fuse_message));
-        strcpy(e->data, "howdy");
-        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in FUSE: %s\n", e->data);
@@ -81,9 +63,6 @@ void *fuse_tx_launch() {
             e = NULL;
         }
         pthread_mutex_unlock(&tx_lock);
-
-
-
     }
 }
 
@@ -91,7 +70,6 @@ void *fuse_tx_launch() {
 void *fuse_rx_launch() {
 
     printf("FUSE-RX BEGIN\n");
-
     struct fuse_message * e = NULL;
     while(1) {
         pthread_mutex_lock(&rx_lock);
@@ -103,7 +81,6 @@ void *fuse_rx_launch() {
             e = NULL;
         }
         pthread_mutex_unlock(&rx_lock);
-
     }
 }
 
@@ -116,7 +93,6 @@ int main( int argc, char **argv )
 
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
-
 
     if (pthread_mutex_init(&rx_lock, NULL) != 0) {
         printf("\n mutex init has failed\n");
