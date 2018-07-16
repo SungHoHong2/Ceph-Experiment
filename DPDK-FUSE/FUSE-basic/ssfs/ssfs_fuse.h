@@ -26,7 +26,7 @@ static int do_getattr( const char *path, struct stat *st )
 
 static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi )
 {
-    printf( "--> Getting The List of Files of %s\n", path );
+    // printf( "--> Getting The List of Files of %s\n", path );
 
     filler( buffer, ".", NULL, 0 ); // Current Directory
     filler( buffer, "..", NULL, 0 ); // Parent Directory
@@ -42,7 +42,7 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
 
 static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 {
-    printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
+    // printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
 
     char client[] = "Hello World From CLIENT!\n";
     char server[] = "Hello World From SERVER!\n";
@@ -73,14 +73,6 @@ void *fuse_tx_launch() {
     struct fuse_message * e = NULL;
     while(1) {
         pthread_mutex_lock(&tx_lock);
-
-        sleep(1);
-        struct fuse_message * e = NULL;
-        e = malloc(sizeof(struct fuse_message));
-        strcpy(e->data, "gogogo read!!!");
-        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-
-
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in FUSE: %s\n", e->data);
@@ -99,7 +91,6 @@ void *fuse_rx_launch() {
     struct fuse_message * e = NULL;
     FILE * file;
 
-
     while(1) {
         int c;
         FILE *file;
@@ -110,7 +101,7 @@ void *fuse_rx_launch() {
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
-            file = fopen("/mnt/ssd_cache/test/client", "r");
+            file = fopen("/mnt/ssd_cache/test/server", "r");
             if (file) {
                 while ((c = getc(file)) != EOF)
                     printf("%c",(char)c);
