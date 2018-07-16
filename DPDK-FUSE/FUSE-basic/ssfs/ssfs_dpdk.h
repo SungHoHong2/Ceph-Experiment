@@ -98,6 +98,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     data+=ofs;
     struct message *msg = (struct message *) data;
     fprintf(f,"recv msg: %s\n", msg->data);
+
+    char testbuff[1024];
+    strcpy(testbuff,msg->data);
+    fprintf(f,"copied recv msg: %s\n", testbuff);
+
     fflush(f);
 }
 
