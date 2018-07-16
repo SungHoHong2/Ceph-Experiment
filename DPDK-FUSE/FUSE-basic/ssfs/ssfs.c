@@ -50,6 +50,14 @@
 #include "ssfs_fuse.h"
 
 
+struct fuse_message
+{
+    char data[1024];
+    TAILQ_ENTRY(fuse_message) nodes;
+};
+
+TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
+TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 
 
 void *fuse_tx_launch(void *threadarg) {
