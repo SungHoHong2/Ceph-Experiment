@@ -113,7 +113,7 @@ void *fuse_rx_launch() {
             file = fopen("/mnt/ssd_cache/test/client", "r");
             if (file) {
                 while ((c = getc(file)) != EOF)
-                    printf("%c",(char *)c);
+                    printf("%c",(char)c);
                 fclose(file);
             }
 
