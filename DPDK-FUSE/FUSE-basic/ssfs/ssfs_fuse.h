@@ -1,8 +1,8 @@
 
 static int do_getattr( const char *path, struct stat *st )
 {
-    printf( "[getattr] Called\n" );
-    printf( "\tAttributes of %s requested\n", path );
+    // printf( "[getattr] Called\n" );
+    // printf( "\tAttributes of %s requested\n", path );
 
     st->st_uid = getuid(); // The owner of the file/directory is the user who mounted the filesystem
     st->st_gid = getgid(); // The group of the file/directory is the same as the group of the user who mounted the filesystem
