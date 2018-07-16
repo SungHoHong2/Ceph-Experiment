@@ -101,6 +101,8 @@ void *fuse_rx_launch() {
 
 
     while(1) {
+        int c;
+        FILE *file;
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
@@ -108,11 +110,10 @@ void *fuse_rx_launch() {
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
-
-            file = fopen( "/mnt/ssd_cache/test/client" , "r");
+            file = fopen("/mnt/ssd_cache/test/client", "r");
             if (file) {
-                while (fscanf(file, "%s", str)!=EOF)
-                    printf("%s",str);
+                while ((c = getc(file)) != EOF)
+                    printf("%c",(char *)c);
                 fclose(file);
             }
 
