@@ -31,8 +31,8 @@
       <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="66" column="17" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+            <state relative-caret-position="210">
+              <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -251,12 +251,12 @@
       <workItem from="1531416050810" duration="6474000" />
       <workItem from="1531502171702" duration="20831000" />
       <workItem from="1531594117953" duration="21414000" />
-      <workItem from="1531683293935" duration="7560000" />
+      <workItem from="1531683293935" duration="7837000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57782000" />
+    <option name="totallyTimeSpent" value="58059000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -620,8 +620,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="66" column="17" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+        <state relative-caret-position="210">
+          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
         </state>
       </provider>
     </entry>

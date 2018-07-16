@@ -42,3 +42,7 @@ lets test it by using basic read and write
 - []client-side : request to filesystem -> filesystem talk to dpdk - > put data to `fuse-tx-queue`
 - [x]server-side : get data from `fuse-rx-queue` - > dpdk talk to filesystem -> request to file-system -> put the result in the `fuse-tx-queue`
 - []client-side : get data from `fuse-rx-queue` -> dpdk respond to the client that it has returned.
+
+- running DPDK first creates error in FUSE
+- separate memory is not allowed when we use DPDK.
+- 
