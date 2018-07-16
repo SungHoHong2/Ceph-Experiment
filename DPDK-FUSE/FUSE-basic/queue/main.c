@@ -12,8 +12,6 @@ struct node
     TAILQ_ENTRY(node) nodes;
 };
 
-
-
 int main (int arc, char * argv [])
 {
     // This macro creates the data type for the head of the queue

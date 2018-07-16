@@ -77,12 +77,12 @@ void *fuse_tx_launch(void *threadarg) {
     while(1) {
 
         sleep(1);
-        printf("sending data man?\n");
+        // printf("sending data man?\n");
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, "howdy");
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-        
+
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in FUSE: %s\n", e->data);
