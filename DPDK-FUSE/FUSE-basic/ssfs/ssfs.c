@@ -59,12 +59,15 @@ struct fuse_message
 TAILQ_HEAD(tx_head, fuse_message) fuse_tx_queue;
 TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 pthread_mutex_t rx_lock;
+pthread_mutex_t tx_lock;
 
 
 void *fuse_tx_launch() {
     printf("FUSE-TX BEGIN\n");
     while(1) {
-        sleep(1);
+
+        pthread_mutex_lock(&tx_lock);
+
         printf("sending queues\n");
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
@@ -78,6 +81,8 @@ void *fuse_tx_launch() {
             free(e);
             e = NULL;
         }
+        pthread_mutex_unlock(&tx_lock);
+
 
 
     }
@@ -92,7 +97,7 @@ void *fuse_rx_launch() {
     while(1) {
         printf("checking recv queues\n");
 
-        pthread_mutex_lock(&lock);
+        pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             printf("recv msg in FUSE: %s\n", e->data);
