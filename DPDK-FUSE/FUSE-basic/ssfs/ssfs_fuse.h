@@ -73,23 +73,26 @@ void *fuse_tx_launch(void *threadarg) {
 
     printf("FUSE-TX BEGIN\n");
     struct fuse_message * e = NULL;
-    while (!TAILQ_EMPTY(&fuse_tx_queue))
-    {
-        e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("send msg in FUSE: %s\n", e->data);
-        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        free(e);
-        e = NULL;
 
+    while(1) {
+        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            e = TAILQ_FIRST(&fuse_tx_queue);
+            printf("send msg in FUSE: %s\n", e->data);
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            free(e);
+            e = NULL;
 
-        sleep(1);
+            sleep(1);
 
-        struct fuse_message * e = NULL;
-        e = malloc(sizeof(struct fuse_message));
-        strcpy(e->data, "howdy");
-        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+            struct fuse_message *e = NULL;
+            e = malloc(sizeof(struct fuse_message));
+            strcpy(e->data, "howdy");
+            TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
 
+        }
     }
+
+
 }
 
 
@@ -98,13 +101,14 @@ void *fuse_rx_launch(void *threadarg) {
 
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
-    while (!TAILQ_EMPTY(&fuse_rx_queue))
-    {
-        e = TAILQ_FIRST(&fuse_rx_queue);
-        printf("recv msg in FUSE: %s\n", e->data);
-        TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-        free(e);
-        e = NULL;
+    while(1) {
+        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+            e = TAILQ_FIRST(&fuse_rx_queue);
+            printf("recv msg in FUSE: %s\n", e->data);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+            free(e);
+            e = NULL;
+        }
     }
 }
 
