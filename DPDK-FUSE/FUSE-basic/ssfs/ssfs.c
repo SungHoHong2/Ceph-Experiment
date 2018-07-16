@@ -53,6 +53,7 @@
 
 void *fuse_tx_launch() {
     printf("FUSE-TX BEGIN\n");
+    struct fuse_message * e = NULL;
     while(1) {
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
