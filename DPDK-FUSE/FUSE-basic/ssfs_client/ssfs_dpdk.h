@@ -110,10 +110,9 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         l2fwd_mac_updating(m, dst_port);
 
     buffer = tx_buffer[dst_port];
-    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m[0]);
-    // sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+    // sent = rte_eth_tx_buffer(dst_port, 0, buffer, m[0]);
+    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
-            
 }
 
 
@@ -219,7 +218,7 @@ l2fwd_main_loop(void)
 
                     l2fwd_simple_forward(m, portid);
 
-
+                rte_pktmbuf_free(m);
             }
         }
     }
