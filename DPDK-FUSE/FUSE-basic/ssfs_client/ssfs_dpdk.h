@@ -203,10 +203,11 @@ l2fwd_main_loop(void)
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-            for (j = 0; j < nb_rx; j++) {
-
+            // for (j = 0; j < nb_rx; j++) {
                 //CHARA BEGIN
-                m = pkts_burst[j];
+                // m = pkts_burst[j];
+                m = pkts_burst[0];
+
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length =  rte_mbuf_packet_length - 1024;
 
@@ -217,11 +218,9 @@ l2fwd_main_loop(void)
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-
-                    l2fwd_simple_forward(m, portid);
-
+                l2fwd_simple_forward(m, portid);
                 rte_pktmbuf_free(m);
-            }
+           // }
         }
     }
 }
