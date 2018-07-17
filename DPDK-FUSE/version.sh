@@ -47,9 +47,8 @@ then
 
 elif [ "$1" = "ssfs_benchmark" ]
 then
-  ls -l /mnt/ssd_cache/test
-  cat /mnt/ssd_cache/test/client
-
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ssfs_benchmark/
+  gcc main.c && ./a.out
 
 elif [ "$1" = "ssfs_server_make_experiment" ]
 then
