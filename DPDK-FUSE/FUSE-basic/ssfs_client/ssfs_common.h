@@ -24,34 +24,43 @@ void avg_results(){
     while (!TAILQ_EMPTY(&avg_queue))
     {
         av = TAILQ_FIRST(&avg_queue);
-        TAILQ_REMOVE(&avg_queue, av, nodes);
         avg += av->interval;
-
-        free(av);
-        av = NULL;
     }
 
     avg = avg/total_requests;
     printf("latency average: %f\n",avg);
 
 
+    double variance = 0;
+    double t = 0;
 
+    int i =0;
+    while (!TAILQ_EMPTY(&avg_queue))
+    {
 
-//    std::cout <<"avg: " << avg << std::endl;
-//
-//
-//    double variance = 0;
-//    double t = samples[0];
-//    for (int i = 1; i < size; i++)
-//    {
-//        t += samples[i];
-//        double diff = ((i + 1) * samples[i]) - t;
-//        variance += (diff * diff) / ((i + 1.0) *i);
-//    }
-//
-//    double std_var = variance / (size - 1);
-//    double std_dev = sqrt(std_var);
-//    std::cout <<"std_dev: " << std_dev << std::endl;
+        if(i==0) {
+            av = TAILQ_FIRST(&avg_queue);
+            TAILQ_REMOVE(&avg_queue, av, nodes);
+            t = av->interval;
+            free(av);
+            av = NULL;
+        } else {
+            av = TAILQ_FIRST(&avg_queue);
+            TAILQ_REMOVE(&avg_queue, av, nodes);
+
+            t += av->interval;
+            double diff = ((i + 1) * av->interval) - t;
+            variance += (diff * diff) / ((i + 1.0) * i);
+
+            free(av);
+            av = NULL;
+        }
+    }
+    double std_var = variance / (size - 1);
+    double std_dev = sqrt(std_var);
+    printf("latency std_dev: %f\n",std_dev);
+
+    
 
 }
 
