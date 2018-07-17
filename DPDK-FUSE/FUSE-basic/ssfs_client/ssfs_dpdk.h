@@ -119,7 +119,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
     char* data;
     struct message obj;
-
+    struct fuse_message * e = NULL;
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
@@ -142,7 +142,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-    
+
 
 }
 
