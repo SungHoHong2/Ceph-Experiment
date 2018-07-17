@@ -121,8 +121,9 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct message obj;
     struct fuse_message * e = NULL;
 
-    // pthread_mutex_lock(&tx_lock);
+     pthread_mutex_lock(&tx_lock);
      if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+        printf("sending from client\n");
         strncpy(obj.data, "REQUEST FROM CLIENT!", 100);
 
         struct message *msg = &obj;
@@ -135,7 +136,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
      }
 
-    // pthread_mutex_unlock(&tx_lock);
+     pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
