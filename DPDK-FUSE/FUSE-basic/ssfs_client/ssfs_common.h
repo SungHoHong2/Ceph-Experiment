@@ -8,7 +8,7 @@ struct avg_node
     uint64_t start_time;
     uint64_t end_time;
     uint64_t interval;
-    TAILQ_ENTRY(fuse_message) nodes;
+    TAILQ_ENTRY(avg_node) nodes;
 };
 
 uint64_t getTimeStamp() {
@@ -25,7 +25,6 @@ void avg_results(){
     {
         av = TAILQ_FIRST(&avg_queue);
         TAILQ_REMOVE(&avg_queue, av, nodes);
-
         avg += av->interval;
 
         free(av);
