@@ -209,10 +209,12 @@ l2fwd_main_loop(void)
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length =  rte_mbuf_packet_length - PKT_SIZE;
 
+                dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, header_length);
+
                 if(header_length>0){
                     // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
                     // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, header_length);
+                    // dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, header_length);
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
