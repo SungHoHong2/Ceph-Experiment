@@ -247,7 +247,7 @@ l2fwd_main_loop(void)
                 printf("send msg in DPDK: %s\n",e->data);
                 strncpy(obj.data, "Hello World From CLIENT!", 100);
 
-//                msg = &obj;
+                msg = &obj;
 //                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 //
 //                if (data != NULL)
@@ -263,7 +263,7 @@ l2fwd_main_loop(void)
 
                 // data = rte_pktmbuf_append(rm[0], 64);
                 data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
-                strncpy(obj.data, "Hello World From CLIENT!", 100);
+                strncpy(obj.data, "Hello World From CLIENT!\n", 100);
 
                 printf("append\n");
                 // memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
