@@ -45,6 +45,12 @@ then
   ls -l /mnt/ssd_cache/test
   cat /mnt/ssd_cache/test/client
 
+elif [ "$1" = "ssfs_benchmark" ]
+then
+  ls -l /mnt/ssd_cache/test
+  cat /mnt/ssd_cache/test/client
+
+
 elif [ "$1" = "ssfs_server_make_experiment" ]
 then
 if [ "$HOSTS" = "w1" ]

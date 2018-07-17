@@ -4,12 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUMBER_OF_REQUEST 10
-struct node
-{
-    char message[1024];
-    TAILQ_ENTRY(node) nodes;
-};
+#define NUMBER_OF_REQUEST 100
 
 int main (int arc, char * argv [])
 {

@@ -42,4 +42,3 @@ int main()
     std::cout <<"std_dev: " << std_dev << std::endl;
     return 0;
 }
-
