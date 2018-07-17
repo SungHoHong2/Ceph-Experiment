@@ -96,7 +96,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in DPDK: %s\n",e->data);
-            strncpy(obj.data, "Hello World From CLIENT!", 100);
+            strncpy(obj.data, e->data, 100);
 
             msg = &obj;
             data = rte_pktmbuf_append(m, sizeof(struct message));
@@ -131,7 +131,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
     // fprintf(f, "recv msg in DPDK: %s %ld %d\n", msg->data, strlen(msg->data), strcmp(msg->data, "Hello World From SERVER!\n"));
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!\n")==0) {
-        fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
+        fprintf(f, "recv msg in DPDK: %s\n", msg->data);
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, msg->data);
