@@ -55,17 +55,18 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
         struct fuse_message *e = NULL;
         pthread_mutex_lock(&tx_lock);
-        if (!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
+        e = malloc(sizeof(struct node));
+        strcpy(e->message, selectedText);
+        TAILQ_INSERT_TAIL(&head, e, nodes);
+
+        printf("send msg in FUSE: %s\n", client);
         pthread_mutex_unlock(&tx_lock);
 
+
         pthread_mutex_lock(&rx_lock);
-        while (!TAILQ_EMPTY(&fuse_rx_queue)) {
+        while(TAILQ_EMPTY(&fuse_rx_queue));
+
+        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             printf("recv msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);

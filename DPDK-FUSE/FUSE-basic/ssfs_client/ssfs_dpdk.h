@@ -122,7 +122,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
     pthread_mutex_lock(&rx_lock);
     if(strlen(msg->data)>=24) {
-        fprintf(f, "recv msg in DPDK: %s %d\n", msg->data, strlen(msg->data));
+        fprintf(f, "recv msg in DPDK: %s\n", msg->data);
         if (strlen(msg->data)) {
             struct fuse_message *e = NULL;
             e = malloc(sizeof(struct fuse_message));
