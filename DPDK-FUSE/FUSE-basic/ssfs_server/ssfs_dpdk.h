@@ -203,7 +203,7 @@ l2fwd_main_loop(void)
                                      pkts_burst, MAX_PKT_BURST);
 
             for (j = 0; j < nb_rx; j++) {
-
+                sleep(0);
                 //CHARA BEGIN
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
