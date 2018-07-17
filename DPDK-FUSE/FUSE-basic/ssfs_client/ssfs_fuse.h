@@ -52,6 +52,28 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
     if ( strcmp( path, "/client" ) == 0 )
         selectedText = client;
+
+        struct fuse_message * e = NULL;
+        pthread_mutex_lock(&tx_lock);
+        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            e = TAILQ_FIRST(&fuse_tx_queue);
+            printf("send msg in FUSE: %s\n", e->data);
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            free(e);
+            e = NULL;
+        }
+        pthread_mutex_unlock(&tx_lock);
+
+        pthread_mutex_lock(&rx_lock);
+        while(!TAILQ_EMPTY(&fuse_rx_queue)) {
+            e = TAILQ_FIRST(&fuse_rx_queue);
+            printf("recv msg in FUSE: %s\n", e->data);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+            free(e);
+            e = NULL;
+        }
+        pthread_mutex_unlock(&rx_lock);
+
     else if ( strcmp( path, "/server" ) == 0 )
         selectedText = server;
     else
@@ -68,42 +90,24 @@ static struct fuse_operations operations = {
 };
 
 
-void *fuse_tx_perf_launch() {
-    printf("FUSE-TX-PERF BEGIN\n");
-    struct fuse_message * e = NULL;
-    while(1) {
-        pthread_mutex_lock(&tx_lock);
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&tx_lock);
-    }
-}
 
-
-void *fuse_rx_launch() {
-    printf("FUSE-RX BEGIN\n");
-    struct fuse_message * e = NULL;
-    struct fuse_message * txe = NULL;
-    FILE * file;
-    char *buffer = NULL;
-    int rtn;
-
-    while(1) {
-        int c;
-        FILE *file;
-        pthread_mutex_lock(&rx_lock);
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("recv msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&rx_lock);
-    }
-}
+//void *fuse_rx_launch() {
+//    printf("FUSE-RX BEGIN\n");
+//    struct fuse_message * e = NULL;
+//    struct fuse_message * txe = NULL;
+//    char *buffer = NULL;
+//    int rtn;
+//
+//    while(1) {
+//        int c;
+//        pthread_mutex_lock(&rx_lock);
+//        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+//            e = TAILQ_FIRST(&fuse_rx_queue);
+//            printf("recv msg in FUSE: %s\n", e->data);
+//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+//            free(e);
+//            e = NULL;
+//        }
+//        pthread_mutex_unlock(&rx_lock);
+//    }
+//}

@@ -85,7 +85,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct message obj;
     dst_port = l2fwd_dst_ports[portid];
 
-
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
@@ -100,12 +99,11 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
         if (data != NULL)
             rte_memcpy(data, msg, sizeof(struct message));
-
-        if (mac_updating)
-            l2fwd_mac_updating(m, dst_port);
     }
     pthread_mutex_unlock(&tx_lock);
 
+    if (mac_updating)
+        l2fwd_mac_updating(m, dst_port);
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
@@ -124,13 +122,15 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     fprintf(f,"recv msg in DPDK: %s\n", msg->data);
 
     pthread_mutex_lock(&rx_lock);
-    struct fuse_message * e = NULL;
-    e = malloc(sizeof(struct fuse_message));
-    strcpy(e->data, msg->data);
-    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+    if(strlen(msg->data)) {
+        struct fuse_message *e = NULL;
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, msg->data);
+        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+        fflush(f);
+    }
     pthread_mutex_unlock(&rx_lock);
 
-    fflush(f);
 }
 
 
