@@ -122,8 +122,11 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct fuse_message * e = NULL;
     struct message *msg;
 
-//     pthread_mutex_lock(&tx_lock);
-//     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+
+
+     pthread_mutex_lock(&tx_lock);
+     if(!TAILQ_EMPTY(&fuse_tx_queue) && timerz>0) {
+
             printf("send msg in DPDK: %d\n",timerz);
             strncpy(obj.data, "Hello World From CLIENT!", 100);
 
@@ -133,11 +136,11 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
 
-
-//         e = TAILQ_FIRST(&fuse_tx_queue);
-//       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//     }
-//     pthread_mutex_unlock(&tx_lock);
+         e = TAILQ_FIRST(&fuse_tx_queue);
+         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+         timerz--;
+     }
+     pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
@@ -253,12 +256,9 @@ l2fwd_main_loop(void)
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 
-                if(timerz>0) {
                     l2fwd_simple_forward(m, portid);
-                    timerz--;
-                }else{
-                    rte_eth_tx_buffer_flush(portid, 0, buffer);
-                }
+
+
             }
         }
     }
