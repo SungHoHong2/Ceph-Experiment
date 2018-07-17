@@ -63,6 +63,10 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         pthread_mutex_unlock(&tx_lock);
 
 
+
+
+
+
 //        pthread_mutex_lock(&rx_lock);
 //        while(TAILQ_EMPTY(&fuse_rx_queue));
 //
