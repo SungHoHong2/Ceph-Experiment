@@ -22,22 +22,14 @@ void avg_results(){
 
     double avg =0;
     struct avg_node *av;
-    while (!TAILQ_EMPTY(&avg_queue))
-    {
-        av = TAILQ_FIRST(&avg_queue);
-        avg += av->interval;
-    }
-
-    avg = avg/total_requests;
-    printf("latency average: %f\n",avg);
-
-
     double variance = 0;
     double t = 0;
 
     int i =0;
     while (!TAILQ_EMPTY(&avg_queue))
     {
+
+        avg += av->interval;
         if(i==0) {
             av = TAILQ_FIRST(&avg_queue);
             TAILQ_REMOVE(&avg_queue, av, nodes);
@@ -58,12 +50,15 @@ void avg_results(){
             i++;
         }
     }
+
+    avg = avg/total_requests;
+    printf("latency average: %f\n",avg);
+
     double std_var = variance / (total_requests - 1);
     double std_dev = sqrt(std_var);
     printf("latency std_dev: %f\n",std_dev);
 
-
-
+    
 }
 
 
