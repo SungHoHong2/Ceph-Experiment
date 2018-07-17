@@ -63,16 +63,16 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
 
         pthread_mutex_lock(&rx_lock);
-        while(TAILQ_EMPTY(&fuse_rx_queue));
-
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("recv msg in FUSE: %s\n", e->data);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&rx_lock);
+//        while(TAILQ_EMPTY(&fuse_rx_queue));
+//
+//        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+//            e = TAILQ_FIRST(&fuse_rx_queue);
+//            printf("recv msg in FUSE: %s\n", e->data);
+//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+//            free(e);
+//            e = NULL;
+//        }
+//        pthread_mutex_unlock(&rx_lock);
 
     } else if ( strcmp( path, "/server" ) == 0 )
         selectedText = server;
@@ -91,23 +91,23 @@ static struct fuse_operations operations = {
 
 
 
-//void *fuse_rx_launch() {
-//    printf("FUSE-RX BEGIN\n");
-//    struct fuse_message * e = NULL;
-//    struct fuse_message * txe = NULL;
-//    char *buffer = NULL;
-//    int rtn;
-//
-//    while(1) {
-//        int c;
-//        pthread_mutex_lock(&rx_lock);
-//        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-//            e = TAILQ_FIRST(&fuse_rx_queue);
-//            printf("recv msg in FUSE: %s\n", e->data);
-//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-//            free(e);
-//            e = NULL;
-//        }
-//        pthread_mutex_unlock(&rx_lock);
-//    }
-//}
+void *fuse_rx_launch() {
+    printf("FUSE-RX BEGIN\n");
+    struct fuse_message * e = NULL;
+    struct fuse_message * txe = NULL;
+    char *buffer = NULL;
+    int rtn;
+
+    while(1) {
+        int c;
+        pthread_mutex_lock(&rx_lock);
+        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+            e = TAILQ_FIRST(&fuse_rx_queue);
+            printf("recv msg in FUSE: %s\n", e->data);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+            free(e);
+            e = NULL;
+        }
+        pthread_mutex_unlock(&rx_lock);
+    }
+}
