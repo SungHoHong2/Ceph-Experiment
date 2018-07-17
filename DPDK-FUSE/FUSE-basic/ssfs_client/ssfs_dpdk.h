@@ -279,11 +279,7 @@ l2fwd_main_loop(void)
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 l2fwd_mac_updating(rm[0], portid);
 
-                sent = rte_eth_tx_burst(portid, 0, rm, 1);
-
-                if (sent){
-                    port_statistics[portid].tx += sent;
-                }
+                rte_eth_tx_burst(portid, 0, rm, 1);
                 rte_pktmbuf_free(rm[0]);
 
             }
