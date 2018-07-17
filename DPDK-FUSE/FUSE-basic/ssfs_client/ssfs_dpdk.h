@@ -128,7 +128,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
     fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
 
-    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!")==0) {
+    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!\n")==0) {
+        printf("gotin???");
         //printf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
@@ -219,13 +220,13 @@ l2fwd_main_loop(void)
                     // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
                     // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
                     dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
-                    rte_pktmbuf_free(m);
+                    // rte_pktmbuf_free(m);
 
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 l2fwd_simple_forward(m, portid);
-                // rte_pktmbuf_free(m);
+                rte_pktmbuf_free(m);
             }
 
 
