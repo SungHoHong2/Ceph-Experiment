@@ -47,15 +47,15 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     char client[] = "Hello World From CLIENT!\n";
     char server[] = "Hello World From SERVER!\n";
     char *selectedText = NULL;
+    struct fuse_message *e = NULL;
 
     // ... //
 
     if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
 
-        struct fuse_message *e = NULL;
         pthread_mutex_lock(&tx_lock);
-        e = malloc(sizeof(struct node));
+        e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
         printf("send msg in FUSE: %s\n", e->data);
