@@ -122,18 +122,18 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct fuse_message * e = NULL;
 
     // pthread_mutex_lock(&tx_lock);
-    // if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-        strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
+     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+        strncpy(obj.data, "REQUEST FROM CLIENT!", 100);
 
         struct message *msg = &obj;
         data = rte_pktmbuf_append(m, sizeof(struct message));
 
         if (data != NULL)
             rte_memcpy(data, msg, sizeof(struct message));
-        
-        // e = TAILQ_FIRST(&fuse_tx_queue);
-    //   TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-    // }
+
+         e = TAILQ_FIRST(&fuse_tx_queue);
+       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+     }
 
     // pthread_mutex_unlock(&tx_lock);
 
