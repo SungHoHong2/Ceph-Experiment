@@ -54,6 +54,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
 
+        sleep(1);
         pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
