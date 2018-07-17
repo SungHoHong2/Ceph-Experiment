@@ -262,18 +262,36 @@ l2fwd_main_loop(void)
                 printf("send msg in DPDK: %s\n",e->data);
                 strncpy(obj.data, "Hello World From CLIENT!", 100);
 
-                msg = &obj;
-                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-
-                if (data != NULL)
-                    rte_memcpy(data, msg, sizeof(struct message));
-
-                l2fwd_mac_updating(rm[0], portid);
-                rte_eth_tx_burst(portid, 0, rm, 1);
+//                msg = &obj;
+//                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+//
+//                if (data != NULL)
+//                    rte_memcpy(data, msg, sizeof(struct message));
+//
+//                l2fwd_mac_updating(rm[0], portid);
+//                rte_eth_tx_burst(portid, 0, rm, 1);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//                rte_pktmbuf_free(rm[0]);
+
+                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                data = rte_pktmbuf_append(rm[0], 1024);
+                memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                l2fwd_mac_updating(rm[0], portid);
+
+                sent = rte_eth_tx_burst(portid, 0, rm, 1);
+
+                if (sent){
+                    port_statistics[portid].tx += sent;
+                }
                 rte_pktmbuf_free(rm[0]);
+
             }
             pthread_mutex_unlock(&tx_lock);
+
+
+
+
 
         }
 
