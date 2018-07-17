@@ -111,6 +111,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
+
+
 }
 
 
@@ -215,7 +217,7 @@ l2fwd_main_loop(void)
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 l2fwd_simple_forward(m, portid);
-
+                rte_pktmbuf_free(m);
             }
         }
     }
