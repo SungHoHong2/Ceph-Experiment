@@ -13,6 +13,7 @@ int main (int arc, char * argv [])
     char read_file[1024];
     FILE *file;
     for(c=0; c<NUMBER_OF_REQUEST; c++){
+        sleep(1);
         file = fopen("/mnt/ssd_cache/test/client", "r");
         if (file) {
             fread(read_file, sizeof(char), 1024, file);
