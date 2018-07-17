@@ -215,10 +215,17 @@ l2fwd_main_loop(void)
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                l2fwd_simple_forward(m, portid);
+                // l2fwd_simple_forward(m, portid);
                 rte_pktmbuf_free(m);
             }
         }
+
+
+        // move the send out from the rx queues
+        // l2fwd_simple_forward(m, portid);
+
+
+
     }
 }
 
