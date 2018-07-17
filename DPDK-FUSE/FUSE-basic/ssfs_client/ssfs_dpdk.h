@@ -225,7 +225,7 @@ l2fwd_main_loop(void)
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 // l2fwd_simple_forward(m, portid);
-             // rte_pktmbuf_free(m);
+                // rte_pktmbuf_free(m);
             }
 
             // move the send out from the rx queues
@@ -252,7 +252,6 @@ l2fwd_main_loop(void)
                 rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
                 l2fwd_mac_updating(pkts_burst[0], portid);
                 rte_eth_tx_burst(portid, 0, pkts_burst, 1);
-                // rte_pktmbuf_free(m);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
             pthread_mutex_unlock(&tx_lock);
