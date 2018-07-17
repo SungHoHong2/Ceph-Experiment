@@ -133,7 +133,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         e = TAILQ_FIRST(&fuse_tx_queue);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
     }
-    
+
     pthread_mutex_unlock(&tx_lock);
 
 
@@ -142,10 +142,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-    if (sent)
-        port_statistics[dst_port].tx += sent;
-
-
+    
 
 }
 
