@@ -84,7 +84,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     char* data;
     struct message obj;
     dst_port = l2fwd_dst_ports[portid];
-
+    struct message *msg;
 
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
@@ -94,15 +94,18 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
         e = NULL;
+
+        msg =&obj;
+        data = rte_pktmbuf_append(m, sizeof(struct message));
+
+        if (data != NULL)
+            rte_memcpy(data, msg, sizeof(struct message));
+
     }
     pthread_mutex_unlock(&tx_lock);
 
 
-    struct message *msg =&obj;
-    data = rte_pktmbuf_append(m, sizeof(struct message));
 
-    if (data != NULL)
-        rte_memcpy(data, msg, sizeof(struct message));
 
     if (mac_updating)
         l2fwd_mac_updating(m, dst_port);

@@ -120,6 +120,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     char* data;
     struct message obj;
     struct fuse_message * e = NULL;
+    struct message *msg;
 
 //     pthread_mutex_lock(&tx_lock);
 //     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
@@ -127,7 +128,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
             printf("send msg in DPDK: %d\n",timerz);
             strncpy(obj.data, "Hello World From CLIENT!", 100);
 
-            struct message *msg = &obj;
+            msg = &obj;
             data = rte_pktmbuf_append(m, sizeof(struct message));
 
             if (data != NULL)
