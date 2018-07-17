@@ -85,22 +85,22 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct message obj;
     dst_port = l2fwd_dst_ports[portid];
 
-//    pthread_mutex_lock(&tx_lock);
-//    if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//        e = TAILQ_FIRST(&fuse_tx_queue);
-//        printf("send msg in DPDK: %s\n", e->data);
-//        strncpy(obj.data, e->data, 100);
-//        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//        free(e);
-//        e = NULL;
-//
-//        struct message *msg =&obj;
-//        data = rte_pktmbuf_append(m, sizeof(struct message));
-//
-//        if (data != NULL)
-//            rte_memcpy(data, msg, sizeof(struct message));
-//    }
-//    pthread_mutex_unlock(&tx_lock);
+    pthread_mutex_lock(&tx_lock);
+    if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+        e = TAILQ_FIRST(&fuse_tx_queue);
+        printf("send msg in DPDK: %s\n", e->data);
+        strncpy(obj.data, e->data, 100);
+        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+        free(e);
+        e = NULL;
+
+        struct message *msg =&obj;
+        data = rte_pktmbuf_append(m, sizeof(struct message));
+
+        if (data != NULL)
+            rte_memcpy(data, msg, sizeof(struct message));
+    }
+    pthread_mutex_unlock(&tx_lock);
 
     if (mac_updating)
         l2fwd_mac_updating(m, dst_port);
