@@ -245,7 +245,7 @@ l2fwd_main_loop(void)
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
                 printf("send msg in DPDK: %s\n",e->data);
-                strncpy(obj.data, e->data, 100);
+                strncpy(obj.data, "Hello World From CLIENT!", 100);
 
 //                msg = &obj;
 //                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
