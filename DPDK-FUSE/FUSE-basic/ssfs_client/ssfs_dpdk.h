@@ -269,7 +269,7 @@ l2fwd_main_loop(void)
                     rte_memcpy(data, msg, sizeof(struct message));
 
                 l2fwd_mac_updating(rm[0], portid);
-                sent = rte_eth_tx_burst(portid, 0, rm, 1);
+                rte_eth_tx_burst(portid, 0, rm, 1);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
                 rte_pktmbuf_free(rm[0]);
             }
