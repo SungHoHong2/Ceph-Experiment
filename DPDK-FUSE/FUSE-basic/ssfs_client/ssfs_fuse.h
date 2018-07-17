@@ -54,8 +54,6 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
     if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
-
-        // sleep(1);
         pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
@@ -92,7 +90,8 @@ void *fuse_rx_launch() {
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("recv msg in FUSE: %s\n", e->data);
+            total_requests++;
+            printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
