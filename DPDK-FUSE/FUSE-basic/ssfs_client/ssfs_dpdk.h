@@ -122,8 +122,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct fuse_message * e = NULL;
     struct message *msg;
 
-
-
      pthread_mutex_lock(&tx_lock);
      if(!TAILQ_EMPTY(&fuse_tx_queue)) {
 
@@ -136,8 +134,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
 
-         e = TAILQ_FIRST(&fuse_tx_queue);
-         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            e = TAILQ_FIRST(&fuse_tx_queue);
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
 //         timerz--;
      }
      pthread_mutex_unlock(&tx_lock);
