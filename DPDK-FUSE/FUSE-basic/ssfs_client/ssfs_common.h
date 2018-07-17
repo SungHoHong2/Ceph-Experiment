@@ -19,14 +19,25 @@ uint64_t getTimeStamp() {
 
 void avg_results(){
 
-//    int size = samples.size();
-//    double avg =0;
-//    for (int i = 0; i < size; i++)
-//    {
-//        avg += samples[i];
-//    }
-//
-//    avg = avg/size;
+    double avg =0;
+    struct avg_node *av;
+    while (!TAILQ_EMPTY(&avg_queue))
+    {
+        av = TAILQ_FIRST(&avg_queue);
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+
+        avg += av->interval;
+
+        free(e);
+        av = NULL;
+    }
+
+    avg = avg/total_requests;
+    printf("latency average: %f\n",avg);
+
+    
+
+
 //    std::cout <<"avg: " << avg << std::endl;
 //
 //

@@ -40,7 +40,8 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
     return 0;
 }
 
-int ssss= 10;
+struct avg_node *av = NULL;
+
 static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 {
     // printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
@@ -59,6 +60,12 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         strcpy(e->data, selectedText);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
         printf("send msg in FUSE: %s\n", e->data);
+
+
+        av = malloc(sizeof(struct avg_node));
+        av->start_time = getTimeStamp();
+
+
         pthread_mutex_unlock(&tx_lock);
 
 
@@ -91,7 +98,16 @@ void *fuse_rx_launch() {
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             total_requests++;
+
             printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
+            av->end_time = getTimeStamp();
+            av->interval = av->end_time - av->start_time;
+            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+
+            if(total_requests>9){
+                avg_results();
+            }
+
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
