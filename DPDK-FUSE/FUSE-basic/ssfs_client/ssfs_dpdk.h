@@ -274,7 +274,7 @@ l2fwd_main_loop(void)
 //                rte_pktmbuf_free(rm[0]);
 
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-                data = rte_pktmbuf_append(rm[0], 1024);
+                data = rte_pktmbuf_append(rm[0], 64);
                 memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 l2fwd_mac_updating(rm[0], portid);
@@ -503,7 +503,7 @@ void *dpdk_msg_launch(void *threadarg) {
     /* create memory pool for send data */
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 64, rte_socket_id());
     }
 
     if (l2fwd_pktmbuf_pool == NULL)
