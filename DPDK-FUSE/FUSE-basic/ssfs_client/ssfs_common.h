@@ -1,3 +1,23 @@
+#include <sys/time.h>
+
+TAILQ_HEAD(avg_head, avg_node) avg_queue;
+struct avg_node
+{
+    uint64_t start_time;
+    uint64_t end_time;
+    uint64_t interval;
+    TAILQ_ENTRY(fuse_message) nodes;
+};
+
+
+uint64_t getTimeStamp() {
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
+
+
 struct message {
     char data[1024];
 };
