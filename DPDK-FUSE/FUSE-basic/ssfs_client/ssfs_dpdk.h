@@ -229,12 +229,9 @@ l2fwd_main_loop(void)
                 // rte_pktmbuf_free(m);
             }
 
-
-
             // move the send out from the rx queues
             // l2fwd_simple_forward(m, portid);
             // need to send the data from here stupid!
-
 
             char* data;
             struct message obj;
@@ -260,17 +257,7 @@ l2fwd_main_loop(void)
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
             pthread_mutex_unlock(&tx_lock);
-
-
-
-
-
         }
-
-
-
-
-
     }
 }
 
