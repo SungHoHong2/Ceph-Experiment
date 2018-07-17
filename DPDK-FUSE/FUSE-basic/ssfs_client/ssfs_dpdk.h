@@ -88,7 +88,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("send msg in DPDK: %s\n", e->data);
+        printf("send msg in DPDK: %s %ld\n", e->data, strlen(e->data));
         strncpy(obj.data, e->data, 100);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
