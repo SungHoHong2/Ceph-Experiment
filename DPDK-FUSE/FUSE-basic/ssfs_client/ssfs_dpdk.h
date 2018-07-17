@@ -208,6 +208,7 @@ l2fwd_main_loop(void)
                                      pkts_burst, MAX_PKT_BURST);
 
              for (j = 0; j < nb_rx; j++) {
+                 sleep(0);
                 //CHARA BEGIN
                  m = pkts_burst[j];
 
@@ -226,8 +227,6 @@ l2fwd_main_loop(void)
                 l2fwd_simple_forward(m, portid);
                 rte_pktmbuf_free(m);
             }
-
-
 
 
         }
