@@ -58,7 +58,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         e = malloc(sizeof(struct node));
         strcpy(e->data, selectedText);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-        printf("send msg in FUSE: %s\n", client);
+        printf("send msg in FUSE: %s\n", e->data);
         pthread_mutex_unlock(&tx_lock);
 
 
