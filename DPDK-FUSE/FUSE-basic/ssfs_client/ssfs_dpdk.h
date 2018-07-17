@@ -199,7 +199,6 @@ l2fwd_main_loop(void)
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-
             for (j = 0; j < nb_rx; j++) {
 
                 //CHARA BEGIN
