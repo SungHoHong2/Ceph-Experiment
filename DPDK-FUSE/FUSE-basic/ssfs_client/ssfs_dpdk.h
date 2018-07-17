@@ -119,7 +119,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     ofs = start;
     data+=ofs;
     struct message *msg = (struct message *) data;
-    fprintf(f,"recv msg in DPDK: %s\n", msg->data);
+    fprintf(f,"recv msg in DPDK: %s %d\n", msg->data, strlen(msg->data));
 
     pthread_mutex_lock(&rx_lock);
     if(strlen(msg->data)) {
@@ -201,14 +201,14 @@ l2fwd_main_loop(void)
 
                 //CHARA BEGIN
                 m = pkts_burst[j];
-                // int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                // int header_length =  rte_mbuf_packet_length - 1024;
+                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+                int header_length =  rte_mbuf_packet_length - 1024;
 
-                // if(header_length>0){
+                if(header_length>0){
                     // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
                     // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-                   // dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
-                // }
+                    dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
+                }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 l2fwd_simple_forward(m, portid);
