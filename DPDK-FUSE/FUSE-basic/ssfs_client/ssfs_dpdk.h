@@ -226,7 +226,7 @@ l2fwd_main_loop(void)
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 // l2fwd_simple_forward(m, portid);
-                rte_pktmbuf_free(m);
+                // rte_pktmbuf_free(m);
             }
 
 
@@ -240,7 +240,6 @@ l2fwd_main_loop(void)
             struct message obj;
             struct fuse_message * e = NULL;
             struct message *msg;
-            struct rte_mbuf *rm[1];
 
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
@@ -258,12 +257,12 @@ l2fwd_main_loop(void)
 //                rte_eth_tx_burst(portid, 0, rm, 1);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
 //                rte_pktmbuf_free(rm[0]);
-
-                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                // pkts_burst
+                // rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 printf("allocated\n");
 
                 // data = rte_pktmbuf_append(rm[0], 64);
-                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+                data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
                 strncpy(obj.data, "Hello World From CLIENT!", 100);
 
                 printf("append\n");
@@ -272,12 +271,12 @@ l2fwd_main_loop(void)
                     rte_memcpy(data, msg, sizeof(struct message));
                 printf("data set \n");
 
-                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-                l2fwd_mac_updating(rm[0], portid);
+                rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
+                l2fwd_mac_updating(pkts_burst[0], portid);
                 printf("l2fwd_mac_updating \n");
 
-                rte_eth_tx_burst(portid, 0, rm, 1);
-                rte_pktmbuf_free(rm[0]);
+                rte_eth_tx_burst(portid, 0, pkts_burst, 1);
+                rte_pktmbuf_free(m);
 
             }
             pthread_mutex_unlock(&tx_lock);
