@@ -38,13 +38,13 @@ void avg_results(){
     int i =0;
     while (!TAILQ_EMPTY(&avg_queue))
     {
-
         if(i==0) {
             av = TAILQ_FIRST(&avg_queue);
             TAILQ_REMOVE(&avg_queue, av, nodes);
             t = av->interval;
             free(av);
             av = NULL;
+            i++;
         } else {
             av = TAILQ_FIRST(&avg_queue);
             TAILQ_REMOVE(&avg_queue, av, nodes);
@@ -55,6 +55,7 @@ void avg_results(){
 
             free(av);
             av = NULL;
+            i++;
         }
     }
     double std_var = variance / (total_requests - 1);
