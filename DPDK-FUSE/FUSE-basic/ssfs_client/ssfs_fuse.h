@@ -50,8 +50,6 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
     struct fuse_message * txe = NULL;
-    char *buffer = NULL;
-    int rtn;
 
 
     pthread_mutex_lock(&rx_lock);
