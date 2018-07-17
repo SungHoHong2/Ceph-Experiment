@@ -73,7 +73,7 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
 }
 
-int timerz = 100;
+static volatile int timerz = 100;
 static void
 l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 {
@@ -135,6 +135,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
                 rte_memcpy(data, msg, sizeof(struct message));
 
             timerz--;
+        } else {
+            force_quit = 1;
         }
 
 //         e = TAILQ_FIRST(&fuse_tx_queue);

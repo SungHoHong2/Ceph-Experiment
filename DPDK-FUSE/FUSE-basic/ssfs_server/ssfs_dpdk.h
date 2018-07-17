@@ -86,7 +86,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     dst_port = l2fwd_dst_ports[portid];
     struct message *msg;
 
-    // pthread_mutex_lock(&tx_lock);
+    pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
         printf("send msg in DPDK: %s\n", e->data);
@@ -102,7 +102,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
             rte_memcpy(data, msg, sizeof(struct message));
 
     }
-    // pthread_mutex_unlock(&tx_lock);
+    pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
@@ -215,11 +215,7 @@ l2fwd_main_loop(void)
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-
-                pthread_mutex_lock(&tx_lock);
-                if(!TAILQ_EMPTY(&fuse_tx_queue))
-                    l2fwd_simple_forward(m, portid);
-                pthread_mutex_unlock(&tx_lock);
+                l2fwd_simple_forward(m, portid);
 
 
 
