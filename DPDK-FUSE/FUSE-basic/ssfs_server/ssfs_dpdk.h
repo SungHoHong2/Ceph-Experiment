@@ -11,7 +11,7 @@ static int mac_updating = 1;
 #define MAX_PKT_BURST 32
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
-
+#define PKT_SIZE 1024
 /*
  * Configurable number of RX/TX ring descriptors
  */
@@ -147,7 +147,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
         if (len > m->data_len)
             len = m->data_len;
-        if (len != 0) {
+        if (len != 0 && m->data_len>PKT_SIZE) {
             dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
         }
         dump_len -= len;
@@ -202,12 +202,12 @@ l2fwd_main_loop(void)
                 //CHARA BEGIN
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                int header_length =  rte_mbuf_packet_length - 1024;
+                int header_length =  rte_mbuf_packet_length - PKT_SIZE;
 
                 if(header_length>0){
                     // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
                     // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-                    dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
+                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, header_length);
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
