@@ -225,7 +225,7 @@ l2fwd_main_loop(void)
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 // l2fwd_simple_forward(m, portid);
-                // rte_pktmbuf_free(m);
+                rte_pktmbuf_free(m);
             }
 
             // move the send out from the rx queues
@@ -236,22 +236,23 @@ l2fwd_main_loop(void)
             struct message obj;
             struct fuse_message * e = NULL;
             struct message *msg;
-
+            struct rte_mbuf *rm[1];
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
+                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 printf("send msg in DPDK: %s\n",e->data);
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);
 
-                data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
+                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
-                rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-                l2fwd_mac_updating(pkts_burst[0], portid);
-                rte_eth_tx_burst(portid, 0, pkts_burst, 1);
+                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                l2fwd_mac_updating(rm[0], portid);
+                rte_eth_tx_burst(portid, 0, rm, 1);
                 // rte_pktmbuf_free(m);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
