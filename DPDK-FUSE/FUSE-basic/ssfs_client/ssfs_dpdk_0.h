@@ -236,6 +236,21 @@ l2fwd_main_loop(void)
             // need to send the data from here stupid!
 
 
+//            struct rte_mbuf *rm[1];
+//            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//        data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+//        memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+//        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//        l2fwd_mac_updating(rm[0], portid);
+//
+//        sent = rte_eth_tx_burst(portid, 0, rm, 1);
+//
+//        if (sent){
+//            port_statistics[portid].tx += sent;
+//        }
+//        rte_pktmbuf_free(rm[0]);
+
+
             char* data;
             struct message obj;
             struct fuse_message * e = NULL;
@@ -262,14 +277,9 @@ l2fwd_main_loop(void)
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 printf("allocated\n");
 
-                // data = rte_pktmbuf_append(rm[0], 64);
-                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-                strncpy(obj.data, "Hello World From CLIENT!", 100);
-
+                data = rte_pktmbuf_append(rm[0], 64);
                 printf("append\n");
-                // memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
-                if (data != NULL)
-                    rte_memcpy(data, msg, sizeof(struct message));
+                memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
                 printf("data set \n");
 
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
@@ -500,7 +510,7 @@ void *dpdk_msg_launch(void *threadarg) {
     /* create memory pool for send data */
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 64, rte_socket_id());
     }
 
     if (l2fwd_pktmbuf_pool == NULL)
