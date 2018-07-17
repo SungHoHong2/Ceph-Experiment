@@ -219,7 +219,7 @@ l2fwd_main_loop(void)
                 pthread_mutex_lock(&tx_lock);
                 if(!TAILQ_EMPTY(&fuse_tx_queue))
                     l2fwd_simple_forward(m, portid);
-                /pthread_mutex_unlock(&tx_lock);
+                pthread_mutex_unlock(&tx_lock);
 
 
 
