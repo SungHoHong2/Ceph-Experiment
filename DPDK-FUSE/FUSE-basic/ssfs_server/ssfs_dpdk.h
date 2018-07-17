@@ -223,6 +223,7 @@ l2fwd_main_loop(void)
 
         // move the send out from the rx queues
         // l2fwd_simple_forward(m, portid);
+        // need to send the data from here stupid!
 
 
 

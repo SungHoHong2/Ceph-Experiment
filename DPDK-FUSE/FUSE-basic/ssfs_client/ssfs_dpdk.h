@@ -42,6 +42,9 @@ struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
 
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
 
+struct rte_mempool *test_pktmbuf_pool = NULL;
+
+
 static const struct rte_eth_conf port_conf = {
         .rxmode = {
                 .split_hdr_size = 0,
@@ -225,11 +228,55 @@ l2fwd_main_loop(void)
                 // l2fwd_simple_forward(m, portid);
                 rte_pktmbuf_free(m);
             }
+
+
+
+            // move the send out from the rx queues
+            // l2fwd_simple_forward(m, portid);
+            // need to send the data from here stupid!
+
+
+            struct rte_mbuf *rm[1];
+            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//        data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+//        memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+//        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//        l2fwd_mac_updating(rm[0], portid);
+//
+//        sent = rte_eth_tx_burst(portid, 0, rm, 1);
+//
+//        if (sent){
+//            port_statistics[portid].tx += sent;
+//        }
+//        rte_pktmbuf_free(rm[0]);
+
+
+            char* data;
+            struct message obj;
+            struct fuse_message * e = NULL;
+            struct message *msg;
+
+            pthread_mutex_lock(&tx_lock);
+            if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+                e = TAILQ_FIRST(&fuse_tx_queue);
+                printf("send msg in DPDK: %s\n",e->data);
+                strncpy(obj.data, "Hello World From CLIENT!", 100);
+
+                msg = &obj;
+                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+                if (data != NULL)
+                    rte_memcpy(data, msg, sizeof(struct message));
+
+                l2fwd_mac_updating(rm[0], portid);
+                sent = rte_eth_tx_burst(portid, 0, rm, 1);
+                TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+                rte_pktmbuf_free(rm[0]);
+            }
+            pthread_mutex_unlock(&tx_lock);
+
         }
 
-
-        // move the send out from the rx queues
-        // l2fwd_simple_forward(m, portid);
 
 
 
@@ -438,6 +485,13 @@ void *dpdk_msg_launch(void *threadarg) {
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
                                                  MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
                                                  rte_socket_id());
+
+    /* create memory pool for send data */
+    if (test_pktmbuf_pool == NULL) {
+        test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_SIZE, rte_socket_id());
+    }
+
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
