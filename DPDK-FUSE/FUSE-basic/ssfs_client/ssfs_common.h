@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <math.h>
 
 int total_requests = 0;
 
