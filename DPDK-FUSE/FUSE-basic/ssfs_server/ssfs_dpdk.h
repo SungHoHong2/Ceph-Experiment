@@ -216,7 +216,7 @@ l2fwd_main_loop(void)
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                // l2fwd_simple_forward(m, portid);
+                 l2fwd_simple_forward(m, portid);
                 // rte_pktmbuf_free(m);
             }
         }
@@ -226,30 +226,30 @@ l2fwd_main_loop(void)
         // l2fwd_simple_forward(m, portid);
         // need to send the data from here stupid!
 
-        char* data;
-        struct message obj;
-        struct fuse_message * e = NULL;
-        struct message *msg;
-
-        pthread_mutex_lock(&tx_lock);
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in DPDK: %s\n",e->data);
-            msg = &obj;
-            strncpy(obj.data, e->data, 100);
-
-            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
-
-            if (data != NULL)
-                rte_memcpy(data, msg, sizeof(struct message));
-
-            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-            l2fwd_mac_updating(pkts_burst[0], portid);
-            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
-            rte_pktmbuf_free(m);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        }
-        pthread_mutex_unlock(&tx_lock);
+//        char* data;
+//        struct message obj;
+//        struct fuse_message * e = NULL;
+//        struct message *msg;
+//
+//        pthread_mutex_lock(&tx_lock);
+//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//            e = TAILQ_FIRST(&fuse_tx_queue);
+//            printf("send msg in DPDK: %s\n",e->data);
+//            msg = &obj;
+//            strncpy(obj.data, e->data, 100);
+//
+//            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
+//
+//            if (data != NULL)
+//                rte_memcpy(data, msg, sizeof(struct message));
+//
+//            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
+//            l2fwd_mac_updating(pkts_burst[0], portid);
+//            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
+//            rte_pktmbuf_free(m);
+//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//        }
+//        pthread_mutex_unlock(&tx_lock);
 
     }
 }
