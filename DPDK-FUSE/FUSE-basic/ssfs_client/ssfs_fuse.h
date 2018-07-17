@@ -50,12 +50,12 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
     // ... //
 
-    if ( strcmp( path, "/client" ) == 0 )
+    if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
 
-        struct fuse_message * e = NULL;
+        struct fuse_message *e = NULL;
         pthread_mutex_lock(&tx_lock);
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+        if (!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
@@ -65,7 +65,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         pthread_mutex_unlock(&tx_lock);
 
         pthread_mutex_lock(&rx_lock);
-        while(!TAILQ_EMPTY(&fuse_rx_queue)) {
+        while (!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             printf("recv msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
@@ -74,7 +74,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         }
         pthread_mutex_unlock(&rx_lock);
 
-    else if ( strcmp( path, "/server" ) == 0 )
+    } else if ( strcmp( path, "/server" ) == 0 )
         selectedText = server;
     else
         return -1;
