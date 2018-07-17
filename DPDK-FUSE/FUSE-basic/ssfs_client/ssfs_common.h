@@ -56,11 +56,11 @@ void avg_results(){
             av = NULL;
         }
     }
-    double std_var = variance / (size - 1);
+    double std_var = variance / (total_requests - 1);
     double std_dev = sqrt(std_var);
     printf("latency std_dev: %f\n",std_dev);
 
-    
+
 
 }
 
