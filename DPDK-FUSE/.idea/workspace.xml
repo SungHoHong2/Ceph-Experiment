@@ -31,8 +31,8 @@
       <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="220" column="70" lean-forward="true" selection-start-line="220" selection-start-column="70" selection-end-line="220" selection-end-column="70" />
+            <state relative-caret-position="183">
+              <caret line="210" column="20" selection-start-line="210" selection-start-column="20" selection-end-line="210" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -40,8 +40,8 @@
       <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_server/ssfs_dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="218" column="36" lean-forward="true" selection-start-line="218" selection-end-line="219" />
+            <state relative-caret-position="452">
+              <caret line="370" column="10" selection-start-line="370" selection-start-column="10" selection-end-line="370" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -59,8 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>l2fwd</find>
-      <find>promiscuous</find>
       <find>rte_eth_promiscuous_enable</find>
       <find>recv msg:</find>
       <find>file</find>
@@ -89,6 +87,8 @@
       <find>recv</find>
       <find>dpdk_pktmbuf_dump</find>
       <find>sleep(0);</find>
+      <find>sleep(0)</find>
+      <find>\\</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -259,12 +259,12 @@
       <workItem from="1531594117953" duration="21414000" />
       <workItem from="1531683293935" duration="14090000" />
       <workItem from="1531760630721" duration="13206000" />
-      <workItem from="1531847303136" duration="4763000" />
+      <workItem from="1531847303136" duration="4843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82281000" />
+    <option name="totallyTimeSpent" value="82361000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -597,15 +597,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_server/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="218" column="36" lean-forward="true" selection-start-line="218" selection-end-line="219" />
+        <state relative-caret-position="452">
+          <caret line="370" column="10" selection-start-line="370" selection-start-column="10" selection-end-line="370" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="220" column="70" lean-forward="true" selection-start-line="220" selection-start-column="70" selection-end-line="220" selection-end-column="70" />
+        <state relative-caret-position="183">
+          <caret line="210" column="20" selection-start-line="210" selection-start-column="20" selection-end-line="210" selection-end-column="20" />
         </state>
       </provider>
     </entry>
