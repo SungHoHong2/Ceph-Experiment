@@ -121,9 +121,9 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct message obj;
     struct fuse_message * e = NULL;
 
-     pthread_mutex_lock(&tx_lock);
-     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-        printf("sending from client\n");
+//     pthread_mutex_lock(&tx_lock);
+//     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//        printf("send msg in DPDK\n");
         strncpy(obj.data, "REQUEST FROM CLIENT!", 100);
 
         struct message *msg = &obj;
@@ -132,10 +132,10 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         if (data != NULL)
             rte_memcpy(data, msg, sizeof(struct message));
 
-         e = TAILQ_FIRST(&fuse_tx_queue);
-       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-     }
-     pthread_mutex_unlock(&tx_lock);
+//         e = TAILQ_FIRST(&fuse_tx_queue);
+//       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//     }
+//     pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
