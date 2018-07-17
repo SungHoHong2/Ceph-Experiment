@@ -15,7 +15,7 @@ int main (int arc, char * argv [])
     for(c=0; c<NUMBER_OF_REQUEST; c++){
         file = fopen("/mnt/ssd_cache/test/client", "r");
         if (file) {
-            rtn = fread(read_file, sizeof(char), 1024, file);
+            fread(read_file, sizeof(char), 1024, file);
             printf("send msg from client: %s\n", read_file);
             fclose(file);
         }
