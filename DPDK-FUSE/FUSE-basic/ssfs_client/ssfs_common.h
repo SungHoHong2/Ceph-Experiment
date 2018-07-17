@@ -28,14 +28,14 @@ void avg_results(){
 
         avg += av->interval;
 
-        free(e);
+        free(av);
         av = NULL;
     }
 
     avg = avg/total_requests;
     printf("latency average: %f\n",avg);
 
-    
+
 
 
 //    std::cout <<"avg: " << avg << std::endl;
