@@ -121,8 +121,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     struct message obj;
     struct fuse_message * e = NULL;
 
-    pthread_mutex_lock(&tx_lock);
-    if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+    // pthread_mutex_lock(&tx_lock);
+    // if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
 
         struct message *msg = &obj;
@@ -130,12 +130,12 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
         if (data != NULL)
             rte_memcpy(data, msg, sizeof(struct message));
+        
+        // e = TAILQ_FIRST(&fuse_tx_queue);
+    //   TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+    // }
 
-        e = TAILQ_FIRST(&fuse_tx_queue);
-        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-    }
-
-    pthread_mutex_unlock(&tx_lock);
+    // pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
