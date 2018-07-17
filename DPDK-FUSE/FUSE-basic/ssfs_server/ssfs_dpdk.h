@@ -147,7 +147,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
         if (len > m->data_len)
             len = m->data_len;
-        if (len != 0 && m->data_len>PKT_SIZE) {
+        if (len != 0) {
             dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
         }
         dump_len -= len;
