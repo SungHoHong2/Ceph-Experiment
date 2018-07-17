@@ -236,8 +236,8 @@ l2fwd_main_loop(void)
             // need to send the data from here stupid!
 
 
-            struct rte_mbuf *rm[1];
-            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//            struct rte_mbuf *rm[1];
+//            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 //        data = rte_pktmbuf_append(rm[0], PKT_SIZE);
 //        memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
 //        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
@@ -255,6 +255,7 @@ l2fwd_main_loop(void)
             struct message obj;
             struct fuse_message * e = NULL;
             struct message *msg;
+            struct rte_mbuf *rm[1];
 
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
@@ -274,11 +275,17 @@ l2fwd_main_loop(void)
 //                rte_pktmbuf_free(rm[0]);
 
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                printf("allocated\n");
+
                 data = rte_pktmbuf_append(rm[0], 64);
+                printf("append\n");
                 memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+                printf("data set \n");
+
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 l2fwd_mac_updating(rm[0], portid);
-
+                printf("l2fwd_mac_updating \n");
+                
                 rte_eth_tx_burst(portid, 0, rm, 1);
                 rte_pktmbuf_free(rm[0]);
 
