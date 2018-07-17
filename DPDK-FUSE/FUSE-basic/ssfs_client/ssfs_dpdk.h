@@ -110,8 +110,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         l2fwd_mac_updating(m, dst_port);
 
     buffer = tx_buffer[dst_port];
-    // sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-    sent = rte_eth_tx_burst(portid, 0, m, 1);
+    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
 
 }
@@ -193,6 +192,8 @@ l2fwd_main_loop(void)
 
     }
 
+    struct rte_mbuf *rm[1];
+
     while (!force_quit) {
 
         /*
@@ -204,10 +205,9 @@ l2fwd_main_loop(void)
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-            // for (j = 0; j < nb_rx; j++) {
+             for (j = 0; j < nb_rx; j++) {
                 //CHARA BEGIN
-                // m = pkts_burst[j];
-                m = pkts_burst[0];
+                 m = pkts_burst[j];
 
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length =  rte_mbuf_packet_length - 1024;
@@ -221,7 +221,11 @@ l2fwd_main_loop(void)
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 l2fwd_simple_forward(m, portid);
                 rte_pktmbuf_free(m);
-           // }
+            }
+
+
+
+
         }
     }
 }
