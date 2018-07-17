@@ -11,6 +11,7 @@ static int mac_updating = 1;
 #define MAX_PKT_BURST 32
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
+static volatile int timerz = 100;
 
 /*
  * Configurable number of RX/TX ring descriptors
@@ -73,7 +74,6 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
 }
 
-static volatile int timerz = 100;
 static void
 l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 {
@@ -124,7 +124,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 //     pthread_mutex_lock(&tx_lock);
 //     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-        if(timerz>0) {
             printf("send msg in DPDK: %d\n",timerz);
             strncpy(obj.data, "Hello World From CLIENT!", 100);
 
@@ -134,8 +133,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
 
-            timerz--;
-        }
+
 //         e = TAILQ_FIRST(&fuse_tx_queue);
 //       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
 //     }
@@ -253,7 +251,11 @@ l2fwd_main_loop(void)
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                l2fwd_simple_forward(m, portid);
+
+                if(timerz>0) {
+                    l2fwd_simple_forward(m, portid);
+                    timerz--;
+                }
             }
         }
     }
