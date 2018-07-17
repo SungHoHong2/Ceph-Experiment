@@ -207,6 +207,7 @@ l2fwd_main_loop(void)
     unsigned lcore_id;
     unsigned i, j, portid, nb_rx;
     struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
 
     lcore_id = rte_lcore_id();
     qconf = &lcore_queue_conf[lcore_id];
@@ -255,6 +256,8 @@ l2fwd_main_loop(void)
                 if(timerz>0) {
                     l2fwd_simple_forward(m, portid);
                     timerz--;
+                }else{
+                    rte_eth_tx_buffer_flush(portid, 0, buffer);
                 }
             }
         }
