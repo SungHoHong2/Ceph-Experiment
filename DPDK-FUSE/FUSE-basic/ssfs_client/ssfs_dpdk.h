@@ -77,36 +77,75 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 static void
 l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 {
+//    unsigned dst_port;
+//    int sent;
+//    struct rte_eth_dev_tx_buffer *buffer;
+//    struct fuse_message * e = NULL;
+//    char* data;
+//    struct message obj;
+//    dst_port = l2fwd_dst_ports[portid];
+//
+//    pthread_mutex_lock(&tx_lock);
+//    if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//        e = TAILQ_FIRST(&fuse_tx_queue);
+//        printf("send msg in DPDK: %s %ld\n", e->data, strlen(e->data));
+//        strncpy(obj.data, e->data, 100);
+//        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//        free(e);
+//        e = NULL;
+//
+//        struct message *msg =&obj;
+//        data = rte_pktmbuf_append(m, sizeof(struct message));
+//
+//        if (data != NULL)
+//            rte_memcpy(data, msg, sizeof(struct message));
+//    }
+//    pthread_mutex_unlock(&tx_lock);
+//
+//
+//    if (mac_updating)
+//        l2fwd_mac_updating(m, dst_port);
+//
+//    buffer = tx_buffer[dst_port];
+//    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+
+
+
     unsigned dst_port;
     int sent;
     struct rte_eth_dev_tx_buffer *buffer;
-    struct fuse_message * e = NULL;
+
+    dst_port = l2fwd_dst_ports[portid];
+
     char* data;
     struct message obj;
-    dst_port = l2fwd_dst_ports[portid];
 
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-        e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("send msg in DPDK: %s %ld\n", e->data, strlen(e->data));
-        strncpy(obj.data, e->data, 100);
-        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        free(e);
-        e = NULL;
+        strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
 
-        struct message *msg =&obj;
+        struct message *msg = &obj;
         data = rte_pktmbuf_append(m, sizeof(struct message));
 
         if (data != NULL)
             rte_memcpy(data, msg, sizeof(struct message));
+
+        e = TAILQ_FIRST(&fuse_tx_queue);
+        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
     }
+    
     pthread_mutex_unlock(&tx_lock);
+
 
     if (mac_updating)
         l2fwd_mac_updating(m, dst_port);
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+    if (sent)
+        port_statistics[dst_port].tx += sent;
+
+
 
 }
 
