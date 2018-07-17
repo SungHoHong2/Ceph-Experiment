@@ -83,7 +83,7 @@ void *fuse_rx_launch() {
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("recv msg in FUSE: %s\n", e->data);
+            // printf("recv msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
@@ -92,7 +92,7 @@ void *fuse_rx_launch() {
                 pthread_mutex_lock(&tx_lock);
                 txe = malloc(sizeof(struct fuse_message));
                 rtn = fread(txe->data, sizeof(char), 1024, file);
-                printf("send msg in FUSE: %s\n", txe->data);
+                // printf("send msg in FUSE: %s\n", txe->data);
                 TAILQ_INSERT_TAIL(&fuse_tx_queue, txe, nodes);
                 pthread_mutex_unlock(&tx_lock);
                 fclose(file);

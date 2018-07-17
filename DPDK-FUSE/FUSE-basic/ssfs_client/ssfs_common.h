@@ -9,12 +9,40 @@ struct avg_node
     TAILQ_ENTRY(fuse_message) nodes;
 };
 
-
 uint64_t getTimeStamp() {
     struct timeval tv;
     gettimeofday(&tv,NULL);
     return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
+
+void avg_results(){
+
+//    int size = samples.size();
+//    double avg =0;
+//    for (int i = 0; i < size; i++)
+//    {
+//        avg += samples[i];
+//    }
+//
+//    avg = avg/size;
+//    std::cout <<"avg: " << avg << std::endl;
+//
+//
+//    double variance = 0;
+//    double t = samples[0];
+//    for (int i = 1; i < size; i++)
+//    {
+//        t += samples[i];
+//        double diff = ((i + 1) * samples[i]) - t;
+//        variance += (diff * diff) / ((i + 1.0) *i);
+//    }
+//
+//    double std_var = variance / (size - 1);
+//    double std_dev = sqrt(std_var);
+//    std::cout <<"std_dev: " << std_dev << std::endl;
+
+}
+
 
 
 

@@ -89,7 +89,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     pthread_mutex_lock(&tx_lock);
     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
         e = TAILQ_FIRST(&fuse_tx_queue);
-        printf("send msg in DPDK: %s\n", e->data);
+        // printf("send msg in DPDK: %s\n", e->data);
         strncpy(obj.data, e->data, 100);
         TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         free(e);
@@ -128,12 +128,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     pthread_mutex_lock(&rx_lock);
     // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
-         fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+         // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
             struct fuse_message *e = NULL;
             e = malloc(sizeof(struct fuse_message));
             strcpy(e->data, msg->data);
             TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-            fflush(f);
+         // fflush(f);
     }
     pthread_mutex_unlock(&rx_lock);
 
