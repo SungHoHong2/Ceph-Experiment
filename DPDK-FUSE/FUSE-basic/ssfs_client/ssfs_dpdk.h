@@ -135,10 +135,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
                 rte_memcpy(data, msg, sizeof(struct message));
 
             timerz--;
-        } else {
-            force_quit = 1;
         }
-
 //         e = TAILQ_FIRST(&fuse_tx_queue);
 //       TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
 //     }
