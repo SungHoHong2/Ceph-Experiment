@@ -103,7 +103,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
     }
     // pthread_mutex_unlock(&tx_lock);
-    
+
 
     if (mac_updating)
         l2fwd_mac_updating(m, dst_port);
