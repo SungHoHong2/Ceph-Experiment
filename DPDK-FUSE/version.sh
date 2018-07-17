@@ -42,8 +42,11 @@ then
 
 elif [ "$1" = "ssfs_client" ]
 then
-  ls -l /mnt/ssd_cache/test
-  cat /mnt/ssd_cache/test/client
+  for number in 1 2 3 4 5 6 7 8 9 10
+  echo number
+
+  # ls -l /mnt/ssd_cache/test
+  # cat /mnt/ssd_cache/test/client
 
 elif [ "$1" = "ssfs_benchmark" ]
 then
