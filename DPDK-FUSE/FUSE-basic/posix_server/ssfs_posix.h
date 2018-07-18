@@ -17,7 +17,7 @@ void *get_in_addr(struct sockaddr *sa){
 }
 
 
-void tcp_msg_launch(){
+void *tcp_msg_launch(){
 
 
     int sockfd, new_fd, numbytes;  // listen on sock_fd, new connection on new_fd
