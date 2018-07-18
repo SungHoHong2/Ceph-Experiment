@@ -24,7 +24,7 @@ void *tcp_msg_launch(){
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
-    fcntl(sockfd, F_SETFL, O_NONBLOCK);
+//    fcntl(sockfd, F_SETFL, O_NONBLOCK);
 
     // get information of the server
     if ((rv = getaddrinfo("10.218.111.252", PORT, &hints, &servinfo)) != 0) {

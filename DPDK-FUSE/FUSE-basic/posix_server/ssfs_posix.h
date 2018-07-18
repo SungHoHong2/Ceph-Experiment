@@ -38,6 +38,9 @@ void *tcp_msg_launch(){
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
 
+//    fcntl(new_fd, F_SETFL, O_NONBLOCK);
+
+
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -94,7 +97,6 @@ void *tcp_msg_launch(){
         perror("accept");
     }
 
-    fcntl(new_fd, F_SETFL, O_NONBLOCK);
 
     while(1) {  // main accept() loop
         sleep(0);
