@@ -32,8 +32,8 @@
 
 #include <sys/queue.h>
 #include "ssfs_common.h"
-#include "ssfs_posix.h"
-#include "ssfs_fuse.h"
+//#include "ssfs_posix.h"
+//#include "ssfs_fuse.h"
 
 
 int main( int argc, char **argv )
