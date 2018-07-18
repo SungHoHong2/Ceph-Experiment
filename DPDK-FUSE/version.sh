@@ -42,8 +42,10 @@ then
 
 elif [ "$1" = "ssfs_client" ]
 then
-  for number in 1 2 3 4 5 6 7 8 9 10
-  echo "$number"
+  for i in {2..10}
+  do
+      echo "output: $i"
+  done
 
   # ls -l /mnt/ssd_cache/test
   # cat /mnt/ssd_cache/test/client
