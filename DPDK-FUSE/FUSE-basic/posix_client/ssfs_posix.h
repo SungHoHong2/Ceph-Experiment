@@ -95,7 +95,7 @@ void *tcp_msg_launch(){
                 printf("recv msg in POSIX: %s\n", recv_data);
 
                 pthread_mutex_lock(&rx_lock);
-                if(strcmp(recv_data, "Hello World From CLIENT!\n")==0) {
+                if(strcmp(recv_data, "Hello World From SERVER!\n")==0) {
                     e = malloc(sizeof(struct fuse_message));
                     strcpy(e->data, recv_data);
                     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);

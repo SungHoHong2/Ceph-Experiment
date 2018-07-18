@@ -103,12 +103,44 @@ void *tcp_msg_launch(){
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>24){
                 printf("recv msg from POSIX: %s\n", buf);
+
+                struct message *msg = (struct message *) data;
+                pthread_mutex_lock(&rx_lock);
+                // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
+                if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+                    // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+                    struct fuse_message *e = NULL;
+                    e = malloc(sizeof(struct fuse_message));
+                    strcpy(e->data, msg->data);
+                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+                    // fflush(f);
+                }
+                pthread_mutex_unlock(&rx_lock);
+
         }
 
-        success = send(new_fd, buf, PKT_SIZE, 0);
-        if(success && strlen(buf)>24){
+
+        while(TAILQ_EMPTY(&fuse_tx_queue)){};
+
+        pthread_mutex_lock(&tx_lock);
+        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            e = TAILQ_FIRST(&fuse_tx_queue);
+            // printf("send msg in DPDK: %s\n", e->data);
+            strncpy(obj.data, e->data, 100);
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            free(e);
+            e = NULL;
+
+            msg =&obj;
+            success = send(new_fd, msg->data, PKT_SIZE, 0);
+            if(success && strlen(buf)>24){
                 printf("send msg from POSIX: %s\n", buf);
+            }
         }
+        pthread_mutex_unlock(&tx_lock);
+
+
+
     }
 
 }
