@@ -64,6 +64,7 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
 
+        sleep(0);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
