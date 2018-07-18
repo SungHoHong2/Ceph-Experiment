@@ -98,6 +98,14 @@ void *tcp_msg_launch(){
 
     while(1) {  // main accept() loop
 
+        char* data;
+        struct message obj;
+        struct fuse_message * e = NULL;
+        struct message *msg;
+        struct fuse_message *e = NULL;
+
+
+
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
@@ -109,7 +117,6 @@ void *tcp_msg_launch(){
                 // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
                 if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
                     // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
-                    struct fuse_message *e = NULL;
                     e = malloc(sizeof(struct fuse_message));
                     strcpy(e->data, msg->data);
                     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -119,25 +126,26 @@ void *tcp_msg_launch(){
 
         }
 
-
         while(TAILQ_EMPTY(&fuse_tx_queue)){};
 
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            struct fuse_message *e = NULL;
-
             e = TAILQ_FIRST(&fuse_tx_queue);
-            // printf("send msg in DPDK: %s\n", e->data);
+            msg = &obj;
             strncpy(obj.data, e->data, 100);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-            free(e);
-            e = NULL;
+            data = (char*)&obj;
 
-            msg =&obj;
-            success = send(new_fd, msg->data, PKT_SIZE, 0);
-            if(success && strlen(buf)>24){
-                printf("send msg from POSIX: %s\n", buf);
+
+            if (data != NULL)
+                memcpy(data, msg, sizeof(struct message));
+
+            success=send(sockfd, data, PKT_SIZE, 0);
+            if(success && strlen(data)>0){
+                printf("send msg in POSIX: %s\n",e->data);
+                // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
+
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
         pthread_mutex_unlock(&tx_lock);
 
