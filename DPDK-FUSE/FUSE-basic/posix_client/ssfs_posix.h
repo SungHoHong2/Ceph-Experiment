@@ -77,10 +77,11 @@ void *tcp_msg_launch(){
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
 
-
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
                 printf("send msg in POSIX: %s\n",e->data);
+                printf("send msg in POSIX: %s\n",data);
+
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
