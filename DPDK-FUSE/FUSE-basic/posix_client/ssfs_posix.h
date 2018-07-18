@@ -64,6 +64,9 @@ void *tcp_msg_launch(){
         struct message *msg;
 
         pthread_mutex_lock(&tx_lock);
+
+        printf("somethign in X: %s\n",e->data);
+        
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
 
             printf("somethign in X: %s\n",e->data);
