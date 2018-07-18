@@ -64,10 +64,11 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
 
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
+
+//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//            e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
-            strncpy(obj.data, e->data, 100);
+            strncpy(obj.data, "Hello World From CLIENT!\n", 100);
             data = (char*)&obj;
 
             if (data != NULL)
@@ -79,8 +80,8 @@ void *tcp_msg_launch(){
                 // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
 
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        }
+//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//        }
         pthread_mutex_unlock(&tx_lock);
 
 
