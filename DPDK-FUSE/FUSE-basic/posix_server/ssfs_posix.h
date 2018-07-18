@@ -130,7 +130,7 @@ void *tcp_msg_launch(){
             }
         }
 
-        
+
 
 //        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0)) {
 ////            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
@@ -153,7 +153,6 @@ void *tcp_msg_launch(){
 //        }
 
         printf("step2\n");
-
 
         while(TAILQ_EMPTY(&fuse_tx_queue)){};
 
