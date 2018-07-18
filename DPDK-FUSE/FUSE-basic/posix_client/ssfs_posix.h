@@ -76,10 +76,7 @@ void *tcp_msg_launch(){
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
 
-            printf("send msg in before POSIX: %s\n",msg->data);
-            
-            // success=send(sockfd, data, PKT_SIZE, 0);
-            success=send(sockfd, msg->data, PKT_SIZE, 0);
+            success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
                 printf("send msg in POSIX: %s\n",e->data);
             }
