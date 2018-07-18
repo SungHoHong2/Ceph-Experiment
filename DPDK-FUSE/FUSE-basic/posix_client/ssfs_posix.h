@@ -94,13 +94,20 @@ void *tcp_msg_launch(){
         printf("step 3\n");
 
 
-        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
-        printf("[] recv msg in POSIX: %s\n",recv_data);
 
-        if(success && strlen(recv_data)>10){
-            msg = (struct message*)recv_data;
-            printf("recv msg in POSIX: %s\n",msg->data);
+        while ( (read(sockfd, recv_data, PKT_SIZE-1) > 0))
+        {
+            printf("[] recv msg in POSIX: %s\n",recv_data);
         }
+
+
+//        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
+//        printf("[] recv msg in POSIX: %s\n",recv_data);
+//
+//        if(success && strlen(recv_data)>10){
+//            msg = (struct message*)recv_data;
+//            printf("recv msg in POSIX: %s\n",msg->data);
+//        }
 
 
         printf("step 4\n");
