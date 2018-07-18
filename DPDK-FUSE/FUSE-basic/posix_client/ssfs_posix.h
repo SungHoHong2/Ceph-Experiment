@@ -62,6 +62,15 @@ void *tcp_msg_launch(){
         struct fuse_message * e = NULL;
         struct message *msg;
 
+        
+        sleep(0);
+        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
+        if(success && strlen(recv_data)>10){
+            printf("test %s\n", recv_data);
+            // msg = (struct message*)recv_data;
+            // printf("recv msg in POSIX: %s\n",msg->data);
+        }
+
         pthread_mutex_lock(&tx_lock);
 
         sleep(0);
@@ -85,13 +94,7 @@ void *tcp_msg_launch(){
         pthread_mutex_unlock(&tx_lock);
 
 
-        sleep(0);
-        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
-        if(success && strlen(recv_data)>10){
-            printf("test %s\n", recv_data);
-            // msg = (struct message*)recv_data;
-            // printf("recv msg in POSIX: %s\n",msg->data);
-        }
+
 
 
 
