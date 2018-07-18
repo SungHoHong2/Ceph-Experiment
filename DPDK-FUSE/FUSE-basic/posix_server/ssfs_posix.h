@@ -124,6 +124,8 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            struct fuse_message *e = NULL;
+
             e = TAILQ_FIRST(&fuse_tx_queue);
             // printf("send msg in DPDK: %s\n", e->data);
             strncpy(obj.data, e->data, 100);
