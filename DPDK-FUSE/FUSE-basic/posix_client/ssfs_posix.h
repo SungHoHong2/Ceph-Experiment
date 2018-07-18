@@ -90,7 +90,7 @@ void *tcp_msg_launch(){
 
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
         if(success && strlen(recv_data)>0){
-            msg = (struct msg*)recv_data;
+            msg = (struct message*)recv_data;
             printf("send msg in POSIX: %s\n",msg->data);
         }
     }
