@@ -65,9 +65,8 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
 
-
+        sleep(0);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
             strncpy(obj.data, e->data, 100);
@@ -75,7 +74,6 @@ void *tcp_msg_launch(){
 
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
-            printf("send msg in POSIX: %s\n",e->data);
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
