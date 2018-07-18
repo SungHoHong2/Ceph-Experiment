@@ -91,32 +91,24 @@ void *tcp_msg_launch(){
 
         printf("step2\n");
 
-        while(1){
-            success = read(sockfd, recv_data, PKT_SIZE-1);
+        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
+        {
+            printf("[] recv msg in POSIX: %s\n", recv_data);
+
             if(success && strlen(recv_data)>24) {
                 printf("recv msg in POSIX: %s\n", recv_data);
+
+                pthread_mutex_lock(&rx_lock);
+                if(strcmp(recv_data, "Hello World From SERVER!\n")==0) {
+                    e = malloc(sizeof(struct fuse_message));
+                    strcpy(e->data, recv_data);
+                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+                }
+                pthread_mutex_unlock(&rx_lock);
+
                 break;
             }
         }
-
-//        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
-//        {
-//            printf("[] recv msg in POSIX: %s\n", recv_data);
-//
-//            if(success && strlen(recv_data)>24) {
-//                printf("recv msg in POSIX: %s\n", recv_data);
-//
-//                pthread_mutex_lock(&rx_lock);
-//                if(strcmp(recv_data, "Hello World From SERVER!\n")==0) {
-//                    e = malloc(sizeof(struct fuse_message));
-//                    strcpy(e->data, recv_data);
-//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//                }
-//                pthread_mutex_unlock(&rx_lock);
-//
-//                break;
-//            }
-//        }
 
         printf("step3\n");
 
