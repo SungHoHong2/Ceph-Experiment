@@ -24,7 +24,7 @@ void *tcp_msg_launch(){
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
-//    fcntl(sockfd, F_SETFL, O_NONBLOCK);
+    fcntl(sockfd, F_SETFL, O_NONBLOCK);
 
     // get information of the server
     if ((rv = getaddrinfo("10.218.111.252", PORT, &hints, &servinfo)) != 0) {
@@ -84,33 +84,32 @@ void *tcp_msg_launch(){
             }
 
 
-
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
         pthread_mutex_unlock(&tx_lock);
 
-        printf("step2\n");
-        sleep(2);
-        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
-        {
-            printf("[] recv msg in POSIX: %s\n", recv_data);
-
-            if(success && strlen(recv_data)>24) {
-                printf("recv msg in POSIX: %s\n", recv_data);
-
-                pthread_mutex_lock(&rx_lock);
-                if(strcmp(recv_data, "Hello World From SERVER!\n")==0) {
-                    e = malloc(sizeof(struct fuse_message));
-                    strcpy(e->data, recv_data);
-                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-                }
-                pthread_mutex_unlock(&rx_lock);
-
-                break;
-            }
-        }
-
-        printf("step3\n");
+//        printf("step2\n");
+//
+//        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
+//        {
+//            printf("[] recv msg in POSIX: %s\n", recv_data);
+//
+//            if(success && strlen(recv_data)>24) {
+//                printf("recv msg in POSIX: %s\n", recv_data);
+//
+//                pthread_mutex_lock(&rx_lock);
+//                if(strcmp(recv_data, "Hello World From SERVER!\n")==0) {
+//                    e = malloc(sizeof(struct fuse_message));
+//                    strcpy(e->data, recv_data);
+//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+//                }
+//                pthread_mutex_unlock(&rx_lock);
+//
+//                break;
+//            }
+//        }
+//
+//        printf("step3\n");
 
 
     }

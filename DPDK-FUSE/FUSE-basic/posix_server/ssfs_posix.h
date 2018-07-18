@@ -37,7 +37,7 @@ void *tcp_msg_launch(){
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
-//    fcntl(new_fd, F_SETFL, O_NONBLOCK);
+    fcntl(new_fd, F_SETFL, O_NONBLOCK);
 
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
@@ -142,30 +142,30 @@ void *tcp_msg_launch(){
 
 
 
-        printf("step2\n");
-
-        while(TAILQ_EMPTY(&fuse_tx_queue)){};
-
-        pthread_mutex_lock(&tx_lock);
-        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            msg = &obj;
-            strncpy(obj.data, e->data, 100);
-            data = (char*)&obj;
-
-            if (data != NULL)
-                memcpy(data, msg, sizeof(struct message));
-
-            success=send(sockfd, data, PKT_SIZE, 0);
-            if(success && strlen(data)>0){
-                printf("send msg in POSIX: %s\n",e->data);
-            }
-
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        }
-        pthread_mutex_unlock(&tx_lock);
-
-        printf("step3\n");
+//        printf("step2\n");
+//
+//        while(TAILQ_EMPTY(&fuse_tx_queue)){};
+//
+//        pthread_mutex_lock(&tx_lock);
+//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+//            e = TAILQ_FIRST(&fuse_tx_queue);
+//            msg = &obj;
+//            strncpy(obj.data, e->data, 100);
+//            data = (char*)&obj;
+//
+//            if (data != NULL)
+//                memcpy(data, msg, sizeof(struct message));
+//
+//            success=send(sockfd, data, PKT_SIZE, 0);
+//            if(success && strlen(data)>0){
+//                printf("send msg in POSIX: %s\n",e->data);
+//            }
+//
+//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//        }
+//        pthread_mutex_unlock(&tx_lock);
+//
+//        printf("step3\n");
 
 
 //        success = send(new_fd, buf, PKT_SIZE, 0);
