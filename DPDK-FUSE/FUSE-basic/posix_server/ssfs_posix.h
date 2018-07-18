@@ -101,12 +101,12 @@ void *tcp_msg_launch(){
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>24){
-                printf("recv msg: %s\n", buf);
+                printf("recv msg from POSIX: %s\n", buf);
         }
 
         success = send(new_fd, buf, PKT_SIZE, 0);
         if(success && strlen(buf)>24){
-                printf("recv send: %s\n", buf);
+                printf("send msg from POSIX: %s\n", buf);
         }
     }
 

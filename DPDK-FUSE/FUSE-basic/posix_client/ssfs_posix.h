@@ -78,7 +78,7 @@ void *tcp_msg_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-                printf("send msg in POSIX: %s\n",e->data);
+                printf("send msg in POSIX: %s %d\n",e->data, strlen(e->data));
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
@@ -88,8 +88,14 @@ void *tcp_msg_launch(){
 
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
         if(success && strlen(recv_data)>24){
+            printf("test %s\n", recv_data);
+
             msg = (struct message*)recv_data;
             printf("recv msg in POSIX: %s\n",msg->data);
         }
+
+
+
+
     }
 }
