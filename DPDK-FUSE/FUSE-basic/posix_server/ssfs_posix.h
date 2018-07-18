@@ -112,24 +112,45 @@ void *tcp_msg_launch(){
 
 //        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
 
-        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0)) {
-//            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
-            if (success && strlen(buf) > 24) {
-                printf("recv msg from POSIX: %s\n", buf);
 
-                struct message *msg = (struct message *) buf;
+        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0))
+        {
+            if(success && strlen(buf)>24) {
+                printf("recv msg in POSIX: %s\n", buf);
+
                 pthread_mutex_lock(&rx_lock);
-                // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
-                if (strlen(msg->data) >= 24 && strcmp(msg->data, "Hello World From CLIENT!\n") == 0) {
-                    // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+                if(strcmp(buf, "Hello World From CLIENT!\n")==0) {
                     e = malloc(sizeof(struct fuse_message));
-                    strcpy(e->data, msg->data);
+                    strcpy(e->data, buf);
                     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-                    // fflush(f);
                 }
                 pthread_mutex_unlock(&rx_lock);
+
+                break;
             }
         }
+
+        
+
+//        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0)) {
+////            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
+//            if (success && strlen(buf) > 24) {
+//                printf("recv msg from POSIX: %s\n", buf);
+//
+//                struct message *msg = (struct message *) buf;
+//                pthread_mutex_lock(&rx_lock);
+//
+//                printf("step1-2\n");
+//                if (strlen(msg->data) >= 24 && strcmp(msg->data, "Hello World From CLIENT!\n") == 0) {
+//                    // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+//                    e = malloc(sizeof(struct fuse_message));
+//                    strcpy(e->data, msg->data);
+//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+//                    // fflush(f);
+//                }
+//                pthread_mutex_unlock(&rx_lock);
+//            }
+//        }
 
         printf("step2\n");
 
