@@ -30,7 +30,6 @@ void *tcp_msg_launch(){
     // get information of the server
     if ((rv = getaddrinfo("10.218.111.252", PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-        return 1;
     }
 
     // loop through all the results and connect to the first we can
@@ -51,15 +50,12 @@ void *tcp_msg_launch(){
 
     if (p == NULL) {
         fprintf(stderr, "client: failed to connect\n");
-        return 2;
     }
 
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr), s, sizeof s);
     printf("client: connecting to %s\n", s);
     freeaddrinfo(servinfo); // all done with this structure
 
-
-    time (&start);
     while(1){
         char send_data[PKT_SIZE];
         memset( send_data, '*', PKT_SIZE * sizeof(char));
