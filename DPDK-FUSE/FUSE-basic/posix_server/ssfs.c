@@ -21,7 +21,14 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-
+#include <errno.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <sys/fcntl.h>
 
 #include <sys/queue.h>
 #include "ssfs_common.h"
