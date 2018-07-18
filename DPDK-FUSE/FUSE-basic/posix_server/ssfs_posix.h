@@ -108,14 +108,19 @@ void *tcp_msg_launch(){
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
-        success = recv(new_fd, buf, PKT_SIZE-1, 0);
-        if(success && strlen(buf)>24){
+
+
+//        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
+
+        while ( (success = recv(new_fd, buf, PKT_SIZE-1, 0) > 0)) {
+            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
+            if (success && strlen(buf) > 24) {
                 printf("recv msg from POSIX: %s\n", buf);
 
                 struct message *msg = (struct message *) buf;
                 pthread_mutex_lock(&rx_lock);
                 // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
-                if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+                if (strlen(msg->data) >= 24 && strcmp(msg->data, "Hello World From CLIENT!\n") == 0) {
                     // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
                     e = malloc(sizeof(struct fuse_message));
                     strcpy(e->data, msg->data);
@@ -123,7 +128,7 @@ void *tcp_msg_launch(){
                     // fflush(f);
                 }
                 pthread_mutex_unlock(&rx_lock);
-
+            }
         }
 
         printf("step2\n");
