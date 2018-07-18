@@ -40,6 +40,8 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
     return 0;
 }
 
+struct avg_node *av = NULL;
+
 static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 {
     // printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
@@ -47,12 +49,27 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     char client[] = "Hello World From CLIENT!\n";
     char server[] = "Hello World From SERVER!\n";
     char *selectedText = NULL;
+    struct fuse_message *e = NULL;
 
     // ... //
 
-    if ( strcmp( path, "/client" ) == 0 )
+    if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
-    else if ( strcmp( path, "/server" ) == 0 )
+        pthread_mutex_lock(&tx_lock);
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, selectedText);
+        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+        printf("send msg in FUSE: %s\n", e->data);
+
+
+        av = malloc(sizeof(struct avg_node));
+        av->start_time = getTimeStamp();
+
+
+        pthread_mutex_unlock(&tx_lock);
+
+
+    } else if ( strcmp( path, "/server" ) == 0 )
         selectedText = server;
     else
         return -1;
@@ -69,35 +86,31 @@ static struct fuse_operations operations = {
 
 
 void *fuse_rx_launch() {
-
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
     struct fuse_message * txe = NULL;
-    FILE * file;
     char *buffer = NULL;
     int rtn;
 
     while(1) {
         int c;
-        FILE *file;
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            // printf("recv msg in FUSE: %s\n", e->data);
+            total_requests++;
+
+            printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
+            av->end_time = getTimeStamp();
+            av->interval = av->end_time - av->start_time;
+            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+
+            if(total_requests>2){
+                avg_results();
+            }
+
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
-            file = fopen("/mnt/ssd_cache/test/server", "r");
-            if (file) {
-                pthread_mutex_lock(&tx_lock);
-                txe = malloc(sizeof(struct fuse_message));
-                rtn = fread(txe->data, sizeof(char), 1024, file);
-                // printf("send msg in FUSE: %s\n", txe->data);
-                TAILQ_INSERT_TAIL(&fuse_tx_queue, txe, nodes);
-                pthread_mutex_unlock(&tx_lock);
-                fclose(file);
-            }
-
         }
         pthread_mutex_unlock(&rx_lock);
     }

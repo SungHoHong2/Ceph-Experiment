@@ -66,6 +66,9 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+
+            printf("sending some data\n");
+
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
             strncpy(obj.data, e->data, 100);
