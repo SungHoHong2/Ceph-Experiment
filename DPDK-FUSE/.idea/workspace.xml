@@ -19,20 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="649">
-              <caret line="107" column="27" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="27" />
+            <state relative-caret-position="630">
+              <caret line="106" column="30" lean-forward="true" selection-start-line="106" selection-start-column="30" selection-end-line="106" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+            <state relative-caret-position="501">
+              <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -127,8 +127,8 @@
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_server/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_benchmark/main.c" />
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h" />
+        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h" />
       </list>
     </option>
   </component>
@@ -257,12 +257,12 @@
       <workItem from="1531594117953" duration="21414000" />
       <workItem from="1531683293935" duration="14090000" />
       <workItem from="1531760630721" duration="13206000" />
-      <workItem from="1531847303136" duration="14901000" />
+      <workItem from="1531847303136" duration="14962000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92419000" />
+    <option name="totallyTimeSpent" value="92480000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -581,17 +581,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h">
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="649">
-          <caret line="107" column="27" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="27" />
+        <state relative-caret-position="501">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h">
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        <state relative-caret-position="630">
+          <caret line="106" column="30" lean-forward="true" selection-start-line="106" selection-start-column="30" selection-end-line="106" selection-end-column="30" />
         </state>
       </provider>
     </entry>

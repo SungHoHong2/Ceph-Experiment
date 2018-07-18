@@ -104,7 +104,7 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            if(total_requests>9){
+            if(total_requests>3){
                 avg_results();
             }
 
