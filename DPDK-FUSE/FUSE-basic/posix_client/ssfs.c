@@ -52,7 +52,8 @@ int main( int argc, char **argv )
     printf("FUSE-POSIX BEGIN\n");
     pthread_t threads[3];
     int rc = pthread_create(&threads[0], NULL, tcp_send_launch, NULL);
-        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+    rc = pthread_create(&threads[1], NULL, fuse_tx_launch, NULL);
+    rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
