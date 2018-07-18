@@ -27,8 +27,6 @@
 #include <signal.h>
 #include <sys/fcntl.h>
 
-
-#include <sys/queue.h>
 #include "ssfs_common.h"
 #include "ssfs_posix.h"
 #include "ssfs_fuse.h"
