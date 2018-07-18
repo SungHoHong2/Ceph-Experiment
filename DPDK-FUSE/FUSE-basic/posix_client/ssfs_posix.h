@@ -81,7 +81,6 @@ void *tcp_msg_launch(){
             if(success && strlen(data)>0){
                 printf("send msg in POSIX: %s\n",e->data);
                 printf("send msg in POSIX: %s\n",data);
-
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
