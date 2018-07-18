@@ -35,6 +35,7 @@
 
 int main( int argc, char **argv )
 {
+    TAILQ_INIT(&avg_queue);
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 

@@ -22,8 +22,8 @@
       <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+            <state relative-caret-position="737">
+              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
             </state>
           </provider>
         </entry>
@@ -31,8 +31,26 @@
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="685">
-              <caret line="108" column="49" selection-start-line="108" selection-start-column="44" selection-end-line="108" selection-end-column="49" />
+            <state relative-caret-position="587">
+              <caret line="102" column="40" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="36" column="1" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-end-line="56" />
             </state>
           </provider>
         </entry>
@@ -40,8 +58,8 @@
       <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+            <state relative-caret-position="309">
+              <caret line="28" column="34" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -50,7 +68,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rte_pktmbuf_free</find>
       <find>rte_mbuf_packet_length</find>
       <find>sleep(0);</find>
       <find>sleep(0)</find>
@@ -78,8 +95,9 @@
       <find>BLOCK</find>
       <find>recv_data</find>
       <find>recv</find>
-      <find>tx_lock</find>
       <find>total_requests</find>
+      <find>avg_queue</find>
+      <find>tx_lock</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -132,10 +150,10 @@
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_server/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs.c" />
-        <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h" />
+        <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h" />
       </list>
     </option>
@@ -253,12 +271,12 @@
       <workItem from="1531594117953" duration="21414000" />
       <workItem from="1531683293935" duration="14090000" />
       <workItem from="1531760630721" duration="13206000" />
-      <workItem from="1531847303136" duration="24313000" />
+      <workItem from="1531847303136" duration="24457000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101831000" />
+    <option name="totallyTimeSpent" value="101975000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -514,13 +532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="61" column="17" lean-forward="true" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_server/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="573">
@@ -533,13 +544,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_posix_0.h">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_posix.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -564,22 +568,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_common.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        <state relative-caret-position="309">
+          <caret line="28" column="34" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="36" column="1" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="108" column="49" selection-start-line="108" selection-start-column="44" selection-end-line="108" selection-end-column="49" />
+        <state relative-caret-position="587">
+          <caret line="102" column="40" selection-start-line="102" selection-start-column="31" selection-end-line="102" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
+        <state relative-caret-position="737">
+          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
         </state>
       </provider>
     </entry>
