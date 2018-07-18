@@ -83,28 +83,15 @@ void *tcp_msg_launch(){
                 printf("send msg in POSIX: %s\n",e->data);
             }
 
-
-//            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
-//
-//            if (data != NULL)
-//                rte_memcpy(data, msg, sizeof(struct message));
-//
-//            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-//            l2fwd_mac_updating(pkts_burst[0], portid);
-//            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
         pthread_mutex_unlock(&tx_lock);
 
 
-//        char send_data[PKT_SIZE];
-//        memset( send_data, '*', PKT_SIZE * sizeof(char));
-//        success=send(sockfd, send_data, PKT_SIZE, 0);
-
-
-//        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
-//        if(success && strlen(recv_data)>0){
-//           printf("received something!");
-//        }
+        success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
+        if(success && strlen(recv_data)>0){
+            msg = (struct msg*)recv_data;
+            printf("send msg in POSIX: %s\n",msg->data);
+        }
     }
 }

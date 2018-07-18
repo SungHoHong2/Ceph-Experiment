@@ -94,8 +94,6 @@ void *tcp_msg_launch(){
         perror("accept");
     }
 
-//    fcntl(new_fd, F_SETFL, O_NONBLOCK);
-
     while(1) {  // main accept() loop
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
@@ -109,8 +107,5 @@ void *tcp_msg_launch(){
                 printf("recv send: %s\n", buf);
         }
     }
-
-
-    close(new_fd);  // parent doesn't need this
 
 }
