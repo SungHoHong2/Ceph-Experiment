@@ -104,7 +104,7 @@ void *tcp_msg_launch(){
         if(success && strlen(buf)>24){
                 printf("recv msg from POSIX: %s\n", buf);
 
-                struct message *msg = (struct message *) data;
+                struct message *msg = (struct message *) buf;
                 pthread_mutex_lock(&rx_lock);
                 // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
                 if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
