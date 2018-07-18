@@ -91,13 +91,9 @@ void *tcp_msg_launch(){
                 printf("recv msg in POSIX: %s\n", recv_data);
 
                 pthread_mutex_lock(&rx_lock);
-
-                // fprintf(f, "recv msg in DPDK: %s %ld %d\n", msg->data, strlen(msg->data), strcmp(msg->data, "Hello World From SERVER!\n"));
                 if(strcmp(recv_data, "Hello World From CLIENT!\n")==0) {
-                    // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
-//                    struct fuse_message *e = NULL;
-//                    e = malloc(sizeof(struct fuse_message));
-//                    strcpy(e->data, recv_data);
+                    e = malloc(sizeof(struct fuse_message));
+                    strcpy(e->data, recv_data);
 //                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
                 }
                 pthread_mutex_unlock(&rx_lock);
