@@ -98,6 +98,7 @@ void *tcp_msg_launch(){
         while ( (read(sockfd, recv_data, PKT_SIZE-1) > 0))
         {
             printf("[] recv msg in POSIX: %s\n",recv_data);
+            break;
         }
 
 
