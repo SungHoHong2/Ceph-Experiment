@@ -95,6 +95,9 @@ void *tcp_msg_launch(){
 
 
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
+        msg = (struct message*)recv_data;
+        printf("[] recv msg in POSIX: %s\n",msg->data);
+
         if(success && strlen(recv_data)>10){
             msg = (struct message*)recv_data;
             printf("recv msg in POSIX: %s\n",msg->data);
