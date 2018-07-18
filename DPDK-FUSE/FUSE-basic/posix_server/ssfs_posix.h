@@ -17,7 +17,7 @@ void *get_in_addr(struct sockaddr *sa){
 }
 
 
-void *tcp_msg_launch(){
+void *tcp_recv_launch(){
 
     int sockfd, new_fd, numbytes;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
@@ -117,105 +117,6 @@ void *tcp_msg_launch(){
             }
             pthread_mutex_unlock(&rx_lock);
         }
-
-
-//        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0))
-//        {
-//            if(success && strlen(buf)>24) {
-//                printf("recv msg in POSIX: %s\n", buf);
-//
-//                pthread_mutex_lock(&rx_lock);
-//                if(strcmp(buf, "Hello World From CLIENT!\n")==0) {
-//                    e = malloc(sizeof(struct fuse_message));
-//                    strcpy(e->data, buf);
-//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//                }
-//                pthread_mutex_unlock(&rx_lock);
-//
-//                break;
-//            }
-//        }
-
-
-
-//        printf("step2\n");
-//
-//        while(TAILQ_EMPTY(&fuse_tx_queue)){};
-//
-//        pthread_mutex_lock(&tx_lock);
-//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//            e = TAILQ_FIRST(&fuse_tx_queue);
-//            msg = &obj;
-//            strncpy(obj.data, e->data, 100);
-//            data = (char*)&obj;
-//
-//            if (data != NULL)
-//                memcpy(data, msg, sizeof(struct message));
-//
-//            success=send(sockfd, data, PKT_SIZE, 0);
-//            if(success && strlen(data)>0){
-//                printf("send msg in POSIX: %s\n",e->data);
-//            }
-//
-//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//        }
-//        pthread_mutex_unlock(&tx_lock);
-//
-//        printf("step3\n");
-
-
-//        success = send(new_fd, buf, PKT_SIZE, 0);
-//        if(success && strlen(buf)>24){
-//            printf("send msg from POSIX: %s\n", buf);
-//        }
-
-
-
-//        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0)) {
-////            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
-//            if (success && strlen(buf) > 24) {
-//                printf("recv msg from POSIX: %s\n", buf);
-//
-//                struct message *msg = (struct message *) buf;
-//                pthread_mutex_lock(&rx_lock);
-//
-//                printf("step1-2\n");
-//                if (strlen(msg->data) >= 24 && strcmp(msg->data, "Hello World From CLIENT!\n") == 0) {
-//                    // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
-//                    e = malloc(sizeof(struct fuse_message));
-//                    strcpy(e->data, msg->data);
-//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-//                    // fflush(f);
-//                }
-//                pthread_mutex_unlock(&rx_lock);
-//            }
-//        }
-
-//        printf("step2\n");
-//
-//        while(TAILQ_EMPTY(&fuse_tx_queue)){};
-//
-//        pthread_mutex_lock(&tx_lock);
-//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//            e = TAILQ_FIRST(&fuse_tx_queue);
-//            msg = &obj;
-//            strncpy(obj.data, e->data, 100);
-//            data = (char*)&obj;
-//
-//            if (data != NULL)
-//                memcpy(data, msg, sizeof(struct message));
-//
-//            success=send(sockfd, data, PKT_SIZE, 0);
-//            if(success && strlen(data)>0){
-//                printf("send msg in POSIX: %s\n",e->data);
-//            }
-//
-//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//        }
-//        pthread_mutex_unlock(&tx_lock);
-//
-//        printf("step3\n");
-
 
     }
 
