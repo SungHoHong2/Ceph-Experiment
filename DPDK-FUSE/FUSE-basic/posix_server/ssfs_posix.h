@@ -104,6 +104,7 @@ void *tcp_msg_launch(){
         struct message *msg;
 
 
+        printf("step1\n");
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
@@ -125,6 +126,9 @@ void *tcp_msg_launch(){
 
         }
 
+        printf("step2\n");
+
+
         while(TAILQ_EMPTY(&fuse_tx_queue)){};
 
         pthread_mutex_lock(&tx_lock);
@@ -134,20 +138,19 @@ void *tcp_msg_launch(){
             strncpy(obj.data, e->data, 100);
             data = (char*)&obj;
 
-
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
                 printf("send msg in POSIX: %s\n",e->data);
-                // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
         pthread_mutex_unlock(&tx_lock);
 
+        printf("step3\n");
 
 
     }
