@@ -62,8 +62,9 @@ void *tcp_msg_launch(){
         struct fuse_message * e = NULL;
         struct message *msg;
 
-        while(TAILQ_EMPTY(&fuse_tx_queue)){}
+        printf("step0\n");
 
+        while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
         printf("step1\n");
 
