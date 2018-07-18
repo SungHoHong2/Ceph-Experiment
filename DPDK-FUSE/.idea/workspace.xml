@@ -19,11 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="98" column="29" lean-forward="true" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
+            <state relative-caret-position="668">
+              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="741">
+              <caret line="117" column="13" lean-forward="true" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -127,8 +136,8 @@
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs.c" />
-        <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h" />
+        <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h" />
       </list>
     </option>
   </component>
@@ -240,12 +249,12 @@
       <workItem from="1531683293935" duration="14090000" />
       <workItem from="1531760630721" duration="13206000" />
       <workItem from="1531847303136" duration="26239000" />
-      <workItem from="1531935539568" duration="2851000" />
+      <workItem from="1531935539568" duration="2893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106608000" />
+    <option name="totallyTimeSpent" value="106650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -569,13 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="116" column="48" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -585,8 +587,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="98" column="29" lean-forward="true" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
+        <state relative-caret-position="668">
+          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_posix.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="117" column="13" lean-forward="true" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
         </state>
       </provider>
     </entry>
