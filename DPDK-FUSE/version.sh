@@ -72,7 +72,8 @@ then
 if [ "$HOSTS" = "w1" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/posix_server
-gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs` 
+gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`
+./ssfs -f /mnt/ssd_cache/test
 fi
 
 elif [ "$1" = "tcp_clientr_make_experiment" ]
