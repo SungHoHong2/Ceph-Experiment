@@ -64,7 +64,7 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
 
-        sleep(1);
+        sleep(0);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
@@ -85,7 +85,7 @@ void *tcp_msg_launch(){
         pthread_mutex_unlock(&tx_lock);
 
 
-
+        sleep(0);
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
         if(success && strlen(recv_data)>10){
             printf("test %s\n", recv_data);
