@@ -64,8 +64,11 @@ void *tcp_msg_launch(){
 
         sleep(0);
 
+        printf("step 1\n");
 
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
+
+        printf("step 2\n");
 
 
         pthread_mutex_lock(&tx_lock);
@@ -88,15 +91,17 @@ void *tcp_msg_launch(){
         }
         pthread_mutex_unlock(&tx_lock);
 
+        printf("step 3\n");
+
 
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
         if(success && strlen(recv_data)>10){
-            printf("test %s\n", recv_data);
-            // msg = (struct message*)recv_data;
-            // printf("recv msg in POSIX: %s\n",msg->data);
+            msg = (struct message*)recv_data;
+            printf("recv msg in POSIX: %s\n",msg->data);
         }
 
 
+        printf("step 4\n");
 
 
     }
