@@ -63,10 +63,9 @@ void *tcp_msg_launch(){
         struct message *msg;
 
         pthread_mutex_lock(&tx_lock);
-
-
-//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//            e = TAILQ_FIRST(&fuse_tx_queue);
+        sleep(0);
+        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
             strncpy(obj.data, "Hello World From CLIENT!\n", 100);
             data = (char*)&obj;
@@ -74,14 +73,16 @@ void *tcp_msg_launch(){
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
 
+            printf("send msg in before POSIX: %s\n",e->data);
+
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
                 printf("send msg in POSIX: %s\n",e->data);
                 // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
 
-//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//        }
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+        }
         pthread_mutex_unlock(&tx_lock);
 
 
