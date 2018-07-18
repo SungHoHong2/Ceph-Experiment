@@ -62,6 +62,7 @@ void *tcp_msg_launch(){
         struct fuse_message * e = NULL;
         struct message *msg;
 
+        printf("step1\n");
 
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
@@ -88,7 +89,7 @@ void *tcp_msg_launch(){
         }
         pthread_mutex_unlock(&tx_lock);
 
-
+        printf("step2\n");
         while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
         {
             printf("[] recv msg in POSIX: %s\n", recv_data);
@@ -107,8 +108,8 @@ void *tcp_msg_launch(){
                 break;
             }
         }
-
-
+        
+        printf("step3\n");
 
 
     }
