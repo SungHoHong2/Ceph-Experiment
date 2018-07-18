@@ -49,7 +49,6 @@ int main( int argc, char **argv )
 
     printf("FUSE-DPDK BEGIN\n");
     pthread_t threads[3];
-    struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
     int rc = pthread_create(&threads[0], NULL, tcp_msg_launch, NULL);
