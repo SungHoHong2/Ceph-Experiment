@@ -92,7 +92,7 @@ void *tcp_msg_launch(){
         printf("step2\n");
 
         while(1){
-            success = read(sockfd, recv_data, PKT_SIZE-1) > 0);
+            success = read(sockfd, recv_data, PKT_SIZE-1);
             if(success && strlen(recv_data)>24) {
                 printf("recv msg in POSIX: %s\n", recv_data);
                 break;
