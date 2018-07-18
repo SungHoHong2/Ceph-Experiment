@@ -95,17 +95,17 @@ void *tcp_msg_launch(){
     }
 
     fcntl(new_fd, F_SETFL, O_NONBLOCK);
-    
+
     while(1) {  // main accept() loop
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
-        if(success && strlen(buf)>0){
+        if(success && strlen(buf)>24){
                 printf("recv msg: %s\n", buf);
         }
 
         success = send(new_fd, buf, PKT_SIZE, 0);
-        if(success && strlen(buf)>0){
+        if(success && strlen(buf)>24){
                 printf("recv send: %s\n", buf);
         }
     }

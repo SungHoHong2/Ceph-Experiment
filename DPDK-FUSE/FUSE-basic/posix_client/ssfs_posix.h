@@ -65,18 +65,13 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
 
-        printf("somethign in X: %s\n",e->data);
 
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-
-            printf("somethign in X: %s\n",e->data);
 
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
             strncpy(obj.data, e->data, 100);
             data = (char*)&obj;
-
-            printf("send msg in before POSIX: %s\n",e->data);
 
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
