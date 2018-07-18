@@ -64,6 +64,8 @@ void *tcp_msg_launch(){
 
         pthread_mutex_lock(&tx_lock);
         sleep(0);
+
+        printf("checking tailq_empty?: %d", TAILQ_EMPTY(&fuse_tx_queue));
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
