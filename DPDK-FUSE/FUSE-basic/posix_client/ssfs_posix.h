@@ -62,8 +62,6 @@ void *tcp_msg_launch(){
         struct fuse_message * e = NULL;
         struct message *msg;
 
-        printf("step1\n");
-
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
         pthread_mutex_lock(&tx_lock);
