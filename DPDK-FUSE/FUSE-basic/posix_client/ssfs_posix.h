@@ -64,12 +64,17 @@ void *tcp_msg_launch(){
 
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
+
+        printf("step1\n");
+
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
             strncpy(obj.data, e->data, 100);
             data = (char*)&obj;
+
+            printf("step2\n");
 
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
@@ -80,10 +85,16 @@ void *tcp_msg_launch(){
                 // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
 
+            printf("step3\n");
+
+
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
         pthread_mutex_unlock(&tx_lock);
 
+
+
+        printf("step4\n");
 
         while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
         {
@@ -94,13 +105,16 @@ void *tcp_msg_launch(){
                 if(strcmp(recv_data, "Hello World From CLIENT!\n")==0) {
                     e = malloc(sizeof(struct fuse_message));
                     strcpy(e->data, recv_data);
-//                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+                    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
                 }
                 pthread_mutex_unlock(&rx_lock);
 
                 break;
             }
         }
+
+        printf("step5\n");
+
 
 
     }
