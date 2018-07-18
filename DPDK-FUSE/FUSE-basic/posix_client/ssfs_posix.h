@@ -62,14 +62,17 @@ void *tcp_msg_launch(){
         struct fuse_message * e = NULL;
         struct message *msg;
 
-        pthread_mutex_lock(&tx_lock);
         sleep(0);
 
-        printf("checking tailq_empty?: %d", TAILQ_EMPTY(&fuse_tx_queue));
+        while(TAILQ_EMPTY(&fuse_tx_queue)){
+            printf("waiting??\n");
+        }
+
+        pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
-            strncpy(obj.data, "Hello World From CLIENT!\n", 100);
+            strncpy(obj.data, e->data, 100);
             data = (char*)&obj;
 
             if (data != NULL)
