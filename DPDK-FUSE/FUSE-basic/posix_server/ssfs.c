@@ -33,7 +33,7 @@
 #include <sys/queue.h>
 #include "ssfs_common.h"
 //#include "ssfs_posix.h"
-#include "ssfs_fuse.h"
+//#include "ssfs_fuse.h"
 
 
 int main( int argc, char **argv )
@@ -47,10 +47,10 @@ int main( int argc, char **argv )
         return 1;
     }
 
-    printf("FUSE-DPDK BEGIN\n");
-    pthread_t threads[3];
-    int rc = pthread_create(&threads[0], NULL, tcp_msg_launch, NULL);
-        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+//    printf("FUSE-DPDK BEGIN\n");
+//    pthread_t threads[3];
+//    int rc = pthread_create(&threads[0], NULL, tcp_msg_launch, NULL);
+//        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     printf("FUSE BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
