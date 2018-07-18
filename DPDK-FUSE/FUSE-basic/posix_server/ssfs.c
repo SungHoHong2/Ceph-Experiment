@@ -20,6 +20,12 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <sys/fcntl.h>
 
 #include <rte_common.h>
 #include <rte_log.h>
