@@ -61,6 +61,11 @@ int main( int argc, char **argv )
         return 1;
     }
 
+    if (pthread_mutex_init(&tx_lock, NULL) != 0) {
+        printf("\n mutex init has failed\n");
+        return 1;
+    }
+
     printf("FUSE-DPDK BEGIN\n");
     pthread_t threads[3];
     struct thread_data td[3];

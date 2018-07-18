@@ -38,6 +38,11 @@ int main( int argc, char **argv )
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 
+    if (pthread_mutex_init(&tx_lock, NULL) != 0) {
+        printf("\n mutex init has failed\n");
+        return 1;
+    }
+
     if (pthread_mutex_init(&rx_lock, NULL) != 0) {
         printf("\n mutex init has failed\n");
         return 1;
