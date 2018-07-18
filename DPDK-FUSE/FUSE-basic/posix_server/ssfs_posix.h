@@ -19,7 +19,6 @@ void *get_in_addr(struct sockaddr *sa){
 
 void *tcp_msg_launch(){
 
-
     int sockfd, new_fd, numbytes;  // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
@@ -42,7 +41,6 @@ void *tcp_msg_launch(){
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-        return 1;
     }
 
 
