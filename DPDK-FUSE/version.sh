@@ -42,8 +42,9 @@ then
 
 elif [ "$1" = "ssfs_client" ]
 then
-  for i in {2..10}
+  for i in {1..10}
   do
+      sleep 2
       echo "output: $i"
   done
 
