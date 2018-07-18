@@ -112,7 +112,7 @@ void *tcp_msg_launch(){
 
 //        while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
 
-        while ( (success = recv(new_fd, buf, PKT_SIZE-1) > 0)) {
+        while ( (success = read(new_fd, buf, PKT_SIZE-1) > 0)) {
 //            success = recv(new_fd, buf, PKT_SIZE - 1, 0);
             if (success && strlen(buf) > 24) {
                 printf("recv msg from POSIX: %s\n", buf);
