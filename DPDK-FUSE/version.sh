@@ -42,7 +42,7 @@ then
 
 elif [ "$1" = "ssfs_client" ]
 then
-  for i in {1..10}
+  for i in {1..3}
   do
       sleep 2
       ls -l /mnt/ssd_cache/test
