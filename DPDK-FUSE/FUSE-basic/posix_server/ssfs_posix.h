@@ -1,5 +1,5 @@
 #define PORT "1234"  // the port users will be connecting to
-#define PKT_SIZE 64 // max number of bytes we can get at once
+#define PKT_SIZE 1024 // max number of bytes we can get at once
 #define BACKLOG 10     // how many pending connections queue will hold
 
 void sigchld_handler(int s){
@@ -98,14 +98,11 @@ void *tcp_msg_launch(){
 
     while(1) {  // main accept() loop
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
-        // recv(new_fd, buf, PKT_SIZE-1, 0);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>0){
                 printf("recv msg: %s\n", buf);
         }
-        //printf("server: received '%ld'\n",strlen(buf));
-        // send(new_fd, buf, PKT_SIZE, 0);
 
         success = send(new_fd, buf, PKT_SIZE, 0);
         if(success && strlen(buf)>0){
