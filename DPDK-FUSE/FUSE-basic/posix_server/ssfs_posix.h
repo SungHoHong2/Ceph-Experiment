@@ -37,7 +37,7 @@ void *tcp_msg_launch(){
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
-    fcntl(new_fd, F_SETFL, O_NONBLOCK);
+//    fcntl(new_fd, F_SETFL, O_NONBLOCK);
 
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {

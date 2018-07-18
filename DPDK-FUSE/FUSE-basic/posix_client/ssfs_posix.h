@@ -64,9 +64,9 @@ void *tcp_msg_launch(){
 
         sleep(0);
 
-        while(TAILQ_EMPTY(&fuse_tx_queue)){
-            printf("waiting??\n");
-        }
+
+        while(TAILQ_EMPTY(&fuse_tx_queue)){}
+
 
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
@@ -77,8 +77,6 @@ void *tcp_msg_launch(){
 
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
-
-            printf("send msg in before POSIX: %s\n",e->data);
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
@@ -91,7 +89,6 @@ void *tcp_msg_launch(){
         pthread_mutex_unlock(&tx_lock);
 
 
-        sleep(0);
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
         if(success && strlen(recv_data)>10){
             printf("test %s\n", recv_data);
