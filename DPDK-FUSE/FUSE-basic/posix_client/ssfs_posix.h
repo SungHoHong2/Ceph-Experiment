@@ -64,11 +64,11 @@ void *tcp_msg_launch(){
 
         printf("step0\n");
 
+        pthread_mutex_lock(&tx_lock);
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
         printf("step1\n");
 
-        pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
