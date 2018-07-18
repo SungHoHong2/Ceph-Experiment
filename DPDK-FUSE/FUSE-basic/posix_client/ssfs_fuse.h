@@ -109,6 +109,8 @@ void *fuse_rx_launch() {
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
+
+
         }
         pthread_mutex_unlock(&rx_lock);
     }
