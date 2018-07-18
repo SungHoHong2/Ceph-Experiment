@@ -81,7 +81,7 @@ then
 if [ "$HOSTS" = "w2" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/posix_client
-gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`
+gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`  -lm
 ./ssfs -f /mnt/ssd_cache/test
 fi
 
