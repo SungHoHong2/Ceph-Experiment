@@ -1,8 +1,6 @@
 
 static int do_getattr( const char *path, struct stat *st )
 {
-    // printf( "[getattr] Called\n" );
-    // printf( "\tAttributes of %s requested\n", path );
 
     st->st_uid = getuid(); // The owner of the file/directory is the user who mounted the filesystem
     st->st_gid = getgid(); // The group of the file/directory is the same as the group of the user who mounted the filesystem
@@ -104,15 +102,13 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            if(total_requests>2){
+            if(total_requests>3){
                 avg_results();
             }
 
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
-
-
         }
         pthread_mutex_unlock(&rx_lock);
     }
