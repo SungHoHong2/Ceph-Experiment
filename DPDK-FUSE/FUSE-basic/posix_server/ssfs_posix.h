@@ -37,7 +37,7 @@ void *tcp_msg_launch(){
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
-//    fcntl(new_fd, F_SETFL, O_NONBLOCK);
+    fcntl(new_fd, F_SETFL, O_NONBLOCK);
 
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
@@ -109,7 +109,7 @@ void *tcp_msg_launch(){
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
-        printf("[] recv msg from POSIX: %s\n", buf);
+        // printf("[] recv msg from POSIX: %s\n", buf);
 
         if(success && strlen(buf)>24){
             printf("recv msg from POSIX: %s\n", buf);
