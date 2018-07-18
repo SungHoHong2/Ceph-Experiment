@@ -108,8 +108,6 @@ void *tcp_msg_launch(){
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
-        sleep(2);
-
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         printf("[] recv msg from POSIX: %s\n", buf);
 

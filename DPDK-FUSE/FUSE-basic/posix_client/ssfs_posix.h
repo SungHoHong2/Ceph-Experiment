@@ -90,7 +90,7 @@ void *tcp_msg_launch(){
         pthread_mutex_unlock(&tx_lock);
 
         printf("step2\n");
-
+        sleep(2);
         while ( (success = read(sockfd, recv_data, PKT_SIZE-1) > 0))
         {
             printf("[] recv msg in POSIX: %s\n", recv_data);
