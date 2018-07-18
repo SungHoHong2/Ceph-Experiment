@@ -26,6 +26,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <sys/fcntl.h>
+#include <pthread.h>
 
 #include "ssfs_common.h"
 #include "ssfs_posix.h"
