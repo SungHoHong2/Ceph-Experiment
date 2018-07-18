@@ -33,10 +33,8 @@
 #include "ssfs_fuse.h"
 
 
-
 int main( int argc, char **argv )
 {
-
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 
