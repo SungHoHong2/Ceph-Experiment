@@ -83,7 +83,7 @@ void *fuse_rx_launch() {
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            // printf("recv msg in FUSE: %s\n", e->data);
+            printf("recv msg in FUSE: %s\n", e->data);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
