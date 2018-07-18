@@ -45,11 +45,11 @@ then
   for i in {1..10}
   do
       sleep 2
-      echo "output: $i"
+      ls -l /mnt/ssd_cache/test
+      cat /mnt/ssd_cache/test/client
   done
 
-  # ls -l /mnt/ssd_cache/test
-  # cat /mnt/ssd_cache/test/client
+
 
 elif [ "$1" = "ssfs_benchmark" ]
 then
