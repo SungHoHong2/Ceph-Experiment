@@ -76,7 +76,7 @@ gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`
 ./ssfs -f /mnt/ssd_cache/test
 fi
 
-elif [ "$1" = "tcp_clientr_make_experiment" ]
+elif [ "$1" = "tcp_client_make_experiment" ]
 then
 if [ "$HOSTS" = "w2" ]
 then
