@@ -84,9 +84,7 @@ void *tcp_msg_launch(){
         }
         pthread_mutex_unlock(&tx_lock);
 
-
         success=recv(sockfd, recv_data, PKT_SIZE-1, 0);
-        printf("test %s, %ld\n", recv_data, strlen(recv_data));
         if(success && strlen(recv_data)>24){
             printf("test %s\n", recv_data);
             msg = (struct message*)recv_data;
