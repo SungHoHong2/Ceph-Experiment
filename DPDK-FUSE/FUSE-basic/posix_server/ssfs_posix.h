@@ -102,7 +102,6 @@ void *tcp_msg_launch(){
         struct message obj;
         struct fuse_message * e = NULL;
         struct message *msg;
-        struct fuse_message *e = NULL;
 
 
 
