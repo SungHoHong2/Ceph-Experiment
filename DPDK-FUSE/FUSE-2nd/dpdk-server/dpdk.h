@@ -231,7 +231,8 @@ void
 
 //            if (data != NULL)
 //                rte_memcpy(data, msg, sizeof(struct message));
-
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            l2fwd_mac_updating(rm[0], portid);
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
             rte_memcpy(data, msg, sizeof(struct message));
@@ -242,8 +243,7 @@ void
             printf("send msg in DPDK: %s\n", msg->data);
 
 
-            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            l2fwd_mac_updating(rm[0], portid);
+
 
             // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
