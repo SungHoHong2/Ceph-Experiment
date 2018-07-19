@@ -178,64 +178,61 @@ void
     qconf = &lcore_queue_conf[lcore_id];
 
     struct rte_mbuf *rm[1];
-    
+
     while (!force_quit) {
 
         /*
          * Read packet from RX queues
          */
-        for (i = 0; i < qconf->n_rx_port; i++) {
-
-            portid = qconf->rx_port_list[i];
-            nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-                                     pkts_burst, MAX_PKT_BURST);
-
-             for (j = 0; j < nb_rx; j++) {
-                 // sleep(0);
-                //CHARA BEGIN
-                 m = pkts_burst[j];
-
-                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                int header_length =  rte_mbuf_packet_length - 1024;
-
-                if(header_length>0){
-                    // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
-                    // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-                    dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
-                }
-                //CHARA END
-                rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                // l2fwd_simple_forward(m, portid);
-                // rte_pktmbuf_free(m);
-            }
-
-            // move the send out from the rx queues
-            // l2fwd_simple_forward(m, portid);
-            // need to send the data from here stupid!
+       // for (i = 0; i < qconf->n_rx_port; i++) {
+            portid = qconf->rx_port_list[0];
+//            nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+//                                     pkts_burst, MAX_PKT_BURST);
+//
+//             for (j = 0; j < nb_rx; j++) {
+//                //CHARA BEGIN
+//                 m = pkts_burst[j];
+//
+//                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+//                int header_length =  rte_mbuf_packet_length - 1024;
+//
+//                if(header_length>0){
+//                    // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+//                    // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+//                    dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
+//                }
+//                //CHARA END
+//                rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+//                // l2fwd_simple_forward(m, portid);
+//                // rte_pktmbuf_free(m);
+//            }
 
             char* data;
             struct message obj;
             struct fuse_message * e = NULL;
             struct message *msg;
+            struct rte_mbuf *rm[1];
 
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
-                // printf("send msg in DPDK: %s\n",e->data);
+                printf("send msg in DPDK: %s\n",e->data);
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);
-                data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
+                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
-                rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-                l2fwd_mac_updating(pkts_burst[0], portid);
-                rte_eth_tx_burst(portid, 0, pkts_burst, 1);
+                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                l2fwd_mac_updating(rm[0], portid);
+                rte_eth_tx_burst(portid, 0, rm, 1);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
             pthread_mutex_unlock(&tx_lock);
-        }
+
+        // }
     }
 }
 
