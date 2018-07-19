@@ -212,51 +212,48 @@ void
 
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-//            e = TAILQ_FIRST(&fuse_rx_queue);
-//
-//            int c;
-//            FILE *file;
-//            char sdata[24];
-//            file = fopen("/mnt/ssd_cache/server", "r");
-//            if (file) {
-//                c = fread(sdata, sizeof(char), 24, file);
-//                printf("send msg in FILESYSTEM: %s\n", sdata);
-//                fclose(file);
-//            }
-//
-//            msg = &obj;
-//            strncpy(obj.data, sdata, 100);
-//            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//
-//
-//            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-//            l2fwd_mac_updating(rm[0], portid);
-//
-//
-//            if (data != NULL)
-//                rte_memcpy(data, msg, sizeof(struct message));
-//
-//            data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-//            rte_eth_tx_burst(portid, 0, rm, 1);
-//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+            e = TAILQ_FIRST(&fuse_rx_queue);
 
+            int c;
+            FILE *file;
+            char sdata[24];
+            file = fopen("/mnt/ssd_cache/server", "r");
+            if (file) {
+                c = fread(sdata, sizeof(char), 24, file);
+                printf("send msg in FILESYSTEM: %s\n", sdata);
+                fclose(file);
+            }
 
-
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in DPDK: %s\n",e->data);
             msg = &obj;
-            strncpy(obj.data, "Hello World From SERVER!\n", 100);
+            strncpy(obj.data, sdata, 100);
+
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+
+
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
             l2fwd_mac_updating(rm[0], portid);
 
-            data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
 
-            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+
+            memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+            data = rte_pktmbuf_append(rm[0], sizeof(struct message));
             rte_eth_tx_burst(portid, 0, rm, 1);
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+
+
+//            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//            data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+//            memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+//            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//            l2fwd_mac_updating(rm[0], portid);
+//
+//            sent = rte_eth_tx_burst(portid, 0, rm, 1);
+
+
+
 
 
 
