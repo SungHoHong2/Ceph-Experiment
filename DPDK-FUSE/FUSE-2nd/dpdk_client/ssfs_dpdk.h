@@ -213,7 +213,6 @@ void
             struct message *msg;
             struct rte_mbuf *rm[1];
 
-
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
@@ -222,6 +221,7 @@ void
                 strncpy(obj.data, e->data, 100);
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 l2fwd_mac_updating(rm[0], portid);
+
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
                 if (data != NULL)
@@ -232,7 +232,6 @@ void
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
             pthread_mutex_unlock(&tx_lock);
-
         // }
     }
 }
