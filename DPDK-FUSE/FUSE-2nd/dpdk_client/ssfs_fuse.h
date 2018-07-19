@@ -56,28 +56,38 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     if ( strcmp( path, "/client" ) == 0 ) {
 
 
-        printf("send msg in FUSE: %s\n", e->data);
-
-
+        printf("send msg in FUSE: %s\n", client);
+        
         struct rte_mbuf *rm[1];
-        char* data;
-        struct message obj;
-        struct fuse_message * e = NULL;
-        struct message *msg;
+        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+        data = rte_pktmbuf_append(rm[0], 30);
+        memset(data, client, rte_pktmbuf_pkt_len(rm[0]));
+        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+        l2fwd_mac_updating(rm[0], portid);
+        sent = rte_eth_tx_burst(portid, 0, rm, 1);
+        rte_pktmbuf_free(rm[0]);
 
-            msg = &obj;
-            strncpy(obj.data, client, 100);
-            printf("send msg in DPDK: %s\n",e->data);
-            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
 
-            if (data != NULL)
-                rte_memcpy(data, msg, sizeof(struct message));
 
-            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-            l2fwd_mac_updating(pkts_burst[0], portid);
-            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
+//        struct rte_mbuf *rm[1];
+//        char* data;
+//        struct message obj;
+//        struct fuse_message * e = NULL;
+//        struct message *msg;
+//
+//            msg = &obj;
+//            strncpy(obj.data, client, 100);
+//            printf("send msg in DPDK: %s\n",e->data);
+//            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
+//
+//            if (data != NULL)
+//                rte_memcpy(data, msg, sizeof(struct message));
+//
+//            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
+//            l2fwd_mac_updating(pkts_burst[0], portid);
+//            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
 
-            
+
 
 //        selectedText = client;
 //        pthread_mutex_lock(&tx_lock);
