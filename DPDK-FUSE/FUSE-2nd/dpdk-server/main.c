@@ -236,8 +236,8 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
-void
-*l2fwd_rx_loop(void)
+static void
+l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
@@ -513,6 +513,15 @@ check_all_ports_link_status(uint8_t port_num, uint32_t port_mask)
 	}
 }
 
+
+static int
+l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
+{
+	l2fwd_main_loop();
+	return 0;
+}
+
+
 static void
 signal_handler(int signum)
 {
@@ -737,7 +746,7 @@ main(int argc, char **argv)
 
 	ret = 0;
 	/* launch per-lcore init on every lcore */
-			
+
 	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
 	RTE_LCORE_FOREACH_SLAVE(lcore_id) {
 		if (rte_eal_wait_lcore(lcore_id) < 0) {
