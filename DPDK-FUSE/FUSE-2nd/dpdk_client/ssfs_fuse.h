@@ -105,9 +105,9 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            if(total_requests > TOTAL_TEST_REQ){
+            // if(total_requests > TOTAL_TEST_REQ){
                 avg_results();
-            }
+            // }
 
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
