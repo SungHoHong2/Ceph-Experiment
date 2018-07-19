@@ -44,6 +44,7 @@ elif [ "$1" = "dpdk_client" ]
 then
   for i in {1..100}
   do
+      sleep 0.5
       ls -l /mnt/ssd_cache/test
       cat /mnt/ssd_cache/test/client
   done
