@@ -2,6 +2,10 @@
 #include <math.h>
 
 int total_requests = 0;
+int runtime_start = 0;
+int runtime_end = 0;
+
+
 
 TAILQ_HEAD(avg_head, avg_node) avg_queue;
 struct avg_node

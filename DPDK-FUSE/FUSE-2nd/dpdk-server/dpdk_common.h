@@ -2,7 +2,6 @@ struct message {
     char data[1024];
 };
 
-
 struct fuse_message
 {
     char data[1024];
