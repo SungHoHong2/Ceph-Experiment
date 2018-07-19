@@ -291,7 +291,7 @@ l2fwd_main_loop(void)
 						l2fwd_mac_updating(m, 0);
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
 						buffer = tx_buffer[0];
-						sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+						rte_eth_tx_buffer(0, 0, buffer, m);
 					}
 				//CHARA END
 			}
