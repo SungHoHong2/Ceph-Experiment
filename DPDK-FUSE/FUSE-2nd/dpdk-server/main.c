@@ -284,10 +284,6 @@ l2fwd_main_loop(void)
 
 				// rte_pktmbuf_dump(stdout, m, 1024);
 
-				unsigned dst_port = l2fwd_dst_ports[0];
-				if (mac_updating)
-					l2fwd_mac_updating(m, dst_port);
-
 				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
@@ -296,6 +292,10 @@ l2fwd_main_loop(void)
 				//CHARA END
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				// l2fwd_simple_forward(m, portid);
+
+				unsigned dst_port = l2fwd_dst_ports[0];
+				if (mac_updating)
+					l2fwd_mac_updating(m, dst_port);
 
 				buffer = tx_buffer[dst_port];
 				rte_eth_tx_buffer(dst_port, 0, buffer, m);
