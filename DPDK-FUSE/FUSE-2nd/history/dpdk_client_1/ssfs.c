@@ -72,10 +72,9 @@ int main( int argc, char **argv )
     struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
-    dpdk_msg_init((void *)&td[0]);
-
-    int rc = pthread_create(&threads[0], NULL, l2fwd_main_loop, NULL);
-        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+    dpdk_msg_launch((void *)&td[0]);
+    // int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
+    // int   rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     printf("FUS-CLIENT BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
