@@ -75,7 +75,7 @@ int main( int argc, char **argv )
     dpdk_msg_init((void *)&td[0]);
 
     int rc = pthread_create(&threads[0], NULL, l2fwd_tx_loop, NULL);
-        rc = pthread_create(&threads[2], NULL, l2fwd_rx_loop, NULL);
+        rc = pthread_create(&threads[1], NULL, l2fwd_rx_loop, NULL);
         rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
 
