@@ -49,6 +49,7 @@
 int main( int argc, char **argv )
 {
 
+    printf("howdy\n");
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 
