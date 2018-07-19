@@ -58,7 +58,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         strcpy(e->data, selectedText);
         sleep(1);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-        printf("send msg in FUSE: %s\n", e->data);
+        // printf("send msg in FUSE: %s\n", e->data);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
 
@@ -97,9 +97,12 @@ void *fuse_rx_launch() {
             e = TAILQ_FIRST(&fuse_rx_queue);
             total_requests++;
 
-            printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
+            // printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
+            printf("%d\n",av->interval);
+
+
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
             if(total_requests>TOTAL_TEST_REQ){

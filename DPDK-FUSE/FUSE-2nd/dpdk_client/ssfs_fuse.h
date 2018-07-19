@@ -100,14 +100,16 @@ void *fuse_rx_launch() {
             e = TAILQ_FIRST(&fuse_rx_queue);
             total_requests++;
 
-            printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
+            // printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
+            printf("%d\n",av->interval);
+
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            // if(total_requests > TOTAL_TEST_REQ){
+             if(total_requests > TOTAL_TEST_REQ){
                 avg_results();
-            // }
+             }
 
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);

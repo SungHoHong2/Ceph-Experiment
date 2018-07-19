@@ -111,7 +111,7 @@ void *tcp_recv_launch(){
         if(success && strlen(buf)>=24){
             pthread_mutex_lock(&rx_lock);
             if(strcmp(buf, "Hello World From SERVER!")==0) {
-                printf("recv msg from POSIX: %s\n", buf);
+                // printf("recv msg from POSIX: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -192,8 +192,7 @@ void *tcp_send_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-                printf("send msg in POSIX: %s\n",e->data);
-                // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
+                // printf("send msg in POSIX: %s\n",e->data);
             }
 
 
