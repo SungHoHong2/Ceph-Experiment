@@ -125,6 +125,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
+
+
+    printf("test: %s\n", data);
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
