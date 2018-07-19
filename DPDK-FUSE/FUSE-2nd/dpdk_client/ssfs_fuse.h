@@ -103,7 +103,7 @@ void *fuse_rx_launch() {
             // printf("recv msg in FUSE: %s :: %d\n", e->data, total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            printf("%d\n",av->interval);
+            printf("%ld\n",av->interval);
 
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
