@@ -199,8 +199,8 @@ void
                     dpdk_pktmbuf_dump(stdout, m, 1024, 0);
                 }
                 //CHARA END
-                rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                l2fwd_simple_forward(m, portid);
+                // rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+                // l2fwd_simple_forward(m, portid);
 
 
 //                fprintf(f, "recv msg: %s\n", msg->data);
