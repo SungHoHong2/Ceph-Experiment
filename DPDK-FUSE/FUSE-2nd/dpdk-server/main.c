@@ -105,18 +105,13 @@ int dpdk_init(){
 
 
 	/* init EAL */
-	ret = rte_eal_init(argc, dpdk_argv);
-	if (ret < 0)
-		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
-	argc -= ret;
-	argv += ret;
-
+	ret = rte_eal_init(count, dpdk_argv);
 	force_quit = false;
 	signal(SIGINT, signal_handler);
 	signal(SIGTERM, signal_handler);
 
 	/* parse application arguments (after the EAL ones) */
-	ret = l2fwd_parse_args(argc, argv);
+	ret = l2fwd_parse_args();
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
 
