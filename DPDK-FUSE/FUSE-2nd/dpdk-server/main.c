@@ -517,6 +517,16 @@ void l2fwd_tx_loop(){
 }
 
 
+static void
+signal_handler(int signum)
+{
+	if (signum == SIGINT || signum == SIGTERM) {
+		printf("\n\nSignal %d received, preparing to exit...\n",
+			   signum);
+		force_quit = true;
+	}
+}
+
 struct thread_data
 {
 	int c;
@@ -753,17 +763,6 @@ void *dpdk_msg_init(void *threadarg) {
 	printf("DPDK END\n");
 }
 
-
-
-static void
-signal_handler(int signum)
-{
-	if (signum == SIGINT || signum == SIGTERM) {
-		printf("\n\nSignal %d received, preparing to exit...\n",
-			   signum);
-		force_quit = true;
-	}
-}
 
 int
 main(int argc, char **argv)
