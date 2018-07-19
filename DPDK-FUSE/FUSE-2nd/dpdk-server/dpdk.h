@@ -236,8 +236,8 @@ void
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
             dpdk_pktmbuf_dump(stdout, rm[0], 1024, 0);
 
-            
-            printf("send msg in DPDK: %s\n", data);
+
+            printf("howdy msg in DPDK: %s\n", data);
             printf("send msg in DPDK: %s\n", msg->data);
 
 
