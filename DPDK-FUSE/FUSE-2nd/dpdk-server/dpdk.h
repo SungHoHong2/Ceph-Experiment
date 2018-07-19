@@ -117,19 +117,13 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
 
-        fprintf(f, "recv msg: %s\n", msg->data);
+        pthread_mutex_lock(&rx_lock);
+        e = malloc(sizeof(struct fuse_message));
+        fprintf(f, "recv msg in DPDK:\n");
+        strcpy(e->data, "Hello World From SERVER!\n");
+        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+        fflush(f);
 
-        int c;
-        FILE *file;
-        char data[24];
-        file = fopen("/mnt/ssd_cache/server", "r");
-        if (file) {
-            c = fread(data, sizeof(char), 24, file);
-            printf("send msg in FILESYSTEM: %s\n", data);
-            fclose(file);
-        }
-
-        rte_memcpy(msg->data, data, sizeof(char)*24);
     }
     fflush(f);
 }
@@ -158,8 +152,6 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 }
 
 
-
-/* main processing loop */
 void
 * l2fwd_main_loop()
 {
@@ -209,17 +201,27 @@ void
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void *));
                 l2fwd_simple_forward(m, portid);
+
+
+//                fprintf(f, "recv msg: %s\n", msg->data);
+//                int c;
+//                FILE *file;
+//                char data[24];
+//                file = fopen("/mnt/ssd_cache/server", "r");
+//                if (file) {
+//                    c = fread(data, sizeof(char), 24, file);
+//                    printf("send msg in FILESYSTEM: %s\n", data);
+//                    fclose(file);
+//                }
+//                rte_memcpy(msg->data, data, sizeof(char)*24);
+
+
+
+
             }
         }
     }
 }
-
-//static int
-//l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
-//{
-//    l2fwd_main_loop();
-//    return 0;
-//}
 
 
 static int
