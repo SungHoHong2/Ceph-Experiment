@@ -247,7 +247,7 @@ void
             }
 
             msg = &obj;
-            strncpy(obj.data, sdata, 30);
+            strncpy(obj.data, sdata, 100);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             l2fwd_mac_updating(rm[0], portid);
 

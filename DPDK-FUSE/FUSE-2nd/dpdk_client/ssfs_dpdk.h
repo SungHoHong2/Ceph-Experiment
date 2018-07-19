@@ -238,7 +238,6 @@ void
                 //CHARA BEGIN
                 m = pkts_burst[j];
 
-
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length = rte_mbuf_packet_length - 1024;
 
