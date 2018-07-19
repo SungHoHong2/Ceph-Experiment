@@ -61,10 +61,10 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         struct rte_mbuf *rm[1];
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         data = rte_pktmbuf_append(rm[0], 30);
-        memset(data, client, rte_pktmbuf_pkt_len(rm[0]));
+        memset(data, "Hello World From CLIENT!\n", rte_pktmbuf_pkt_len(rm[0]));
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
         l2fwd_mac_updating(rm[0], 0);
-        sent = rte_eth_tx_burst(0, 0, rm, 1);
+        rte_eth_tx_burst(0, 0, rm, 1);
         rte_pktmbuf_free(rm[0]);
 
 
