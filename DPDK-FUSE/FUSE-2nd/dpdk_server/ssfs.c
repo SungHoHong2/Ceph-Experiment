@@ -49,7 +49,6 @@
 int main( int argc, char **argv )
 {
 
-    printf("howdy\n");
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 
@@ -68,6 +67,9 @@ int main( int argc, char **argv )
     td[0].c = argc;
     td[0].v = argv;
     int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
+
+
+    while(1)();
         // rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     return 0;
