@@ -227,11 +227,10 @@ void
             msg = &obj;
             strncpy(obj.data, sdata, 100);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-
-
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
             // rm[0]+=sizeof(struct ether_hdr);
 
+            rm[0]+=5;
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
             rte_memcpy(data, msg, sizeof(struct message));
