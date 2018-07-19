@@ -390,7 +390,7 @@ struct thread_data
     char **v;
 };
 
-void dpdk_msg_launch(void *threadarg) {
+void *dpdk_msg_launch(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 
@@ -400,7 +400,7 @@ void dpdk_msg_launch(void *threadarg) {
     int argc = my_data->c;
     char **argv = my_data->v;
 
-    // sleep(5);
+    sleep(5);
 
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
@@ -609,13 +609,13 @@ void dpdk_msg_launch(void *threadarg) {
 
     ret = 0;
     /* launch per-lcore init on every lcore */
-    //    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-    //    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
-    //        if (rte_eal_wait_lcore(lcore_id) < 0) {
-    //            ret = -1;
-    //            break;
-    //        }
-    //    }
+    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
+    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+        if (rte_eal_wait_lcore(lcore_id) < 0) {
+            ret = -1;
+            break;
+        }
+    }
 
     printf("DPDK END\n");
 }
