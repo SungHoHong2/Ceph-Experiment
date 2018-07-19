@@ -302,7 +302,7 @@ main(int argc, char **argv)
 
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 	pthread_t threads[3];
-	int rc = pthread_create(&threads[0], NULL, l2fwd_rs_loop, NULL);
+	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
 	rc = pthread_create(&threads[1], NULL, l2fwd_tx_loop, NULL);
 //	rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
