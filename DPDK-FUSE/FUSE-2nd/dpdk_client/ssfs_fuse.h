@@ -57,7 +57,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
 
         printf("send msg in FUSE: %s\n", client);
-
+        char *data;
         struct rte_mbuf *rm[1];
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         data = rte_pktmbuf_append(rm[0], 30);
