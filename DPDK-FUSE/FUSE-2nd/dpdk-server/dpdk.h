@@ -171,6 +171,9 @@ void
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
+
+            printf("nb_rx: %d\n", nb_rx);
+
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
