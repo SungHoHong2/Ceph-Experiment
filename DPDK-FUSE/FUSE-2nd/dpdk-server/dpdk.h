@@ -229,8 +229,11 @@ void
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             l2fwd_mac_updating(rm[0], portid);
 
+//            if (data != NULL)
+//                rte_memcpy(data, msg, sizeof(struct message));
+
             if (data != NULL)
-                rte_memcpy(data, msg, sizeof(struct message));
+                rte_memcpy(data, sdata, sizeof(char)*24);
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
