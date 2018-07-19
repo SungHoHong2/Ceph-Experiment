@@ -235,8 +235,8 @@ void
                 strncpy(obj.data, e->data, 100);
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 pkt_size = sizeof(struct message) + sizeof(struct ether_hdr);
-                pkt->data_len = pkt_size;
-                pkt->pkt_len = pkt_size;
+                rm[0]->data_len = pkt_size;
+                rm[0]->pkt_len = pkt_size;
                 l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
