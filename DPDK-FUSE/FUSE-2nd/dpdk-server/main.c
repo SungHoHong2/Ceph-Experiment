@@ -191,10 +191,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	data+=ofs;
 	struct message *msg = (struct message *) data;
 
-	fprintf(f, "recv msg: %s\n", msg->data);
 	if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
 
-		// fprintf(f, "recv msg: %s\n", msg->data);
+		fprintf(f, "recv msg: %s\n", msg->data);
 
 		int c;
 		FILE *file;
@@ -281,6 +280,10 @@ l2fwd_main_loop(void)
 
 				//CHARA BEGIN
 				m = pkts_burst[j];
+
+				rte_pktmbuf_dump(stdout, m, 1024);
+
+
 					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 					int header_length =  rte_mbuf_packet_length - 1024;
 
