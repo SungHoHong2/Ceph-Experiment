@@ -81,6 +81,8 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         printf("step7\n");
         rte_pktmbuf_free(rm[0]);
 
+        printf("step8\n");
+
 
 
 //        struct rte_mbuf *rm[1];
