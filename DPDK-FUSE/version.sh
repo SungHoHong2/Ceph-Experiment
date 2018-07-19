@@ -92,7 +92,7 @@ then
   then
   cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/dpdk_server/
   make
-  ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+  ./build/dpdk-server
 
   elif [ "$HOSTS" = "w2" ]
   then
