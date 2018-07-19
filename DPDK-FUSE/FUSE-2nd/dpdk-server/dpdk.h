@@ -245,7 +245,7 @@ void
             e = TAILQ_FIRST(&fuse_tx_queue);
             printf("send msg in DPDK: %s\n",e->data);
             msg = &obj;
-            strncpy(obj.data, e->data, 100);
+            strncpy(obj.data, "Hello World From SERVER!\n", 100);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             l2fwd_mac_updating(rm[0], portid);
 
