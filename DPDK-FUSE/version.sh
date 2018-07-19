@@ -86,7 +86,7 @@ gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 fi
 
 
-if [ "$1" = "Fuse_2nd_make_launch" ]
+elif [ "$1" = "Fuse_2nd_make_launch" ]
 then
   if [ "$HOSTS" = "w1" ]
   then
