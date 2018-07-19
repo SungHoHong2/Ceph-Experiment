@@ -235,9 +235,19 @@ void
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            printf("send msg in DPDK: %s\n",e->data);
+
+            int c;
+            FILE *file;
+            char sdata[24];
+            file = fopen("/mnt/ssd_cache/server", "r");
+            if (file) {
+                c = fread(sdata, sizeof(char), 24, file);
+                printf("send msg in FILESYSTEM: %s\n", sdata);
+                fclose(file);
+            }
+
             msg = &obj;
-            strncpy(obj.data, e->data, 100);
+            strncpy(obj.data, sdata, 30);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             l2fwd_mac_updating(rm[0], portid);
 
