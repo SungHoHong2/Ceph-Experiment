@@ -160,8 +160,8 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
-static void
-l2fwd_main_loop(void)
+int
+l2fwd_main_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -218,27 +218,13 @@ l2fwd_main_loop(void)
     }
 }
 
-static int
-l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
-{
-    l2fwd_main_loop();
-    return 0;
-}
+//static int
+//l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
+//{
+//    l2fwd_main_loop();
+//    return 0;
+//}
 
-/* display usage */
-static void
-l2fwd_usage(const char *prgname)
-{
-    printf("%s [EAL options] -- -p PORTMASK [-q NQ]\n"
-           "  -p PORTMASK: hexadecimal bitmask of ports to configure\n"
-           "  -q NQ: number of queue (=ports) per lcore (default is 1)\n"
-           "  -T PERIOD: statistics will be refreshed each PERIOD seconds (0 to disable, 10 default, 86400 maximum)\n"
-           "  --[no-]mac-updating: Enable or disable MAC addresses updating (enabled by default)\n"
-           "      When enabled:\n"
-           "       - The source MAC address is replaced by the TX port MAC address\n"
-           "       - The destination MAC address is replaced by 02:00:00:00:00:TX_PORT_ID\n",
-           prgname);
-}
 
 static int
 l2fwd_parse_portmask(const char *portmask)
