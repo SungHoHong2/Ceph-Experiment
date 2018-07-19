@@ -205,10 +205,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 			fclose(file);
 		}
 
+		rte_memcpy(msg->data, data, sizeof(char)*24);
 
-
-
-//		//
+		//		//
 //
 //		strncpy(obj.data, e->data, 100);
 //		TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
