@@ -235,6 +235,7 @@ void
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
             printf("send msg in DPDK: %s\n", data);
+            printf("send msg in DPDK: %s\n", msg->data);
 
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
