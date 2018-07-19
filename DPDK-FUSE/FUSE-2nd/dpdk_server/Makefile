@@ -42,7 +42,7 @@ include $(RTE_SDK)/mk/rte.vars.mk
 APP = dpdk-server
 
 # all source are stored in SRCS-y
-SRCS-y := ssfs.c
+SRCS-y := main.c
 
 CFLAGS += -O3
 
