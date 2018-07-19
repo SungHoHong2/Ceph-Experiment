@@ -109,6 +109,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
+    struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {

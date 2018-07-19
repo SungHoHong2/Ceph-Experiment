@@ -19,25 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+            <state relative-caret-position="323">
+              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dpdk.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dpdk.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk.h">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="63" selection-start-line="63" selection-end-line="79" />
+            <state relative-caret-position="280">
+              <caret line="112" column="50" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -45,8 +40,8 @@
       <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="130" selection-start-line="130" selection-end-line="136" />
+            <state relative-caret-position="164">
+              <caret line="123" selection-start-line="123" selection-end-line="129" />
             </state>
           </provider>
         </entry>
@@ -147,9 +142,9 @@
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk_server/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/Makefile" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_dpdk.h" />
-        <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk_common.h" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/main.c" />
+        <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk.h" />
       </list>
     </option>
   </component>
@@ -267,12 +262,12 @@
       <workItem from="1531760630721" duration="13206000" />
       <workItem from="1531847303136" duration="26239000" />
       <workItem from="1531935539568" duration="10902000" />
-      <workItem from="1532018998569" duration="12619000" />
+      <workItem from="1532018998569" duration="12674000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127278000" />
+    <option name="totallyTimeSpent" value="127333000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -597,22 +592,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_dpdk.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="130" selection-start-line="130" selection-end-line="136" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_common.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
           <caret line="63" selection-start-line="63" selection-end-line="79" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk.h">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk_common.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -630,8 +615,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+        <state relative-caret-position="323">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_dpdk.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="123" selection-start-line="123" selection-end-line="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/dpdk.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="112" column="50" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
         </state>
       </provider>
     </entry>
