@@ -186,6 +186,8 @@ void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
 	unsigned int ofs;
+	struct rte_eth_dev_tx_buffer *buffer;
+
 	const unsigned char *data = buf;
 	ofs = start;
 	data+=ofs;
@@ -194,6 +196,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
 
 		fprintf(f, "recv msg: %s\n", msg->data);
+
+		rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+		unsigned dst_port = l2fwd_dst_ports[0];
+		if (mac_updating)
+			l2fwd_mac_updating(m, dst_port);
+
 
 		int c;
 		FILE *file;
@@ -209,8 +217,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 		// CHARA
 
-
-
+		buffer = tx_buffer[dst_port];
+		rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
 
 	}
@@ -248,7 +256,6 @@ l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
-	struct rte_eth_dev_tx_buffer *buffer;
 
 	unsigned lcore_id;
 	unsigned i, j, portid, nb_rx;
