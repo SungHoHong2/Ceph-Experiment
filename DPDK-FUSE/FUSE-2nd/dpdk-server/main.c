@@ -514,13 +514,6 @@ check_all_ports_link_status(uint8_t port_num, uint32_t port_mask)
 }
 
 
-static int
-l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
-{
-	l2fwd_main_loop();
-	return 0;
-}
-
 
 static void
 signal_handler(int signum)
