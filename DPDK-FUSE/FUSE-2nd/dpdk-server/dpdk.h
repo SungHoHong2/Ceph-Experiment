@@ -7,7 +7,10 @@ static int mac_updating = 1;
 
 #define NB_MBUF   8192
 
-#define MAX_PKT_BURST 32
+// #define MAX_PKT_BURST 32
+#define MAX_PKT_BURST 1
+
+
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
 
