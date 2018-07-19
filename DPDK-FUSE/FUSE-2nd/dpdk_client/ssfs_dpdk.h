@@ -239,8 +239,7 @@ void
 
 
 void
-*l2fwd_rx_loop()
-{
+*l2fwd_rx_loop() {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
 
@@ -259,28 +258,28 @@ void
          * Read packet from RX queues
          */
         for (i = 0; i < qconf->n_rx_port; i++) {
-        portid = qconf->rx_port_list[0];
+            portid = qconf->rx_port_list[0];
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-             for (j = 0; j < nb_rx; j++) {
+            for (j = 0; j < nb_rx; j++) {
                 //CHARA BEGIN
-                 m = pkts_burst[j];
+                m = pkts_burst[j];
 
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                int header_length =  rte_mbuf_packet_length - 1024;
+                int header_length = rte_mbuf_packet_length - 1024;
 
-                if(header_length>0){
+                if (header_length > 0) {
                     dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
                 }
                 //CHARA END
-                rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+                rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
                 rte_pktmbuf_free(m);
             }
         }
+    }
+
 }
-
-
 
 
 //static int
