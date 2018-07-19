@@ -226,12 +226,13 @@ void
 
             msg = &obj;
             strncpy(obj.data, sdata, 100);
-
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-
+            l2fwd_mac_updating(rm[0], portid);
 
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
+
+
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
             printf("send msg in DPDK: %s\n", data);
@@ -239,7 +240,7 @@ void
 
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            l2fwd_mac_updating(rm[0], portid);
+            // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
@@ -266,7 +267,7 @@ void
 //                TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 //            }
 //            pthread_mutex_unlock(&rx_lock);
-
+//
 
 
 
