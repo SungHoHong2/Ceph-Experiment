@@ -149,7 +149,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 void
-* l2fwd_main_loop()
+* l2fwd_rx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -161,17 +161,6 @@ void
     lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
 
-    if (qconf->n_rx_port == 0) {
-        RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-    }
-
-    RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
-
-    for (i = 0; i < qconf->n_rx_port; i++) {
-        portid = qconf->rx_port_list[i];
-        RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
-                portid);
-    }
 
     while (!force_quit) {
         /*
@@ -211,13 +200,60 @@ void
 //                }
 //                rte_memcpy(msg->data, data, sizeof(char)*24);
 
-
-
-
             }
         }
     }
 }
+
+
+/* main processing loop */
+void
+*l2fwd_tx_loop()
+{
+    struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+    struct rte_mbuf *m;
+
+    unsigned lcore_id;
+    unsigned i, j, portid, nb_rx;
+    struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
+
+    lcore_id = 1;
+    qconf = &lcore_queue_conf[lcore_id];
+
+    struct rte_mbuf *rm[1];
+
+    while (!force_quit) {
+        portid = qconf->rx_port_list[0];
+        char* data;
+        struct message obj;
+        struct fuse_message * e = NULL;
+        struct message *msg;
+        struct rte_mbuf *rm[1];
+
+        pthread_mutex_lock(&rx_lock);
+        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+            e = TAILQ_FIRST(&fuse_rx_queue);
+            printf("send msg in DPDK: %s\n",e->data);
+            msg = &obj;
+            strncpy(obj.data, e->data, 100);
+            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+            l2fwd_mac_updating(rm[0], portid);
+
+            data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+            if (data != NULL)
+                rte_memcpy(data, msg, sizeof(struct message));
+
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            rte_eth_tx_burst(portid, 0, rm, 1);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+        }
+        pthread_mutex_unlock(&rx_lock);
+    }
+}
+
+
 
 
 static int
