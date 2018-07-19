@@ -183,7 +183,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 
 void
-dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start, const struct rte_mbuf *m)
 {
 	unsigned int ofs;
 	struct rte_eth_dev_tx_buffer *buffer;
@@ -216,7 +216,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
 
 		// CHARA
-
 		buffer = tx_buffer[dst_port];
 		rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
@@ -240,7 +239,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
-			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
+			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start, m);
 		}
 		dump_len -= len;
 		m = m->next;
