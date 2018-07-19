@@ -206,29 +206,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 		}
 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
-
-		//		//
-//
-//		strncpy(obj.data, e->data, 100);
-//		TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//		free(e);
-//		e = NULL;
-//
-//		msg =&obj;
-//		data = rte_pktmbuf_append(m, sizeof(struct message));
-//
-//		if (data != NULL)
-//			rte_memcpy(data, msg, sizeof(struct message));
-//
-//
-//		//
-
-
 	}
-
-
-
-
 	fflush(f);
 }
 
