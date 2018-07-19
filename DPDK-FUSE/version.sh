@@ -107,7 +107,7 @@ then
 if [ "$HOSTS" = "w1" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/posix_server
-gcc ssfs.c -o ssfs -lpthreads
+gcc ssfs.c -o ssfs -pthread 
 
 elif [ "$HOSTS" = "w2" ]
 then
