@@ -244,7 +244,7 @@ void
                 int header_length = rte_mbuf_packet_length - 1024;
 
 
-                // rte_pktmbuf_dump(stdout, m, 1024);
+                rte_pktmbuf_dump(stdout, m, 1024);
 
                 if (header_length > 0) {
                     dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
