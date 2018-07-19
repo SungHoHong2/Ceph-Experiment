@@ -202,9 +202,8 @@ void
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length = rte_mbuf_packet_length - 1024;
 
-
                 if (rte_mbuf_packet_length == 1024) {
-                    rte_pktmbuf_dump(stdout, m, 1024);
+                    // rte_pktmbuf_dump(stdout, m, 1024);
                     dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
                 //CHARA END
@@ -215,14 +214,6 @@ void
     }
 
 }
-
-
-//static int
-//l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
-//{
-//    l2fwd_main_loop();
-//    return 0;
-//}
 
 
 static int
