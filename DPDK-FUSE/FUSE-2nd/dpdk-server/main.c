@@ -183,7 +183,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 
 void
-dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start, struct rte_mbuf *m)
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
 	unsigned int ofs;
 	struct rte_eth_dev_tx_buffer *buffer;
@@ -197,11 +197,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 		fprintf(f, "recv msg: %s\n", msg->data);
 
-		rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 		unsigned dst_port = l2fwd_dst_ports[0];
 		if (mac_updating)
 			l2fwd_mac_updating(m, dst_port);
-
 
 		int c;
 		FILE *file;
@@ -239,7 +237,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
-			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start, m);
+			dpdk_packet_hexdump(f, NULL, , len, start);
 		}
 		dump_len -= len;
 		m = m->next;
@@ -304,9 +302,8 @@ l2fwd_main_loop(void)
 					}
 				//CHARA END
 				// rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-				// l2fwd_simple_forward(m, portid);
-
-
+				l2fwd_simple_forward(m, portid);
+				
 			}
 		}
 	}
