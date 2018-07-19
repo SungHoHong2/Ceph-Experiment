@@ -234,7 +234,7 @@ void
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-            memset(data, '*', sizeof(struct message));
+            rte_memcpy(data, msg, sizeof(struct message));
 
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
@@ -244,8 +244,6 @@ void
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
             l2fwd_mac_updating(rm[0], portid);
-            rte_pktmbuf_dump(stdout, rm[0], 1024);
-
 
             // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
