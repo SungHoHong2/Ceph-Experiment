@@ -108,8 +108,8 @@ void *tcp_recv_launch(){
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
+        printf("recv msg from POSIX: %s\n", buf);
         if(success && strlen(buf)>24){
-            printf("recv msg from POSIX: %s\n", buf);
             pthread_mutex_lock(&rx_lock);
             if(strcmp(buf, "Hello World From SERVER!\n")==0) {
                 e = malloc(sizeof(struct fuse_message));

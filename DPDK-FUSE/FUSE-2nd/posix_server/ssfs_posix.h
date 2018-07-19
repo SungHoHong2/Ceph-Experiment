@@ -203,8 +203,7 @@ void *tcp_send_launch(){
             strncpy(obj.data, sdata, 100);
             data = (char*)&obj;
 
-
-
+\
             if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
 
