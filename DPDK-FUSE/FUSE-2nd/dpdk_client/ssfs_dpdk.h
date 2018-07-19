@@ -196,7 +196,7 @@ void
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
-                // printf("send msg in DPDK: %s\n",e->data);
+                printf("send msg in DPDK: %s\n",e->data);
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
