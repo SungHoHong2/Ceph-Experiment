@@ -517,6 +517,11 @@ void l2fwd_tx_loop(){
 }
 
 
+struct thread_data
+{
+	int c;
+	char **v;
+};
 
 
 void *dpdk_msg_init(void *threadarg) {
@@ -763,7 +768,7 @@ signal_handler(int signum)
 int
 main(int argc, char **argv)
 {
-	
+
 
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 	pthread_t threads[3];
