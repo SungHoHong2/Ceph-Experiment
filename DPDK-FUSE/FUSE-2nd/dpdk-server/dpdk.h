@@ -235,7 +235,7 @@ void
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-            rte_memcpy(data+, msg, sizeof(struct message));
+            rte_memcpy(data, msg, sizeof(struct message));
 
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
