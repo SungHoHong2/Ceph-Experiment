@@ -129,11 +129,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
-    fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+    fprintf(f, "recv msg in DPDK:\n");
     strcpy(e->data, "Hello World From SERVER!\n");
     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
     fflush(f);
-    
+
 //    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!\n")==0) {
 //        fprintf(f, "recv msg in DPDK: %s\n", msg->data);
 //        e = malloc(sizeof(struct fuse_message));
