@@ -177,23 +177,8 @@ void
     lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
 
-    if (qconf->n_rx_port == 0) {
-        RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-        // return;
-    }
-
-    RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
-
-    for (i = 0; i < qconf->n_rx_port; i++) {
-
-        portid = qconf->rx_port_list[i];
-        RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
-                portid);
-
-    }
-
     struct rte_mbuf *rm[1];
-
+    
     while (!force_quit) {
 
         /*
