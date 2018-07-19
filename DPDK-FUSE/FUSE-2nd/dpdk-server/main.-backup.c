@@ -394,17 +394,65 @@ static const struct option lgopts[] = {
 static int
 l2fwd_parse_args(int argc, char **argv)
 {
-	int opt, ret;
+	int opt, ret, timer_secs;
 	char **argvopt;
 	int option_index;
 	char *prgname = argv[0];
+
 	argvopt = argv;
-	l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
-	l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
-	ret = 6;
+
+	while ((opt = getopt_long(argc, argvopt, short_options,
+							  lgopts, &option_index)) != EOF) {
+
+		switch (opt) {
+			/* portmask */
+			case 'p':
+				l2fwd_enabled_port_mask = l2fwd_parse_portmask(optarg);
+				if (l2fwd_enabled_port_mask == 0) {
+					printf("invalid portmask\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				break;
+
+				/* nqueue */
+			case 'q':
+				l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue(optarg);
+				if (l2fwd_rx_queue_per_lcore == 0) {
+					printf("invalid queue number\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				break;
+
+				/* timer period */
+			case 'T':
+				timer_secs = l2fwd_parse_timer_period(optarg);
+				if (timer_secs < 0) {
+					printf("invalid timer period\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				timer_period = timer_secs;
+				break;
+
+				/* long options */
+			case 0:
+				break;
+
+			default:
+				l2fwd_usage(prgname);
+				return -1;
+		}
+	}
+
+	if (optind >= 0)
+		argv[optind-1] = prgname;
+
+	ret = optind-1;
+	optind = 1; /* reset getopt lib */
 	return ret;
 }
-
 
 /* Check the link status of all ports in up to 9s, and print them finally */
 static void
