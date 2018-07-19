@@ -252,7 +252,7 @@ void
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
     }
-    pthread_mutex_unlock(&rx_lock);
+            pthread_mutex_unlock(&rx_lock);
 
 
 //            pthread_mutex_lock(&rx_lock);
