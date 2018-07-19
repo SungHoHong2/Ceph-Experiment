@@ -170,7 +170,7 @@ void
     unsigned i, j, portid, nb_rx;
     struct lcore_queue_conf *qconf;
 
-    lcore_id = rte_lcore_id();
+    lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
 
     if (qconf->n_rx_port == 0) {
