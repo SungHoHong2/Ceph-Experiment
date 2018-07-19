@@ -78,7 +78,7 @@ int main( int argc, char **argv )
 
 
     char test[30];
-    strncpy(test, "Hello World From CLIENT!", 24);
+    strncpy(test, "Hello World From CLIENT!\n", 30);
 
     char *data;
     struct rte_mbuf *rm[1];
