@@ -128,19 +128,15 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
-
-    // fprintf(f, "recv msg in DPDK: %s %ld %d\n", msg->data, strlen(msg->data), strcmp(msg->data, "Hello World From SERVER!\n"));
-    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!\n")==0) {
-        // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+        fprintf(f, "recv msg in DPDK: %s\n", msg->data);
         struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-        // fflush(f);
+        fflush(f);
     }
     pthread_mutex_unlock(&rx_lock);
-
-
 }
 
 
@@ -243,7 +239,6 @@ l2fwd_main_loop(void)
                 // printf("send msg in DPDK: %s\n",e->data);
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);
-
                 data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
 
                 if (data != NULL)
