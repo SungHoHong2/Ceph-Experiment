@@ -101,8 +101,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
         l2fwd_mac_updating(m, dst_port);
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-    if (sent)
-        port_statistics[dst_port].tx += sent;
+
 }
 
 
