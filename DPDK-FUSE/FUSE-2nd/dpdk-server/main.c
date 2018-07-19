@@ -197,10 +197,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 		fprintf(f, "recv msg: %s\n", msg->data);
 
-		unsigned dst_port = l2fwd_dst_ports[0];
-		if (mac_updating)
-			l2fwd_mac_updating(m, dst_port);
-
 		int c;
 		FILE *file;
 		char data[24];
@@ -212,11 +208,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 		}
 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
-
-		// CHARA
-		buffer = tx_buffer[dst_port];
-		rte_eth_tx_buffer(dst_port, 0, buffer, m);
-
+		
 
 	}
 	fflush(f);
@@ -303,7 +295,7 @@ l2fwd_main_loop(void)
 				//CHARA END
 				// rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
-				
+
 			}
 		}
 	}
