@@ -167,42 +167,18 @@ void
         /*
          * Read packet from RX queues
          */
-        for (i = 0; i < qconf->n_rx_port; i++) {
-
-            portid = qconf->rx_port_list[i];
+            portid = qconf->rx_port_list[0];
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-
             for (j = 0; j < nb_rx; j++) {
-
-                //CHARA BEGIN
                 m = pkts_burst[j];
-
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 if(rte_mbuf_packet_length==1024){
-                    // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
                     dpdk_pktmbuf_dump(stdout, m, 1024, 0);
                 }
-                //CHARA END
-                // rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                // l2fwd_simple_forward(m, portid);
-
-
-//                fprintf(f, "recv msg: %s\n", msg->data);
-//                int c;
-//                FILE *file;
-//                char data[24];
-//                file = fopen("/mnt/ssd_cache/server", "r");
-//                if (file) {
-//                    c = fread(data, sizeof(char), 24, file);
-//                    printf("send msg in FILESYSTEM: %s\n", data);
-//                    fclose(file);
-//                }
-//                rte_memcpy(msg->data, data, sizeof(char)*24);
 
             }
-        }
     }
 }
 
