@@ -208,7 +208,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 		}
 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
-		
+
 
 	}
 	fflush(f);
@@ -293,7 +293,7 @@ l2fwd_main_loop(void)
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
 					}
 				//CHARA END
-				// rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
 
 			}
