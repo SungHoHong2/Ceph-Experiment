@@ -251,7 +251,6 @@ void
 
 	if (qconf->n_rx_port == 0) {
 		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-		return;
 	}
 
 	RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
@@ -286,9 +285,7 @@ void
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
 					}
-				//CHARA END
-				// rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-				// l2fwd_simple_forward(m, portid);
+
 			}
 		}
 	}
