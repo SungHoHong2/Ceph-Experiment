@@ -207,43 +207,27 @@ void
 //                // rte_pktmbuf_free(m);
 //            }
 
-
-
-
-//
-//        pkt = rte_pktmbuf_alloc(mbuf_pool);
-//        pkt_size = sizeof(struct message) + sizeof(struct ether_hdr);
-//        pkt->data_len = pkt_size;
-//        pkt->pkt_len = pkt_size;
-//        eth_hdr = rte_pktmbuf_mtod(pkt, struct ether_hdr *);
-//        rte_eth_macaddr_get(port, &eth_hdr->d_addr);
-
-
-
-        char* data;
+            char* data;
             struct message obj;
             struct fuse_message * e = NULL;
             struct message *msg;
             struct rte_mbuf *rm[1];
-            int pkt_size;
+
 
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
-                printf("send msg in DPDK: %s\n",e->data);
+                 printf("send msg in DPDK: %s\n",e->data);
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-                pkt_size = sizeof(struct message) + sizeof(struct ether_hdr);
-                rm[0]->data_len = pkt_size;
-                rm[0]->pkt_len = pkt_size;
-                l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                l2fwd_mac_updating(rm[0], portid);
                 rte_eth_tx_burst(portid, 0, rm, 1);
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
