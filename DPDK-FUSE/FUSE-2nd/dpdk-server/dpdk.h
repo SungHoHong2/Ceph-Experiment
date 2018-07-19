@@ -229,21 +229,22 @@ void
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 
 
-//            if (data != NULL)
-//                rte_memcpy(data, msg, sizeof(struct message));
+            l2fwd_mac_updating(rm[0], portid);
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            rm[0]+=sizeof(struct ether_hdr);
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-            rte_memcpy(data, msg, sizeof(struct message));
+            rte_memcpy(data+, msg, sizeof(struct message));
 
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
-            printf("howdy msg in DPDK: %s  eth: %d\n", data, sizeof(struct ether_hdr));
+            printf("howdy msg in DPDK: %s  eth: %ld\n", data, sizeof(struct ether_hdr));
             printf("send msg in DPDK: %s\n", msg->data);
 
 
             // rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            l2fwd_mac_updating(rm[0], portid);
+            // l2fwd_mac_updating(rm[0], portid);
 
             // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
