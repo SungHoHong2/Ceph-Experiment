@@ -1,5 +1,5 @@
 struct message {
-    char data[1024];
+    char data[1000];
 };
 
 
