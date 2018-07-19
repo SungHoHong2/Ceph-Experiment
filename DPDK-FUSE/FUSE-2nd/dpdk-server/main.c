@@ -282,7 +282,14 @@ main(int argc, char **argv)
 
 	dpdk_init();
 
-	l2fwd_main_loop();
+	// l2fwd_main_loop();
+
+	printf("FUSE-DPDK-SERVER BEGIN\n");
+	pthread_t threads[3];
+	int rc = pthread_create(&threads[0], NULL, l2fwd_main_loop, NULL);
+//	rc = pthread_create(&threads[1], NULL, l2fwd_rx_loop, NULL);
+//	rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+
 
 // 	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
 //	RTE_LCORE_FOREACH_SLAVE(lcore_id) {
@@ -291,6 +298,7 @@ main(int argc, char **argv)
 //			break;
 //		}
 //	}
+	while(1){};
 
 	return 0;
 }
