@@ -284,7 +284,7 @@ l2fwd_main_loop(void)
 
 				// rte_pktmbuf_dump(stdout, m, 1024);
 
-				dst_port = l2fwd_dst_ports[0];
+				unsigned dst_port = l2fwd_dst_ports[0];
 				if (mac_updating)
 					l2fwd_mac_updating(m, dst_port);
 
