@@ -48,6 +48,6 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[0], NULL, tcp_recv_launch, NULL);
         rc = pthread_create(&threads[1], NULL, tcp_send_launch, NULL);
 
-
+    while(1){};
     return 0;
 }
