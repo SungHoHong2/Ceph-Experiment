@@ -232,10 +232,10 @@ void
 //            if (data != NULL)
 //                rte_memcpy(data, msg, sizeof(struct message));
 
-            if (data != NULL)
-                rte_memcpy(data, sdata, sizeof(char)*24);
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+            memset(data, '*', sizeof(struct message));
+
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
             printf("howdy msg in DPDK: %s\n", data);
