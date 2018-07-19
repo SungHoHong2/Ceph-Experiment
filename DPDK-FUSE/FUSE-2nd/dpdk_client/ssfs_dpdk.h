@@ -125,15 +125,14 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
-
+    struct fuse_message *e = NULL;
 
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
-    printf("test: %s %ld\n", msg->data, strlen(msg->data));
+    printf("test: %sd\n", msg->data);
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!")==0) {
         fprintf(f, "recv msg in DPDK: %s\n", msg->data);
-        struct fuse_message *e = NULL;
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
