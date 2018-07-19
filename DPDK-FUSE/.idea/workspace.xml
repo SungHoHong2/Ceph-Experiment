@@ -42,11 +42,20 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/main.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
               <caret line="743" lean-forward="true" selection-start-line="743" selection-end-line="743" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="798">
+              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
             </state>
           </provider>
         </entry>
@@ -99,7 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/dpdk-server/args.c" />
         <option value="$PROJECT_DIR$/multi_process/client_server_mp/mp_server/main.c" />
         <option value="$PROJECT_DIR$/dpdk-client/Makefile" />
         <option value="$PROJECT_DIR$/dpdk-client/pkt_example.c" />
@@ -150,6 +158,7 @@
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk_server/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk_client/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-2nd/dpdk_server/ssfs_dpdk.h" />
+        <option value="$PROJECT_DIR$/FUSE-2nd/dpdk-server/Makefile" />
       </list>
     </option>
   </component>
@@ -268,12 +277,12 @@
       <workItem from="1531760630721" duration="13206000" />
       <workItem from="1531847303136" duration="26239000" />
       <workItem from="1531935539568" duration="10902000" />
-      <workItem from="1532018998569" duration="9644000" />
+      <workItem from="1532018998569" duration="9738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124303000" />
+    <option name="totallyTimeSpent" value="124397000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -309,7 +318,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/FUSE-basic/mcachefs/mcachefs.c" />
     <entry file="file://$PROJECT_DIR$/FUSE-basic/mcachefs/mcachefs-log.h" />
     <entry file="file://$PROJECT_DIR$/FUSE-basic/mcachefs/mcachefs-lowlevel.c" />
     <entry file="file://$PROJECT_DIR$/dpdk-server/Makefile">
@@ -619,6 +627,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="743" lean-forward="true" selection-start-line="743" selection-end-line="743" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
         </state>
       </provider>
     </entry>
