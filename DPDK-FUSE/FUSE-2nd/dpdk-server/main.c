@@ -107,6 +107,7 @@ static uint32_t l2fwd_enabled_port_mask = 0;
 
 /* list of enabled ports */
 static uint32_t l2fwd_dst_ports[RTE_MAX_ETHPORTS];
+struct rte_mempool *test_pktmbuf_pool = NULL;
 
 static unsigned int l2fwd_rx_queue_per_lcore = 1;
 
