@@ -1,4 +1,3 @@
-#include <fuse.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -31,6 +30,6 @@ int main(){
         printf("send msg in FUSE: %s\n", data);
         fclose(file);
     }
-    
+
     return  0;
 }
