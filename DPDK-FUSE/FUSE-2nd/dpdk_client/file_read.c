@@ -24,7 +24,7 @@ int main(){
     int c;
     FILE *file;
     char data[1024];
-    file = fopen("/mnt/ssd_cache/test/server", "r");
+    file = fopen("/mnt/ssd_cache/server", "r");
     if (file) {
         fread(data, sizeof(char), 1024, file);
         printf("send msg in FUSE: %s\n", data);
