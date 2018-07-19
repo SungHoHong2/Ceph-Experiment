@@ -163,9 +163,10 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     }
 }
 
+
 /* main processing loop */
-static void
-l2fwd_main_loop(void)
+void
+*l2fwd_rx_loop(void)
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -203,63 +204,25 @@ l2fwd_main_loop(void)
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
+
             for (j = 0; j < nb_rx; j++) {
+
                 //CHARA BEGIN
                 m = pkts_burst[j];
-                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                int header_length =  rte_mbuf_packet_length - PKT_SIZE;
 
-                if(header_length>0){
-                    // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+                if(rte_mbuf_packet_length==1024){
                     // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, header_length);
+                    dpdk_pktmbuf_dump(stdout, m, 1024, 0);
                 }
                 //CHARA END
-                rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                l2fwd_simple_forward(m, portid);
-                rte_pktmbuf_free(m);
+                // rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+                // l2fwd_simple_forward(m, portid);
             }
         }
-
-
-        // move the send out from the rx queues
-        // l2fwd_simple_forward(m, portid);
-        // need to send the data from here stupid!
-
-//        char* data;
-//        struct message obj;
-//        struct fuse_message * e = NULL;
-//        struct message *msg;
-//
-//        pthread_mutex_lock(&tx_lock);
-//        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//            e = TAILQ_FIRST(&fuse_tx_queue);
-//            printf("send msg in DPDK: %s\n",e->data);
-//            msg = &obj;
-//            strncpy(obj.data, e->data, 100);
-//
-//            data = rte_pktmbuf_append(pkts_burst[0], sizeof(struct message));
-//
-//            if (data != NULL)
-//                rte_memcpy(data, msg, sizeof(struct message));
-//
-//            rte_prefetch0(rte_pktmbuf_mtod(pkts_burst[0], void *));
-//            l2fwd_mac_updating(pkts_burst[0], portid);
-//            rte_eth_tx_burst(portid, 0, pkts_burst, 1);
-//            rte_pktmbuf_free(m);
-//            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//        }
-//        pthread_mutex_unlock(&tx_lock);
-
     }
 }
 
-static int
-l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
-{
-    l2fwd_main_loop();
-    return 0;
-}
 
 
 static int
@@ -390,7 +353,7 @@ struct thread_data
     char **v;
 };
 
-void *dpdk_msg_launch(void *threadarg) {
+void *dpdk_init_launch(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 
@@ -600,15 +563,15 @@ void *dpdk_msg_launch(void *threadarg) {
     check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 
 
-    ret = 0;
-    /* launch per-lcore init on every lcore */
-    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
-        if (rte_eal_wait_lcore(lcore_id) < 0) {
-            ret = -1;
-            break;
-        }
-    }
+//    ret = 0;
+//    /* launch per-lcore init on every lcore */
+//    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
+//    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+//        if (rte_eal_wait_lcore(lcore_id) < 0) {
+//            ret = -1;
+//            break;
+//        }
+//    }
 
     printf("DPDK END\n");
 }
