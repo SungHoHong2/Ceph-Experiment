@@ -230,16 +230,14 @@ void
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 
 
-            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            l2fwd_mac_updating(rm[0], portid);
-
-
             if (data != NULL)
                 rte_memcpy(data, msg, sizeof(struct message));
-
-
-            memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+            
+            memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
