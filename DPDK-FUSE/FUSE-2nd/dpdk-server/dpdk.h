@@ -254,26 +254,7 @@ void
             pthread_mutex_unlock(&rx_lock);
 
 
-//            pthread_mutex_lock(&rx_lock);
-//            if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-//                e = TAILQ_FIRST(&fuse_rx_queue);
-//                printf("send msg in DPDK: %s\n","Hello World From SERVER!\n");
-//                msg = &obj;
-//                strncpy(obj.data, "Hello World From SERVER!\n", 100);
-//                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//                l2fwd_mac_updating(rm[0], portid);
-//
-//                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-//
-//                if (data != NULL)
-//                    rte_memcpy(data, msg, sizeof(struct message));
-//
-//                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-//                rte_eth_tx_burst(portid, 0, rm, 1);
-//                TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-//            }
-//            pthread_mutex_unlock(&rx_lock);
-//
+
 
 
 
