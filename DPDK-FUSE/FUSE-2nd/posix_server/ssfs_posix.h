@@ -192,15 +192,15 @@ void *tcp_send_launch(){
 
             int c;
             FILE *file;
-            char data[24];
+            char sdata[24];
             file = fopen("/mnt/ssd_cache/server", "r");
             if (file) {
-                fread(data, sizeof(char), 24, file);
-                printf("send msg in FILESYSTEM: %s\n", data);
+                fread(sdata, sizeof(char), 24, file);
+                printf("send msg in FILESYSTEM: %s\n", sdata);
                 fclose(file);
             }
 
-            strncpy(obj.data, data, 100);
+            strncpy(obj.data, sdata, 100);
             data = (char*)&obj;
 
 
