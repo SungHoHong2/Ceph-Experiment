@@ -241,6 +241,7 @@ l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
+	struct rte_eth_dev_tx_buffer *buffer;
 
 	unsigned lcore_id;
 	unsigned i, j, portid, nb_rx;
@@ -283,16 +284,23 @@ l2fwd_main_loop(void)
 
 				// rte_pktmbuf_dump(stdout, m, 1024);
 
+				dst_port = l2fwd_dst_ports[0];
+				if (mac_updating)
+					l2fwd_mac_updating(m, dst_port);
 
-					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
 					}
 				//CHARA END
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-				l2fwd_simple_forward(m, portid);
+				// l2fwd_simple_forward(m, portid);
+
+				buffer = tx_buffer[dst_port];
+				sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+
+
 			}
 		}
 	}
