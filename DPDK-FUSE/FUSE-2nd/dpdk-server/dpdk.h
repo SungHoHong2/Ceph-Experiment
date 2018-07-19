@@ -227,7 +227,7 @@ void
             msg = &obj;
             strncpy(obj.data, sdata, 100);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-            l2fwd_mac_updating(rm[0], portid);
+
 
 //            if (data != NULL)
 //                rte_memcpy(data, msg, sizeof(struct message));
@@ -235,16 +235,15 @@ void
             if (data != NULL)
                 rte_memcpy(data, sdata, sizeof(char)*24);
 
-
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
             rte_pktmbuf_dump(stdout, rm[0], 1024);
-
 
             printf("howdy msg in DPDK: %s\n", data);
             printf("send msg in DPDK: %s\n", msg->data);
 
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            l2fwd_mac_updating(rm[0], portid);
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
 
