@@ -288,8 +288,8 @@ l2fwd_main_loop(void)
 				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-						l2fwd_mac_updating(m, 0);
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+						l2fwd_mac_updating(m, 0);
 						buffer = tx_buffer[0];
 						rte_eth_tx_buffer(0, 0, buffer, m);
 					}
