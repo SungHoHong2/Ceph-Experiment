@@ -24,18 +24,13 @@ int main(){
 
     int c;
     FILE *file;
-
+    char data[1024];
     file = fopen("/mnt/ssd_cache/test/server", "r");
     if (file) {
-        pthread_mutex_lock(&tx_lock);
-        txe = malloc(sizeof(struct fuse_message));
-        rtn = fread(txe->data, sizeof(char), 1024, file);
-        // printf("send msg in FUSE: %s\n", txe->data);
-        TAILQ_INSERT_TAIL(&fuse_tx_queue, txe, nodes);
-        pthread_mutex_unlock(&tx_lock);
+        fread(data, sizeof(char), 1024, file);
+        printf("send msg in FUSE: %s\n", data);
         fclose(file);
     }
-
-
+    
     return  0;
 }
