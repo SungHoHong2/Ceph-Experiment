@@ -107,7 +107,7 @@ then
 if [ "$HOSTS" = "w1" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/posix_server
-gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`
+gcc ssfs.c -o ssfs -lpthreads
 
 elif [ "$HOSTS" = "w2" ]
 then
