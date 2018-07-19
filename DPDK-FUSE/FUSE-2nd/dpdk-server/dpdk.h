@@ -242,7 +242,7 @@ void
             printf("send msg in DPDK: %s\n", msg->data);
 
 
-            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            // rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
             l2fwd_mac_updating(rm[0], portid);
 
             // l2fwd_mac_updating(rm[0], portid);
