@@ -86,6 +86,19 @@ gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 fi
 
 
+if [ "$1" = "Fuse_2nd_make_launch" ]
+then
+  if [ "$HOSTS" = "w1" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/dpdk-server/
+  make
+  ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+
+  elif [ "$HOSTS" = "w2" ]
+  then
+  echo "this is the client side"
+  fi
+
 
 # RUNNING THE FUSE-DPDK END
 else
