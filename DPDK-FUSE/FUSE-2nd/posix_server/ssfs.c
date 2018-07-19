@@ -43,8 +43,6 @@ int main( int argc, char **argv )
         printf("\n mutex init has failed\n");
         return 1;
     }
-
-    pthread_t threads[3];
     printf("FUSE-POSIX BEGIN\n");
     pthread_t threads[3];
     int rc = pthread_create(&threads[0], NULL, tcp_recv_launch, NULL);
