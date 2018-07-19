@@ -188,8 +188,21 @@ void *tcp_send_launch(){
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             msg = &obj;
-            strncpy(obj.data, e->data, 100);
+
+
+            int c;
+            FILE *file;
+            char data[24];
+            file = fopen("/mnt/ssd_cache/server", "r");
+            if (file) {
+                fread(data, sizeof(char), 24, file);
+                printf("send msg in FILESYSTEM: %s\n", data);
+                fclose(file);
+            }
+
+            strncpy(obj.data, data, 100);
             data = (char*)&obj;
+
 
 
             if (data != NULL)
