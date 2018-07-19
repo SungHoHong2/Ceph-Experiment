@@ -304,5 +304,5 @@ main(int argc, char **argv)
 //	}
 //	printf("Bye...\n");
 
-	return ret;
+	return 0;
 }
