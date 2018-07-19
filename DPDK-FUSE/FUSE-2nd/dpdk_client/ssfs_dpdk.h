@@ -218,7 +218,6 @@ void
 //        eth_hdr = rte_pktmbuf_mtod(pkt, struct ether_hdr *);
 //        rte_eth_macaddr_get(port, &eth_hdr->d_addr);
 
-
             char* data;
             struct message obj;
             struct fuse_message * e = NULL;
