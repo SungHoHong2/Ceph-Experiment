@@ -318,11 +318,8 @@ static const struct option lgopts[] = {
 static int
 l2fwd_parse_args()
 {
-    int opt, ret;
-    char **argvopt;
-    int option_index;
+    int ret;
     char *prgname = "dpdk-server";
-    argvopt = argv;
     l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
     ret = 6;
