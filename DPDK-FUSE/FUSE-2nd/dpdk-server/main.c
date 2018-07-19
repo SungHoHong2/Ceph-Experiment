@@ -237,60 +237,106 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
+//void
+//* l2fwd_rx_loop()
+//{
+//	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+//	struct rte_mbuf *m;
+//
+//	unsigned lcore_id;
+//	unsigned i, j, portid, nb_rx;
+//	struct lcore_queue_conf *qconf;
+//
+//	lcore_id = rte_lcore_id();
+//	qconf = &lcore_queue_conf[lcore_id];
+//
+//	if (qconf->n_rx_port == 0) {
+//		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
+//	}
+//
+//	RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
+//
+//	for (i = 0; i < qconf->n_rx_port; i++) {
+//
+//		portid = qconf->rx_port_list[i];
+//		RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
+//				portid);
+//
+//	}
+//
+//	while (!force_quit) {
+//
+//		/*
+//		 * Read packet from RX queues
+//		 */
+//		for (i = 0; i < qconf->n_rx_port; i++) {
+//
+//			portid = qconf->rx_port_list[i];
+//			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+//									 pkts_burst, MAX_PKT_BURST);
+//
+//
+//			for (j = 0; j < nb_rx; j++) {
+//
+//				//CHARA BEGIN
+//				m = pkts_burst[j];
+//
+//				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+//				if(rte_mbuf_packet_length==1024){
+//						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+//						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+//					}
+//
+//			}
+//		}
+//	}
+//}
+
+
 void
-* l2fwd_rx_loop()
-{
+*l2fwd_rx_loop() {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
 
 	unsigned lcore_id;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
+	struct rte_eth_dev_tx_buffer *buffer;
 
-	lcore_id = rte_lcore_id();
+	lcore_id = 1;
 	qconf = &lcore_queue_conf[lcore_id];
 
-	if (qconf->n_rx_port == 0) {
-		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-	}
-
-	RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
-
-	for (i = 0; i < qconf->n_rx_port; i++) {
-
-		portid = qconf->rx_port_list[i];
-		RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
-				portid);
-
-	}
+	struct rte_mbuf *rm[1];
 
 	while (!force_quit) {
-
 		/*
-		 * Read packet from RX queues
-		 */
+         * Read packet from RX queues
+         */
 		for (i = 0; i < qconf->n_rx_port; i++) {
-
-			portid = qconf->rx_port_list[i];
+			portid = qconf->rx_port_list[0];
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
 
-
 			for (j = 0; j < nb_rx; j++) {
-
 				//CHARA BEGIN
 				m = pkts_burst[j];
 
-				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-				if(rte_mbuf_packet_length==1024){
-						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
-						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
-					}
 
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+				int header_length = rte_mbuf_packet_length - 1024;
+
+				if (rte_mbuf_packet_length == 1024) {
+					dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+				}
+				//CHARA END
+				rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
+				rte_pktmbuf_free(m);
 			}
 		}
 	}
 }
+
+
 
 //static int
 //l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
@@ -733,6 +779,6 @@ main(int argc, char **argv)
 
 
 	while(1){};
-	
+
 	return 0;
 }
