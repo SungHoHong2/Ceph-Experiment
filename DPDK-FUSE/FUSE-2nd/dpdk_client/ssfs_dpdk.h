@@ -78,46 +78,6 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
 }
 
-static void
-l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
-{
-    unsigned dst_port;
-    int sent;
-    struct rte_eth_dev_tx_buffer *buffer;
-
-    dst_port = l2fwd_dst_ports[portid];
-
-    char* data;
-    struct message obj;
-    struct fuse_message * e = NULL;
-    struct message *msg;
-
-     pthread_mutex_lock(&tx_lock);
-     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-
-            e = TAILQ_FIRST(&fuse_tx_queue);
-            printf("send msg in DPDK: %s\n",e->data);
-            strncpy(obj.data, e->data, 100);
-
-            msg = &obj;
-            data = rte_pktmbuf_append(m, sizeof(struct message));
-
-            if (data != NULL)
-                rte_memcpy(data, msg, sizeof(struct message));
-
-            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-     }
-     pthread_mutex_unlock(&tx_lock);
-
-
-    if (mac_updating)
-        l2fwd_mac_updating(m, dst_port);
-
-    buffer = tx_buffer[dst_port];
-    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-
-}
-
 
 void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
