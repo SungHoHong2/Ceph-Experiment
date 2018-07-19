@@ -238,7 +238,7 @@ void
 
             rte_pktmbuf_dump(stdout, rm[0], 1024);
 
-            printf("howdy msg in DPDK: %s\n", data);
+            printf("howdy msg in DPDK: %s  eth: %d\n", data, sizeof(struct ether_hdr));
             printf("send msg in DPDK: %s\n", msg->data);
 
 
