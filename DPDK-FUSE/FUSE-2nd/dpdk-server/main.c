@@ -186,8 +186,6 @@ void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
 	unsigned int ofs;
-	struct rte_eth_dev_tx_buffer *buffer;
-
 	const unsigned char *data = buf;
 	ofs = start;
 	data+=ofs;
@@ -208,8 +206,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 		}
 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
-
-
 	}
 	fflush(f);
 }
@@ -229,7 +225,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
-			dpdk_packet_hexdump(f, NULL, , len, start);
+			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
 		}
 		dump_len -= len;
 		m = m->next;
@@ -287,7 +283,9 @@ l2fwd_main_loop(void)
 
 				// rte_pktmbuf_dump(stdout, m, 1024);
 
-				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+
+					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
@@ -295,7 +293,6 @@ l2fwd_main_loop(void)
 				//CHARA END
 				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 				l2fwd_simple_forward(m, portid);
-
 			}
 		}
 	}
