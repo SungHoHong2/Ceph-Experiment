@@ -228,10 +228,9 @@ void
             strncpy(obj.data, sdata, 100);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            // rm[0]+=sizeof(struct ether_hdr);
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-            data+=5;
+            data+=sizeof(struct ether_hdr);
 
             rte_memcpy(data, msg, sizeof(struct message));
             l2fwd_mac_updating(rm[0], portid);
