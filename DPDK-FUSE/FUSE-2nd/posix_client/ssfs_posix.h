@@ -111,7 +111,7 @@ void *tcp_recv_launch(){
         printf("recv msg from POSIX: %s\n", buf);
         if(success && strlen(buf)>=24){
             pthread_mutex_lock(&rx_lock);
-            if(strcmp(buf, "Hello World From SERVER!\n")==0) {
+            if(strcmp(buf, "Hello World From SERVER!")==0) {
 
                 printf("recv msg from POSIX??: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
