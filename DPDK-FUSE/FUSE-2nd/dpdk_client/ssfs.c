@@ -72,7 +72,6 @@ int main( int argc, char **argv )
     struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
-
     dpdk_msg_launch((void *)&td[0]);
     // int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
     // int   rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
