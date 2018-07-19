@@ -183,7 +183,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 
 void
-dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start, const struct rte_mbuf *m)
+dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start, struct rte_mbuf *m)
 {
 	unsigned int ofs;
 	struct rte_eth_dev_tx_buffer *buffer;
