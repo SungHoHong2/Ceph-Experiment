@@ -160,7 +160,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
-int
+void
 l2fwd_main_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
@@ -175,7 +175,6 @@ l2fwd_main_loop()
 
     if (qconf->n_rx_port == 0) {
         RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-        return;
     }
 
     RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
