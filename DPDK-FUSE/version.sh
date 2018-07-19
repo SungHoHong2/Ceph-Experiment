@@ -90,7 +90,7 @@ elif [ "$1" = "Fuse_2nd_DPDK_make_launch" ]
 then
   if [ "$HOSTS" = "w1" ]
   then
-  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/dpdk_server/
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/dpdk-server/
   make
   ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
 
