@@ -234,12 +234,17 @@ void
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+            dpdk_pktmbuf_dump(stdout, rm[0], 1024, 0);
 
+            
             printf("send msg in DPDK: %s\n", data);
             printf("send msg in DPDK: %s\n", msg->data);
 
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+            dpdk_pktmbuf_dump(stdout, rm[0], 1024, 0);
+
+
             // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
