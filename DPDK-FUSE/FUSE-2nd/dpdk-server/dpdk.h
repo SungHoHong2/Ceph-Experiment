@@ -1,7 +1,3 @@
-struct message {
-    char data[1024];
-};
-
 static volatile bool force_quit;
 
 /* MAC updating enabled by default */

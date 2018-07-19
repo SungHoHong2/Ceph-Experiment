@@ -72,9 +72,26 @@
 #include <rte_ethdev.h>
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
+#include "dpdk_common.h"
 #include "dpdk.h"
 
+
 int dpdk_init(){
+
+	TAILQ_INIT(&avg_queue);
+	TAILQ_INIT(&fuse_tx_queue);
+	TAILQ_INIT(&fuse_rx_queue);
+
+	if (pthread_mutex_init(&rx_lock, NULL) != 0) {
+		printf("\n mutex init has failed\n");
+		return 1;
+	}
+
+	if (pthread_mutex_init(&tx_lock, NULL) != 0) {
+		printf("\n mutex init has failed\n");
+		return 1;
+	}
+
 	struct lcore_queue_conf *qconf;
 	struct rte_eth_dev_info dev_info;
 	int ret;
