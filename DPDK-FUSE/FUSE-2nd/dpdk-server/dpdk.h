@@ -120,9 +120,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
         fflush(f);
-
+        pthread_mutex_unlock(&rx_lock);
     }
-    fflush(f);
 }
 
 
