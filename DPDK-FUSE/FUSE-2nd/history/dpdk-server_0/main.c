@@ -236,8 +236,8 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
-static void
-l2fwd_main_loop(void)
+void
+*l2fwd_rx_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
@@ -281,18 +281,14 @@ l2fwd_main_loop(void)
 				//CHARA BEGIN
 				m = pkts_burst[j];
 
-				// rte_pktmbuf_dump(stdout, m, 1024);
-
-
-					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
 					}
 				//CHARA END
-				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-				l2fwd_simple_forward(m, portid);
+				// rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+				// l2fwd_simple_forward(m, portid);
 			}
 		}
 	}
@@ -564,16 +560,6 @@ main(int argc, char **argv)
         dpdk_argv[10]="-T";
         dpdk_argv[11]="1";
 
-    printf("DPDK\n");
-
-//    int dpdk_argc = 1;
-//    for(j=0; j<argc; j++){
-//        printf("args[%d]=%s\n",j,*dpdk_argv);
-//        *dpdk_argv++;
-//    }
-
-
-    printf("END\n");
 
 	/* init EAL */
 	ret = rte_eal_init(argc, dpdk_argv);
@@ -751,23 +737,29 @@ main(int argc, char **argv)
 
 	ret = 0;
 	/* launch per-lcore init on every lcore */
-	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-	RTE_LCORE_FOREACH_SLAVE(lcore_id) {
-		if (rte_eal_wait_lcore(lcore_id) < 0) {
-			ret = -1;
-			break;
-		}
-	}
 
-	for (portid = 0; portid < nb_ports; portid++) {
-		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
-			continue;
-		printf("Closing port %d...", portid);
-		rte_eth_dev_stop(portid);
-		rte_eth_dev_close(portid);
-		printf(" Done\n");
-	}
-	printf("Bye...\n");
+
+			
+
+
+
+//	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
+//	RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+//		if (rte_eal_wait_lcore(lcore_id) < 0) {
+//			ret = -1;
+//			break;
+//		}
+//	}
+//
+//	for (portid = 0; portid < nb_ports; portid++) {
+//		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
+//			continue;
+//		printf("Closing port %d...", portid);
+//		rte_eth_dev_stop(portid);
+//		rte_eth_dev_close(portid);
+//		printf(" Done\n");
+//	}
+//	printf("Bye...\n");
 
 	return ret;
 }
