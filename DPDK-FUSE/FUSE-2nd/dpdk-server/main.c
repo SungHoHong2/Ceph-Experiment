@@ -289,11 +289,10 @@ l2fwd_main_loop(void)
 				if(rte_mbuf_packet_length==1024){
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
-						//CHARA END
-						rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-						l2fwd_simple_forward(m, portid);
-				}
-
+					}
+				//CHARA END
+				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+				l2fwd_simple_forward(m, portid);
 			}
 		}
 	}
