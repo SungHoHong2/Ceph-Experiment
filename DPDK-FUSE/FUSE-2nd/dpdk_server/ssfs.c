@@ -1,3 +1,6 @@
+#define FUSE_USE_VERSION 30
+
+#include <fuse.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -44,11 +47,13 @@
 #include <sys/queue.h>
 #include "ssfs_common.h"
 #include "ssfs_dpdk.h"
+#include "ssfs_fuse.h"
 
 
 int main( int argc, char **argv )
 {
 
+    TAILQ_INIT(&avg_queue);
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 
@@ -62,19 +67,21 @@ int main( int argc, char **argv )
         return 1;
     }
 
+    printf("FUSE-DPDK-SERVER BEGIN\n");
     pthread_t threads[3];
     struct thread_data td[3];
     td[0].c = argc;
     td[0].v = argv;
     dpdk_msg_init((void *)&td[0]);
 
-    int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
-        // rc = pthread_create(&threads[1], NULL, l2fwd_rx_loop, NULL);
-
+    int rc = pthread_create(&threads[0], NULL, l2fwd_tx_loop, NULL);
+        rc = pthread_create(&threads[1], NULL, l2fwd_rx_loop, NULL);
+        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
 
     while(1){};
-        // rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
-
+//    printf("FUS-CLIENT BEGIN\n");
+//    fuse_main( argc, argv, &operations, NULL );
+//    printf("FUSE-CLIENT END\n");
     return 0;
 }

@@ -11,7 +11,8 @@ static int mac_updating = 1;
 #define MAX_PKT_BURST 32
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
-#define PKT_SIZE 1024
+static volatile int timerz = 100;
+
 /*
  * Configurable number of RX/TX ring descriptors
  */
@@ -41,6 +42,9 @@ struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
 
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
 
+struct rte_mempool *test_pktmbuf_pool = NULL;
+
+
 static const struct rte_eth_conf port_conf = {
         .rxmode = {
                 .split_hdr_size = 0,
@@ -67,12 +71,11 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
     /* 02:00:00:00:00:xx */
     tmp = &eth->d_addr.addr_bytes[0];
-    *((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
+    *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
 
     /* src addr */
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
 }
-
 
 static void
 l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
@@ -80,29 +83,30 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
     unsigned dst_port;
     int sent;
     struct rte_eth_dev_tx_buffer *buffer;
-    struct fuse_message * e = NULL;
+
+    dst_port = l2fwd_dst_ports[portid];
+
     char* data;
     struct message obj;
-    dst_port = l2fwd_dst_ports[portid];
+    struct fuse_message * e = NULL;
     struct message *msg;
 
-    pthread_mutex_lock(&tx_lock);
-    if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-        e = TAILQ_FIRST(&fuse_tx_queue);
-        // printf("send msg in DPDK: %s\n", e->data);
-        strncpy(obj.data, e->data, 100);
-        TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-        free(e);
-        e = NULL;
+     pthread_mutex_lock(&tx_lock);
+     if(!TAILQ_EMPTY(&fuse_tx_queue)) {
 
-        msg =&obj;
-        data = rte_pktmbuf_append(m, sizeof(struct message));
+            e = TAILQ_FIRST(&fuse_tx_queue);
+            printf("send msg in DPDK: %s\n",e->data);
+            strncpy(obj.data, e->data, 100);
 
-        if (data != NULL)
-            rte_memcpy(data, msg, sizeof(struct message));
+            msg = &obj;
+            data = rte_pktmbuf_append(m, sizeof(struct message));
 
-    }
-    pthread_mutex_unlock(&tx_lock);
+            if (data != NULL)
+                rte_memcpy(data, msg, sizeof(struct message));
+
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+     }
+     pthread_mutex_unlock(&tx_lock);
 
 
     if (mac_updating)
@@ -110,8 +114,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
     buffer = tx_buffer[dst_port];
     sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-
-
 
 }
 
@@ -123,21 +125,24 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
+    struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
-    // fprintf(f, "recv msg in DPDK: %s %ld\n", msg->data, strlen(msg->data));
-    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
-         // fprintf(f, "recv msg in DPDK: %s\n", msg->data);
-            struct fuse_message *e = NULL;
-            e = malloc(sizeof(struct fuse_message));
-            strcpy(e->data, msg->data);
-            TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-         // fflush(f);
-    }
+    e = malloc(sizeof(struct fuse_message));
+    fprintf(f, "recv msg in DPDK:\n");
+    strcpy(e->data, "Hello World From SERVER!\n");
+    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+    fflush(f);
+
+//    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From SERVER!\n")==0) {
+//        fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+//        e = malloc(sizeof(struct fuse_message));
+//        strcpy(e->data, msg->data);
+//        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+//        fflush(f);
+//    }
     pthread_mutex_unlock(&rx_lock);
-
-
 }
 
 
@@ -163,10 +168,9 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     }
 }
 
-
 /* main processing loop */
 void
-*l2fwd_rx_loop()
+*l2fwd_tx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -174,54 +178,95 @@ void
     unsigned lcore_id;
     unsigned i, j, portid, nb_rx;
     struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
 
-    lcore_id = rte_lcore_id();
+    lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
 
-    if (qconf->n_rx_port == 0) {
-        RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-    }
-
-    RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
-
-    for (i = 0; i < qconf->n_rx_port; i++) {
-
-        portid = qconf->rx_port_list[i];
-        RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
-                portid);
-
-    }
+    struct rte_mbuf *rm[1];
 
     while (!force_quit) {
+            portid = qconf->rx_port_list[0];
+            char* data;
+            struct message obj;
+            struct fuse_message * e = NULL;
+            struct message *msg;
+            struct rte_mbuf *rm[1];
 
+            pthread_mutex_lock(&tx_lock);
+            if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+                e = TAILQ_FIRST(&fuse_tx_queue);
+                // printf("send msg in DPDK: %s\n",e->data);
+                msg = &obj;
+                strncpy(obj.data, e->data, 100);
+                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                l2fwd_mac_updating(rm[0], portid);
+
+                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+                if (data != NULL)
+                    rte_memcpy(data, msg, sizeof(struct message));
+
+                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                rte_eth_tx_burst(portid, 0, rm, 1);
+                TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            }
+            pthread_mutex_unlock(&tx_lock);
+    }
+}
+
+
+
+void
+*l2fwd_rx_loop() {
+    struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+    struct rte_mbuf *m;
+
+    unsigned lcore_id;
+    unsigned i, j, portid, nb_rx;
+    struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
+
+    lcore_id = 1;
+    qconf = &lcore_queue_conf[lcore_id];
+
+    struct rte_mbuf *rm[1];
+
+    while (!force_quit) {
         /*
          * Read packet from RX queues
          */
         for (i = 0; i < qconf->n_rx_port; i++) {
-
-            portid = qconf->rx_port_list[i];
+            portid = qconf->rx_port_list[0];
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
-
             for (j = 0; j < nb_rx; j++) {
-
                 //CHARA BEGIN
                 m = pkts_burst[j];
 
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                if(rte_mbuf_packet_length==1024){
-                    // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+                int header_length = rte_mbuf_packet_length - 1024;
+
+                if (rte_mbuf_packet_length == 1024) {
                     dpdk_pktmbuf_dump(stdout, m, 1024, 0);
                 }
                 //CHARA END
-                // rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-                // l2fwd_simple_forward(m, portid);
+                rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
+                rte_pktmbuf_free(m);
             }
         }
     }
+
 }
 
+
+//static int
+//l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
+//{
+//    l2fwd_main_loop();
+//    return 0;
+//}
 
 
 static int
@@ -352,7 +397,8 @@ struct thread_data
     char **v;
 };
 
-void dpdk_msg_init(void *threadarg) {
+
+void *dpdk_msg_init(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 
@@ -417,6 +463,13 @@ void dpdk_msg_init(void *threadarg) {
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
                                                  MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
                                                  rte_socket_id());
+
+    /* create memory pool for send data */
+    if (test_pktmbuf_pool == NULL) {
+        test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+    }
+
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
@@ -560,7 +613,6 @@ void dpdk_msg_init(void *threadarg) {
     }
 
     check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
-
 
 //    ret = 0;
 //    /* launch per-lcore init on every lcore */
