@@ -79,7 +79,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
         rte_eth_tx_burst(0, 0, rm, 1);
         printf("step7\n");
-        rte_pktmbuf_free(rm[0]);
+        // rte_pktmbuf_free(rm[0]);
 
         printf("step8\n");
 
