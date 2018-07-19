@@ -180,7 +180,6 @@ void
 
     if (qconf->n_rx_port == 0) {
         RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-        return;
     }
 
     RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
