@@ -1,4 +1,5 @@
 #define FUSE_USE_VERSION 30
+#define TOTAL_TEST_REQ 100
 
 #include <fuse.h>
 #include <stdio.h>
