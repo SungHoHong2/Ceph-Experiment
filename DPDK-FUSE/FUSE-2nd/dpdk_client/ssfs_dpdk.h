@@ -90,6 +90,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
+    data +=sizeof(struct ether_hdr);
     e = malloc(sizeof(struct fuse_message));
     fprintf(f, "recv msg in DPDK: %s\n", msg->data);
     strcpy(e->data, msg->data);

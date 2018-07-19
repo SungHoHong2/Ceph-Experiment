@@ -240,11 +240,6 @@ void
             printf("howdy msg in DPDK: %s  eth: %ld\n", data, sizeof(struct ether_hdr));
             printf("send msg in DPDK: %s\n", msg->data);
 
-
-            // rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            // l2fwd_mac_updating(rm[0], portid);
-
-            // l2fwd_mac_updating(rm[0], portid);
             rte_eth_tx_burst(portid, 0, rm, 1);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
