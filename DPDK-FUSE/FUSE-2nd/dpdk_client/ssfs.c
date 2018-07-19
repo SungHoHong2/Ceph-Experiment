@@ -76,6 +76,39 @@ int main( int argc, char **argv )
     // int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
     // int   rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
+
+    char test[30];
+    strncpy(test, "Hello World From CLIENT!", 24);
+
+    char *data;
+    struct rte_mbuf *rm[1];
+
+    printf("step1\n");
+
+    rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+    printf("step2\n");
+
+    data = rte_pktmbuf_append(rm[0], 30);
+    printf("step3\n");
+
+    memset(data, test, rte_pktmbuf_pkt_len(rm[0]));
+    printf("step4\n");
+
+    rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+    printf("step5\n");
+
+    l2fwd_mac_updating(rm[0], 0);
+    printf("step6\n");
+
+    rte_eth_tx_burst(0, 0, rm, 1);
+    printf("step7\n");
+    // rte_pktmbuf_free(rm[0]);
+
+    printf("step8\n");
+
+
+
+
     printf("FUS-CLIENT BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
     printf("FUSE-CLIENT END\n");
