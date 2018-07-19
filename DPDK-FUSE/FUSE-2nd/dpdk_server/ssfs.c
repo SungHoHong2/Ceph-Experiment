@@ -68,7 +68,7 @@ int main( int argc, char **argv )
     td[0].c = argc;
     td[0].v = argv;
     int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
-        rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+        // rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     return 0;
 }
