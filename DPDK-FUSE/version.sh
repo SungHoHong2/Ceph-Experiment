@@ -31,8 +31,10 @@ elif [ "$1" = "ssfs_setup" ]
 then
   if [ "$HOSTS" = "w1" ]
   then
-  umount -l /mnt/ssd_cache
-  sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
+  # umount -l /mnt/ssd_cache
+  # sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
+  kill -9 `pidof ssfs`
+
   # mkdir /mnt/ssd_cache/test
   elif [ "$HOSTS" = "w2" ]
   then
