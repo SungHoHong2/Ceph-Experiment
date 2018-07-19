@@ -234,7 +234,7 @@ void
 
 
             data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-            dpdk_pktmbuf_dump(stdout, rm[0], 1024, 0);
+            rte_pktmbuf_dump(stdout, rm[0], 1024);
 
 
             printf("howdy msg in DPDK: %s\n", data);
@@ -242,7 +242,7 @@ void
 
 
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-            dpdk_pktmbuf_dump(stdout, rm[0], 1024, 0);
+            rte_pktmbuf_dump(stdout, rm[0], 1024);
 
 
             // l2fwd_mac_updating(rm[0], portid);
