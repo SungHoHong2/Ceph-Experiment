@@ -449,7 +449,6 @@ l2fwd_parse_args(int argc, char **argv)
 
 	ret = optind-1;
 	optind = 1; /* reset getopt lib */
-	return ret;
 }
 
 /* Check the link status of all ports in up to 9s, and print them finally */
