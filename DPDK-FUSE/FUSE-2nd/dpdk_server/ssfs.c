@@ -69,7 +69,7 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[0], NULL, dpdk_msg_launch, (void *)&td[0]);
 
 
-    while(1)();
+    while(1){};
         // rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
     return 0;
