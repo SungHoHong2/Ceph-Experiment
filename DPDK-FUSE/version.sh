@@ -42,9 +42,9 @@ then
 
 elif [ "$1" = "dpdk_client" ]
 then
-  for i in {1..3}
+  for i in {1..10}
   do
-      sleep 2
+      sleep 1
       ls -l /mnt/ssd_cache/test
       cat /mnt/ssd_cache/test/client
   done
