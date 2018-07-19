@@ -23,7 +23,8 @@ int main(){
 
     int c;
     FILE *file;
-    char data[1024];
+    char data[24];
+
     file = fopen("/mnt/ssd_cache/server", "r");
     if (file) {
         fread(data, sizeof(char), 1024, file);
