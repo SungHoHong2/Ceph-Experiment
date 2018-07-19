@@ -207,6 +207,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 		rte_memcpy(msg->data, data, sizeof(char)*24);
 	}
+
+
 	fflush(f);
 }
 
@@ -245,6 +247,7 @@ l2fwd_main_loop(void)
 	unsigned lcore_id;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
+	struct rte_eth_dev_tx_buffer *buffer;
 
 	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
@@ -282,18 +285,15 @@ l2fwd_main_loop(void)
 				m = pkts_burst[j];
 
 				// rte_pktmbuf_dump(stdout, m, 1024);
-
-
-					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				if(rte_mbuf_packet_length==1024){
-						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
 						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						l2fwd_mac_updating(m, 0);
 						dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+						buffer = tx_buffer[0];
+						sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 					}
 				//CHARA END
-				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-				l2fwd_simple_forward(m, portid);
 			}
 		}
 	}
