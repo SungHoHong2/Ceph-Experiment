@@ -298,7 +298,7 @@ l2fwd_main_loop(void)
 				// l2fwd_simple_forward(m, portid);
 
 				buffer = tx_buffer[dst_port];
-				sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+				rte_eth_tx_buffer(dst_port, 0, buffer, m);
 
 
 			}
