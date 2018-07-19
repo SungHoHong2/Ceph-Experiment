@@ -90,7 +90,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     pthread_mutex_lock(&rx_lock);
-    data +=sizeof(struct ether_hdr);
     e = malloc(sizeof(struct fuse_message));
     fprintf(f, "recv msg in DPDK: %s\n", msg->data);
     strcpy(e->data, msg->data);
@@ -206,7 +205,7 @@ void
 
                 if (rte_mbuf_packet_length == 1024) {
                     rte_pktmbuf_dump(stdout, m, 1024);
-                    dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+                    dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
