@@ -190,7 +190,46 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = start;
 	data+=ofs;
 	struct message *msg = (struct message *) data;
-	fprintf(f,"recv msg: %s\n", msg->data);
+
+	if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+
+		fprintf(f, "recv msg: %s\n", msg->data);
+
+		int c;
+		FILE *file;
+		char data[24];
+		file = fopen("/mnt/ssd_cache/server", "r");
+		if (file) {
+			fread(data, sizeof(char), 24, file);
+			printf("send msg in FILESYSTEM: %s\n", data);
+			fclose(file);
+		}
+
+
+
+
+//		//
+//
+//		strncpy(obj.data, e->data, 100);
+//		TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+//		free(e);
+//		e = NULL;
+//
+//		msg =&obj;
+//		data = rte_pktmbuf_append(m, sizeof(struct message));
+//
+//		if (data != NULL)
+//			rte_memcpy(data, msg, sizeof(struct message));
+//
+//
+//		//
+
+
+	}
+
+
+
+
 	fflush(f);
 }
 
