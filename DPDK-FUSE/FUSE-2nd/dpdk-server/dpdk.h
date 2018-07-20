@@ -216,10 +216,10 @@ void
 
             int c;
             FILE *file;
-            char sdata[24];
+            char sdata[1024];
             file = fopen("/mnt/ssd_cache/server", "r");
             if (file) {
-                c = fread(sdata, sizeof(char), 24, file);
+                c = fread(sdata, sizeof(char), 1024, file);
                 // printf("send msg in FILESYSTEM: %s\n", sdata);
                 fclose(file);
             }
