@@ -2,6 +2,8 @@
 
 static int do_getattr( const char *path, struct stat *st )
 {
+    // printf( "[getattr] Called\n" );
+    // printf( "\tAttributes of %s requested\n", path );
 
     st->st_uid = getuid(); // The owner of the file/directory is the user who mounted the filesystem
     st->st_gid = getgid(); // The group of the file/directory is the same as the group of the user who mounted the filesystem
@@ -57,12 +59,12 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
+        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+        // printf("send msg in FUSE: %s\n", e->data);
         sleep(0);
 
-        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
-        printf("send msg in FUSE: %s \n", e->data);
 
 
         pthread_mutex_unlock(&tx_lock);
@@ -93,23 +95,23 @@ void *fuse_rx_launch() {
 
     while(1) {
         int c;
+        // printf("fuse_rx_queue checking : %d\n", TAILQ_EMPTY(&fuse_rx_queue));
         pthread_mutex_lock(&rx_lock);
-
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             total_requests++;
 
+            printf("recv msg in FUSE: %ld :: %d\n", strlen(e->data), total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
+            // printf("%ld\n",av->interval);
 
-            printf("recv msg in FUSE: %ld :: %d :: %ld\n", strlen(e->data), total_requests, av->interval);
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            if(total_requests==TOTAL_TEST_REQ){
+            if(total_requests >= TOTAL_TEST_REQ){
                 avg_results();
                 break;
             }
-
 
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
