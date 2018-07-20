@@ -225,7 +225,7 @@ void
             }
 
             msg = &obj;
-            strncpy(obj.data, sdata, 100);
+            strncpy(obj.data, sdata, 1024);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
