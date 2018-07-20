@@ -96,7 +96,6 @@ void *fuse_rx_launch() {
     while(1) {
         int c;
         // printf("fuse_rx_queue checking : %d\n", TAILQ_EMPTY(&fuse_rx_queue));
-        sleep(1);
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
@@ -108,7 +107,6 @@ void *fuse_rx_launch() {
             // printf("%ld\n",av->interval);
 
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-
              if(total_requests >= TOTAL_TEST_REQ){
                 avg_results();
                 break;
