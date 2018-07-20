@@ -60,9 +60,9 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         sleep(1);
 
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-        // printf("send msg in FUSE: %s\n", e->data);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
+        printf("send msg in FUSE: %s  %ld\n", e->data, av->start_time);
 
 
         pthread_mutex_unlock(&tx_lock);
@@ -102,7 +102,7 @@ void *fuse_rx_launch() {
             printf("recv msg in FUSE: %ld :: %d\n", strlen(e->data), total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            // printf("%ld\n",av->interval);
+            printf("recv msg in FUSE: %s  %ld\n", e->data, av->interval);
 
 
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);

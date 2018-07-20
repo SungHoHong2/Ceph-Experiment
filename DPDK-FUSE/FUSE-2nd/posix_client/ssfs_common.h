@@ -30,7 +30,11 @@ void avg_results(){
     {
         av = TAILQ_FIRST(&avg_queue);
 
-        printf("output: %f\n",av->interval);
+        printf("output: %ld\n",av->interval);
+
+//        if(av->interval<=0){
+//            total_requests--;
+//        }
 
         avg += av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
