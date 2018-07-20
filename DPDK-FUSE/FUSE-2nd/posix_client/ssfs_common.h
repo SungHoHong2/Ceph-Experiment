@@ -39,20 +39,20 @@ void avg_results(){
         avg += av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
 
-        if(i==0) {
-            t = av->interval;
-            free(av);
-            av = NULL;
-            i++;
-        } else {
-            t += av->interval;
-            double diff = ((i + 1) * av->interval) - t;
-            variance += (diff * diff) / ((i + 1.0) * i);
-
-            free(av);
-            av = NULL;
-            i++;
-        }
+//        if(i==0) {
+//            t = av->interval;
+//            free(av);
+//            av = NULL;
+//            i++;
+//        } else {
+//            t += av->interval;
+//            double diff = ((i + 1) * av->interval) - t;
+//            variance += (diff * diff) / ((i + 1.0) * i);
+//
+//            free(av);
+//            av = NULL;
+//            i++;
+//        }
     }
 
     avg = avg/total_requests;

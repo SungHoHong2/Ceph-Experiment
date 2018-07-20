@@ -62,7 +62,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
-        printf("send msg in FUSE: %s  %ld\n", e->data, av->start_time);
+        printf("send msg in FUSE: %s \n", e->data);
 
 
         pthread_mutex_unlock(&tx_lock);
