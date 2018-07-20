@@ -48,7 +48,7 @@ cat /mnt/ssd_cache/test/client
 
 elif [ "$1" = "dpdk_client" ]
 then
-  for i in {1..102}
+  for i in {1..1000}
   do
       ls -l /mnt/ssd_cache/test
       cat /mnt/ssd_cache/test/client
