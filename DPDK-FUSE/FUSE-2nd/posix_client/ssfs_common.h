@@ -29,6 +29,9 @@ void avg_results(){
     while (!TAILQ_EMPTY(&avg_queue))
     {
         av = TAILQ_FIRST(&avg_queue);
+
+        printf("output: %f\n",av->interval);
+
         avg += av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
 
