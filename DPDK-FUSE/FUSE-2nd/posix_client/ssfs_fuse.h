@@ -62,7 +62,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-         printf("send msg in FUSE: %s %d\n", e->data, s++);
+        // printf("send msg in FUSE: %s %d\n", e->data, s++);
 
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
