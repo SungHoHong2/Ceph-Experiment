@@ -56,7 +56,7 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
     if ( strcmp( path, "/client" ) == 0 ) {
 
-        sleep(1);
+        sleep(0);
         selectedText = client;
         pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
@@ -109,7 +109,7 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             // printf("%ld\n",av->interval);
 
-            printf("recv msg in FUSE: %ld :: %ld\n", strlen(e->data), av->interval);
+            printf("recv msg in FUSE: %ld :: %ld :: %d\n", strlen(e->data), av->interval, total_requests);
 
 
             total_requests++;
