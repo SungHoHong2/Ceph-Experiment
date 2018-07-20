@@ -109,7 +109,7 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             // printf("%ld\n",av->interval);
 
-            printf("recv msg in FUSE: %s :: %ld\n", strlen(e->data), av->interval);
+            printf("recv msg in FUSE: %ld :: %ld\n", strlen(e->data), av->interval);
 
 
             total_requests++;
