@@ -107,8 +107,9 @@ void *fuse_rx_launch() {
 
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-            if(total_requests>TOTAL_TEST_REQ){
+            if(total_requests==TOTAL_TEST_REQ){
                 avg_results();
+                break;
             }
 
 
