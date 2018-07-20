@@ -40,7 +40,7 @@ void avg_results(){
         TAILQ_REMOVE(&avg_queue, av, nodes);
         free(av);
         av = NULL;
-        
+
 
 //        if(i==0) {
 //            t = av->interval;
