@@ -195,12 +195,12 @@ void *tcp_send_launch(){
             char sdata[24];
             file = fopen("/mnt/ssd_cache/server", "r");
             if (file) {
-                fread(sdata, sizeof(char), 24, file);
+                fread(sdata, sizeof(char), 1024, file);
                 // printf("send msg in FILESYSTEM: %s\n", sdata);
                 fclose(file);
             }
 
-            strncpy(obj.data, sdata, 100);
+            strncpy(obj.data, sdata, 1024);
             data = (char*)&obj;
 
 
