@@ -40,6 +40,12 @@ then
   sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
   fi
 
+elif [ "$1" = "dpdk_client_test" ]
+then
+ls -l /mnt/ssd_cache/test
+cat /mnt/ssd_cache/test/client
+
+
 elif [ "$1" = "dpdk_client" ]
 then
   for i in {1..102}
