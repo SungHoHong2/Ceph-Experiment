@@ -108,10 +108,10 @@ void *tcp_recv_launch(){
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
-        if(success && strlen(buf)>=24){
+        if(success && strlen(buf)>=1000){
             pthread_mutex_lock(&rx_lock);
             // if(strcmp(buf, "Hello World From SERVER!")==0) {
-                printf("recv msg from POSIX: %s\n", buf);
+                // printf("recv msg from POSIX: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
