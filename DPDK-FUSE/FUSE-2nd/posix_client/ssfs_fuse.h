@@ -42,7 +42,7 @@ static int do_readdir( const char *path, void *buffer, fuse_fill_dir_t filler, o
 }
 
 struct avg_node *av = NULL;
-
+int s = 0;
 static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 {
     // printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
@@ -55,13 +55,14 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     // ... //
 
     if ( strcmp( path, "/client" ) == 0 ) {
+
+        sleep(1);
         selectedText = client;
         pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
         strcpy(e->data, selectedText);
         TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-        // printf("send msg in FUSE: %s\n", e->data);
-        sleep(0);
+         printf("send msg in FUSE: %s %d\n", e->data, s++);
 
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
