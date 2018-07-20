@@ -8,6 +8,7 @@ static int mac_updating = 1;
 #define NB_MBUF   8192
 
 // #define MAX_PKT_BURST 32
+#define PKT_SIZE   1024
 #define MAX_PKT_BURST 1
 
 
@@ -176,8 +177,8 @@ void
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                if(rte_mbuf_packet_length==1024){
-                    dpdk_pktmbuf_dump(stdout, m, 1024, 0);
+                if(rte_mbuf_packet_length==PKT_SIZE){
+                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
                 }
 
             }
@@ -216,16 +217,16 @@ void
 
             int c;
             FILE *file;
-            char sdata[1024];
+            char sdata[PKT_SIZE];
             file = fopen("/mnt/ssd_cache/server", "r");
             if (file) {
-                c = fread(sdata, sizeof(char), 1024, file);
+                c = fread(sdata, sizeof(char), PKT_SIZE, file);
                 // printf("send msg in FILESYSTEM: %s\n", sdata);
                 fclose(file);
             }
 
             msg = &obj;
-            strncpy(obj.data, sdata, 1024);
+            strncpy(obj.data, sdata, PKT_SIZE);
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
