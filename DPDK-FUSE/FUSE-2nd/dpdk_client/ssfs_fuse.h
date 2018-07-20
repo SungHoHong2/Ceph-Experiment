@@ -96,6 +96,7 @@ void *fuse_rx_launch() {
     while(1) {
         int c;
         // printf("fuse_rx_queue checking : %d\n", TAILQ_EMPTY(&fuse_rx_queue));
+        sleep(1);
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
