@@ -187,8 +187,9 @@ void *tcp_send_launch(){
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            msg = &obj;
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
+            msg = &obj;
 
             int c;
             FILE *file;
@@ -196,7 +197,7 @@ void *tcp_send_launch(){
             file = fopen("/mnt/ssd_cache/server", "r");
             if (file) {
                 fread(sdata, sizeof(char), 1024, file);
-                 printf("send msg in FILESYSTEM: %s\n", sdata);
+                 // printf("send msg in FILESYSTEM: %s\n", sdata);
                 fclose(file);
             }
 
@@ -209,11 +210,10 @@ void *tcp_send_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-                printf("send msg in POSIX: %s\n",msg->data);
+                // printf("send msg in POSIX: %s\n",msg->data);
                 // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
             }
 
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
         }
         pthread_mutex_unlock(&rx_lock);
 
