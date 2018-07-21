@@ -2,12 +2,11 @@
 #include <math.h>
 
 int total_requests = 0;
-int runtime_start = 0;
-int runtime_end = 0;
-
-
+int dpdk_requests = 0;
 
 TAILQ_HEAD(avg_head, avg_node) avg_queue;
+TAILQ_HEAD(dpdk_head, avg_node) dpdk_queue;
+
 struct avg_node
 {
     uint64_t num;
@@ -82,4 +81,7 @@ TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 pthread_mutex_t rx_lock;
 pthread_mutex_t tx_lock;
 
+
+struct avg_node *dpdk_av = NULL;
+struct avg_node *av = NULL;
 
