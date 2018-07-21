@@ -91,7 +91,7 @@ void result_output(){
     printf("total_latency\n");
 
     // print the queue
-    TAILQ_FOREACH(av, &avgr_head, nodes)
+    TAILQ_FOREACH(av, &avg_result, nodes)
     {
         printf("[%ld] %ld %d\n", av->num, av->interval, total_requests);
     }
