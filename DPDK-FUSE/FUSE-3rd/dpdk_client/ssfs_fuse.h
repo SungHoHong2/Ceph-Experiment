@@ -91,7 +91,12 @@ void result_output(){
     printf("total_latency\n");
 
     // print the queue
-    TAILQ_FOREACH(av, &avg_result, nodes)
+
+    if(!TAILQ_EMPTY(&avg_result)){
+        printf("it is not empty\n");
+    }
+
+        TAILQ_FOREACH(av, &avg_result, nodes)
     {
         printf("[%ld] %ld %d\n", av->num, av->interval, total_requests);
     }
@@ -132,7 +137,7 @@ void *fuse_rx_launch() {
             av = TAILQ_FIRST(&avg_queue);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            // printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
+             printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             TAILQ_REMOVE(&avg_queue, av, nodes);
             TAILQ_INSERT_TAIL(&avg_result, av, nodes);
