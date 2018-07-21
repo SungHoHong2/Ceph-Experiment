@@ -96,9 +96,9 @@ void result_output(){
         printf("it is not empty\n");
     }
 
-        TAILQ_FOREACH(av, &avg_result, nodes)
+        TAILQ_FOREACH(avr, &avg_result, nodes)
     {
-        printf("[%ld] %ld\n", av->num, av->interval);
+        printf("[%ld] %ld\n", avr->num, avr->interval);
     }
 
     TAILQ_FOREACH(dpdk_av, &dpdk_result, nodes)
@@ -146,15 +146,19 @@ void *fuse_rx_launch() {
             printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             TAILQ_REMOVE(&avg_queue, av, nodes);
-            // TAILQ_INSERT_TAIL(&avg_result, av, nodes);
+
+            avr = malloc(sizeof(struct avg_node));
+            avr->num = av->num;
+            avr->interval = av->interval;
+            TAILQ_INSERT_TAIL(&avg_result, avr, nodes);
             free(e);
             e = NULL;
         }
 
-//        if(total_requests>=TOTAL_TEST_REQ){
-//            result_output();
-//            break;
-//        }
+        if(total_requests>=TOTAL_TEST_REQ){
+            result_output();
+            break;
+        }
 
         pthread_mutex_unlock(&rx_lock);
     }

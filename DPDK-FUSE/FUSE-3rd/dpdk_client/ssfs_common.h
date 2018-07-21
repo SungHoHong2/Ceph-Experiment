@@ -87,4 +87,5 @@ pthread_mutex_t tx_lock;
 
 struct avg_node *dpdk_av = NULL;
 struct avg_node *av = NULL;
+struct avg_node *avr = NULL;
 
