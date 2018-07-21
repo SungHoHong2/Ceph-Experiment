@@ -87,6 +87,21 @@
 //        .read		= do_read,
 //};
 
+void result_output(){
+    printf("total_latency\n");
+
+    // print the queue
+    TAILQ_FOREACH(av, &avgr_head, nodes)
+    {
+        printf("[%ld] %ld %ld %d\n", av->num, strlen(e->data), av->interval, total_requests);
+    }
+
+    printf("\n\n");
+    printf("dpdk_latency\n");
+
+}
+
+
 void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
@@ -135,16 +150,3 @@ void *fuse_rx_launch() {
 }
 
 
-void result_output(){
-    printf("total_latency\n");
-
-     // print the queue
-        TAILQ_FOREACH(av, &avgr_head, nodes)
-        {
-            printf("[%ld] %ld %ld %d\n", av->num, strlen(e->data), av->interval, total_requests);
-        }
-
-    printf("\n\n");
-    printf("dpdk_latency\n");
-
-}
