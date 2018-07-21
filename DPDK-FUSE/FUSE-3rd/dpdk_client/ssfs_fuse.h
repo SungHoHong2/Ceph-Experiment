@@ -101,6 +101,7 @@ void *fuse_rx_launch() {
 
         pthread_mutex_lock(&tx_lock);
         if(total_requests<=TOTAL_TEST_REQ) {
+            sleep(0);
             e = malloc(sizeof(struct fuse_message));
             strcpy(e->data, "Hello World From CLIENT!\n");
             TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
