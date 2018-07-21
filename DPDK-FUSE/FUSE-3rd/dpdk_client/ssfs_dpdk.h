@@ -93,13 +93,14 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     dpdk_av = TAILQ_FIRST(&dpdk_queue);
     dpdk_av->end_time = getTimeStamp();
     dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
+    printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
     TAILQ_REMOVE(&avg_queue, dpdk_av, nodes);
     free(dpdk_av);
 
 
     pthread_mutex_lock(&rx_lock);
     e = malloc(sizeof(struct fuse_message));
-    printf("recv msg in DPDK: %s\n", msg->data);
+    // printf("recv msg in DPDK: %s\n", msg->data);
 
     strcpy(e->data, msg->data);
     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -167,7 +168,7 @@ void
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
-                 printf("send msg in DPDK: %s\n",e->data);
+                // printf("send msg in DPDK: %s\n",e->data);
 
                 msg = &obj;
                 strncpy(obj.data, e->data, 100);

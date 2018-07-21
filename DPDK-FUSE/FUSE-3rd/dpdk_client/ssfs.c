@@ -53,7 +53,6 @@
 int main( int argc, char **argv )
 {
     TAILQ_INIT(&dpdk_queue);
-    TAILQ_INIT(&avg_result);
     TAILQ_INIT(&avg_queue);
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
