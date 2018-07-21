@@ -65,9 +65,11 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
-
-
         pthread_mutex_unlock(&tx_lock);
+
+
+
+
 
 
     } else if ( strcmp( path, "/server" ) == 0 )
