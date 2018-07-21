@@ -88,27 +88,7 @@
 //};
 
 void result_output(){
-    printf("total_latency\n");
 
-    // print the queue
-
-    if(!TAILQ_EMPTY(&avg_result)){
-        printf("it is not empty\n");
-    }
-
-        TAILQ_FOREACH(avr, &avg_result, nodes)
-    {
-        printf("[%ld] %ld\n", avr->num, avr->interval);
-    }
-
-    TAILQ_FOREACH(dpdk_av, &dpdk_result, nodes)
-    {
-        printf("[%ld] %ld\n", dpdk_av->num, dpdk_av->interval);
-    }
-
-
-    printf("\n\n");
-    printf("dpdk_latency\n");
 
 }
 
@@ -150,10 +130,10 @@ void *fuse_rx_launch() {
             e = NULL;
         }
 
-        if(total_requests>=TOTAL_TEST_REQ){
-//            result_output();
-            break;
-        }
+//        if(total_requests>=TOTAL_TEST_REQ){
+////            result_output();
+//            break;
+//        }
 
         pthread_mutex_unlock(&rx_lock);
     }
