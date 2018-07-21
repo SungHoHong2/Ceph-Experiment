@@ -47,7 +47,7 @@
 #include <sys/queue.h>
 #include "ssfs_common.h"
 #include "ssfs_dpdk.h"
-//#include "ssfs_fuse.h"
+#include "ssfs_fuse.h"
 
 
 int main( int argc, char **argv )
@@ -77,7 +77,6 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[0], NULL, l2fwd_tx_loop, NULL);
         rc = pthread_create(&threads[1], NULL, l2fwd_rx_loop, NULL);
         rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
-
 
     printf("FUS-CLIENT BEGIN\n");
     // fuse_main( argc, argv, &operations, NULL );
