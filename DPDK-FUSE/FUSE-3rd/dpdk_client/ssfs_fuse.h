@@ -87,7 +87,6 @@
 //        .read		= do_read,
 //};
 
-struct avg_node *av = NULL;
 void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
