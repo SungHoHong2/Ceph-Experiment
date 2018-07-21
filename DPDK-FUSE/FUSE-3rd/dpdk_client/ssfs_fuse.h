@@ -93,7 +93,7 @@ void result_output(){
     // print the queue
     TAILQ_FOREACH(av, &avgr_head, nodes)
     {
-        printf("[%ld] %ld %ld %d\n", av->num, strlen(e->data), av->interval, total_requests);
+        printf("[%ld] %ld %d\n", av->num, av->interval, total_requests);
     }
 
     printf("\n\n");
