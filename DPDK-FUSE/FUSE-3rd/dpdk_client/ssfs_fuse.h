@@ -1,4 +1,4 @@
-#define TOTAL_TEST_REQ 10
+#define TOTAL_TEST_REQ 1000
 
 
 //static int do_getattr( const char *path, struct stat *st )
