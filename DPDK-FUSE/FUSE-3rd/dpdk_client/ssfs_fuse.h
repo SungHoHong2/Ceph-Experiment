@@ -151,7 +151,7 @@ void *fuse_rx_launch() {
         }
 
         if(total_requests>=TOTAL_TEST_REQ){
-            result_output();
+//            result_output();
             break;
         }
 
