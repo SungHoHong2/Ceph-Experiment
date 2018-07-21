@@ -151,10 +151,10 @@ void *fuse_rx_launch() {
             e = NULL;
         }
 
-        if(total_requests>=TOTAL_TEST_REQ){
-            result_output();
-            break;
-        }
+//        if(total_requests>=TOTAL_TEST_REQ){
+//            result_output();
+//            break;
+//        }
 
         pthread_mutex_unlock(&rx_lock);
     }
