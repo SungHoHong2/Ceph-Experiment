@@ -125,7 +125,7 @@ void *fuse_rx_launch() {
             e = NULL;
         }
 
-        if(total_requests>=100){
+        if(total_requests>=TOTAL_TEST_REQ){
             result_output();
             break;
         }
@@ -146,11 +146,5 @@ void result_output(){
 
     printf("\n\n");
     printf("dpdk_latency\n");
-
-
-
-
-
-
 
 }
