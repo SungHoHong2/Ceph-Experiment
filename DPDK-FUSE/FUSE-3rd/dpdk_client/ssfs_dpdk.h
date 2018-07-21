@@ -354,9 +354,6 @@ void *dpdk_msg_init(void *threadarg) {
 
     int argc = my_data->c;
     char **argv = my_data->v;
-
-    sleep(5);
-
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
     int ret;

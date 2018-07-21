@@ -1,5 +1,6 @@
-//#define TOTAL_TEST_REQ 100
-//
+#define TOTAL_TEST_REQ 100
+
+
 //static int do_getattr( const char *path, struct stat *st )
 //{
 //    // printf( "[getattr] Called\n" );
@@ -88,9 +89,6 @@
 //};
 
 
-
-
-
 void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
@@ -98,18 +96,31 @@ void *fuse_rx_launch() {
     char *buffer = NULL;
     int rtn;
 
+    sleep(5);
+
     while(1) {
-        int c;
-        // printf("fuse_rx_queue checking : %d\n", TAILQ_EMPTY(&fuse_rx_queue));
+
+        pthread_mutex_lock(&tx_lock);
+        if(total_requests<=TOTAL_TEST_REQ) {
+            e = malloc(sizeof(struct fuse_message));
+            strcpy(e->data, "Hello World From CLIENT!\n");
+            TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+            printf("send msg in FUSE: %s\n", e->data);
+
+            av = malloc(sizeof(struct avg_node));
+            av->start_time = getTimeStamp();
+            total_requests++;
+        }
+        pthread_mutex_unlock(&tx_lock);
+
         pthread_mutex_lock(&rx_lock);
+        while(TAILQ_EMPTY(&fuse_rx_queue));
+
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-            total_requests++;
 
-//            printf("recv msg in FUSE: %ld :: %d\n", strlen(e->data), total_requests);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            // printf("%ld\n",av->interval);
             printf("recv msg in FUSE: %ld :: %ld :: %d\n", strlen(e->data), av->interval, total_requests);
 
 //            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
