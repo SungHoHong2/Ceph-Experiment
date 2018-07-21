@@ -100,7 +100,6 @@ void *fuse_rx_launch() {
     while(1) {
         pthread_mutex_lock(&tx_lock);
         if(total_requests<=TOTAL_TEST_REQ) {
-            sleep(0);
             e = malloc(sizeof(struct fuse_message));
             strcpy(e->data, "Hello World From CLIENT!\n");
             TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
@@ -121,8 +120,10 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+            TAILQ_REMOVE(&avg_queue, av, nodes);
             free(e);
-            e = NULL;
+            free(av);
+            e = av = NULL;
         }
         pthread_mutex_unlock(&rx_lock);
     }
