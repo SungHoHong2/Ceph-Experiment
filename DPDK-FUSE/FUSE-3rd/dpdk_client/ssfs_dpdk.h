@@ -106,7 +106,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     __rte_mbuf_sanity_check(m, 1);
     nb_segs = m->nb_segs;
 
-    printf("dpdk_pktmbuf_dump\n");
+//    printf("dpdk_pktmbuf_dump\n");
     while (m && nb_segs != 0) {
         __rte_mbuf_sanity_check(m, 0);
         len = dump_len;
