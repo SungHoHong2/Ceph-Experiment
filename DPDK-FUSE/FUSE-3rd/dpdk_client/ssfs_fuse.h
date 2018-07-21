@@ -123,7 +123,8 @@ void *fuse_rx_launch() {
             TAILQ_REMOVE(&avg_queue, av, nodes);
             free(e);
             free(av);
-            e = av = NULL;
+            e = NULL;
+            av = NULL;
         }
         pthread_mutex_unlock(&rx_lock);
     }
