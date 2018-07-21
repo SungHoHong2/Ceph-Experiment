@@ -116,7 +116,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
-    fprintf(f, "recv msg in DPDK: %s\n",msg->data);
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
 
         pthread_mutex_lock(&rx_lock);
@@ -238,8 +237,7 @@ void
             l2fwd_mac_updating(rm[0], portid);
 
             // rte_pktmbuf_dump(stdout, rm[0], 1024);
-
-            // printf("send msg in DPDK: %s\n", msg->data);
+            printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(portid, 0, rm, 1);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
