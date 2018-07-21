@@ -6,6 +6,9 @@ int dpdk_requests = 0;
 
 TAILQ_HEAD(avg_head, avg_node) avg_queue;
 TAILQ_HEAD(dpdk_head, avg_node) dpdk_queue;
+TAILQ_HEAD(avgr_head, avg_node) avg_result;
+TAILQ_HEAD(dpdkr_head, avg_node) dpdk_result;
+
 
 struct avg_node
 {

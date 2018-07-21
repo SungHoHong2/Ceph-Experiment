@@ -105,7 +105,7 @@ void *fuse_rx_launch() {
             av = malloc(sizeof(struct avg_node));
             av->start_time = getTimeStamp();
             av->num = total_requests;
-            printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
+            // printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
             total_requests++;
         }
@@ -117,14 +117,40 @@ void *fuse_rx_launch() {
             av = TAILQ_FIRST(&avg_queue);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
+            // printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             TAILQ_REMOVE(&avg_queue, av, nodes);
+            TAILQ_INSERT_TAIL(&avg_result, av, nodes);
             free(e);
-            free(av);
             e = NULL;
-            av = NULL;
         }
+
+        if(total_requests>=100){
+            result_output();
+            break;
+        }
+
         pthread_mutex_unlock(&rx_lock);
     }
+}
+
+
+void result_output(){
+    printf("total_latency\n");
+
+     // print the queue
+        TAILQ_FOREACH(av, &avgr_head, nodes)
+        {
+            printf("[%ld] %ld %ld %d\n", av->num, strlen(e->data), av->interval, total_requests);
+        }
+
+    printf("\n\n");
+    printf("dpdk_latency\n");
+
+
+
+
+
+
+
 }
