@@ -158,8 +158,6 @@ void
             struct message *msg;
             struct rte_mbuf *rm[1];
 
-
-
             pthread_mutex_lock(&tx_lock);
             if(!TAILQ_EMPTY(&fuse_tx_queue)) {
                 e = TAILQ_FIRST(&fuse_tx_queue);
