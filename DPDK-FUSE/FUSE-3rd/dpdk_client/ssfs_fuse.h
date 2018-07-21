@@ -113,7 +113,6 @@ void *fuse_rx_launch() {
         }
         pthread_mutex_unlock(&tx_lock);
 
-        while(TAILQ_EMPTY(&fuse_rx_queue));
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
