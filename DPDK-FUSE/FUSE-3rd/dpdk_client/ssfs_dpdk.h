@@ -91,10 +91,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
     pthread_mutex_lock(&rx_lock);
     e = malloc(sizeof(struct fuse_message));
-    fprintf(f, "recv msg in DPDK: %s\n", msg->data);
+    printf(, "recv msg in DPDK: %s\n", msg->data);
     strcpy(e->data, msg->data);
     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-    fflush(f);
 
     pthread_mutex_unlock(&rx_lock);
 }
@@ -107,6 +106,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     __rte_mbuf_sanity_check(m, 1);
     nb_segs = m->nb_segs;
 
+    // printf("dpdk_pktmbuf_dump\n");
     while (m && nb_segs != 0) {
         __rte_mbuf_sanity_check(m, 0);
         len = dump_len;
@@ -203,7 +203,7 @@ void
                 int header_length = rte_mbuf_packet_length - 1024;
 
                 if (rte_mbuf_packet_length == 1024) {
-                    rte_pktmbuf_dump(stdout, m, 1024);
+                    // rte_pktmbuf_dump(stdout, m, 1024);
                     dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
                 //CHARA END
