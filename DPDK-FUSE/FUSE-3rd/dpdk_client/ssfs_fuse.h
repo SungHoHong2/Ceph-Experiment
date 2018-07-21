@@ -98,8 +98,14 @@ void result_output(){
 
         TAILQ_FOREACH(av, &avg_result, nodes)
     {
-        printf("[%ld] %ld %d\n", av->num, av->interval, total_requests);
+        printf("[%ld] %ld\n", av->num, av->interval);
     }
+
+    TAILQ_FOREACH(dpdk_av, &dpdk_result, nodes)
+    {
+        printf("[%ld] %ld\n", dpdk_av->num, dpdk_av->interval);
+    }
+
 
     printf("\n\n");
     printf("dpdk_latency\n");
