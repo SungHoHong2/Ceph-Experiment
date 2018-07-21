@@ -146,7 +146,7 @@ void *fuse_rx_launch() {
             printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             TAILQ_REMOVE(&avg_queue, av, nodes);
-            TAILQ_INSERT_TAIL(&avg_result, av, nodes);
+            // TAILQ_INSERT_TAIL(&avg_result, av, nodes);
             free(e);
             e = NULL;
         }
