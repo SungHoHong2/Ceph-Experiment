@@ -10,6 +10,7 @@ int runtime_end = 0;
 TAILQ_HEAD(avg_head, avg_node) avg_queue;
 struct avg_node
 {
+    uint64_t num;
     uint64_t start_time;
     uint64_t end_time;
     uint64_t interval;

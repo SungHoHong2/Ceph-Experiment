@@ -98,17 +98,17 @@ void *fuse_rx_launch() {
     sleep(5);
 
     while(1) {
-
         pthread_mutex_lock(&tx_lock);
         if(total_requests<=TOTAL_TEST_REQ) {
             sleep(0);
             e = malloc(sizeof(struct fuse_message));
             strcpy(e->data, "Hello World From CLIENT!\n");
             TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-            printf("send msg in FUSE: %s\n", e->data);
-
             av = malloc(sizeof(struct avg_node));
             av->start_time = getTimeStamp();
+            av->num = total_requests;
+            printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
+            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
             total_requests++;
         }
         pthread_mutex_unlock(&tx_lock);
@@ -116,10 +116,10 @@ void *fuse_rx_launch() {
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
-
+            av = TAILQ_FIRST(&avg_queue);
             av->end_time = getTimeStamp();
             av->interval = av->end_time - av->start_time;
-            printf("recv msg in FUSE: %ld :: %ld :: %d\n", strlen(e->data), av->interval, total_requests);
+            printf("[%ld] recv msg in FUSE: %ld :: %ld :: %d\n", av->num, strlen(e->data), av->interval, total_requests);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
             free(e);
             e = NULL;
