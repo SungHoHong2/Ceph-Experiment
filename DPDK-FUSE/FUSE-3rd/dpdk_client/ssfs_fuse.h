@@ -42,7 +42,6 @@
 //    return 0;
 //}
 //
-//struct avg_node *av = NULL;
 //
 //static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 //{
@@ -88,7 +87,7 @@
 //        .read		= do_read,
 //};
 
-
+struct avg_node *av = NULL;
 void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");
     struct fuse_message * e = NULL;
