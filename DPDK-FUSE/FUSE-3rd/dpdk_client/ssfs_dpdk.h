@@ -91,7 +91,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
 
-    pthread_mutex_lock(&rx_lock);
+    // pthread_mutex_lock(&rx_lock);
     e = malloc(sizeof(struct fuse_message));
     // printf("recv msg in DPDK: %s\n", msg->data);
     dpdk_av = TAILQ_FIRST(&dpdk_queue);
@@ -105,7 +105,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     strcpy(e->data, msg->data);
     TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
 
-    pthread_mutex_unlock(&rx_lock);
+    // pthread_mutex_unlock(&rx_lock);
 }
 
 
