@@ -42,8 +42,6 @@
 
 struct message {
 	char data[1024];
-	int start_time;
-	int end_time;
 };
 
 static volatile bool force_quit;
@@ -147,7 +145,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	char* data;
 	struct message obj;
 
-	obj.start_time = 1;
 	strncpy(obj.data, "        Hello World From CLIENT!\n", 100);
 
 	struct message *msg =&obj;
