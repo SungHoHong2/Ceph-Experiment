@@ -151,13 +151,29 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	strncpy(obj.data, "Hello World From CLIENT!\n", 100);
 
 	struct message *msg =&obj;
+
+	rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 	data = rte_pktmbuf_append(m, sizeof(struct message));
+	data+=sizeof(struct ether_hdr);
+
+
+//	rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//
+//	data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+//	data+=sizeof(struct ether_hdr);
+//
+//	rte_memcpy(data, msg, sizeof(struct message));
+//	l2fwd_mac_updating(rm[0], portid);
+
+
 
 	if (data != NULL)
 		rte_memcpy(data, msg, sizeof(struct message));
 
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
+
+
 
 	buffer = tx_buffer[dst_port];
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
