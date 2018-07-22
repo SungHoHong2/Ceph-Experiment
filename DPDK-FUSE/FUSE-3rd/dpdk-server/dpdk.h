@@ -167,16 +167,13 @@ l2fwd_rx_loop()
         /*
          * Read packet from RX queues
          */
-            nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-                                     pkts_burst, MAX_PKT_BURST);
+            nb_rx = rte_eth_rx_burst((uint8_t) portid, 0, pkts_burst, MAX_PKT_BURST);
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
 
-                rte_pktmbuf_dump(stdout,m,PKT_SIZE);
                 printf("CHARA: %d\n",rte_mbuf_packet_length);
-
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     rte_pktmbuf_dump(stdout,m,PKT_SIZE);
                     dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr));
