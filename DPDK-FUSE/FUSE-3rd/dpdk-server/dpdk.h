@@ -153,14 +153,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         printf("send msg in DPDK: %s\n", msg->data);
         rte_eth_tx_burst(0, 0, rm, 1);
 
-
-
-
-
-
-
-
-
         // pthread_mutex_unlock(&rx_lock);
     // }
 }
