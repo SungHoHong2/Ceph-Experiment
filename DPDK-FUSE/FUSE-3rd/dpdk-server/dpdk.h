@@ -172,6 +172,10 @@ l2fwd_rx_loop()
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+
+
+                printf("ha??? listening?\n");
+
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
                 }
