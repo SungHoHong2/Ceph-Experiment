@@ -75,6 +75,8 @@
 
 
 struct message {
+	int start_time;
+	int end_time;
 	char data[1024];
 };
 
