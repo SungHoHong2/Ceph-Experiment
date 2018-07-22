@@ -257,7 +257,7 @@ l2fwd_main_loop(void)
 //			TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
 		}
 //		pthread_mutex_unlock(&tx_lock);
-	
+
 
 
 
