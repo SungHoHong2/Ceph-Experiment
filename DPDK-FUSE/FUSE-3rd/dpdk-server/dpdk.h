@@ -174,6 +174,10 @@ l2fwd_rx_loop()
 
 
                 // printf("CHARA: %d\n",rte_mbuf_packet_length);
+                dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr));
+
+
+
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     rte_pktmbuf_dump(stdout,m,PKT_SIZE);
                     dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr));
