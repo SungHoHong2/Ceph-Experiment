@@ -297,12 +297,6 @@ int dpdk_init(){
 	check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 }
 
-static int
-l2fwd_launch_rx_lcore(__attribute__((unused)) void *dummy)
-{
-	l2fwd_rx_loop();
-	return 0;
-}
 
 
 int
@@ -312,27 +306,9 @@ main(int argc, char **argv)
 	dpdk_init();
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 	pthread_t threads[3];
+	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
+	rc = pthread_create(&threads[1], NULL, l2fwd_tx_loop, NULL);
 
-	/* launch per-lcore init on every lcore */
-	rte_eal_mp_remote_launch(l2fwd_launch_rx_lcore, NULL, CALL_MASTER);
-
-	
-
-
-//	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
-//	rc = pthread_create(&threads[1], NULL, l2fwd_tx_loop, NULL);
-
-
-	for (portid = 0; portid < nb_ports; portid++) {
-		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
-			continue;
-		printf("Closing port %d...", portid);
-		rte_eth_dev_stop(portid);
-		rte_eth_dev_close(portid);
-		printf(" Done\n");
-	}
-	printf("Bye...\n");
-
-
+	while(1){};
 	return 0;
 }
