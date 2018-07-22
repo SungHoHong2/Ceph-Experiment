@@ -39,12 +39,14 @@
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
 
-static volatile bool force_quit;
-
 
 struct message {
+	int start_time;
+	int end_time;
 	char data[1024];
 };
+
+static volatile bool force_quit;
 
 /* MAC updating enabled by default */
 static int mac_updating = 1;
