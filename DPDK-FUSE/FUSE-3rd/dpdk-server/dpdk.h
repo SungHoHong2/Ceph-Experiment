@@ -146,11 +146,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         data+=sizeof(struct ether_hdr);
 
         rte_memcpy(data, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], portid);
+        l2fwd_mac_updating(rm[0], 0);
 
         // rte_pktmbuf_dump(stdout, rm[0], 1024);
         printf("send msg in DPDK: %s\n", msg->data);
-        rte_eth_tx_burst(portid, 0, rm, 1);
+        rte_eth_tx_burst(0, 0, rm, 1);
 
 
 
