@@ -147,8 +147,8 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	char* data;
 	struct message obj;
 
-	obj.start_time=2;
 	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
+
 
 
 	struct message *msg =&obj;
@@ -178,8 +178,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	data+=ofs;
 	struct message *msg = (struct message *) data;
 	fprintf(f,"recv msg: %s\n", msg->data);
-
-
 	fflush(f);
 }
 
