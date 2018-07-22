@@ -161,15 +161,14 @@ l2fwd_rx_loop()
 
     lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
+    portid = qconf->rx_port_list[0];
 
     while (!force_quit) {
         /*
          * Read packet from RX queues
          */
-            portid = qconf->rx_port_list[0];
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
-
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
@@ -182,7 +181,7 @@ l2fwd_rx_loop()
         /*
          * SEND packet from TX queues
          */
-        portid = qconf->rx_port_list[0];
+
         char* data;
         struct message obj;
         struct fuse_message * e = NULL;
