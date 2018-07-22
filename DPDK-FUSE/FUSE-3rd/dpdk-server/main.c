@@ -108,7 +108,7 @@ int dpdk_init(){
 
 	dpdk_argv[0]="./build/dpdk_server";
 	dpdk_argv[1]="-c";
-	dpdk_argv[2]="0x6";
+	dpdk_argv[2]="0xE";
 	dpdk_argv[3]="-n";
 	dpdk_argv[4]="4";
 	dpdk_argv[5]="--";
@@ -202,7 +202,7 @@ int dpdk_init(){
 			   l2fwd_rx_queue_per_lcore) {
 			rx_lcore_id++;
 
-			printf("CHARA: AVAILABLE CORS: %d\n", rx_lcore_id);
+			printf("CHARA: AVAILABLE CORES: %d\n", rx_lcore_id);
 			if (rx_lcore_id >= RTE_MAX_LCORE)
 				rte_exit(EXIT_FAILURE, "Not enough cores\n");
 		}
