@@ -147,10 +147,13 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	char* data;
 	struct message obj;
 
+	obj.start_time = 1;
 	strncpy(obj.data, "        Hello World From CLIENT!\n", 100);
 
 	struct message *msg =&obj;
 	data = rte_pktmbuf_append(m, sizeof(struct message));
+
+
 
 
 
@@ -205,6 +208,94 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 }
 
 
+/* main processing loop */
+static void
+l2fwd_main_loop(void)
+{
+	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+	struct rte_mbuf *m;
+	int sent;
+	unsigned lcore_id;
+	uint64_t prev_tsc, diff_tsc, cur_tsc;
+	unsigned i, j, portid, nb_rx;
+	struct lcore_queue_conf *qconf;
+	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
+							   BURST_TX_DRAIN_US;
+	struct rte_eth_dev_tx_buffer *buffer;
+
+	prev_tsc = 0;
+
+	lcore_id = rte_lcore_id();
+	qconf = &lcore_queue_conf[lcore_id];
+
+	if (qconf->n_rx_port == 0) {
+		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
+		return;
+	}
+
+	RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
+
+	for (i = 0; i < qconf->n_rx_port; i++) {
+
+		portid = qconf->rx_port_list[i];
+		RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
+				portid);
+
+	}
+
+	while (!force_quit) {
+
+		cur_tsc = rte_rdtsc();
+
+		/*
+		 * TX burst queue drain
+		 */
+		diff_tsc = cur_tsc - prev_tsc;
+		if (unlikely(diff_tsc > drain_tsc)) {
+
+			for (i = 0; i < qconf->n_rx_port; i++) {
+
+				portid = l2fwd_dst_ports[qconf->rx_port_list[i]];
+				buffer = tx_buffer[portid];
+
+				sent = rte_eth_tx_buffer_flush(portid, 0, buffer);
+				if (sent)
+					port_statistics[portid].tx += sent;
+
+			}
+
+		}
+
+		/*
+		 * Read packet from RX queues
+		 */
+		for (i = 0; i < qconf->n_rx_port; i++) {
+
+			portid = qconf->rx_port_list[i];
+			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+									 pkts_burst, MAX_PKT_BURST);
+
+			port_statistics[portid].rx += nb_rx;
+
+			for (j = 0; j < nb_rx; j++) {
+				m = pkts_burst[j];
+				//CHARA BEGIN
+				m = pkts_burst[j];
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+				int header_length =  rte_mbuf_packet_length - 1024;
+
+				if(header_length>0){
+					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
+				}
+				//CHARA END
+				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+
+				l2fwd_simple_forward(m, portid);
+			}
+		}
+
+	}
+}
 
 static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
