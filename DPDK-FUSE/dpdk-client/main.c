@@ -269,22 +269,21 @@ static void l2fwd_main_loop(void){
 		// for (i = 0; i < qconf->n_rx_port; i++) {
 		// if(PKT_NUMBUF == 1){
 		portid = 1;
-		nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-								 pkts_burst, MAX_PKT_BURST);
-
-		port_statistics[portid].rx += nb_rx;
-
-		for (j = 0; j < nb_rx; j++) {
-			rtn = rte_pktmbuf_mtod_offset(pkts_burst[j], char *, sizeof(data));
-			int s;
-			for(s=0; s<strlen(rtn); s++){
-				if(rtn[s]=='*') {
-					port_statistics[portid].rx_bytes += 1; //rte_pktmbuf_pkt_len(pkts_burst[j]);
-					// printf("%c",rtn[s]);
-				}
-			}
-			rte_pktmbuf_free(pkts_burst[j]);
-		}
+//		nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+//								 pkts_burst, MAX_PKT_BURST);
+//
+//		port_statistics[portid].rx += nb_rx;
+//
+//		for (j = 0; j < nb_rx; j++) {
+//			rtn = rte_pktmbuf_mtod_offset(pkts_burst[j], char *, sizeof(data));
+//			int s;
+//			for(s=0; s<strlen(rtn); s++){
+//				if(rtn[s]=='*') {
+//					// printf("%c",rtn[s]);
+//				}
+//			}
+//			rte_pktmbuf_free(pkts_burst[j]);
+//		}
 
 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 		data = rte_pktmbuf_append(rm[0], 1024);
