@@ -86,4 +86,5 @@ TAILQ_HEAD(rx_head, fuse_message) fuse_rx_queue;
 pthread_mutex_t rx_lock;
 pthread_mutex_t tx_lock;
 
+struct avg_node *av = NULL;
 

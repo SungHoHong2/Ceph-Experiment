@@ -41,7 +41,6 @@
 //    return 0;
 //}
 //
-//struct avg_node *av = NULL;
 //int s = 0;
 //static int do_read( const char *path, char *buffer, size_t size, off_t offset, struct fuse_file_info *fi )
 //{
