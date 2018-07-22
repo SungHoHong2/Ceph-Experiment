@@ -120,7 +120,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         pthread_mutex_lock(&rx_lock);
         e = malloc(sizeof(struct fuse_message));
-         fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+        // fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+
+
+
+
+
 
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -153,8 +158,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 }
 
 
-void
-l2fwd_rx_loop()
+void  l2fwd_rx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -165,6 +169,7 @@ l2fwd_rx_loop()
 
     lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
+
 
     while (!force_quit) {
         /*
