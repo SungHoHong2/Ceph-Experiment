@@ -174,13 +174,12 @@ l2fwd_rx_loop()
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
 
-                rte_pktmbuf_dump(stdout,m,PKT_SIZE);
+                // rte_pktmbuf_dump(stdout,m,PKT_SIZE);
 
 
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     rte_pktmbuf_dump(stdout,m,PKT_SIZE);
-
-                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
+                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr));
                 }
 
             }
