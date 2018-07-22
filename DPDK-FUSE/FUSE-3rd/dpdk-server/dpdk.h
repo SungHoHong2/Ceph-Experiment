@@ -159,7 +159,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 void
-l2fwd_rx_loop()
+* l2fwd_rx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;

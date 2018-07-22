@@ -75,8 +75,6 @@
 
 
 struct message {
-	int start_time;
-	int end_time;
 	char data[1024];
 };
 
@@ -178,11 +176,6 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
 	buffer = tx_buffer[dst_port];
-
-
-
-
-
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 	if (sent)
 		port_statistics[dst_port].tx += sent;
@@ -192,32 +185,63 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
-	unsigned int ofs;
+	int LINE_LEN = 128;
+	unsigned int i, out, ofs;
 	const unsigned char *data = buf;
+	char line[LINE_LEN];    /* space needed 8+16*3+3+16 == 75 */
+
+	fprintf(f, "%s at [%p], len=%u\n", (title)? title  : "  Dump data", data, len);
 	ofs = start;
-	data+=ofs;
-	struct message *msg = (struct message *) data;
-	fprintf(f,"recv msg: %s\n", msg->data);
+
+	struct message *msg = (struct message *) &buf;
+	printf("msg is it here?: %s\n", msg->data);
+
+	while (ofs < len) {
+		/* format the line in the buffer, then use printf to output to screen */
+		fprintf(f,"ofs: %d ::",ofs);
+		out = snprintf(line, LINE_LEN, "%08X:", ofs);
+		for(i = 0; (ofs < len) && (i < 16); i++, ofs++) {
+			unsigned char c = data[ofs];
+			if ( (c < ' ') || (c > '~'))
+				c = '.';
+			out += snprintf(line+out, LINE_LEN - out, "%c", c);
+		}
+		fprintf(f, "%s\n", line);
+	}
 	fflush(f);
 }
 
 
+/* dump a mbuf on console */
 void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int start)
 {
 	unsigned int len;
 	unsigned nb_segs;
+	// len = start;
+
 	__rte_mbuf_sanity_check(m, 1);
+
+	fprintf(f, "dump mbuf at %p, phys=%"PRIx64", buf_len=%u\n",
+			m, (uint64_t)m->buf_physaddr, (unsigned)m->buf_len);
+	fprintf(f, "  pkt_len=%"PRIu32", ol_flags=%"PRIx64", nb_segs=%u, "
+													  "in_port=%u\n", m->pkt_len, m->ol_flags,
+			(unsigned)m->nb_segs, (unsigned)m->port);
 	nb_segs = m->nb_segs;
 
 	while (m && nb_segs != 0) {
 		__rte_mbuf_sanity_check(m, 0);
+
+		fprintf(f, "  segment at %p, data=%p, data_len=%u\n",
+				m, rte_pktmbuf_mtod(m, void *), (unsigned)m->data_len);
 		len = dump_len;
 
 		if (len > m->data_len)
 			len = m->data_len;
 		if (len != 0) {
+			fprintf(f,"dpdk_packet_hexdump len: %d\n",len);
 			dpdk_packet_hexdump(f, NULL, rte_pktmbuf_mtod(m, void * ), len, start);
 		}
+
 		dump_len -= len;
 		m = m->next;
 		nb_segs --;
@@ -275,8 +299,8 @@ l2fwd_main_loop(void)
 					int header_length =  rte_mbuf_packet_length - 1024;
 
 					if(header_length>0){
-						// printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
-						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
 					}
 				//CHARA END
@@ -385,16 +409,67 @@ static const struct option lgopts[] = {
 
 /* Parse the argument given in the command line of the application */
 static int
-l2fwd_parse_args()
+l2fwd_parse_args(int argc, char **argv)
 {
-	int ret;
-	char *prgname = "dpdk-server_backup";
-	l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
-	l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
-	ret = 6;
+	int opt, ret, timer_secs;
+	char **argvopt;
+	int option_index;
+	char *prgname = argv[0];
+
+	argvopt = argv;
+
+	while ((opt = getopt_long(argc, argvopt, short_options,
+							  lgopts, &option_index)) != EOF) {
+
+		switch (opt) {
+			/* portmask */
+			case 'p':
+				l2fwd_enabled_port_mask = l2fwd_parse_portmask(optarg);
+				if (l2fwd_enabled_port_mask == 0) {
+					printf("invalid portmask\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				break;
+
+				/* nqueue */
+			case 'q':
+				l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue(optarg);
+				if (l2fwd_rx_queue_per_lcore == 0) {
+					printf("invalid queue number\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				break;
+
+				/* timer period */
+			case 'T':
+				timer_secs = l2fwd_parse_timer_period(optarg);
+				if (timer_secs < 0) {
+					printf("invalid timer period\n");
+					l2fwd_usage(prgname);
+					return -1;
+				}
+				timer_period = timer_secs;
+				break;
+
+				/* long options */
+			case 0:
+				break;
+
+			default:
+				l2fwd_usage(prgname);
+				return -1;
+		}
+	}
+
+	if (optind >= 0)
+		argv[optind-1] = prgname;
+
+	ret = optind-1;
+	optind = 1; /* reset getopt lib */
 	return ret;
 }
-
 
 /* Check the link status of all ports in up to 9s, and print them finally */
 static void
@@ -477,44 +552,8 @@ main(int argc, char **argv)
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
 
-    int j=0;
-//    for(j=0; j<argc; j++){
-//        printf("args[%d]=%s\n",j,*argv);
-//        *argv++;
-//    }
-
-    int count = 12;
-    char** dpdk_argv;
-    dpdk_argv = malloc(count * sizeof(char*));      // allocate the array to hold the pointer
-    for (size_t i = 0; i < count; i += 1)
-        dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
-
-        dpdk_argv[0]="./build/dpdk_server";
-        dpdk_argv[1]="-c";
-        dpdk_argv[2]="0x2";
-        dpdk_argv[3]="-n";
-        dpdk_argv[4]="4";
-        dpdk_argv[5]="--";
-        dpdk_argv[6]="-q";
-        dpdk_argv[7]="8";
-        dpdk_argv[8]="-p";
-        dpdk_argv[9]="0x1";
-        dpdk_argv[10]="-T";
-        dpdk_argv[11]="1";
-
-    printf("DPDK\n");
-
-//    int dpdk_argc = 1;
-//    for(j=0; j<argc; j++){
-//        printf("args[%d]=%s\n",j,*dpdk_argv);
-//        *dpdk_argv++;
-//    }
-
-
-    printf("END\n");
-
 	/* init EAL */
-	ret = rte_eal_init(argc, dpdk_argv);
+	ret = rte_eal_init(argc, argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
