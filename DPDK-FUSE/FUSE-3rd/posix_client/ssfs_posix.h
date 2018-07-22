@@ -109,19 +109,19 @@ void *tcp_recv_launch(){
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>=23){
              pthread_mutex_lock(&rx_lock);
-//            printf("recv msg from POSIX: %s %ld\n", buf, strlen(buf));
 
+            posix_av = TAILQ_FIRST(&dpdk_queue);
+            posix_av->end_time = getTimeStamp();
+            posix_av->interval = posix_av->end_time - posix_av->start_time;
+            printf("[%ld] recv msg in POSIX :: %ld\n", posix_av->num, posix_av->interval);
+            TAILQ_REMOVE(&posix_queue, posix_av, nodes);
+            free(posix_av);
 
-            // if(strcmp(buf, "Hello World From SERVER!")==0) {
-                // printf("recv msg from POSIX: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-            //  }
             pthread_mutex_unlock(&rx_lock);
         }
-
-        // printf("recv running\n");
     }
 }
 
@@ -197,8 +197,11 @@ void *tcp_send_launch(){
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
 //                 printf("send msg in POSIX: %s\n",e->data);
-
-
+                posix_av = malloc(sizeof(struct avg_node));
+                posix_av->start_time = getTimeStamp();
+                posix_av->num = posix_requests;
+                TAILQ_INSERT_TAIL(&posix_queue, posix_av, nodes);
+                posix_requests++;
 
 
 
