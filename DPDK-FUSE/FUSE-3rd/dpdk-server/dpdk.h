@@ -128,6 +128,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         struct rte_mbuf *rm[1];
         int c;
+        char *zdata;
         FILE *file;
         char sdata[PKT_SIZE];
         file = fopen("/mnt/ssd_cache/server", "r");
@@ -142,10 +143,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
-        data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        data+=sizeof(struct ether_hdr);
+        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
+        zdata+=sizeof(struct ether_hdr);
 
-        rte_memcpy(data, msg, sizeof(struct message));
+        rte_memcpy(zdata, msg, sizeof(struct message));
         l2fwd_mac_updating(rm[0], 0);
 
         // rte_pktmbuf_dump(stdout, rm[0], 1024);
