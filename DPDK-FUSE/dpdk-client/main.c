@@ -280,7 +280,9 @@ l2fwd_main_loop(void)
 				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 				int header_length =  rte_mbuf_packet_length - 1024;
 
-				if (rte_mbuf_packet_length == 1024) {
+				if(header_length>0){
+
+
 					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
 				}
 				//CHARA END
