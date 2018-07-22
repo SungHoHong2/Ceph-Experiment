@@ -122,11 +122,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         e = malloc(sizeof(struct fuse_message));
         fprintf(f, "recv msg in DPDK: %s\n",msg->data);
 
-
-
-
-
-
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
         fflush(f);
@@ -185,7 +180,7 @@ l2fwd_rx_loop()
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
 
-                rte_pktmbuf_dump(stdout, m, PKT_SIZE);
+                // rte_pktmbuf_dump(stdout, m, PKT_SIZE);
 
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
