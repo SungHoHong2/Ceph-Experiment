@@ -117,14 +117,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
-
-        pthread_mutex_lock(&rx_lock);
         e = malloc(sizeof(struct fuse_message));
-         fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+        fprintf(f, "recv msg in DPDK: %s\n",msg->data);
         strcpy(e->data, msg->data);
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
         fflush(f);
-        pthread_mutex_unlock(&rx_lock);
     }
 }
 
@@ -181,6 +178,48 @@ l2fwd_rx_loop()
                 }
 
             }
+
+        /*
+         * SEND packet from TX queues
+         */
+        portid = qconf->rx_port_list[0];
+        char* data;
+        struct message obj;
+        struct fuse_message * e = NULL;
+        struct message *msg;
+        struct rte_mbuf *rm[1];
+
+        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+            e = TAILQ_FIRST(&fuse_rx_queue);
+
+            int c;
+            FILE *file;
+            char sdata[PKT_SIZE];
+            file = fopen("/mnt/ssd_cache/server", "r");
+            if (file) {
+                c = fread(sdata, sizeof(char), PKT_SIZE, file);
+                // printf("send msg in FILESYSTEM: %s\n", sdata);
+                fclose(file);
+            }
+
+            msg = &obj;
+            strncpy(obj.data, sdata, PKT_SIZE);
+            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+
+            data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+            data+=sizeof(struct ether_hdr);
+
+            rte_memcpy(data, msg, sizeof(struct message));
+            l2fwd_mac_updating(rm[0], portid);
+
+            // rte_pktmbuf_dump(stdout, rm[0], 1024);
+            printf("send msg in DPDK: %s\n", msg->data);
+            rte_eth_tx_burst(portid, 0, rm, 1);
+            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+        }
+
+
     }
 }
 
