@@ -302,7 +302,6 @@ int dpdk_init(){
 int
 main(int argc, char **argv)
 {
-
 	dpdk_init();
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 	pthread_t threads[3];
