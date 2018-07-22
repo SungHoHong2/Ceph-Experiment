@@ -111,13 +111,13 @@ elif [ "$1" = "Fuse_3rd_POSIX_make_launch" ]
 then
 if [ "$HOSTS" = "w1" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/posix_server
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/posix_server
 gcc ssfs.c -o ssfs -pthread
 ./ssfs
 
 elif [ "$HOSTS" = "w2" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-2nd/posix_client
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/posix_client
 gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 ./ssfs -f /mnt/ssd_cache/test
 
