@@ -2,7 +2,7 @@
 - [x] first test pure DPDK and POSIX and confirm that the performance is better than POSIX
   - [] performance using DPDK with one logical core (echo)
     - it seems communication does not work well with pthread and logical cores
-    
+
   - [x] performance using DPDK + two pthreads are worse than POSIX
     - `fun fact I found was that when POSIX is used with mutex then the threads works collaboratively`
     - `in case of DPDK teh threads work black and white`
