@@ -275,9 +275,12 @@ l2fwd_main_loop(void)
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
 
+
 			m = pkts_burst[0];
 			rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 			l2fwd_simple_forward(m, portid);
+
+
 
 
 //			for (j = 0; j < nb_rx; j++) {
