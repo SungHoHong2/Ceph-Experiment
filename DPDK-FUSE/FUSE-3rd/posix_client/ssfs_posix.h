@@ -180,7 +180,7 @@ void *tcp_send_launch(){
         struct message obj;
         struct fuse_message * e = NULL;
         struct message *msg;
-        usleep(1000);
+        usleep(800);
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
         pthread_mutex_lock(&tx_lock);
@@ -197,6 +197,11 @@ void *tcp_send_launch(){
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
 //                 printf("send msg in POSIX: %s\n",e->data);
+
+
+
+
+
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
