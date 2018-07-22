@@ -186,6 +186,10 @@ int dpdk_init(){
 	rx_lcore_id = 0;
 	qconf = NULL;
 
+
+
+
+
 	/* Initialize the port/queue configuration of each logical core */
 	for (portid = 0; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
@@ -197,6 +201,8 @@ int dpdk_init(){
 			   lcore_queue_conf[rx_lcore_id].n_rx_port ==
 			   l2fwd_rx_queue_per_lcore) {
 			rx_lcore_id++;
+
+			printf("CHARA: AVAILABLE CORS: %d\n", rx_lcore_id);
 			if (rx_lcore_id >= RTE_MAX_LCORE)
 				rte_exit(EXIT_FAILURE, "Not enough cores\n");
 		}
@@ -315,8 +321,6 @@ main(int argc, char **argv)
 
 	/* launch per-lcore init on every lcore */
 	rte_eal_mp_remote_launch(l2fwd_launch_rx_lcore, NULL, CALL_MASTER);
-
-
 
 
 //	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
