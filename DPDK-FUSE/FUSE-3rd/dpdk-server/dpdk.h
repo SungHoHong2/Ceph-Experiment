@@ -133,7 +133,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         char sdata[PKT_SIZE];
         file = fopen("/mnt/ssd_cache/server", "r");
         if (file) {
-            c = fread(sdata, sizeof(char), PKT_SIZE, file);
+            c = fread(sdata, sizeof(char), 26, file);
             // printf("send msg in FILESYSTEM: %s\n", sdata);
             fclose(file);
         }
