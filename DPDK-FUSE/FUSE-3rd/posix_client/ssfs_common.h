@@ -2,8 +2,12 @@
 #include <math.h>
 
 int total_requests = 0;
+int posix_requests = 0;
+
 
 TAILQ_HEAD(avg_head, avg_node) avg_queue;
+TAILQ_HEAD(dpdk_head, avg_node) posix_queue;
+
 struct avg_node
 {
     uint64_t start_time;
@@ -87,4 +91,5 @@ pthread_mutex_t rx_lock;
 pthread_mutex_t tx_lock;
 
 struct avg_node *av = NULL;
+struct avg_node *posix_av = NULL;
 
