@@ -122,6 +122,8 @@ void *tcp_recv_launch(){
             //  }
         //    pthread_mutex_unlock(&rx_lock);
         }
+        
+        printf("recv running\n");
     }
 }
 
