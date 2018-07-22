@@ -108,7 +108,7 @@ int dpdk_init(){
 
 	dpdk_argv[0]="./build/dpdk_server";
 	dpdk_argv[1]="-c";
-	dpdk_argv[2]="0x2";
+	dpdk_argv[2]="0x6";
 	dpdk_argv[3]="-n";
 	dpdk_argv[4]="4";
 	dpdk_argv[5]="--";
