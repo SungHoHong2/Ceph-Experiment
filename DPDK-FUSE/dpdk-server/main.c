@@ -196,9 +196,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	data+=ofs;
 	struct message *msg = (struct message *) data;
 
-	if(strcmp(msg->data, "Hello World From CLIENT!\n")==0)
-	printf("recv msg: %s\n", msg->data);
-
+	if(strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+			printf("recv msg: %s\n", msg->data);
+	}
 
 }
 
@@ -278,8 +278,8 @@ l2fwd_main_loop(void)
 				// rte_pktmbuf_dump(stdout, m, 1024);
 
 				if(header_length>0){
-						 printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
-						 printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						 // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						 // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
 					}
 				//CHARA END
