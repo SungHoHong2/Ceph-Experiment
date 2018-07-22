@@ -75,9 +75,9 @@
 
 
 struct message {
+	char data[1024];
 	int start_time;
 	int end_time;
-	char data[1024];
 };
 
 static volatile bool force_quit;
@@ -197,7 +197,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = start;
 	data+=ofs;
 	struct message *msg = (struct message *) data;
-	fprintf(f,"recv msg: %s\n", msg->data);
+	fprintf(f,"recv msg: %s :: %d\n", msg->data, msg->start_time);
 	fflush(f);
 }
 

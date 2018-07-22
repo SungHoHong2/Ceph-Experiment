@@ -41,9 +41,9 @@
 
 
 struct message {
+	char data[1024];
 	int start_time;
 	int end_time;
-	char data[1024];
 };
 
 static volatile bool force_quit;
