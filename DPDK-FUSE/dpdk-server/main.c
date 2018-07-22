@@ -197,8 +197,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = start;
 	data+=ofs;
 	struct message *msg = (struct message *) data;
-	fprintf(f,"recv msg: %s :: %d\n", msg->data, msg->start_time);
-	fflush(f);
+
+	if(strcmp(msg->data, " Hello World From CLIENT!\n")
+	printf("recv msg: %s :: %d\n", msg->data, msg->start_time);
+
+
 }
 
 
