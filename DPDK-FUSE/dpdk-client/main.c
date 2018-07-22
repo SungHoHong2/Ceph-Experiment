@@ -206,11 +206,6 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 
-
-
-
-
-
 static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 {
