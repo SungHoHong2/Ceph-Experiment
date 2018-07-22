@@ -152,7 +152,7 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	struct message *msg =&obj;
 	data = rte_pktmbuf_append(m, sizeof(struct message));
-	data+=sizeof(struct ether_hdr);
+	data+=4;
 
 	if (data != NULL)
 		rte_memcpy(data, msg, sizeof(struct message));
