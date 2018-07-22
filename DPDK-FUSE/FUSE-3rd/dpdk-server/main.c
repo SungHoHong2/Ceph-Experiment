@@ -107,8 +107,8 @@ int dpdk_init(){
 		dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
 	dpdk_argv[0]="./build/dpdk_server";
-	dpdk_argv[1]="-l";
-	dpdk_argv[2]="1-4";
+	dpdk_argv[1]="-c";
+	dpdk_argv[2]="0xE";
 	dpdk_argv[3]="-n";
 	dpdk_argv[4]="4";
 	dpdk_argv[5]="--";
