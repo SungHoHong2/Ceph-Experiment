@@ -116,7 +116,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
-    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+    // if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
 
         pthread_mutex_lock(&rx_lock);
         e = malloc(sizeof(struct fuse_message));
@@ -126,7 +126,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
         fflush(f);
         pthread_mutex_unlock(&rx_lock);
-    }
+    // }
 }
 
 
@@ -178,7 +178,6 @@ l2fwd_rx_loop()
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-
 
                 // rte_pktmbuf_dump(stdout, m, PKT_SIZE);
 
