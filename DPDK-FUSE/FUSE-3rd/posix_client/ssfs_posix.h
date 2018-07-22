@@ -184,7 +184,7 @@ void *tcp_send_launch(){
         struct message *msg;
 
         // while(TAILQ_EMPTY(&fuse_tx_queue)){}
-        sleep(0);
+        sleep(1);
         pthread_mutex_lock(&tx_lock);
         if(!TAILQ_EMPTY(&fuse_tx_queue)) {
             e = TAILQ_FIRST(&fuse_tx_queue);
