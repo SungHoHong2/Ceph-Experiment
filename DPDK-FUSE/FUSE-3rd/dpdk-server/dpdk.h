@@ -139,7 +139,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         }
 
         msg = &obj;
-        strncpy(obj.data, sdata, PKT_SIZE);
+        strncpy(obj.data, sdata, 26);
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
