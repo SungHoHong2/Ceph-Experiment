@@ -82,10 +82,9 @@ int main( int argc, char **argv )
     td[0].c = argc;
     td[0].v = argv;
     dpdk_msg_init((void *)&td[0]);
-
-
+    
+    int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
     rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-
 
 
 //    int rc = pthread_create(&threads[0], NULL, l2fwd_tx_loop, NULL);
@@ -94,9 +93,5 @@ int main( int argc, char **argv )
 //
 //    while(1){
 //    }
-
-    printf("FUS-CLIENT BEGIN\n");
-    // fuse_main( argc, argv, &operations, NULL );
-    printf("FUSE-CLIENT END\n");
     return 0;
 }
