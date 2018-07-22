@@ -20,37 +20,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_common.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="11" column="15" lean-forward="true" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+            <state relative-caret-position="288">
+              <caret line="32" column="19" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2223">
-              <caret line="117" column="39" lean-forward="true" selection-start-line="117" selection-start-column="39" selection-end-line="117" selection-end-column="39" />
+            <state relative-caret-position="466">
+              <caret line="108" column="56" lean-forward="true" selection-start-line="108" selection-start-column="56" selection-end-line="108" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h">
+      <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_posix.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="894">
-              <caret line="185" column="12" lean-forward="true" selection-start-line="185" selection-start-column="12" selection-end-line="185" selection-end-column="12" />
+            <state relative-caret-position="245">
+              <caret line="134" column="25" lean-forward="true" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -104,8 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_org/Makefile" />
-        <option value="$PROJECT_DIR$/FUSE-basic/queue/test2.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs/ssfs.c" />
@@ -155,6 +144,8 @@
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs.c" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_fuse.h" />
       </list>
     </option>
   </component>
@@ -188,6 +179,11 @@
             <path>
               <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
               <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
+              <item name="FUSE-2nd" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
               <item name="FUSE-3rd" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -201,6 +197,18 @@
               <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
               <item name="FUSE-3rd" type="462c0819:PsiDirectoryNode" />
               <item name="dpdk_client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
+              <item name="FUSE-3rd" type="462c0819:PsiDirectoryNode" />
+              <item name="posix_client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
+              <item name="FUSE-3rd" type="462c0819:PsiDirectoryNode" />
+              <item name="posix_server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
@@ -222,19 +230,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/history" />
-      <recent name="$PROJECT_DIR$/FUSE-basic/ssfs_org" />
-      <recent name="$PROJECT_DIR$/FUSE-basic/mcachefs" />
-      <recent name="$PROJECT_DIR$/dpdk-client/history" />
-      <recent name="$PROJECT_DIR$/dpdk-server/history" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/FUSE-3rd" />
       <recent name="$PROJECT_DIR$/FUSE-2nd/dpdk-server" />
       <recent name="$PROJECT_DIR$/FUSE-2nd" />
       <recent name="$PROJECT_DIR$/FUSE-2nd/history" />
       <recent name="$PROJECT_DIR$/FUSE-2nd/dpdk_server" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/history" />
+      <recent name="$PROJECT_DIR$/FUSE-basic/ssfs_org" />
+      <recent name="$PROJECT_DIR$/FUSE-basic/mcachefs" />
+      <recent name="$PROJECT_DIR$/dpdk-client/history" />
+      <recent name="$PROJECT_DIR$/dpdk-server/history" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -269,12 +277,12 @@
       <workItem from="1531935539568" duration="10902000" />
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
-      <workItem from="1532224447870" duration="623000" />
+      <workItem from="1532224447870" duration="798000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156245000" />
+    <option name="totallyTimeSpent" value="156420000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -310,34 +318,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_benchmark/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/history/FUSE-basic/posix_server/ssfs_common.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_client/ssfs_common.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_client/ssfs_fuse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="96" selection-start-line="96" selection-end-line="114" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
@@ -632,8 +612,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="894">
-          <caret line="185" column="12" lean-forward="true" selection-start-line="185" selection-start-column="12" selection-end-line="185" selection-end-column="12" />
+        <state relative-caret-position="799">
+          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_server/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="32" column="19" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_fuse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="108" column="56" lean-forward="true" selection-start-line="108" selection-start-column="56" selection-end-line="108" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_posix.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="134" column="25" lean-forward="true" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="25" />
         </state>
       </provider>
     </entry>
