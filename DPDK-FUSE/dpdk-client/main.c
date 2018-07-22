@@ -229,9 +229,6 @@ static void l2fwd_main_loop(void){
 		return;
 	}
 
-	start_time = getTimeStamp();
-
-
 	char *data, *rtn;
 	while (!force_quit) {
 		cur_tsc = rte_rdtsc();
@@ -259,11 +256,6 @@ static void l2fwd_main_loop(void){
 					if (lcore_id == rte_get_master_lcore()) {
 						// print_stats();
 						// /* reset the timer */
-						if(port_statistics[portid].rx_bytes>=(PINGS * PKT_SIZE)){
-							end_time = getTimeStamp();
-							print_stats();
-							force_quit=1;
-						}
 						timer_tsc = 0;
 					}
 				}
@@ -295,7 +287,7 @@ static void l2fwd_main_loop(void){
 		}
 
 		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-		data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+		data = rte_pktmbuf_append(rm[0], 1024);
 		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
 		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 		l2fwd_mac_updating(rm[0], portid);

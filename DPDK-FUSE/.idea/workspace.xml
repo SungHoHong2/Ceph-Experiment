@@ -22,8 +22,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="889">
-              <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
+            <state relative-caret-position="381">
+              <caret line="293" lean-forward="true" selection-start-line="293" selection-end-line="293" />
             </state>
           </provider>
         </entry>
@@ -50,9 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pthread_mutex_lock</find>
-      <find>running</find>
-      <find>sleep</find>
       <find>dpdk_av</find>
       <find>dpdk_queue</find>
       <find>l2fwd</find>
@@ -65,7 +62,6 @@
       <find>Lcore</find>
       <find>lcore</find>
       <find>logical cores</find>
-      <find>PKT_SIZE</find>
       <find>send</find>
       <find>l2fwd_rx_loop</find>
       <find>l2fwd_parse_args</find>
@@ -80,6 +76,10 @@
       <find>l2fwd_simple_forward</find>
       <find>l2fwd_mac_updating</find>
       <find>send msg</find>
+      <find>l2fwd_port_statistics</find>
+      <find>rx_bytes</find>
+      <find>PINGS</find>
+      <find>PKT_SIZE</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -265,12 +265,12 @@
       <workItem from="1531935539568" duration="10902000" />
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
-      <workItem from="1532224447870" duration="11112000" />
+      <workItem from="1532224447870" duration="11186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166734000" />
+    <option name="totallyTimeSpent" value="166808000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -618,8 +618,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dpdk-client/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="889">
-          <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
+        <state relative-caret-position="381">
+          <caret line="293" lean-forward="true" selection-start-line="293" selection-end-line="293" />
         </state>
       </provider>
     </entry>
