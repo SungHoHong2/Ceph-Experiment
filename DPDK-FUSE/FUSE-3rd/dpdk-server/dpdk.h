@@ -120,7 +120,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         pthread_mutex_lock(&rx_lock);
         e = malloc(sizeof(struct fuse_message));
-         fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+        // fprintf(f, "recv msg in DPDK: %s\n",msg->data);
 
 
 
@@ -158,7 +158,8 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 }
 
 
-void  l2fwd_rx_loop()
+void
+* l2fwd_rx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -334,7 +335,7 @@ static int
 l2fwd_parse_args()
 {
     int ret;
-    char *prgname = "dpdk-server";
+    char *prgname = "dpdk-server_backup";
     l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
     ret = 6;

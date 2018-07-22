@@ -108,7 +108,7 @@ int dpdk_init(){
 
 	dpdk_argv[0]="./build/dpdk_server";
 	dpdk_argv[1]="-c";
-	dpdk_argv[2]="0x2";
+	dpdk_argv[2]="0xE";
 	dpdk_argv[3]="-n";
 	dpdk_argv[4]="4";
 	dpdk_argv[5]="--";
@@ -186,6 +186,7 @@ int dpdk_init(){
 	rx_lcore_id = 0;
 	qconf = NULL;
 
+
 	/* Initialize the port/queue configuration of each logical core */
 	for (portid = 0; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
@@ -197,6 +198,8 @@ int dpdk_init(){
 			   lcore_queue_conf[rx_lcore_id].n_rx_port ==
 			   l2fwd_rx_queue_per_lcore) {
 			rx_lcore_id++;
+
+			printf("CHARA: AVAILABLE CORES: %d\n", rx_lcore_id);
 			if (rx_lcore_id >= RTE_MAX_LCORE)
 				rte_exit(EXIT_FAILURE, "Not enough cores\n");
 		}
@@ -297,6 +300,12 @@ int dpdk_init(){
 	check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 }
 
+static int
+l2fwd_launch_rx_lcore(__attribute__((unused)) void *dummy)
+{
+	l2fwd_rx_loop();
+	return 0;
+}
 
 
 int
@@ -306,9 +315,21 @@ main(int argc, char **argv)
 	dpdk_init();
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 	pthread_t threads[3];
-	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
-	rc = pthread_create(&threads[1], NULL, l2fwd_tx_loop, NULL);
 
-	while(1){};
+	/* launch per-lcore init on every lcore */
+	rte_eal_mp_remote_launch(l2fwd_launch_rx_lcore, NULL, CALL_MASTER);
+
+
+//	int rc = pthread_create(&threads[0], NULL, l2fwd_rx_loop, NULL);
+//	rc = pthread_create(&threads[1], NULL, l2fwd_tx_loop, NULL);
+
+
+
+	printf("Closing port %d...", 0);
+	rte_eth_dev_stop(0);
+	rte_eth_dev_close(0);
+	printf(" Done\n");
+
+
 	return 0;
 }
