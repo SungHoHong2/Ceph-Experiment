@@ -146,7 +146,9 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	char* data;
 	struct message obj;
-	strncpy(obj.data, "hellohellohellohellohellohellohellohello", 100);
+
+	obj.start_time = 1;
+	strncpy(obj.data, "Hello World From CLIENT!\n", 100);
 
 	struct message *msg =&obj;
 	data = rte_pktmbuf_append(m, sizeof(struct message));
