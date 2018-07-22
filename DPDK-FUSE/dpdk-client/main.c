@@ -206,159 +206,152 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 /* main processing loop */
-static void
-l2fwd_main_loop(void)
-{
-
-
+static void l2fwd_main_loop(void){
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+	struct rte_mbuf *rm[1];
 	struct rte_mbuf *m;
-
+	int sent;
 	unsigned lcore_id;
+	uint64_t prev_tsc, diff_tsc, cur_tsc, timer_tsc;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
+	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S * BURST_TX_DRAIN_US;
 	struct rte_eth_dev_tx_buffer *buffer;
 
-	lcore_id = 1;
+	prev_tsc = 0;
+	timer_tsc = 0;
+
+	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
 
-	struct rte_mbuf *rm[1];
+	if (qconf->n_rx_port == 0) {
+		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
+		return;
+	}
 
+	start_time = getTimeStamp();
+
+
+	char *data, *rtn;
 	while (!force_quit) {
-		portid = qconf->rx_port_list[0];
-		char* data;
-		struct message obj;
-		struct fuse_message * e = NULL;
-		struct message *msg;
-		struct rte_mbuf *rm[1];
+		cur_tsc = rte_rdtsc();
+		/*
+         * TX burst queue drain
+         */
+		diff_tsc = cur_tsc - prev_tsc;
+		if (unlikely(diff_tsc > drain_tsc)) {
 
-//		pthread_mutex_lock(&tx_lock);
-//		if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//			e = TAILQ_FIRST(&fuse_tx_queue);
-			 printf("send msg in DPDK\n");
-//			dpdk_av = malloc(sizeof(struct avg_node));
-//			dpdk_av->start_time = getTimeStamp();
-//			dpdk_av->num = dpdk_requests;
-//			TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
-//			dpdk_requests++;
+			for (i = 0; i < qconf->n_rx_port; i++) {
+				portid = l2fwd_dst_ports[qconf->rx_port_list[i]];
+				buffer = tx_buffer[portid];
+				sent = rte_eth_tx_buffer_flush(portid, 0, buffer);
+				if (sent)
+					port_statistics[portid].tx += sent;
+			}
 
-//			msg = &obj;
-//			strncpy(obj.data, "Hello World From CLIENT\n", 100);
-//			rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//			l2fwd_mac_updating(rm[0], portid);
-//
-//			data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-//
-//			if (data != NULL)
-//				rte_memcpy(data, msg, sizeof(struct message));
-//
-//			rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-//			rte_eth_tx_burst(portid, 0, rm, 1);
-
-
-			rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-			data = rte_pktmbuf_append(rm[0], 1024);
-			memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
-			rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-			l2fwd_mac_updating(rm[0], portid);
-
-			rte_eth_tx_burst(portid, 0, rm, 1);
-			rte_pktmbuf_free(rm[0]);
-
-
-
-
-//			TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+			/* if timer is enabled */
+			if (timer_period > 0) {
+				/* advance the timer */
+				timer_tsc += diff_tsc;
+				/* if timer has reached its timeout */
+				if (unlikely(timer_tsc >= timer_period)) {
+					/* do this only on master core */
+					if (lcore_id == rte_get_master_lcore()) {
+						// print_stats();
+						// /* reset the timer */
+						if(port_statistics[portid].rx_bytes>=(PINGS * PKT_SIZE)){
+							end_time = getTimeStamp();
+							print_stats();
+							force_quit=1;
+						}
+						timer_tsc = 0;
+					}
+				}
+			}
+			prev_tsc = cur_tsc;
 		}
-//		pthread_mutex_unlock(&tx_lock);
+
+		/*
+         * Read packet from RX queues
+         */
+		// for (i = 0; i < qconf->n_rx_port; i++) {
+		// if(PKT_NUMBUF == 1){
+		portid = 1;
+		nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+								 pkts_burst, MAX_PKT_BURST);
+
+		port_statistics[portid].rx += nb_rx;
+
+		for (j = 0; j < nb_rx; j++) {
+			rtn = rte_pktmbuf_mtod_offset(pkts_burst[j], char *, sizeof(data));
+			int s;
+			for(s=0; s<strlen(rtn); s++){
+				if(rtn[s]=='*') {
+					port_statistics[portid].rx_bytes += 1; //rte_pktmbuf_pkt_len(pkts_burst[j]);
+					// printf("%c",rtn[s]);
+				}
+			}
+			rte_pktmbuf_free(pkts_burst[j]);
+		}
+
+		rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+		data = rte_pktmbuf_append(rm[0], PKT_SIZE);
+		memset(data, '*', rte_pktmbuf_pkt_len(rm[0]));
+		rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+		l2fwd_mac_updating(rm[0], portid);
+
+		sent = rte_eth_tx_burst(portid, 0, rm, 1);
+
+		if (sent){
+			port_statistics[portid].tx += sent;
+		}
+		rte_pktmbuf_free(rm[0]);
+		// }
+		// }
+		// else {
+		//     // sending by bulk
+		//     unsigned i;
+		//     struct rte_mbuf *mrm[PKT_NUMBUF];
+		//     int ret = 0;
+		//
+		//     for (i=0; i<PKT_NUMBUF; i++)
+		//     	mrm[i] = NULL;
+		//
+		//     char *data;
+		//     /* alloc NB_MBUF mbufs */
+		//     for (i=0; i<PKT_NUMBUF; i++) {
+		//     	mrm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+		//     	data = rte_pktmbuf_append(mrm[i], PKT_SIZE);
+		//     	memset(data, 0xff, rte_pktmbuf_pkt_len(mrm[i]));
+		//     	l2fwd_mac_updating(mrm[i], portid);
+		//
+		//     	if (mrm[i] == NULL) {
+		//     		printf("rte_pktmbuf_alloc() failed (%u)\n", i);
+		//     		ret = -1;
+		//     		break;
+		//     	}
+		//     }
+		//
+		//     sent = rte_eth_tx_burst(portid, 0, mrm, i);
+		//
+		//     if (sent){
+		//     	port_statistics[portid].tx += sent; //* rte_pktmbuf_pkt_len(rm[0]);
+		//     }
+		//
+		//     for (i=0; i<PKT_NUMBUF; i++)
+		//     		rte_pktmbuf_free(mrm[i]);
+		//
+		// }
 
 
+	}
 
-
-//	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
-//	struct rte_mbuf *m;
-//	int sent;
-//	unsigned lcore_id;
-//	uint64_t prev_tsc, diff_tsc, cur_tsc;
-//	unsigned i, j, portid, nb_rx;
-//	struct lcore_queue_conf *qconf;
-//	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
-//							   BURST_TX_DRAIN_US;
-//	struct rte_eth_dev_tx_buffer *buffer;
-//
-//	prev_tsc = 0;
-//
-//	lcore_id = rte_lcore_id();
-//	qconf = &lcore_queue_conf[lcore_id];
-//
-//	if (qconf->n_rx_port == 0) {
-//		RTE_LOG(INFO, L2FWD, "lcore %u has nothing to do\n", lcore_id);
-//		return;
-//	}
-//
-//	RTE_LOG(INFO, L2FWD, "entering main loop on lcore %u\n", lcore_id);
-//
-//	for (i = 0; i < qconf->n_rx_port; i++) {
-//
-//		portid = qconf->rx_port_list[i];
-//		RTE_LOG(INFO, L2FWD, " -- lcoreid=%u portid=%u\n", lcore_id,
-//				portid);
-//
-//	}
-//
-//	while (!force_quit) {
-//
-//		cur_tsc = rte_rdtsc();
-//
-//		/*
-//		 * TX burst queue drain
-//		 */
-//		diff_tsc = cur_tsc - prev_tsc;
-//		if (unlikely(diff_tsc > drain_tsc)) {
-//
-//			for (i = 0; i < qconf->n_rx_port; i++) {
-//
-//				portid = l2fwd_dst_ports[qconf->rx_port_list[i]];
-//				buffer = tx_buffer[portid];
-//
-//				sent = rte_eth_tx_buffer_flush(portid, 0, buffer);
-//				if (sent)
-//					port_statistics[portid].tx += sent;
-//
-//			}
-//
-//		}
-//
-//		/*
-//		 * Read packet from RX queues
-//		 */
-//		for (i = 0; i < qconf->n_rx_port; i++) {
-//
-//			portid = qconf->rx_port_list[i];
-//			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-//									 pkts_burst, MAX_PKT_BURST);
-//
-//			port_statistics[portid].rx += nb_rx;
-//
-//			for (j = 0; j < nb_rx; j++) {
-//				m = pkts_burst[j];
-//				//CHARA BEGIN
-//				m = pkts_burst[j];
-//				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-//				int header_length =  rte_mbuf_packet_length - 1024;
-//
-//				if(header_length>0){
-//					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
-//				}
-//				//CHARA END
-//				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-//
-//				l2fwd_simple_forward(m, portid);
-//			}
-//		}
-//
-//	}
 }
+
+
+
+
+
 
 static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
