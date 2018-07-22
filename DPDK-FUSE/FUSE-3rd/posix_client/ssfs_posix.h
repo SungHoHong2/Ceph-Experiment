@@ -113,7 +113,7 @@ void *tcp_recv_launch(){
 
             printf("recv msg from POSIX: %s\n", buf);
 
-            if(strcmp(buf, "Hello World From SERVER!\n")==0) {
+            if(strcmp(buf, "Hello World From SERVER!")==0) {
                 printf("recv msg from POSIX: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
