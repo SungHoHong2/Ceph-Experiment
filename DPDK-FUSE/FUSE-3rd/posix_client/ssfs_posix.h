@@ -108,10 +108,8 @@ void *tcp_recv_launch(){
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>=23){
-           //  pthread_mutex_lock(&rx_lock);
-
-
-            printf("recv msg from POSIX: %s %ld\n", buf, strlen(buf));
+             pthread_mutex_lock(&rx_lock);
+//            printf("recv msg from POSIX: %s %ld\n", buf, strlen(buf));
 
 
             // if(strcmp(buf, "Hello World From SERVER!")==0) {
@@ -120,7 +118,7 @@ void *tcp_recv_launch(){
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
             //  }
-        //    pthread_mutex_unlock(&rx_lock);
+            pthread_mutex_unlock(&rx_lock);
         }
 
         // printf("recv running\n");
@@ -198,7 +196,7 @@ void *tcp_send_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-                 printf("send msg in POSIX: %s\n",e->data);
+//                 printf("send msg in POSIX: %s\n",e->data);
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
