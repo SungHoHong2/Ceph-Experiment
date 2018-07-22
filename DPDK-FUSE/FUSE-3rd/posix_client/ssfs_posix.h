@@ -200,6 +200,7 @@ void *tcp_send_launch(){
                 posix_av = malloc(sizeof(struct avg_node));
                 posix_av->start_time = getTimeStamp();
                 posix_av->num = posix_requests;
+                printf("send msg in POSIX: %ld\n",posix_av->num);
                 TAILQ_INSERT_TAIL(&posix_queue, posix_av, nodes);
                 posix_requests++;
 
