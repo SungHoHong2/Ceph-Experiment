@@ -180,7 +180,7 @@ void *tcp_send_launch(){
         struct message obj;
         struct fuse_message * e = NULL;
         struct message *msg;
-        usleep(2000);
+        usleep(1000);
         while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
         pthread_mutex_lock(&tx_lock);
