@@ -297,6 +297,12 @@ int dpdk_init(){
 	check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 }
 
+static int
+l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
+{
+	l2fwd_rx_loop();
+	return 0;
+}
 
 
 int
