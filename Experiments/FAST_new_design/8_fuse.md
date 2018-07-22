@@ -13,6 +13,12 @@
 - [] identify whether the performance degrades from synchronization between DPDK and FUSE or the network latency.
 -
 
+https://doc.dpdk.org/guides-16.04/sample_app_ug/performance_thread.html
+
+l3fwd-thread -c ff -n 2 -- -P -p 3 \
+             --rx="(0,0,0,0)(1,0,0,1)" \
+             --tx="(0,0)(0,1)"
+
 ### results
 ```
 
