@@ -110,7 +110,7 @@ void *tcp_recv_launch(){
         if(success && strlen(buf)>=23){
              pthread_mutex_lock(&rx_lock);
 
-            posix_av = TAILQ_FIRST(&dpdk_queue);
+            posix_av = TAILQ_FIRST(&posix_queue);
             posix_av->end_time = getTimeStamp();
             posix_av->interval = posix_av->end_time - posix_av->start_time;
             printf("[%ld] recv msg in POSIX :: %ld\n", posix_av->num, posix_av->interval);
