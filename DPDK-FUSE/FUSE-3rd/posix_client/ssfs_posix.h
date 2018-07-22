@@ -110,12 +110,12 @@ void *tcp_recv_launch(){
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>=23){
             pthread_mutex_lock(&rx_lock);
-            // if(strcmp(buf, "Hello World From SERVER!")==0) {
+             if(strcmp(buf, "Hello World From SERVER!\n")==0) {
                 printf("recv msg from POSIX: %s\n", buf);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-            // }
+             }
             pthread_mutex_unlock(&rx_lock);
         }
     }
