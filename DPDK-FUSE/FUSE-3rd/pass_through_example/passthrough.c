@@ -308,6 +308,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int fd;
     int res;
 
+
+    printf("xmp_read\n");
+
     if(fi == NULL)
         fd = open(path, O_RDONLY);
     else
