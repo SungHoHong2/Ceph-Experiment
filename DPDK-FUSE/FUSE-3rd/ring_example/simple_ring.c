@@ -37,6 +37,14 @@ lcore_recv(__attribute__((unused)) void *arg)
 {
     unsigned lcore_id = rte_lcore_id();
 
+    if(lcore_id==0){
+        printf("CHARA: this is the master core\n");
+    }
+
+    if(lcore_id==1){
+        printf("CHARA: this is the second core\n");
+    }
+
     printf("Starting core %u\n", lcore_id);
     while (!quit){
         void *msg;

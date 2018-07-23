@@ -6,8 +6,7 @@
     - `fun fact I found was that when POSIX is used with mutex then the threads works collaboratively`
     - `in case of DPDK teh threads work black and white`
 
-- [] use rx_ring 
-
+- [] use rx_ring
 
 - [] combine pass-through example which is a low level interface of FUSE with DPDK and POSIX
 - [] just compile FUSE with DPDK and FUSE with POSIX (without synchronization) and compare the performance
