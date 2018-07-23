@@ -79,11 +79,12 @@ main(int argc, char **argv)
                                           rte_socket_id(), flags);
     }
 
-    printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
-    rte_eal_mp_remote_launch(lcore_recv, NULL, lcore_id);
 
-//    /* call lcore_recv() on every slave lcore */
+    rte_eal_mp_remote_launch(lcore_recv, NULL, CALL_MASTER);
+
+    /* call lcore_recv() on every slave lcore */
 //    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+//        printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
 //        rte_eal_remote_launch(lcore_recv, NULL, lcore_id);
 //    }
     return 0;

@@ -59,8 +59,8 @@
       <file leaf-file-name="simple_ring.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="734">
+              <caret line="84" column="20" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -69,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lcore</find>
       <find>logical cores</find>
       <find>send</find>
       <find>l2fwd_rx_loop</find>
@@ -99,6 +98,7 @@
       <find>dpdk_msg_init</find>
       <find>recv_ring</find>
       <find>lcore_recv</find>
+      <find>lcore_id</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -285,12 +285,12 @@
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
-      <workItem from="1532288695438" duration="1966000" />
+      <workItem from="1532288695438" duration="1999000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173206000" />
+    <option name="totallyTimeSpent" value="173239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -644,8 +644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="734">
+          <caret line="84" column="20" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="20" />
         </state>
       </provider>
     </entry>
