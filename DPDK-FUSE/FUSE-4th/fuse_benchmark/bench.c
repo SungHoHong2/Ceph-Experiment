@@ -42,7 +42,7 @@ int main(){
         start_time = getTimeStamp();
         file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
-            fread(data, sizeof(char), 24, file);
+            fread(data, sizeof(char), 22, file);
             printf("recv msg in FUSE: %s\n", data);
             fclose(file);
         }
