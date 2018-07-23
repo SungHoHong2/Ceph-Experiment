@@ -49,8 +49,8 @@
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="351" column="24" selection-start-line="351" selection-start-column="24" selection-end-line="351" selection-end-column="24" />
+            <state relative-caret-position="647">
+              <caret line="553" column="2" lean-forward="true" selection-start-line="553" selection-start-column="2" selection-end-line="553" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -294,12 +294,12 @@
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
       <workItem from="1532288695438" duration="11567000" />
-      <workItem from="1532367785336" duration="6124000" />
+      <workItem from="1532367785336" duration="6269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188931000" />
+    <option name="totallyTimeSpent" value="189076000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -678,8 +678,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="351" column="24" selection-start-line="351" selection-start-column="24" selection-end-line="351" selection-end-column="24" />
+        <state relative-caret-position="647">
+          <caret line="553" column="2" lean-forward="true" selection-start-line="553" selection-start-column="2" selection-end-line="553" selection-end-column="2" />
         </state>
       </provider>
     </entry>
