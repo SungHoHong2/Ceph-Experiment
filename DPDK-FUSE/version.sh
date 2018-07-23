@@ -144,7 +144,7 @@ gcc ssfs.c -o ssfs -pthread
 elif [ "$HOSTS" = "w2" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/posix_client
-gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3
+gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -lpthread
 ./ssfs -f /mnt/ssd_cache/test
 fi
 
