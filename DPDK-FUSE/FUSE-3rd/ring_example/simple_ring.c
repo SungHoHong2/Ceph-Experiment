@@ -41,16 +41,21 @@ lcore_recv(__attribute__((unused)) void *arg)
         printf("CHARA: [ using double threads are proved ] this is the master core\n");
         printf("Starting core %u\n", lcore_id);
         while (!quit){
-            void *msg;
+            // void *msg;
             char *pdata;
             char data[string_size];
             pdata= &data;
             strcpy(data,"howdy");
 
             sleep(1);
-            printf("lcore[%u]:%s\n", lcore_id, data);
-            snprintf((char *)msg, string_size, "%s", pdata);
-            printf("CHARA: rte_ring_enqueue: %s\n", (char *)msg);
+            printf("lcore[%u]:%s\n", lcore_id, pdata);
+
+            if (rte_ring_enqueue(send_ring, pdata) < 0) {
+                printf("Failed to send message - message discarded\n");
+                rte_mempool_put(message_pool, msg);
+            }
+
+
 
 
 
