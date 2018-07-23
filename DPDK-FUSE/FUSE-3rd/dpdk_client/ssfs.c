@@ -54,6 +54,8 @@
 static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 {
+    unsigned lcore_id = rte_lcore_id();
+    printf("CHARA: %u\n", lcore_id);
     l2fwd_tx_loop();
     return 0;
 }
