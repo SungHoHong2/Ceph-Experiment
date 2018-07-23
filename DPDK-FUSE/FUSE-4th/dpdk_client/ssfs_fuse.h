@@ -367,7 +367,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 //        av->num = total_requests;
 //        printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
 //        TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-//        total_requests++;
+        total_requests++;
     }
 
 
@@ -376,11 +376,13 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     _msg = (struct message *)msg;
-     printf("CHARA Received '%s'\n", _msg->data);
+//     printf("CHARA Received '%s'\n", _msg->data);
 //    av = TAILQ_FIRST(&avg_queue);
 //    av->end_time = getTimeStamp();
 //    av->interval = av->end_time - av->start_time;
 //    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
+    printf("[%ld] recv msg in FUSE: %ld\n", total_requests, strlen(_msg->data));
+
     // TAILQ_REMOVE(&avg_queue, av, nodes);
     //  free(av);
 
