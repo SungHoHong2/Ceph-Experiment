@@ -108,11 +108,11 @@ void *fuse_rx_launch() {
 
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-//            e = TAILQ_FIRST(&fuse_rx_queue);
-//            av = TAILQ_FIRST(&avg_queue);
-//            av->end_time = getTimeStamp();
-//            av->interval = av->end_time - av->start_time;
-//            printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+            e = TAILQ_FIRST(&fuse_rx_queue);
+            av = TAILQ_FIRST(&avg_queue);
+            av->end_time = getTimeStamp();
+            av->interval = av->end_time - av->start_time;
+            printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
 //            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 //            TAILQ_REMOVE(&avg_queue, av, nodes);
 //            free(av);
