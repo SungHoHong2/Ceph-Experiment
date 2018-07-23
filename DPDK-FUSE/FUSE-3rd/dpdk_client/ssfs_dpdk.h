@@ -160,11 +160,11 @@ l2fwd_tx_loop()
 
 
 
-//        if (rte_ring_dequeue(tx_ring, __msg) < 0) {
-//            // printf("Failed to recv message - message discarded\n");
-//        } else {
-//            _msg = (struct message *)__msg;
-//             printf("send msg in DPDK: %s\n",_msg->data);
+        if (rte_ring_dequeue(tx_ring, __msg) < 0) {
+            // printf("Failed to recv message - message discarded\n");
+        } else {
+            _msg = (struct message *)__msg;
+             printf("send msg in DPDK: %s\n",_msg->data);
 //                dpdk_av = malloc(sizeof(struct avg_node));
 //                dpdk_av->start_time = getTimeStamp();
 //                dpdk_av->num = dpdk_requests;
@@ -182,7 +182,7 @@ l2fwd_tx_loop()
 //
 //                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 //                rte_eth_tx_burst(portid, 0, rm, 1);
-//        }
+        }
 
 
 
