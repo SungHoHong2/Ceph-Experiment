@@ -107,6 +107,11 @@ then
   done
 
 
+elif [ "$1" = "Fuse_exp_benchmark" ]
+then
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
+gcc bench.c -o bench && ./bench
+
 elif [ "$1" = "Fuse_4th_DPDK_make_launch" ]
 then
   if [ "$HOSTS" = "w1" ]
