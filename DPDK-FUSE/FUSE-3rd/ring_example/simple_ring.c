@@ -42,14 +42,15 @@ lcore_recv(__attribute__((unused)) void *arg)
         printf("Starting core %u\n", lcore_id);
         while (!quit){
             void *msg;
+            char *pdata;
             char data[string_size];
+            pdata= &data;
             strcpy(data,"howdy");
 
             sleep(1);
             printf("lcore[%u]:%s\n", lcore_id, data);
-
-
-
+            snprintf((char *)msg, string_size, "%s", pdata);
+            printf("CHARA: rte_ring_enqueue: %s\n", (char *)msg);
 
 
 
