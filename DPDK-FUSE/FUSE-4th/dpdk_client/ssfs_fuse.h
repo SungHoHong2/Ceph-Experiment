@@ -370,14 +370,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         total_requests++;
     }
 
-    printf("step3\n");
-
     while(rte_ring_dequeue(rx_ring, &msg) < 0){
         usleep(5);
     }
-
-    printf("step4\n");
-
 
     _msg = (struct message *)msg;
 //     printf("CHARA Received '%s'\n", _msg->data);
@@ -386,9 +381,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
     TAILQ_REMOVE(&avg_queue, av, nodes);
-    //  free(av);
-
-
+    free(av);
 
     if(fi == NULL)
         fd = open(path, O_RDONLY);
@@ -563,53 +556,5 @@ static struct fuse_operations xmp_oper = {
 	.removexattr	= xmp_removexattr,
 #endif
 };
-
-
-
-
-
-//
-//void *fuse_rx_launch() {
-//    printf("FUSE-RX BEGIN\n");
-//    struct fuse_message * e = NULL;
-//    struct fuse_message * txe = NULL;
-//    char *buffer = NULL;
-//    void *msg;
-//    struct message *_msg;
-//    // sleep(5);
-//
-//    while(1) {
-//
-////        if(total_requests<=TOTAL_TEST_REQ) {
-////            _msg = malloc(sizeof(struct message));
-////            strcpy(_msg->data, "Hello World From CLIENT!\n");
-////
-////            if (rte_ring_enqueue(tx_ring, _msg) < 0) {
-////                printf("Failed to send message - message discarded\n");
-////            } else {
-////                av = malloc(sizeof(struct avg_node));
-////                av->start_time = getTimeStamp();
-////                av->num = total_requests;
-////                printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
-////                TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-////                total_requests++;
-////            }
-////        }
-//
-//
-//        if (rte_ring_dequeue(rx_ring, &msg) < 0){
-//            usleep(5);
-//        }else{
-//              _msg = (struct message *)msg;
-//              // printf("CHARA Received '%s'\n", _msg->data);
-//              av = TAILQ_FIRST(&avg_queue);
-//              av->end_time = getTimeStamp();
-//              av->interval = av->end_time - av->start_time;
-//              printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
-//              TAILQ_REMOVE(&avg_queue, av, nodes);
-//              free(av);
-//        }
-//    }
-//}
 
 
