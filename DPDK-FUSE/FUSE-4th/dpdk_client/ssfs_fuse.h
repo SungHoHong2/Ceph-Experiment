@@ -351,31 +351,26 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     printf("CHARA: xmp_read BEGIN\n");
 
-//    printf( "--> Trying to read %s, %lu, %lu\n", path, offset, size );
-//    char client[] = "Hello World From CLIENT!\n";
-//    char server[] = "Hello World From SERVER!\n";
-//    char *selectedText = NULL;
-//    struct fuse_message *e = NULL;
-//    void *msg;
-//    struct message *_msg;
-//    // ... //
-//
-//    if ( strcmp( path, "/client" ) == 0 ) {
-//        selectedText = client;
-//
-//        _msg = malloc(sizeof(struct message));
-//        strcpy(_msg->data, selectedText);
-//
-//        if (rte_ring_enqueue(tx_ring, _msg) < 0) {
-//            printf("Failed to send message - message discarded\n");
-//        } else {
-//            av = malloc(sizeof(struct avg_node));
-//            av->start_time = getTimeStamp();
-//            av->num = total_requests;
-//            printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
-//            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-//            total_requests++;
-//        }
+    char client[] = "Hello World From CLIENT!\n";
+    char *selectedText = NULL;
+    struct fuse_message *e = NULL;
+    void *msg;
+    struct message *_msg;
+
+    selectedText = client;
+    _msg = malloc(sizeof(struct message));
+    strcpy(_msg->data, selectedText);
+
+    if (rte_ring_enqueue(tx_ring, _msg) < 0) {
+        printf("Failed to send message - message discarded\n");
+    } else {
+        av = malloc(sizeof(struct avg_node));
+        av->start_time = getTimeStamp();
+        av->num = total_requests;
+        printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+        TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+        total_requests++;
+    }
 
     if(fi == NULL)
         fd = open(path, O_RDONLY);
@@ -391,7 +386,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     if(fi == NULL)
         close(fd);
-
 
     printf("CHARA: xmp_read END\n");
     return res;
