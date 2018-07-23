@@ -94,6 +94,7 @@ void *fuse_rx_launch() {
     struct fuse_message * txe = NULL;
     char *buffer = NULL;
     int rtn;
+    void *msg;
 
     sleep(5);
 
