@@ -381,8 +381,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
-    TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av);
+    // TAILQ_REMOVE(&avg_queue, av, nodes);
+    //  free(av);
 
 
     if(fi == NULL)
