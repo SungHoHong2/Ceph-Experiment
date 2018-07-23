@@ -109,7 +109,7 @@ void *tcp_recv_launch(){
 
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>24){
-            // printf("recv msg from POSIX: %s\n", buf);
+            printf("recv msg from POSIX: %s\n", buf);
             pthread_mutex_lock(&rx_lock);
             if(strcmp(buf, "Hello World From CLIENT!\n")==0) {
                 e = malloc(sizeof(struct fuse_message));
@@ -208,7 +208,7 @@ void *tcp_send_launch(){
                 memcpy(data, msg, sizeof(struct message));
                 success = send(sockfd, data, PKT_SIZE, 0);
                 if (success && strlen(data) > 0) {
-                    // printf("send msg in POSIX: %s\n",msg->data);
+                     printf("send msg in POSIX: %s\n",msg->data);
                     // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
                 }
             }
