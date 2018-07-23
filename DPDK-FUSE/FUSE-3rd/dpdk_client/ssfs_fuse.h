@@ -115,7 +115,7 @@ void *fuse_rx_launch() {
         pthread_mutex_unlock(&tx_lock);
 
 
-        if (rte_ring_dequeue(shared_ring, &msg) < 0){
+        if (rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
         }else{
               _msg = (struct message *)msg;
