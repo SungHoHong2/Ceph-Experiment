@@ -160,29 +160,29 @@ l2fwd_tx_loop()
 
 
 
-        if (rte_ring_dequeue(tx_ring, __msg) < 0) {
-            // printf("Failed to recv message - message discarded\n");
-        } else {
-            _msg = (struct message *)__msg;
-             printf("send msg in DPDK: %s\n",_msg->data);
-                dpdk_av = malloc(sizeof(struct avg_node));
-                dpdk_av->start_time = getTimeStamp();
-                dpdk_av->num = dpdk_requests;
-                TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
-                dpdk_requests++;
-
-                msg = &obj;
-                strncpy(obj.data, _msg->data, 100);
-                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-                l2fwd_mac_updating(rm[0], portid);
-                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-
-                if (data != NULL)
-                    rte_memcpy(data, msg, sizeof(struct message));
-
-                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-                rte_eth_tx_burst(portid, 0, rm, 1);
-        }
+//        if (rte_ring_dequeue(tx_ring, __msg) < 0) {
+//            // printf("Failed to recv message - message discarded\n");
+//        } else {
+//            _msg = (struct message *)__msg;
+//             printf("send msg in DPDK: %s\n",_msg->data);
+//                dpdk_av = malloc(sizeof(struct avg_node));
+//                dpdk_av->start_time = getTimeStamp();
+//                dpdk_av->num = dpdk_requests;
+//                TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
+//                dpdk_requests++;
+//
+//                msg = &obj;
+//                strncpy(obj.data, _msg->data, 100);
+//                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//                l2fwd_mac_updating(rm[0], portid);
+//                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+//
+//                if (data != NULL)
+//                    rte_memcpy(data, msg, sizeof(struct message));
+//
+//                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//                rte_eth_tx_burst(portid, 0, rm, 1);
+//        }
 
 
 
