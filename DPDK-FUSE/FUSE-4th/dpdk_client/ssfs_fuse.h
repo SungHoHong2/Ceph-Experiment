@@ -1,3 +1,10 @@
+#define MAX_LOOP 10
+uint64_t start_time, end_time;
+FILE *test_file;
+char test_data[1024];
+int test_i=0;
+double intervals[MAX_LOOP];
+
 static void *xmp_init(struct fuse_conn_info *conn,
                       struct fuse_config *cfg)
 {
@@ -291,9 +298,17 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
+    intervals[test_i] = (double)av->interval;
+    test_i++;
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
 
+
+    if(total_requests==MAX_LOOP){
+        calculateSD(intervals);
+    }
+
+    
     if(fi == NULL)
         fd = open(path, O_RDONLY);
     else
