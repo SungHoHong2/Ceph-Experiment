@@ -97,7 +97,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     printf("recv msg in DPDK: %s\n", msg->data);
     rte_memcpy(schar, msg, sizeof(struct message));
     if (rte_ring_enqueue(shared_ring, schar) < 0) {
-        printf("Failed to send message - message discarded\n");
+        printf("Failed to recv message - message discarded\n");
     }
 
 

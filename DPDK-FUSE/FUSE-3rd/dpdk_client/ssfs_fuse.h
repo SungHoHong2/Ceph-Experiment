@@ -114,11 +114,11 @@ void *fuse_rx_launch() {
         pthread_mutex_unlock(&tx_lock);
 
 
-        if (rte_ring_dequeue(shared_ring, &msg) < 0){
-            usleep(5);
-        }else{
-            printf("received something!\n");
-        }
+//        if (rte_ring_dequeue(shared_ring, &msg) < 0){
+//            usleep(5);
+//        }else{
+//            printf("received something!\n");
+//        }
 
 //        pthread_mutex_lock(&rx_lock);
 //        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
