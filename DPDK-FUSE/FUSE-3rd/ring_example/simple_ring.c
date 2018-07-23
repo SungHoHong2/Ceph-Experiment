@@ -77,34 +77,14 @@ main(int argc, char **argv)
                                           string_size, pool_cache, priv_data_sz,
                                           NULL, NULL, NULL, NULL,
                                           rte_socket_id(), flags);
-    } else {
-        printf("CHARA: rte_ring_lookup\n");
-        recv_ring = rte_ring_lookup(_PRI_2_SEC);
-        send_ring = rte_ring_lookup(_SEC_2_PRI);
-        message_pool = rte_mempool_lookup(_MSG_POOL);
-    }
-    if (send_ring == NULL)
-        rte_exit(EXIT_FAILURE, "Problem getting sending ring\n");
-    if (recv_ring == NULL)
-        rte_exit(EXIT_FAILURE, "Problem getting receiving ring\n");
-    if (message_pool == NULL)
-        rte_exit(EXIT_FAILURE, "Problem getting message pool\n");
-
-    RTE_LOG(INFO, APP, "Finished Process Init.\n");
-
-    /* call lcore_recv() on every slave lcore */
-    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
-        printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
-        rte_eal_remote_launch(lcore_recv, NULL, lcore_id);
     }
 
-//    /* call cmd prompt on master lcore */
-//    struct cmdline *cl = cmdline_stdin_new(simple_mp_ctx, "\nsimple_mp > ");
-//    if (cl == NULL)
-//        rte_exit(EXIT_FAILURE, "Cannot create cmdline instance\n");
-//    cmdline_interact(cl);
-//    cmdline_stdin_exit(cl);
-//
-//    rte_eal_mp_wait_lcore();
+    printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
+    rte_eal_mp_remote_launch(lcore_recv, NULL, lcore_id);
+
+//    /* call lcore_recv() on every slave lcore */
+//    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+//        rte_eal_remote_launch(lcore_recv, NULL, lcore_id);
+//    }
     return 0;
 }
