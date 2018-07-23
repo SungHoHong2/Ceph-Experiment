@@ -44,9 +44,7 @@ lcore_recv(__attribute__((unused)) void *arg)
             void *msg;
 
             sleep(1);
-            snprintf((char *)msg, string_size, "%s", "howdy!");
-            printf("lcore[%u]:%s\n", lcore_id, (char *)msg);
-
+            printf("lcore[%u]:howdy\n", lcore_id);
 
 
 
