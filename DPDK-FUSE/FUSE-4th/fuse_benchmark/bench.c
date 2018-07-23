@@ -32,15 +32,18 @@ int main(){
     uint64_t start_time, end_time;
     FILE *file;
     char data[1024];
+    int i;
 
-
-
-
-    file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
-    if (file) {
-        fread(data, sizeof(char), 1024, file);
-        printf("recv msg in FUSE: %s\n", data);
-        fclose(file);
+    for(i=0; i<10; i++) {
+        start_time = getTimeStamp();
+        file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
+        if (file) {
+            fread(data, sizeof(char), 26, file);
+            printf("recv msg in FUSE: %s\n", data);
+            fclose(file);
+        }
+        end_time = getTimeStamp();
+        printf("interval : %ld\n", end_time-start_time);
     }
 
     return  0;
