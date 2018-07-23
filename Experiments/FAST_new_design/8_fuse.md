@@ -25,6 +25,7 @@ pip3 install --user meson
 export PATH=$PATH:/home/sungho/.local/bin/
 
 # install libfuse
+
 mkdir build; cd build
 meson ..
 ninja
