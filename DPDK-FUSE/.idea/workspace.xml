@@ -38,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="590">
-              <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+            <state relative-caret-position="345">
+              <caret line="67" column="31" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -52,6 +52,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="38">
               <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="725">
+              <caret line="127" lean-forward="true" selection-start-line="127" selection-end-line="127" />
             </state>
           </provider>
         </entry>
@@ -69,7 +78,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>l2fwd_parse_args</find>
       <find>dst_port</find>
       <find>tx</find>
       <find>tx_loop</find>
@@ -99,6 +107,7 @@
       <find>send_ring</find>
       <find>recv_ring</find>
       <find>cmd_send_result</find>
+      <find>result_output</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -157,7 +166,6 @@
         <option value="$PROJECT_DIR$/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk-server/dpdk.h" />
-        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h" />
@@ -165,6 +173,7 @@
         <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h" />
       </list>
     </option>
   </component>
@@ -285,12 +294,12 @@
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
-      <workItem from="1532288695438" duration="3458000" />
+      <workItem from="1532288695438" duration="3523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174698000" />
+    <option name="totallyTimeSpent" value="174763000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -572,13 +581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="117" column="41" selection-start-line="117" selection-start-column="41" selection-end-line="117" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/.idea/misc.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -635,6 +637,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="67" column="31" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_common.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -642,10 +651,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        <state relative-caret-position="725">
+          <caret line="127" lean-forward="true" selection-start-line="127" selection-end-line="127" />
         </state>
       </provider>
     </entry>

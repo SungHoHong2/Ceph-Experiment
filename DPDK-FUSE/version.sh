@@ -72,6 +72,18 @@ gcc ssfs.c -o ssfs `pkg-config fuse --cflags --libs`  -march=native -DRTE_MACHIN
 ./ssfs -f /mnt/ssd_cache/test
 fi
 
+elif [ "$1" = "ring_example_make" ]
+then
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
+make
+/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 0-1 -n 4 --proc-type=primary
+
+elif [ "$1" = "ring_example_run_secondary" ]
+then
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
+/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 2-3 -n 4 --proc-type=secondary
+# send text
+
 elif [ "$1" = "tcp_server_make_experiment" ]
 then
 if [ "$HOSTS" = "w1" ]
@@ -90,18 +102,6 @@ gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 ./ssfs -f /mnt/ssd_cache/test
 fi
 
-
-elif [ "$1" = "ring_example_make" ]
-then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
-make
-/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 0-1 -n 4 --proc-type=primary
-
-elif [ "$1" = "ring_example_run_secondary" ]
-then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
-/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 2-3 -n 4 --proc-type=secondary
-# send text
 
 elif [ "$1" = "Fuse_3rd_DPDK_make_launch" ]
 then
