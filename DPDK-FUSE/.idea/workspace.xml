@@ -40,8 +40,26 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="121" column="32" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
+            <state relative-caret-position="565">
+              <caret line="147" column="47" lean-forward="true" selection-start-line="147" selection-start-column="47" selection-end-line="147" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mp_commands.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="84" column="17" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mp_commands.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -79,7 +97,7 @@
       <find>dpdk_packet_hexdump</find>
       <find>portid</find>
       <find>l2fwd_launch_one_lcore</find>
-      <find>recv</find>
+      <find>rte_ring_</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -95,8 +113,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_dpdk.h" />
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_benchmark/main.c" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_dpdk.h" />
@@ -146,6 +162,8 @@
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/main.c" />
       </list>
     </option>
   </component>
@@ -260,12 +278,12 @@
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
-      <workItem from="1532288695438" duration="1071000" />
+      <workItem from="1532288695438" duration="1485000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172311000" />
+    <option name="totallyTimeSpent" value="172725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -301,20 +319,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/FUSE-2nd/history/dpdk_client_0/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-2nd/history/dpdk_client_0/ssfs_fuse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="89" column="33" lean-forward="true" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/main0.c" />
     <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_server/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
@@ -611,10 +615,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="84" column="17" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="121" column="32" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
+        <state relative-caret-position="565">
+          <caret line="147" column="47" lean-forward="true" selection-start-line="147" selection-start-column="47" selection-end-line="147" selection-end-column="47" />
         </state>
       </provider>
     </entry>

@@ -94,7 +94,7 @@ lcore_recv(__attribute__((unused)) void *arg)
 			usleep(5);
 			continue;
 		}
-		printf("core %u: Received '%s'\n", lcore_id, (char *)msg);
+		printf("CHARA: core %u: Received '%s'\n", lcore_id, (char *)msg);
 		rte_mempool_put(message_pool, msg);
 	}
 
@@ -119,6 +119,8 @@ main(int argc, char **argv)
 		rte_exit(EXIT_FAILURE, "Cannot init EAL\n");
 
 	if (rte_eal_process_type() == RTE_PROC_PRIMARY){
+
+		printf("CHARA: rte_ring_create\n");
 		send_ring = rte_ring_create(_PRI_2_SEC, ring_size, rte_socket_id(), flags);
 		recv_ring = rte_ring_create(_SEC_2_PRI, ring_size, rte_socket_id(), flags);
 		message_pool = rte_mempool_create(_MSG_POOL, pool_size,
@@ -126,6 +128,7 @@ main(int argc, char **argv)
 				NULL, NULL, NULL, NULL,
 				rte_socket_id(), flags);
 	} else {
+		printf("CHARA: rte_ring_lookup\n");
 		recv_ring = rte_ring_lookup(_PRI_2_SEC);
 		send_ring = rte_ring_lookup(_SEC_2_PRI);
 		message_pool = rte_mempool_lookup(_MSG_POOL);
@@ -141,6 +144,7 @@ main(int argc, char **argv)
 
 	/* call lcore_recv() on every slave lcore */
 	RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+		printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
 		rte_eal_remote_launch(lcore_recv, NULL, lcore_id);
 	}
 
