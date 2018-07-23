@@ -20,7 +20,7 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define MAX_LOOP 10000
+#define MAX_LOOP 10
 
 uint64_t getTimeStamp() {
     struct timeval tv;
@@ -65,13 +65,13 @@ int main(){
         start_time = getTimeStamp();
         file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
-            fread(data, sizeof(char), 24, file);
+            fread(data, sizeof(char), 23, file);
             printf("recv msg in FUSE: %s\n", data);
             fclose(file);
         }
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
-        printf("interval : %ld\n", end_time-start_time);
+        printf("[i] interval : %ld\n", i, end_time-start_time);
     }
 
     calculateSD(intervals);
