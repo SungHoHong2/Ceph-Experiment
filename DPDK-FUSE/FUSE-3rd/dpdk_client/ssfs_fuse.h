@@ -117,12 +117,14 @@ void *fuse_rx_launch() {
         if (rte_ring_dequeue(shared_ring, &msg) < 0){
             usleep(5);
         }else{
-              // printf("CHARA Received '%s'\n", (char *)msg);
+            // printf("CHARA Received '%s'\n", (char *)msg);
               buffer = (char *)msg;
               av = TAILQ_FIRST(&avg_queue);
               av->end_time = getTimeStamp();
               av->interval = av->end_time - av->start_time;
               printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buffer), av->interval);
+              TAILQ_REMOVE(&avg_queue, av, nodes);
+              free(av);
         }
 
 //        pthread_mutex_lock(&rx_lock);
