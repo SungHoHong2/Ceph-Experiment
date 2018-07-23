@@ -51,7 +51,6 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     char server[] = "Hello World From SERVER!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
-    char *buffer = NULL;
     void *msg;
     struct message *_msg;
     // ... //
