@@ -55,7 +55,7 @@ static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 {
     unsigned lcore_id = rte_lcore_id();
-    if(lcore_id==1){
+    if(lcore_id==4){
         printf("lcore[%u] works for the tx_loop\n", lcore_id);
         l2fwd_tx_loop();
     }else{
