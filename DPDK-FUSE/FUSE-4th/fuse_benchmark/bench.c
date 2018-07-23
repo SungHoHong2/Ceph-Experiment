@@ -48,7 +48,7 @@ void calculateSD(double data[])
     for(i=0; i<MAX_LOOP; ++i)
         standardDeviation += pow(data[i] - mean, 2);
 
-    printf("mean: %f\n",sqrt(standardDeviation/MAX_LOOP));
+    printf("std: %f\n",sqrt(standardDeviation/MAX_LOOP));
 }
 
 
@@ -71,7 +71,7 @@ int main(){
         }
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
-        printf("[i] interval : %ld\n", i, end_time-start_time);
+        printf("[i] interval : %f\n", i, end_time-start_time);
     }
 
     calculateSD(intervals);
