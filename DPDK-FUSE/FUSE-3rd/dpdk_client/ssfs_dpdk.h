@@ -40,10 +40,13 @@ struct lcore_queue_conf {
     unsigned rx_port_list[MAX_RX_QUEUE_PER_LCORE];
 } __rte_cache_aligned;
 struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
-
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
-
 struct rte_mempool *test_pktmbuf_pool = NULL;
+
+struct rte_ring *shared_ring;
+
+
+
 
 
 static const struct rte_eth_conf port_conf = {
@@ -210,7 +213,6 @@ l2fwd_tx_loop()
 
     }
 }
-
 
 
 void
@@ -455,6 +457,8 @@ void dpdk_msg_init(void *threadarg) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
                                                     NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
+
+    shared_ring = rte_ring_create("mbuf_shared_memory", MEMPOOL_CACHE_SIZE, rte_socket_id(), 0);
 
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
