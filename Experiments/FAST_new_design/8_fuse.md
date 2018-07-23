@@ -25,19 +25,14 @@ pip3 install --user meson
 export PATH=$PATH:/home/sungho/.local/bin/
 
 # install libfuse
-
+git clone https://github.com/libfuse/libfuse.git
 mkdir build; cd build
 meson ..
 ninja
 sudo ln -s /home/sungho/libfuse/build/lib/libfuse3.so.3.2.4 /lib/x86_64-linux-gnu/libfuse3.so.3
-
-gcc -Wall passthrough.c `pkg-config fuse3 --cflags --libs` -o passthrough
-gcc -Wall passthrough.c -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread -o passthrough
-
+gcc -Wall passthrough.c -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread -o passthrough
 ./passthrough -f /mnt/ssd_cache
-
 ```
-
 
 
 ### producing good comparison results between DPDK and POSIX
