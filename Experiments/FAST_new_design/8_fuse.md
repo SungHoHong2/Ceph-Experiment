@@ -7,6 +7,8 @@
     - `in case of DPDK teh threads work black and white`
 
 - [] use rx_ring
+    - `I have found how to use double threads for different logical cores` this is the example of `simple_ring` 
+    -
 
 - [] combine pass-through example which is a low level interface of FUSE with DPDK and POSIX
 - [] just compile FUSE with DPDK and FUSE with POSIX (without synchronization) and compare the performance

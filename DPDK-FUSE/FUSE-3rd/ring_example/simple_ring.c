@@ -38,29 +38,40 @@ lcore_recv(__attribute__((unused)) void *arg)
     unsigned lcore_id = rte_lcore_id();
 
     if(lcore_id==0){
-        printf("CHARA: this is the master core\n");
+        printf("CHARA: [ using double threads are proved ] this is the master core\n");
+        printf("Starting core %u\n", lcore_id);
+        while (!quit){
+            void *msg;
+
+            sleep(1);
+            snprintf((char *)msg, string_size, "%s", "howdy!");
+            printf("lcore[%u]:%s\n", lcore_id, (char *)msg);
+
+
+
+
+        }
+
     }
 
     if(lcore_id==1){
-        printf("CHARA: this is the second core\n");
-    }
-
-    printf("Starting core %u\n", lcore_id);
-    while (!quit){
-        void *msg;
-        if (rte_ring_dequeue(recv_ring, &msg) < 0){
-            usleep(5);
-            continue;
+        printf("CHARA: [ using double threads are proved ] this is the second core\n");
+        printf("Starting core %u\n", lcore_id);
+        while (!quit){
+            void *msg;
+            if (rte_ring_dequeue(recv_ring, &msg) < 0){
+                usleep(5);
+                continue;
+            }
+            printf("CHARA: core %u: Received '%s'\n", lcore_id, (char *)msg);
+            rte_mempool_put(message_pool, msg);
         }
-        printf("CHARA: core %u: Received '%s'\n", lcore_id, (char *)msg);
-        rte_mempool_put(message_pool, msg);
     }
 
     return 0;
 }
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     const unsigned flags = 0;
     const unsigned ring_size = 64;
@@ -85,13 +96,6 @@ main(int argc, char **argv)
                                           rte_socket_id(), flags);
     }
 
-
     rte_eal_mp_remote_launch(lcore_recv, NULL, CALL_MASTER);
-
-    /* call lcore_recv() on every slave lcore */
-//    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
-//        printf("CHARA: rte_eal_remote_launch: %u\n", lcore_id);
-//        rte_eal_remote_launch(lcore_recv, NULL, lcore_id);
-//    }
     return 0;
 }
