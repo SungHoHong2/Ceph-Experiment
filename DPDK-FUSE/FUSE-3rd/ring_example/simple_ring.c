@@ -69,8 +69,6 @@ main(int argc, char **argv)
     const unsigned priv_data_sz = 0;
 
     int ret;
-    unsigned lcore_id;
-
 
     ret = rte_eal_init(argc, argv);
     if (ret < 0)
