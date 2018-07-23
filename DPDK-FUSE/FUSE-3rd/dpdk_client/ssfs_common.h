@@ -24,48 +24,6 @@ uint64_t getTimeStamp() {
     return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
 
-void avg_results(){
-
-    double avg =0;
-    struct avg_node *av;
-    double variance = 0;
-    double t = 0;
-
-    int i =0;
-    while (!TAILQ_EMPTY(&avg_queue))
-    {
-        av = TAILQ_FIRST(&avg_queue);
-        avg += av->interval;
-        TAILQ_REMOVE(&avg_queue, av, nodes);
-
-        if(i==0) {
-            t = av->interval;
-            free(av);
-            av = NULL;
-            i++;
-        } else {
-            t += av->interval;
-            double diff = ((i + 1) * av->interval) - t;
-            variance += (diff * diff) / ((i + 1.0) * i);
-
-            free(av);
-            av = NULL;
-            i++;
-        }
-    }
-
-    avg = avg/total_requests;
-    printf("latency average: %f\n",avg);
-
-    double std_var = variance / (total_requests - 1);
-    double std_dev = sqrt(std_var);
-    printf("latency std_dev: %f\n",std_dev);
-
-
-}
-
-
-
 
 struct message {
     char data[1024];
