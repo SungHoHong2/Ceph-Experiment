@@ -152,28 +152,25 @@ l2fwd_tx_loop()
             char* data;
             struct message obj;
             struct fuse_message * e = NULL;
-            struct message *msg, *_msg;
+            struct message *msg;
             struct rte_mbuf *rm[1];
-            void *__msg;
 
-
-
-
-        if (rte_ring_enqueue(tx_ring, __msg) < 0) {
-            printf("Failed to recv message - message discarded\n");
-        } else {
-            _msg = (struct message *)__msg;
-             printf("send msg in DPDK: %s\n",_msg->data);
+            pthread_mutex_lock(&tx_lock);
+            if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+                e = TAILQ_FIRST(&fuse_tx_queue);
+                // printf("send msg in DPDK: %s\n",e->data);
                 dpdk_av = malloc(sizeof(struct avg_node));
                 dpdk_av->start_time = getTimeStamp();
                 dpdk_av->num = dpdk_requests;
                 TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
                 dpdk_requests++;
 
+
                 msg = &obj;
-                strncpy(obj.data, _msg->data, 100);
+                strncpy(obj.data, e->data, 100);
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 l2fwd_mac_updating(rm[0], portid);
+
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
                 if (data != NULL)
@@ -181,40 +178,9 @@ l2fwd_tx_loop()
 
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 rte_eth_tx_burst(portid, 0, rm, 1);
-        }
-
-
-
-
-
-
-
-//            pthread_mutex_lock(&tx_lock);
-//            if(!TAILQ_EMPTY(&fuse_tx_queue)) {
-//                e = TAILQ_FIRST(&fuse_tx_queue);
-//                // printf("send msg in DPDK: %s\n",e->data);
-//                dpdk_av = malloc(sizeof(struct avg_node));
-//                dpdk_av->start_time = getTimeStamp();
-//                dpdk_av->num = dpdk_requests;
-//                TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
-//                dpdk_requests++;
-//
-//
-//                msg = &obj;
-//                strncpy(obj.data, e->data, 100);
-//                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//                l2fwd_mac_updating(rm[0], portid);
-//
-//                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-//
-//                if (data != NULL)
-//                    rte_memcpy(data, msg, sizeof(struct message));
-//
-//                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-//                rte_eth_tx_burst(portid, 0, rm, 1);
-//                TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
-//            }
-//            pthread_mutex_unlock(&tx_lock);
+                TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
+            }
+            pthread_mutex_unlock(&tx_lock);
 
     }
 }
