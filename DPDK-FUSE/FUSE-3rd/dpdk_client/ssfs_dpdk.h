@@ -186,28 +186,27 @@ l2fwd_tx_loop()
             pthread_mutex_unlock(&tx_lock);
 
 
-
-            for (i = 0; i < qconf->n_rx_port; i++) {
-                portid = qconf->rx_port_list[0];
-                nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-                                         pkts_burst, MAX_PKT_BURST);
-
-                for (j = 0; j < nb_rx; j++) {
-                    //CHARA BEGIN
-                    m = pkts_burst[j];
-
-                    int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                    int header_length = rte_mbuf_packet_length - 1024;
-
-                    if (rte_mbuf_packet_length == 1024) {
-                        // rte_pktmbuf_dump(stdout, m, 1024);
-                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
-                    }
-                    //CHARA END
-                    rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
-                    rte_pktmbuf_free(m);
-                }
-            }
+//            for (i = 0; i < qconf->n_rx_port; i++) {
+//                portid = qconf->rx_port_list[0];
+//                nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+//                                         pkts_burst, MAX_PKT_BURST);
+//
+//                for (j = 0; j < nb_rx; j++) {
+//                    //CHARA BEGIN
+//                    m = pkts_burst[j];
+//
+//                    int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+//                    int header_length = rte_mbuf_packet_length - 1024;
+//
+//                    if (rte_mbuf_packet_length == 1024) {
+//                        // rte_pktmbuf_dump(stdout, m, 1024);
+//                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
+//                    }
+//                    //CHARA END
+//                    rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
+//                    rte_pktmbuf_free(m);
+//                }
+//            }
 
     }
 }

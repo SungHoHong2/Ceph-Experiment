@@ -60,8 +60,8 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
         l2fwd_tx_loop();
     }else{
         printf("lcore[%u] works for the rx_loop\n", lcore_id);
+        l2fwd_rx_loop();
     }
-
     return 0;
 }
 
