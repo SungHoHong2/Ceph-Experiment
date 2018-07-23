@@ -18,11 +18,22 @@
 #include <stdbool.h>
 #include <unistd.h>
 
+uint64_t getTimeStamp() {
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
+
 int main(){
 
-    int c;
+    uint64_t start_time, end_time;
     FILE *file;
     char data[1024];
+
+
+
+
     file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
     if (file) {
         fread(data, sizeof(char), 1024, file);
