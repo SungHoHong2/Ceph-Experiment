@@ -71,7 +71,7 @@ int main(){
         }
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
-        printf("[i] interval : %f\n", i, end_time-start_time);
+        printf("[%d] interval : %f\n", i, intervals[i]);
     }
 
     calculateSD(intervals);
