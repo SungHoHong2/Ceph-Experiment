@@ -118,7 +118,7 @@ void *fuse_rx_launch() {
             usleep(5);
         }else{
               // printf("CHARA Received '%s'\n", (char *)msg);
-              buffer = (char *)msg);
+              buffer = (char *)msg;
               av = TAILQ_FIRST(&avg_queue);
               av->end_time = getTimeStamp();
               av->interval = av->end_time - av->start_time;
