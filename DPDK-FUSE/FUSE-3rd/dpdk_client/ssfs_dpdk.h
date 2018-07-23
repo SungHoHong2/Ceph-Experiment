@@ -42,8 +42,7 @@ struct lcore_queue_conf {
 struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
 struct rte_mempool *test_pktmbuf_pool = NULL;
-
-struct rte_ring *shared_ring;
+struct rte_ring *rx_ring;
 
 
 
@@ -93,7 +92,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     // printf("recv msg in DPDK: %s\n", msg->data);
-    if (rte_ring_enqueue(shared_ring, msg) < 0) {
+    if (rte_ring_enqueue(rx_ring, msg) < 0) {
         printf("Failed to recv message - message discarded\n");
     } else {
         dpdk_av = TAILQ_FIRST(&dpdk_queue);
@@ -430,7 +429,7 @@ void dpdk_msg_init(void *threadarg) {
                                                     NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
 
-    shared_ring = rte_ring_create("mbuf_shared_memory", 32, rte_socket_id(), 0);
+    rx_ring = rte_ring_create("mbuf_shared_memory", 32, rte_socket_id(), 0);
 
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
