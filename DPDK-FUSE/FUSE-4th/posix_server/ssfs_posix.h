@@ -209,7 +209,6 @@ void *tcp_send_launch(){
                 success = send(sockfd, data, PKT_SIZE, 0);
                 if (success && strlen(data) > 0) {
                      printf("send msg in POSIX: %s\n",msg->data);
-                    // printf("send msg in POSIX: %s %ld\n",e->data, strlen(e->data));
                 }
             }
 
