@@ -349,6 +349,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int fd;
     int res;
 
+    printf(">>>>>???\n");
+
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
