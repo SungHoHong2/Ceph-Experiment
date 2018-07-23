@@ -1,6 +1,25 @@
 #define FUSE_USE_VERSION 31
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifdef linux
+/* For pread()/pwrite()/utimensat() */
+#define _XOPEN_SOURCE 700
+#endif
 
 #include <fuse.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/time.h>
+#ifdef HAVE_SETXATTR
+#include <sys/xattr.h>
+#endif
 
 
 #include <stdio.h>
@@ -100,10 +119,9 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
         rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
 
-
-//    printf("FUS-CLIENT BEGIN\n");
-//    fuse_main( argc, argv, &operations, NULL );
-//    printf("FUSE-CLIENT END\n");
-
+    printf("FUS-CLIENT BEGIN\n");
+    umask(0);
+    fuse_main(argc, argv, &xmp_oper, NULL);
+    printf("FUSE-CLIENT END\n");
     return 0;
 }
