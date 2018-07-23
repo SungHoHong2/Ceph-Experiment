@@ -112,21 +112,28 @@ void *fuse_rx_launch() {
         }
         pthread_mutex_unlock(&tx_lock);
 
-        pthread_mutex_lock(&rx_lock);
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            av = TAILQ_FIRST(&avg_queue);
-            av->end_time = getTimeStamp();
-            av->interval = av->end_time - av->start_time;
-            printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            TAILQ_REMOVE(&avg_queue, av, nodes);
-            free(av);
-            free(e);
-            e = NULL;
+
+        if (rte_ring_dequeue(shared_ring, &msg) < 0){
+            usleep(5);
+        }else{
+            printf("received something!\n");
         }
 
-        pthread_mutex_unlock(&rx_lock);
+//        pthread_mutex_lock(&rx_lock);
+//        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+//            e = TAILQ_FIRST(&fuse_rx_queue);
+//            av = TAILQ_FIRST(&avg_queue);
+//            av->end_time = getTimeStamp();
+//            av->interval = av->end_time - av->start_time;
+//            printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+//            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+//            TAILQ_REMOVE(&avg_queue, av, nodes);
+//            free(av);
+//            free(e);
+//            e = NULL;
+//        }
+//
+//        pthread_mutex_unlock(&rx_lock);
     }
 }
 

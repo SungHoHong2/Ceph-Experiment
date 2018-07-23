@@ -92,23 +92,24 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
+    printf("recv msg in DPDK: %s\n", msg->data);
+    if (rte_ring_enqueue(shared_ring, data) < 0) {
+        printf("Failed to send message - message discarded\n");
+    }
 
 
-    // pthread_mutex_lock(&rx_lock);
-    e = malloc(sizeof(struct fuse_message));
-    // printf("recv msg in DPDK: %s\n", msg->data);
-    dpdk_av = TAILQ_FIRST(&dpdk_queue);
-    dpdk_av->end_time = getTimeStamp();
-    dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
-    printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
-    TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
-    free(dpdk_av);
-
-
-    strcpy(e->data, msg->data);
-    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-
-    // pthread_mutex_unlock(&rx_lock);
+//    e = malloc(sizeof(struct fuse_message));
+//    // printf("recv msg in DPDK: %s\n", msg->data);
+//    dpdk_av = TAILQ_FIRST(&dpdk_queue);
+//    dpdk_av->end_time = getTimeStamp();
+//    dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
+//    printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
+//    TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
+//    free(dpdk_av);
+//
+//
+//    strcpy(e->data, msg->data);
+//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
 }
 
 
@@ -458,7 +459,7 @@ void dpdk_msg_init(void *threadarg) {
                                                     NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
 
-    shared_ring = rte_ring_create("mbuf_shared_memory", MEMPOOL_CACHE_SIZE, rte_socket_id(), 0);
+    shared_ring = rte_ring_create("mbuf_shared_memory", 32, rte_socket_id(), 0);
 
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
