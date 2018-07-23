@@ -17,13 +17,27 @@
 
 https://doc.dpdk.org/guides-16.04/sample_app_ug/performance_thread.html
 
+[0] recv msg in DPDK ::  424
+[1] recv msg in DPDK ::  448
+[2] recv msg in DPDK ::  469
+[3] recv msg in DPDK ::  501
+[4] recv msg in DPDK ::  886
+[5] recv msg in DPDK ::  962
+[6] recv msg in DPDK ::  988
+[7] recv msg in DPDK ::  1012
+[8] recv msg in DPDK ::  1041
+[9] recv msg in DPDK ::  1125
+[10] recv msg in DPDK :: 1838
 
-542
-540
-597
-942
-941
-1008
-1005
-1633
-1687
+
+[0] recv msg in FUSE: 26 :: 483
+[1] recv msg in FUSE: 26 :: 499
+[2] recv msg in FUSE: 26 :: 499
+[3] recv msg in FUSE: 26 :: 572
+[4] recv msg in FUSE: 26 :: 920
+[5] recv msg in FUSE: 26 :: 989
+[6] recv msg in FUSE: 26 :: 1045
+[7] recv msg in FUSE: 26 :: 1057
+[8] recv msg in FUSE: 26 :: 1057
+[9] recv msg in FUSE: 26 :: 1169
+[10] recv msg in FUSE: 26 :: 1859
