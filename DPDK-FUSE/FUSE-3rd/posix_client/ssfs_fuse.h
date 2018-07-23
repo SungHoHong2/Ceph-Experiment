@@ -114,8 +114,9 @@ void *fuse_rx_launch() {
             av->interval = av->end_time - av->start_time;
             printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-//            TAILQ_REMOVE(&avg_queue, av, nodes);
-//            free(av);
+            TAILQ_REMOVE(&avg_queue, av, nodes);
+            free(av);
+            av = NULL;
             free(e);
             e = NULL;
         }
