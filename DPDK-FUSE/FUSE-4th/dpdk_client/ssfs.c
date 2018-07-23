@@ -98,10 +98,10 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
         rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
 
-    // rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-    printf("FUS-CLIENT BEGIN\n");
-    fuse_main( argc, argv, &operations, NULL );
-    printf("FUSE-CLIENT END\n");
+
+//    printf("FUS-CLIENT BEGIN\n");
+//    fuse_main( argc, argv, &operations, NULL );
+//    printf("FUSE-CLIENT END\n");
 
     return 0;
 }
