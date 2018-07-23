@@ -144,10 +144,6 @@ fi
 
 
 
-
-
-
-
 # RUNNING THE FUSE-DPDK END
 else
 echo "no argument"

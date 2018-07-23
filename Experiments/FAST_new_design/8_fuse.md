@@ -18,11 +18,14 @@
 ### installing libfuse
 ```
 # meson install
-sudo apt-get install python3 ninja-build
-sudo apt install python3-pip
+sudocmd apt-get install python3 ninja-build
+sudocmd apt install python3-pip
 export LC_ALL=C
 pip3 install --user meson
 export PATH=$PATH:/home/sungho/.local/bin/
+
+export PATH=$PATH:/usr/local/bin
+
 
 # install libfuse
 git clone https://github.com/libfuse/libfuse.git

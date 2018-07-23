@@ -9,6 +9,8 @@ rados -p scbench cleanup
 ceph osd pool create scbench 100 100
 rados bench -p scbench 10 write --no-cleanup
 ```
+
+
 if [ "$1" = "git_store" ]
 then
 git config credential.helper store
@@ -21,5 +23,12 @@ elif [ "$1" = "ceph_seastar_fuse" ]
 then
 cd /data1/sungho/Ceph-Experiment/Seastar-FUSE
 /data1/sungho/Ceph-Experiment/Seastar-FUSE/version.sh $2 $3
+
+
+elif [ "$1" = "FUSE-install-ready" ]
+then
+
+else
+sudo $1 $2 $3 $4 $5 $6 $7 $8 $9
 
 fi
