@@ -17,6 +17,8 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <sys/time.h>
+#include <math.h>
 
 uint64_t getTimeStamp() {
     struct timeval tv;
