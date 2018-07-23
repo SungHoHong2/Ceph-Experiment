@@ -42,9 +42,14 @@ lcore_recv(__attribute__((unused)) void *arg)
         printf("Starting core %u\n", lcore_id);
         while (!quit){
             void *msg;
+            char data[string_size];
+            strcpy(data,"howdy",string_size);
 
             sleep(1);
-            printf("lcore[%u]:howdy\n", lcore_id);
+            printf("lcore[%u]:%s\n", lcore_id, data);
+
+
+
 
 
 

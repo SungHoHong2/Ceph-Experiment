@@ -59,8 +59,8 @@
       <file leaf-file-name="simple_ring.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+            <state relative-caret-position="349">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -285,12 +285,12 @@
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
-      <workItem from="1532288695438" duration="2715000" />
+      <workItem from="1532288695438" duration="2805000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173955000" />
+    <option name="totallyTimeSpent" value="174045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -644,8 +644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+        <state relative-caret-position="349">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
