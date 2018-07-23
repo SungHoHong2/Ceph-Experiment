@@ -1,6 +1,25 @@
-#define FUSE_USE_VERSION 30
+#define FUSE_USE_VERSION 31
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifdef linux
+/* For pread()/pwrite()/utimensat() */
+#define _XOPEN_SOURCE 700
+#endif
 
 #include <fuse.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/time.h>
+#ifdef HAVE_SETXATTR
+#include <sys/xattr.h>
+#endif
+
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
