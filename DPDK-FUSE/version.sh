@@ -91,10 +91,16 @@ gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 fi
 
 
-elif [ "$1" = "ring_example" ]
+elif [ "$1" = "ring_example_make" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
 make
+/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 0-1 -n 4 --proc-type=primary
+
+elif [ "$1" = "ring_example_run_secondary" ]
+then
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
+/home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 2-3 -n 4 --proc-type=secondary
 
 
 elif [ "$1" = "Fuse_3rd_DPDK_make_launch" ]
