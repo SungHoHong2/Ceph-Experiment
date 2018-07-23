@@ -76,8 +76,8 @@
       <file leaf-file-name="passthrough.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-3rd/pass_through_example/passthrough.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="318" column="17" lean-forward="true" selection-start-line="318" selection-start-column="17" selection-end-line="318" selection-end-column="17" />
+            <state relative-caret-position="449">
+              <caret line="310" column="4" selection-start-line="310" selection-start-column="4" selection-end-line="310" selection-end-column="4" />
               <folding>
                 <element signature="e#739#758#0" expanded="true" />
                 <element signature="e#780#844#0" expanded="true" />
@@ -308,12 +308,12 @@
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
       <workItem from="1532288695438" duration="11567000" />
-      <workItem from="1532367785336" duration="780000" />
+      <workItem from="1532367785336" duration="896000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183587000" />
+    <option name="totallyTimeSpent" value="183703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -685,8 +685,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/pass_through_example/passthrough.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="318" column="17" lean-forward="true" selection-start-line="318" selection-start-column="17" selection-end-line="318" selection-end-column="17" />
+        <state relative-caret-position="449">
+          <caret line="310" column="4" selection-start-line="310" selection-start-column="4" selection-end-line="310" selection-end-column="4" />
           <folding>
             <element signature="e#739#758#0" expanded="true" />
             <element signature="e#780#844#0" expanded="true" />
