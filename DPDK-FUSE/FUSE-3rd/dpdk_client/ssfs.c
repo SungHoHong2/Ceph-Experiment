@@ -1,6 +1,6 @@
-//#define FUSE_USE_VERSION 30
-//
-//#include <fuse.h>
+#define FUSE_USE_VERSION 30
+
+#include <fuse.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -103,6 +103,6 @@ int main( int argc, char **argv )
     printf("FUS-CLIENT BEGIN\n");
     fuse_main( argc, argv, &operations, NULL );
     printf("FUSE-CLIENT END\n");
-    
+
     return 0;
 }
