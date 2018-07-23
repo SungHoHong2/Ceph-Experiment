@@ -28,7 +28,7 @@ static const char *_SEC_2_PRI = "SEC_2_PRI";
 static const char *_PRI_2_SEC = "PRI_2_SEC";
 const unsigned string_size = 64;
 
-struct rte_ring *send_ring, *recv_ring;
+struct rte_ring *shared_ring;
 struct rte_mempool *message_pool;
 volatile int quit = 0;
 
@@ -50,12 +50,10 @@ lcore_recv(__attribute__((unused)) void *arg)
             sleep(1);
             printf("lcore[%u]:%s\n", lcore_id, pdata);
 
-            if (rte_ring_enqueue(send_ring, pdata) < 0) {
+            if (rte_ring_enqueue(shared_ring, pdata) < 0) {
                 printf("Failed to send message - message discarded\n");
             }
-
         }
-
     }
 
     if(lcore_id==1){
@@ -63,7 +61,7 @@ lcore_recv(__attribute__((unused)) void *arg)
         printf("Starting core %u\n", lcore_id);
         while (!quit){
             void *msg;
-            if (rte_ring_dequeue(send_ring, &msg) < 0){
+            if (rte_ring_dequeue(shared_ring, &msg) < 0){
                 usleep(5);
                 continue;
             }
@@ -92,8 +90,7 @@ int main(int argc, char **argv)
     if (rte_eal_process_type() == RTE_PROC_PRIMARY){
 
         printf("CHARA: rte_ring_create\n");
-        send_ring = rte_ring_create(_PRI_2_SEC, ring_size, rte_socket_id(), flags);
-        recv_ring = rte_ring_create(_SEC_2_PRI, ring_size, rte_socket_id(), flags);
+        shared_ring = rte_ring_create(_PRI_2_SEC, ring_size, rte_socket_id(), flags);
         message_pool = rte_mempool_create(_MSG_POOL, pool_size,
                                           string_size, pool_cache, priv_data_sz,
                                           NULL, NULL, NULL, NULL,
