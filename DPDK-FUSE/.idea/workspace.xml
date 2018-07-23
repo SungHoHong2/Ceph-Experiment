@@ -17,22 +17,50 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/main.c">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="319">
+                    <caret line="122" column="43" lean-forward="true" selection-end-line="160" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="mp_commands.c" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="308">
+                    <caret line="141" column="22" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/main.c">
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="96" column="68" selection-start-line="96" selection-start-column="60" selection-end-line="96" selection-end-column="68" />
+            <state relative-caret-position="775">
+              <caret line="44" column="21" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mp_commands.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+      <file leaf-file-name="simple_ring.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="692">
-              <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
+            <state relative-caret-position="171">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -41,11 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hellohellohellohellohellohellohellohello</find>
-      <find>recv msg</find>
-      <find>_packet_hexdump</find>
-      <find>CLIENT</find>
-      <find>lcore_queue_conf</find>
       <find>Lcore</find>
       <find>lcore</find>
       <find>logical cores</find>
@@ -71,6 +94,11 @@
       <find>portid</find>
       <find>l2fwd_launch_one_lcore</find>
       <find>rte_ring_</find>
+      <find>cmd_send_parsed</find>
+      <find>cmd_send</find>
+      <find>simple_mp_ctx</find>
+      <find>dpdk_msg_init</find>
+      <find>recv_ring</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -86,8 +114,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_common.h" />
-        <option value="$PROJECT_DIR$/FUSE-basic/ssfs_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_server/ssfs_tcp.h" />
         <option value="$PROJECT_DIR$/FUSE-basic/posix_client/ssfs_common.h" />
@@ -132,11 +158,13 @@
         <option value="$PROJECT_DIR$/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk-server/dpdk.h" />
-        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c" />
-        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/main.c" />
         <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/Makefile" />
+        <option value="$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c" />
       </list>
     </option>
   </component>
@@ -251,12 +279,12 @@
       <workItem from="1532018998569" duration="30994000" />
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
-      <workItem from="1532288695438" duration="1517000" />
+      <workItem from="1532288695438" duration="1866000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172757000" />
+    <option name="totallyTimeSpent" value="173106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -292,14 +320,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/FUSE-2nd/dpdk-server/main0.c" />
-    <entry file="file://$PROJECT_DIR$/history/FUSE-basic/ssfs_server/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-2nd/history/dpdk-server_0/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -529,13 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1387">
-          <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -588,24 +601,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="141" column="22" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
+        <state relative-caret-position="644">
+          <caret line="417" column="23" lean-forward="true" selection-start-line="417" selection-start-column="23" selection-end-line="417" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/dpdk_client/ssfs.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="96" column="68" selection-start-line="96" selection-start-column="60" selection-end-line="96" selection-end-column="68" />
+        <state relative-caret-position="319">
+          <caret line="122" column="43" lean-forward="true" selection-end-line="160" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/mp_commands.c">
+    <entry file="file://$PROJECT_DIR$/FUSE-3rd/ring_example/simple_ring.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
+        <state relative-caret-position="171">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>

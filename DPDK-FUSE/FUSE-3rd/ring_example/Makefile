@@ -42,7 +42,7 @@ include $(RTE_SDK)/mk/rte.vars.mk
 APP = simple_mp
 
 # all source are stored in SRCS-y
-SRCS-y := main.c mp_commands.c
+SRCS-y := simple_ring.c
 
 CFLAGS += -O3
 CFLAGS += $(WERROR_FLAGS)

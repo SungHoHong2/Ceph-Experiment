@@ -388,7 +388,7 @@ struct thread_data
 };
 
 
-void *dpdk_msg_init(void *threadarg) {
+void dpdk_msg_init(void *threadarg) {
 
     printf("DPDK BEGIN\n");
 

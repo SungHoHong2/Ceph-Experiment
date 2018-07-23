@@ -101,7 +101,7 @@ elif [ "$1" = "ring_example_run_secondary" ]
 then
 cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
 /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example/build/app/simple_mp -l 2-3 -n 4 --proc-type=secondary
-
+# send text
 
 elif [ "$1" = "Fuse_3rd_DPDK_make_launch" ]
 then
