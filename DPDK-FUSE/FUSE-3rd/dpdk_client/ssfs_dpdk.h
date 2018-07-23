@@ -93,9 +93,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
 
-    int len = sizeof(struct sMSG);
-    unsigned char * raw = malloc(len);
-    memcpy(raw, &msg, len);
+    int zlen = sizeof(struct message);
+    unsigned char * raw = malloc(zlen);
+    memcpy(raw, &msg, zlen);
 
     // printf("recv msg in DPDK: %s\n", msg->data);
     if (rte_ring_enqueue(shared_ring, raw) < 0) {
