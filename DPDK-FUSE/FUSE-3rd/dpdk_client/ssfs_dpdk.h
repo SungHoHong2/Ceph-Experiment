@@ -94,25 +94,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
 
-    printf("recv msg in DPDK: %s\n", msg->data);
+    // printf("recv msg in DPDK: %s\n", msg->data);
     // rte_memcpy(schar, msg, sizeof(struct message));
     if (rte_ring_enqueue(shared_ring, msg->data) < 0) {
         printf("Failed to recv message - message discarded\n");
     }
-
-
-//    e = malloc(sizeof(struct fuse_message));
-//    // printf("recv msg in DPDK: %s\n", msg->data);
-//    dpdk_av = TAILQ_FIRST(&dpdk_queue);
-//    dpdk_av->end_time = getTimeStamp();
-//    dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
-//    printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
-//    TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
-//    free(dpdk_av);
-//
-//
-//    strcpy(e->data, msg->data);
-//    TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+    
 }
 
 
