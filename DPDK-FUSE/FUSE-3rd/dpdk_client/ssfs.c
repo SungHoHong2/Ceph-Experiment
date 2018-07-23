@@ -55,8 +55,13 @@ static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 {
     unsigned lcore_id = rte_lcore_id();
-    printf("CHARA: %u\n", lcore_id);
-    l2fwd_tx_loop();
+    if(lcore_id==1){
+        printf("lcore[%u] works for the tx_loop\n", lcore_id);
+        l2fwd_tx_loop();
+    }else{
+        printf("lcore[%u] works for the rx_loop\n", lcore_id);
+    }
+
     return 0;
 }
 
