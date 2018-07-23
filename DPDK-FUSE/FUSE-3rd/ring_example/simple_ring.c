@@ -52,7 +52,6 @@ lcore_recv(__attribute__((unused)) void *arg)
 
             if (rte_ring_enqueue(send_ring, pdata) < 0) {
                 printf("Failed to send message - message discarded\n");
-                rte_mempool_put(message_pool, msg);
             }
 
 
