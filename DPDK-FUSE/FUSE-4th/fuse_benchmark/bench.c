@@ -61,6 +61,7 @@ int main(){
     int i;
 
     for(i=0; i<MAX_LOOP; i++) {
+        sleep(1);
         start_time = getTimeStamp();
         file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
@@ -70,8 +71,7 @@ int main(){
         }
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
-
-//        printf("interval : %ld\n", end_time-start_time);
+        printf("interval : %ld\n", end_time-start_time);
     }
 
     calculateSD(intervals);
