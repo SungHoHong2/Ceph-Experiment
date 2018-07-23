@@ -349,8 +349,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int fd;
     int res;
 
-    printf(">>>>>???\n");
-
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
@@ -373,8 +371,23 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         total_requests++;
     pthread_mutex_unlock(&tx_lock);
 
+    while(TAILQ_EMPTY(&fuse_rx_queue));
 
-
+    pthread_mutex_lock(&rx_lock);
+    if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+        e = TAILQ_FIRST(&fuse_rx_queue);
+        av = TAILQ_FIRST(&avg_queue);
+        av->end_time = getTimeStamp();
+        av->interval = av->end_time - av->start_time;
+        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(av);
+        av = NULL;
+        free(e);
+        e = NULL;
+    }
+    pthread_mutex_unlock(&rx_lock);
 
 
 
@@ -552,34 +565,5 @@ static struct fuse_operations xmp_oper = {
 	.removexattr	= xmp_removexattr,
 #endif
 };
-
-
-
-void *fuse_rx_launch() {
-    printf("FUSE-RX BEGIN\n");
-    struct fuse_message * e = NULL;
-    struct fuse_message * txe = NULL;
-    char *buffer = NULL;
-    int rtn;
-
-    while(1) {
-
-        pthread_mutex_lock(&rx_lock);
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            av = TAILQ_FIRST(&avg_queue);
-            av->end_time = getTimeStamp();
-            av->interval = av->end_time - av->start_time;
-            printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            TAILQ_REMOVE(&avg_queue, av, nodes);
-            free(av);
-            av = NULL;
-            free(e);
-            e = NULL;
-        }
-        pthread_mutex_unlock(&rx_lock);
-    }
-}
 
 
