@@ -25,32 +25,6 @@ then
   kill -9 `pidof ssfs`
   kill -9 `pidof dpdk-server`
 
-
-# RUNNING THE FUSE-DPDK BEGN
-elif [ "$1" = "ssfs_setup" ]
-then
-  if [ "$HOSTS" = "w1" ]
-  then
-  umount -l /mnt/ssd_cache
-  sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
-  # mkdir /mnt/ssd_cache/test
-  elif [ "$HOSTS" = "w2" ]
-  then
-  umount -l /mnt/ssd_cache
-  sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
-  fi
-
-elif [ "$1" = "ssfs_experiment" ]
-then
-cat /mnt/ssd_cache/home/sungho/client.txt
-
-elif [ "$1" = "ssfs_experiment_multi" ]
-then
-  for i in {1..10}
-  do
-      cat /mnt/ssd_cache/home/sungho/client.txt
-  done
-
 elif [ "$1" = "ssfs_server_make_experiment" ]
 then
 if [ "$HOSTS" = "w1" ]
@@ -104,6 +78,33 @@ cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/posix_client
 gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 ./ssfs -f /mnt/ssd_cache/test
 fi
+
+
+
+# RUNNING THE FUSE-DPDK BEGN
+elif [ "$1" = "ssfs_setup" ]
+then
+  if [ "$HOSTS" = "w1" ]
+  then
+  umount -l /mnt/ssd_cache
+  sudo mount -t ext4 /dev/sdc2 /mnt/ssd_cache
+  # mkdir /mnt/ssd_cache/test
+  elif [ "$HOSTS" = "w2" ]
+  then
+  umount -l /mnt/ssd_cache
+  sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
+  fi
+
+elif [ "$1" = "ssfs_experiment" ]
+then
+cat /mnt/ssd_cache/home/sungho/client.txt
+
+elif [ "$1" = "ssfs_experiment_multi" ]
+then
+  for i in {1..10}
+  do
+      cat /mnt/ssd_cache/home/sungho/client.txt
+  done
 
 
 elif [ "$1" = "Fuse_4th_DPDK_make_launch" ]
