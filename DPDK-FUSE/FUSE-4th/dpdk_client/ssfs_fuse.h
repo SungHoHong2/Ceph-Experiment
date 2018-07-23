@@ -349,8 +349,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int fd;
     int res;
 
-    printf("CHARA: xmp_read BEGIN\n");
-
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
@@ -372,6 +370,11 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         total_requests++;
     }
 
+
+
+
+
+
     if(fi == NULL)
         fd = open(path, O_RDONLY);
     else
@@ -380,14 +383,13 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     if (fd == -1)
         return -errno;
 
-    res = pread(fd, buf, size, offset);
+    res = pread(fd, _msg->data, size, offset);
     if (res == -1)
         res = -errno;
 
     if(fi == NULL)
         close(fd);
 
-    printf("CHARA: xmp_read END\n");
     return res;
 }
 
