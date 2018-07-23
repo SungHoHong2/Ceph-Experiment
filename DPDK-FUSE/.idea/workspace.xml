@@ -40,8 +40,8 @@
       <file leaf-file-name="bench.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="45" column="39" lean-forward="true" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+            <state relative-caret-position="486">
+              <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -270,12 +270,12 @@
       <workItem from="1532108324431" duration="9969000" />
       <workItem from="1532224447870" duration="15618000" />
       <workItem from="1532288695438" duration="11567000" />
-      <workItem from="1532367785336" duration="5135000" />
+      <workItem from="1532367785336" duration="5542000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187942000" />
+    <option name="totallyTimeSpent" value="188349000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -307,7 +307,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -654,8 +654,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="45" column="39" lean-forward="true" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+        <state relative-caret-position="486">
+          <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
         </state>
       </provider>
     </entry>

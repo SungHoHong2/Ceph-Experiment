@@ -20,14 +20,36 @@
 #include <sys/time.h>
 #include <math.h>
 
+#define MAX_LOOP 10000
+
 uint64_t getTimeStamp() {
     struct timeval tv;
     gettimeofday(&tv,NULL);
     return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
 
+double intervals[MAX_LOOP];
+
+void calculateSD(double data[])
+{
+    float sum = 0.0, mean, standardDeviation = 0.0;
+
+    int i;
+
+    for(i=0; i<MAX_LOOP; ++i)
+    {
+        sum += data[i];
+    }
+
+    mean = sum/MAX_LOOP;
+    printf("mean: %f\n",mean);
 
 
+    for(i=0; i<MAX_LOOP; ++i)
+        standardDeviation += pow(data[i] - mean, 2);
+
+    printf("mean: %f\n",sqrt(standardDeviation/MAX_LOOP));
+}
 
 
 
@@ -38,7 +60,7 @@ int main(){
     char data[1024];
     int i;
 
-    for(i=0; i<10; i++) {
+    for(i=0; i<MAX_LOOP; i++) {
         start_time = getTimeStamp();
         file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
@@ -47,8 +69,11 @@ int main(){
             fclose(file);
         }
         end_time = getTimeStamp();
-        printf("interval : %ld\n", end_time-start_time);
+        intervals[i] = (double)end_time-start_time;
+
+//        printf("interval : %ld\n", end_time-start_time);
     }
 
+    calculateSD(intervals);
     return  0;
 }
