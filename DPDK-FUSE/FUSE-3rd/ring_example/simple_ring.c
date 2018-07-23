@@ -63,7 +63,7 @@ lcore_recv(__attribute__((unused)) void *arg)
         printf("Starting core %u\n", lcore_id);
         while (!quit){
             void *msg;
-            if (rte_ring_dequeue(recv_ring, &msg) < 0){
+            if (rte_ring_dequeue(send_ring, &msg) < 0){
                 usleep(5);
                 continue;
             }
