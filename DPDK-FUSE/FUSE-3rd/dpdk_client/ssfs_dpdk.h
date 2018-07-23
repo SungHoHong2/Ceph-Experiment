@@ -415,7 +415,7 @@ void dpdk_msg_init(void *threadarg) {
 
     dpdk_argv[0]="./sfss";
     dpdk_argv[1]="-c";
-    dpdk_argv[2]="0x2";
+    dpdk_argv[2]="0xA";
     dpdk_argv[3]="-n";
     dpdk_argv[4]="4";
     dpdk_argv[5]="--";
