@@ -66,7 +66,6 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 }
 
 
-
 void *dpdk_launch(){
     rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
 }

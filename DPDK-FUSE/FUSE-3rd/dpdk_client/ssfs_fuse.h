@@ -56,16 +56,21 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
 
     if ( strcmp( path, "/client" ) == 0 ) {
         selectedText = client;
-//        pthread_mutex_lock(&tx_lock);
-//        e = malloc(sizeof(struct fuse_message));
-//        strcpy(e->data, selectedText);
-//        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-//        // printf("send msg in FUSE: %s\n", e->data);
-//        sleep(0);
-//
-//        av = malloc(sizeof(struct avg_node));
-//        av->start_time = getTimeStamp();
-//        pthread_mutex_unlock(&tx_lock);
+
+        _msg = malloc(sizeof(struct message));
+        strcpy(_msg->data, selectedText);
+
+        if (rte_ring_enqueue(tx_ring, _msg) < 0) {
+            printf("Failed to send message - message discarded\n");
+        } else {
+            av = malloc(sizeof(struct avg_node));
+            av->start_time = getTimeStamp();
+            av->num = total_requests;
+            printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+            total_requests++;
+        }
+
     } else if ( strcmp( path, "/server" ) == 0 )
         selectedText = server;
     else
@@ -90,25 +95,25 @@ void *fuse_rx_launch() {
     int rtn;
     void *msg;
     struct message *_msg;
-    sleep(5);
+    // sleep(5);
 
     while(1) {
 
-        if(total_requests<=TOTAL_TEST_REQ) {
-            _msg = malloc(sizeof(struct message));
-            strcpy(_msg->data, "Hello World From CLIENT!\n");
-
-            if (rte_ring_enqueue(tx_ring, _msg) < 0) {
-                printf("Failed to send message - message discarded\n");
-            } else {
-                av = malloc(sizeof(struct avg_node));
-                av->start_time = getTimeStamp();
-                av->num = total_requests;
-                printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
-                TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-                total_requests++;
-            }
-        }
+//        if(total_requests<=TOTAL_TEST_REQ) {
+//            _msg = malloc(sizeof(struct message));
+//            strcpy(_msg->data, "Hello World From CLIENT!\n");
+//
+//            if (rte_ring_enqueue(tx_ring, _msg) < 0) {
+//                printf("Failed to send message - message discarded\n");
+//            } else {
+//                av = malloc(sizeof(struct avg_node));
+//                av->start_time = getTimeStamp();
+//                av->num = total_requests;
+//                printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+//                TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+//                total_requests++;
+//            }
+//        }
 
 
         if (rte_ring_dequeue(rx_ring, &msg) < 0){
