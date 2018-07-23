@@ -2,6 +2,7 @@
 uint64_t start_time, end_time;
 FILE *test_file;
 char test_data[1024];
+int test_i=0;
 double intervals[MAX_LOOP];
 
 
@@ -319,7 +320,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
         printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
-        intervals[i] = (double)av->interval;
+        intervals[test_i] = (double)av->interval;
+        test_i++;
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
         TAILQ_REMOVE(&avg_queue, av, nodes);
         free(av);
@@ -329,9 +331,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(total_requests==MAX_LOOP){
-        calculateSD();
+        calculateSD(intervals);
     }
-    
+
     pthread_mutex_unlock(&rx_lock);
 
 
