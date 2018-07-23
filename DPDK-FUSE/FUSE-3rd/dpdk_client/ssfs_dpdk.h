@@ -86,8 +86,8 @@ void
 dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int len, int start)
 {
     unsigned int ofs;
-    // char *schar;
-    char *data = buf;
+    char *schar;
+    const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
     struct fuse_message *e = NULL;
