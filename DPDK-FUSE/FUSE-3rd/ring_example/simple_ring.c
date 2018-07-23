@@ -43,7 +43,7 @@ lcore_recv(__attribute__((unused)) void *arg)
         while (!quit){
             void *msg;
             char data[string_size];
-            strcpy(data,"howdy",string_size);
+            strcpy(data,"howdy");
 
             sleep(1);
             printf("lcore[%u]:%s\n", lcore_id, data);
