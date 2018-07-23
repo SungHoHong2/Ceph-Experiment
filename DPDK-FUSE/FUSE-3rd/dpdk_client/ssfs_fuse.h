@@ -108,15 +108,15 @@ void *fuse_rx_launch() {
             if (rte_ring_enqueue(tx_ring, _msg) < 0) {
                 printf("Failed to send message - message discarded\n");
             } else {
-                printf("[%ld] send msg in FUSE :: %s\n", _msg->data);
+                av = malloc(sizeof(struct avg_node));
+                av->start_time = getTimeStamp();
+                av->num = total_requests;
+                printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+                TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+                total_requests++;
             }
 
-            av = malloc(sizeof(struct avg_node));
-            av->start_time = getTimeStamp();
-            av->num = total_requests;
-            printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
-            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-            total_requests++;
+
         }
 
 
