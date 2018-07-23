@@ -78,7 +78,7 @@ lcore_recv(__attribute__((unused)) void *arg)
 int main(int argc, char **argv)
 {
     const unsigned flags = 0;
-    const unsigned ring_size = 5;
+    const unsigned ring_size = 4;
     const unsigned pool_size = 1024;
     const unsigned pool_cache = 32;
     const unsigned priv_data_sz = 0;
