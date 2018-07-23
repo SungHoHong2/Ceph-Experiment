@@ -93,7 +93,7 @@ fi
 
 elif [ "$1" = "ring_example" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-basic/ring_example
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/ring_example
 make
 
 
