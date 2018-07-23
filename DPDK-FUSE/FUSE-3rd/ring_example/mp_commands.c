@@ -81,7 +81,7 @@ static void cmd_send_parsed(void *parsed_result,
 	snprintf((char *)msg, string_size, "%s", res->message);
 
 
-	printf("CHARA: rte_ring_enqueue: %s\n", msg);
+	printf("CHARA: rte_ring_enqueue: %s\n", (char *)msg);
 	if (rte_ring_enqueue(send_ring, msg) < 0) {
 		printf("Failed to send message - message discarded\n");
 		rte_mempool_put(message_pool, msg);
