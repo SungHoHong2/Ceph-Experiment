@@ -116,8 +116,8 @@ int main( int argc, char **argv )
     td[0].v = argv;
     dpdk_msg_init((void *)&td[0]);
 
-    int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
-        rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
+    // int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
+    int rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
 
     printf("FUS-CLIENT BEGIN\n");
     umask(0);
