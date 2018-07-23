@@ -87,6 +87,11 @@
 //        .read		= do_read,
 //};
 
+void result_output(){
+
+
+}
+
 
 void *fuse_rx_launch() {
     printf("FUSE-RX BEGIN\n");

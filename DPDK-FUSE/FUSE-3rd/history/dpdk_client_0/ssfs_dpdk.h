@@ -135,7 +135,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 /* main processing loop */
 
 void
-l2fwd_tx_loop()
+*l2fwd_tx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -184,31 +184,6 @@ l2fwd_tx_loop()
                 TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
             }
             pthread_mutex_unlock(&tx_lock);
-
-
-
-            for (i = 0; i < qconf->n_rx_port; i++) {
-                portid = qconf->rx_port_list[0];
-                nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-                                         pkts_burst, MAX_PKT_BURST);
-
-                for (j = 0; j < nb_rx; j++) {
-                    //CHARA BEGIN
-                    m = pkts_burst[j];
-
-                    int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-                    int header_length = rte_mbuf_packet_length - 1024;
-
-                    if (rte_mbuf_packet_length == 1024) {
-                        // rte_pktmbuf_dump(stdout, m, 1024);
-                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
-                    }
-                    //CHARA END
-                    rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
-                    rte_pktmbuf_free(m);
-                }
-            }
-
     }
 }
 
@@ -600,6 +575,16 @@ void *dpdk_msg_init(void *threadarg) {
     }
 
     check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
+
+//    ret = 0;
+//    /* launch per-lcore init on every lcore */
+//    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
+//    RTE_LCORE_FOREACH_SLAVE(lcore_id) {
+//        if (rte_eal_wait_lcore(lcore_id) < 0) {
+//            ret = -1;
+//            break;
+//        }
+//    }
 
     printf("DPDK END\n");
 }

@@ -115,46 +115,23 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     data+=ofs;
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
-    struct message obj;
 
-    // if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
-        // pthread_mutex_lock(&rx_lock);
+    if(strlen(msg->data)>=24 && strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+
+        pthread_mutex_lock(&rx_lock);
         e = malloc(sizeof(struct fuse_message));
-        fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+        // fprintf(f, "recv msg in DPDK: %s\n",msg->data);
+
+
+
+
+
+
         strcpy(e->data, msg->data);
-        // TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
+        TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
         fflush(f);
-
-
-        struct rte_mbuf *rm[1];
-        int c;
-        char *zdata;
-        FILE *file;
-        char sdata[PKT_SIZE];
-        file = fopen("/mnt/ssd_cache/server", "r");
-        if (file) {
-            c = fread(sdata, sizeof(char), 26, file);
-            // printf("send msg in FILESYSTEM: %s\n", sdata);
-            fclose(file);
-        }
-
-        msg = &obj;
-        strncpy(obj.data, sdata, 26);
-        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-
-        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr);
-
-        rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], 0);
-
-        // rte_pktmbuf_dump(stdout, rm[0], 1024);
-        printf("send msg in DPDK: %s\n", msg->data);
-        rte_eth_tx_burst(0, 0, rm, 1);
-
-        // pthread_mutex_unlock(&rx_lock);
-    // }
+        pthread_mutex_unlock(&rx_lock);
+    }
 }
 
 
@@ -182,7 +159,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 
 
 void
-l2fwd_rx_loop()
+* l2fwd_rx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -206,9 +183,6 @@ l2fwd_rx_loop()
             for (j = 0; j < nb_rx; j++) {
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-
-                // rte_pktmbuf_dump(stdout, m, PKT_SIZE);
-
                 if(rte_mbuf_packet_length==PKT_SIZE){
                     dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
                 }
