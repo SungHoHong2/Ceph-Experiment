@@ -161,7 +161,7 @@ l2fwd_tx_loop()
 
 
         if (rte_ring_dequeue(tx_ring, __msg) < 0) {
-            printf("Failed to recv message - message discarded\n");
+            // printf("Failed to recv message - message discarded\n");
         } else {
             _msg = (struct message *)__msg;
              printf("send msg in DPDK: %s\n",_msg->data);

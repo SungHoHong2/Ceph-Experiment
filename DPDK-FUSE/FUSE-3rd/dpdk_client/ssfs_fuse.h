@@ -115,8 +115,6 @@ void *fuse_rx_launch() {
                 TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
                 total_requests++;
             }
-
-
         }
 
 
