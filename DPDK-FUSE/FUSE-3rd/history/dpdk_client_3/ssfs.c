@@ -66,12 +66,6 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 }
 
 
-
-void *dpdk_launch(){
-    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-}
-
-
 int main( int argc, char **argv )
 {
     TAILQ_INIT(&dpdk_queue);
@@ -97,12 +91,9 @@ int main( int argc, char **argv )
     dpdk_msg_init((void *)&td[0]);
 
     int rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
-        rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
+    rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
 
-    // rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
-    printf("FUS-CLIENT BEGIN\n");
-    fuse_main( argc, argv, &operations, NULL );
-    printf("FUSE-CLIENT END\n");
-    
+
+
     return 0;
 }
