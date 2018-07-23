@@ -43,6 +43,7 @@ struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
 struct rte_mempool *test_pktmbuf_pool = NULL;
 struct rte_ring *rx_ring;
+struct rte_ring *tx_ring;
 
 
 
@@ -159,7 +160,7 @@ l2fwd_tx_loop()
 
 
 
-        if (rte_ring_enqueue(tx_ring, __msg) < 0) {
+        if (rte_ring_dequeue(tx_ring, __msg) < 0) {
             printf("Failed to recv message - message discarded\n");
         } else {
             _msg = (struct message *)__msg;
