@@ -377,10 +377,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     _msg = (struct message *)msg;
 //     printf("CHARA Received '%s'\n", _msg->data);
-//    av = TAILQ_FIRST(&avg_queue);
-//    av->end_time = getTimeStamp();
-//    av->interval = av->end_time - av->start_time;
-//    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
+    av = TAILQ_FIRST(&avg_queue);
+    av->end_time = getTimeStamp();
+    av->interval = av->end_time - av->start_time;
+    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
     printf("[%d] recv msg in FUSE: %ld\n", total_requests, strlen(_msg->data));
 
     // TAILQ_REMOVE(&avg_queue, av, nodes);
