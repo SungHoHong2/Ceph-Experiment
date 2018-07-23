@@ -95,6 +95,7 @@ void *fuse_rx_launch() {
     char *buffer = NULL;
     int rtn;
     void *msg;
+    struct message *_msg;
 
     sleep(5);
 
@@ -117,7 +118,8 @@ void *fuse_rx_launch() {
         if (rte_ring_dequeue(shared_ring, &msg) < 0){
             usleep(5);
         }else{
-             printf("CHARA Received '%s'\n", (char *)msg);
+            _msg = (struct message *)msg;
+            printf("CHARA Received '%s'\n", _msg->data);
 //              buffer = (char *)msg;
 //              av = TAILQ_FIRST(&avg_queue);
 //              av->end_time = getTimeStamp();
