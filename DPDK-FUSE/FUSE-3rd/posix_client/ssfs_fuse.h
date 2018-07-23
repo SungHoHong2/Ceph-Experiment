@@ -55,29 +55,29 @@ static int do_read( const char *path, char *buffer, size_t size, off_t offset, s
     // ... //
 
     if ( strcmp( path, "/client" ) == 0 ) {
-//        selectedText = client;
-//        pthread_mutex_lock(&tx_lock);
-//        e = malloc(sizeof(struct fuse_message));
-//        strcpy(e->data, selectedText);
-//        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-//        // printf("send msg in FUSE: %s\n", e->data);
-//        sleep(0);
-//
-//        av = malloc(sizeof(struct avg_node));
-//        av->start_time = getTimeStamp();
-//        pthread_mutex_unlock(&tx_lock);
-
+        selectedText = client;
         pthread_mutex_lock(&tx_lock);
-            e = malloc(sizeof(struct fuse_message));
-            strcpy(e->data, "Hello World From CLIENT!\n");
-            TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
-            av = malloc(sizeof(struct avg_node));
-            av->start_time = getTimeStamp();
-            av->num = total_requests;
-            printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
-            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
-            total_requests++;
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, selectedText);
+        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+        // printf("send msg in FUSE: %s\n", e->data);
+        sleep(0);
+
+        av = malloc(sizeof(struct avg_node));
+        av->start_time = getTimeStamp();
         pthread_mutex_unlock(&tx_lock);
+
+//        pthread_mutex_lock(&tx_lock);
+//            e = malloc(sizeof(struct fuse_message));
+//            strcpy(e->data, "Hello World From CLIENT!\n");
+//            TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+//            av = malloc(sizeof(struct avg_node));
+//            av->start_time = getTimeStamp();
+//            av->num = total_requests;
+//            printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
+//            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+//            total_requests++;
+//        pthread_mutex_unlock(&tx_lock);
 
 
 
