@@ -40,15 +40,15 @@ then
   sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
   fi
 
-elif [ "$1" = "dpdk_client_test" ]
+elif [ "$1" = "ssfs_experiment" ]
 then
 ls -l /mnt/ssd_cache/test
 cat /mnt/ssd_cache/test/client
 
 
-elif [ "$1" = "dpdk_client_0" ]
+elif [ "$1" = "ssfs_experiment_multi" ]
 then
-  for i in {1..1000}
+  for i in {1..10}
   do
       ls -l /mnt/ssd_cache/test
       cat /mnt/ssd_cache/test/client

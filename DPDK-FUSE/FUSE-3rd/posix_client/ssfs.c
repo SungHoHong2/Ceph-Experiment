@@ -56,10 +56,8 @@ int main( int argc, char **argv )
     rc = pthread_create(&threads[1], NULL, tcp_recv_launch, NULL);
     rc = pthread_create(&threads[2], NULL, fuse_rx_launch, NULL);
 
-
-    while(1){};
-//    printf("FUSE BEGIN\n");
-//    fuse_main( argc, argv, &operations, NULL );
-//    printf("FUSE END\n");
+    printf("FUSE BEGIN\n");
+    fuse_main( argc, argv, &operations, NULL );
+    printf("FUSE END\n");
     return 0;
 }
