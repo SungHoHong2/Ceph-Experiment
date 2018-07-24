@@ -199,7 +199,7 @@ void *tcp_send_launch(){
             int c;
             FILE *file;
             char sdata[1024];
-            file = fopen("/mnt/ssd_cache/server", "r");
+            file = fopen("/data1/sungho/trash/server", "r");
             if (file) {
                 fread(sdata, sizeof(char), 1024, file);
                  // printf("send msg in FILESYSTEM: %s\n", sdata);
