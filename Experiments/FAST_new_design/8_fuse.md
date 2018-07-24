@@ -14,10 +14,12 @@
     - [x] read request and then wait until it gets the data
     - [x] collect the latency
 
-
 - [ ] **server side**
-    - [ ] the multi-thread is not working, once introduced it will stop working properly
-    - [ ]
+    - [ ] solve the situation where dpdk can work with FUSE
+    - [ ] run DPDK
+    - [ ] get the cache hit results
+    - [ ] get the non-remote storage result
+
 
 
 
