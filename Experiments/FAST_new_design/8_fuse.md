@@ -10,9 +10,14 @@
     - `I have found how to use double threads for different logical cores` this is the example of `simple_ring`
 
 - [ ] **combine pass-through example which is a low level interface of FUSE with DPDK and POSIX**
-    - [ ] use pass through
-    - [ ] read request and then wait until it gets the data
+    - [x] use pass through
+    - [x] read request and then wait until it gets the data
     - [ ] collect the latency
+
+- [ ] **first run the DPDK application pingpong to see how the port is actually used 
+
+
+
 
 
 ### installing libfuse
