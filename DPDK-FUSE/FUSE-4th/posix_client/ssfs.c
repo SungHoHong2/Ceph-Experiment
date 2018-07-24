@@ -78,7 +78,7 @@ int main( int argc, char **argv )
     printf("FUS-CLIENT BEGIN\n");
     // umask(0);
 
-    sleep(2);
+    sleep(5);
     fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
 
