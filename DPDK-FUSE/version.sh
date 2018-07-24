@@ -120,8 +120,16 @@ then
 
 elif [ "$1" = "Fuse_exp_benchmark" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
-gcc bench.c -o bench -lm && ./bench
+  if [ "$HOSTS" = "w2" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
+  gcc bench.c -o bench -lm && ./bench
+  elif [ "$HOSTS" = "c3n25" ]
+  then
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
+  gcc bench.c -o bench -lm && ./bench
+  fi
+
 
 elif [ "$1" = "Fuse_4th_DPDK_make_launch" ]
 then
