@@ -50,7 +50,7 @@ gcc -Wall passthrough.c -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr
 ./passthrough -f /mnt/ssd_cache
 ```
 
-`pkg-config fuse3 --cflags --libs`
+gcc passthrough.c `pkg-config fuse3 --cflags --libs`  -o passthrough
 
 ### producing good comparison results between DPDK and POSIX
 - if FUSE is super slow and dpdk and posix is responsible for very portion of the latency, then there is no need to use DPDK.
