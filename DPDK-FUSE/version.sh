@@ -102,7 +102,13 @@ then
 
 elif [ "$1" = "ssfs_experiment" ]
 then
-cat /mnt/ssd_cache/home/sungho/client.txt
+  if [ "$HOSTS" = "w2" ]
+  then
+  cat /mnt/ssd_cache/home/sungho/client.txt
+  elif [ "$HOSTS" = "c3n25" ]
+  then
+  cat /data1/sungho/trash/data1/sungho/client.txt
+  fi
 
 elif [ "$1" = "ssfs_experiment_multi" ]
 then
@@ -157,8 +163,6 @@ elif [ "$HOSTS" = "c3n25" ]
   echo "  INSTALL-MAP dpdk-server.map"
   [ -d /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk-server/build/app ] || mkdir -p /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk-server/build/app
   cp -f dpdk-server.map /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk-server/build/app
-
-
 
   fi
 
