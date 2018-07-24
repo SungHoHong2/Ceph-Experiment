@@ -53,6 +53,7 @@
 #include "ssfs_fuse.h"
 
 
+
 int main( int argc, char **argv )
 {
     TAILQ_INIT(&avg_queue);
@@ -72,13 +73,12 @@ int main( int argc, char **argv )
 
     printf("FUSE-POSIX BEGIN\n");
     pthread_t threads[2];
-    int rc = pthread_create(&threads[0], NULL, tcp_send_launch, NULL);
-    rc = pthread_create(&threads[1], NULL, tcp_recv_launch, NULL);
+//    int rc = pthread_create(&threads[0], NULL, tcp_send_launch, NULL);
+    int rc = pthread_create(&threads[1], NULL, tcp_recv_launch, NULL);
 
     printf("FUS-CLIENT BEGIN\n");
     umask(0);
 
-    sleep(5);
     fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
 
