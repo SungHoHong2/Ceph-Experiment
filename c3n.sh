@@ -10,6 +10,10 @@ ceph osd pool create scbench 100 100
 rados bench -p scbench 10 write --no-cleanup
 ```
 
+export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
+export DESTDIR=/usr/local
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+
 
 if [ "$1" = "git_store" ]
 then
