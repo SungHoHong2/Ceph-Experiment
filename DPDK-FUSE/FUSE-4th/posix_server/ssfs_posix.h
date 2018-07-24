@@ -146,11 +146,14 @@ void *tcp_send_launch(){
     hints.ai_socktype = SOCK_STREAM;
     fcntl(sockfd, F_SETFL, O_NONBLOCK);
 
-    // get information of the server
-    if ((rv = getaddrinfo("10.218.104.170", PORT, &hints, &servinfo)) != 0) {
+    // get information of the WORKSTATION
+//    if ((rv = getaddrinfo("10.218.104.170", PORT, &hints, &servinfo)) != 0) {
+//        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+//    }
+
+    if ((rv = getaddrinfo("10.107.30.34", PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     }
-
     // loop through all the results and connect to the first we can
     for(p = servinfo; p != NULL; p = p->ai_next) {
         if ((sockfd = socket(p->ai_family, p->ai_socktype,
