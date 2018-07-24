@@ -23,6 +23,13 @@ elif [ "$1" = "git" ]
 then
 git pull origin master
 
+elif [ "$1" = "git_add" ]
+then
+git add $2
+git commit -m 'add'
+git push origin master
+
+
 elif [ "$1" = "ceph_seastar_fuse" ]
 then
 cd /data1/sungho/Ceph-Experiment/Seastar-FUSE
