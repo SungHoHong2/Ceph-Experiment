@@ -116,7 +116,6 @@ void *tcp_recv_launch(){
             printf("[%ld] recv msg in POSIX :: %ld\n", posix_av->num, posix_av->interval);
             TAILQ_REMOVE(&posix_queue, posix_av, nodes);
             free(posix_av);
-
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);

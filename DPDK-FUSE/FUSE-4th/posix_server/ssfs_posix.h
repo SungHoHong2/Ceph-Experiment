@@ -112,8 +112,10 @@ void *tcp_recv_launch(){
             printf("recv msg from POSIX: %s\n", buf);
             pthread_mutex_lock(&rx_lock);
             if(strcmp(buf, "Hello World From CLIENT!\n")==0) {
+                printf("step2\n");
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
+                printf("step3\n");
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
             }
             pthread_mutex_unlock(&rx_lock);
