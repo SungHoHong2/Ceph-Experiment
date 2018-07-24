@@ -9,12 +9,15 @@
 - [x] use rx_ring
     - `I have found how to use double threads for different logical cores` this is the example of `simple_ring`
 
-- [ ] **combine pass-through example which is a low level interface of FUSE with DPDK and POSIX**
+- [x] **combine pass-through example which is a low level interface of FUSE with DPDK and POSIX**
     - [x] use pass through
     - [x] read request and then wait until it gets the data
-    - [ ] collect the latency
+    - [x] collect the latency
 
-- [ ] **first run the DPDK application pingpong to see how the port is actually used 
+
+- [ ] **server side**
+    - [ ] the multi-thread is not working, once introduced it will stop working properly
+    - [ ]
 
 
 
