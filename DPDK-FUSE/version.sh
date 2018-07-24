@@ -131,7 +131,7 @@ then
   echo "this is c3n24"
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk-server/
   make
-  ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+  ./build/dpdk-server
 
 
 
