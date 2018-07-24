@@ -76,8 +76,12 @@ int main( int argc, char **argv )
     rc = pthread_create(&threads[1], NULL, tcp_recv_launch, NULL);
 
     printf("FUS-CLIENT BEGIN\n");
-    umask(0);
-    // fuse_main(argc, argv, &xmp_oper, NULL);
+    // umask(0);
+
+    sleep(2);
+    fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
+
+
     return 0;
 }
