@@ -392,7 +392,7 @@ void dpdk_msg_init(void *threadarg) {
     dpdk_argv[6]="-q";
     dpdk_argv[7]="8";
     dpdk_argv[8]="-p";
-    dpdk_argv[9]="0x1";
+    dpdk_argv[9]="0x2";
     dpdk_argv[10]="-T";
     dpdk_argv[11]="1";
 

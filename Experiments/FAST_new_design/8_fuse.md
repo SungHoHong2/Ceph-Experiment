@@ -21,22 +21,28 @@
 sudocmd apt-get install python3 ninja-build
 sudocmd apt install python3-pip
 export LC_ALL=C
+
+get-pip.py download
+python3.5 get-pip.py
+
 pip3 install --user meson
 export PATH=$PATH:/home/sungho/.local/bin/
-
-export PATH=$PATH:/usr/local/bin
-
+export PATH=$PATH:/home/users/sungho/.local/bin/
 
 # install libfuse
 git clone https://github.com/libfuse/libfuse.git
 mkdir build; cd build
 meson ..
+
 ninja
+wget https://github.com/ninja-build/ninja/releases/download/v1.5.3/ninja-linux.zip
+
 sudo ln -s /home/sungho/libfuse/build/lib/libfuse3.so.3.2.4 /lib/x86_64-linux-gnu/libfuse3.so.3
 gcc -Wall passthrough.c -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread -o passthrough
 ./passthrough -f /mnt/ssd_cache
 ```
 
+`pkg-config fuse3 --cflags --libs`
 
 ### producing good comparison results between DPDK and POSIX
 - if FUSE is super slow and dpdk and posix is responsible for very portion of the latency, then there is no need to use DPDK.
