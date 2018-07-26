@@ -110,12 +110,7 @@ int main( int argc, char **argv )
     }
 
     printf("FUSE-DPDK-CLIENT BEGIN\n");
-    pthread_t threads[3];
-    struct thread_data td[3];
-    td[0].c = argc;
-    td[0].v = argv;
-    dpdk_msg_init((void *)&td[0]);
-
+    dpdk_msg_init();
     int rc = pthread_create(&threads[2], NULL, dpdk_launch, NULL);
     printf("FUS-CLIENT BEGIN\n");
     umask(0);

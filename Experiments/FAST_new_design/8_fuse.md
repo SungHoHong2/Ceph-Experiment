@@ -23,6 +23,16 @@
     - [ ] get the non-remote storage result
 
 
+
+### installing Mellanox driver
+x86_64
+libibumad3 ucx libibmad5 libopensm5 librxe-1 librxe-dev librxe-1-dbg
+https://community.mellanox.com/docs/DOC-2197
+run MLNX_OFED_SRC-4.2-1.2.0.0
+ofed_info -s
+https://www.dell.com/support/home/us/en/04/drivers/driversdetails?driverid=4mvxh
+
+
 ### installing libfuse
 ```
 # meson install
