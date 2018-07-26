@@ -115,7 +115,7 @@ int dpdk_init(){
 	dpdk_argv[6]="-q";
 	dpdk_argv[7]="8";
 	dpdk_argv[8]="-p";
-	dpdk_argv[9]="0x3";
+	dpdk_argv[9]="0x2";
 	dpdk_argv[10]="-T";
 	dpdk_argv[11]="1";
 
@@ -153,6 +153,9 @@ int dpdk_init(){
 	nb_ports = rte_eth_dev_count();
 	if (nb_ports == 0)
 		rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
+
+	printf("available ports %u\n",nb_ports);
+
 
 	/* reset l2fwd_dst_ports */
 	for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
