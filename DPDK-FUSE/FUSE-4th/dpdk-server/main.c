@@ -159,10 +159,11 @@ int dpdk_init(){
 		l2fwd_dst_ports[portid] = 0;
 	last_port = 0;
 
+
 	/*
 	 * Each logical core is assigned a dedicated TX queue on each port.
 	 */
-	for (portid = 0; portid < nb_ports; portid++) {
+	for (portid = 1; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
 		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
 			continue;
@@ -187,7 +188,7 @@ int dpdk_init(){
 	qconf = NULL;
 
 	/* Initialize the port/queue configuration of each logical core */
-	for (portid = 0; portid < nb_ports; portid++) {
+	for (portid = 1; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
 		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
 			continue;
@@ -213,7 +214,7 @@ int dpdk_init(){
 	nb_ports_available = nb_ports;
 
 	/* Initialise each port */
-	for (portid = 0; portid < nb_ports; portid++) {
+	for (portid = 1; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
 		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0) {
 			printf("Skipping disabled port %u\n", (unsigned) portid);
