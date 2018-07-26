@@ -113,7 +113,7 @@ int main( int argc, char **argv )
     pthread_t threads[2];
     dpdk_msg_init();
     int rc = pthread_create(&threads[0], NULL, dpdk_launch, NULL);
-    irc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL);
+    rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL);
 
     printf("FUS-CLIENT BEGIN\n");
     umask(0);
