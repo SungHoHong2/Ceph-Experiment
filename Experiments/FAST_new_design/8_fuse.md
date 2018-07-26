@@ -28,8 +28,7 @@
 
 ### the correct data
 00000000: E4 1D 2D D9 CB 82 E4 1D 2D D9 BF B1 46 72 6F 6D | ..-.....-...From
-
-
+00000000: E4 1D 2D D9 CB 82 E4 1D 2D D9 BF B1 00 00 48 65 | ..-.....-.....He
 
 
 ### installing Mellanox driver

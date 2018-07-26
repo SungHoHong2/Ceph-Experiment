@@ -183,7 +183,7 @@ l2fwd_tx_loop()
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 // l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-                data+=sizeof(struct ether_hdr);
+                data+=sizeof(struct ether_hdr)-2;
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
