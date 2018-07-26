@@ -134,7 +134,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
         zdata+=sizeof(struct ether_hdr);
-        // zdata-=2;
+        zdata-=2;
 
         rte_memcpy(zdata, msg, sizeof(struct message));
         l2fwd_mac_updating(rm[0], 1);
