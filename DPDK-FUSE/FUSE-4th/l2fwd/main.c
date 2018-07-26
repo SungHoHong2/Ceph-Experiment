@@ -71,6 +71,7 @@
 #include <rte_mempool.h>
 #include <rte_mbuf.h>
 
+char hostname[1024];
 static volatile bool force_quit;
 
 /* MAC updating enabled by default */
@@ -567,6 +568,8 @@ main(int argc, char **argv)
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
 
+
+    gethostname(hostname, 1023);
 	/* init EAL */
 	ret = rte_eal_init(argc, argv);
 	if (ret < 0)
