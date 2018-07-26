@@ -133,9 +133,6 @@ int dpdk_init(){
 
 	printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
 
-	/* convert to number of cycles */
-	timer_period *= rte_get_timer_hz();
-
 	/* create the mbuf pool */
 	l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
 												 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
@@ -154,7 +151,7 @@ int dpdk_init(){
 	if (nb_ports == 0)
 		rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
 
-	printf("available ports %u\n",nb_ports);
+	printf("CHARA: available ports %u\n",nb_ports);
 
 
 	/* reset l2fwd_dst_ports */
