@@ -365,10 +365,6 @@ void dpdk_msg_init() {
 
     printf("DPDK BEGIN\n");
 
-//    struct thread_data *my_data;
-//    my_data = (struct thread_data *) threadarg;
-//    int argc = my_data->c;
-//    char **argv = my_data->v;
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
     int ret;
@@ -402,8 +398,6 @@ void dpdk_msg_init() {
     ret = rte_eal_init(dpdk_argc, dpdk_argv);
     if (ret < 0)
         rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
-//    argc -= ret;
-//    argv += ret;
 
     force_quit = false;
     signal(SIGINT, signal_handler);
@@ -415,7 +409,6 @@ void dpdk_msg_init() {
         rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
 
     printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
-
 
 
     /* create the mbuf pool */

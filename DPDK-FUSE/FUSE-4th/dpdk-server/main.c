@@ -87,6 +87,15 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 int
 main(int argc, char **argv)
 {
+
+	NOFILESYSTEM = 0;
+	if(argc>0){
+		if(strcmp(argv[0],"NOFILESYSTEM")==0){
+			NOFILESYSTEM = 1;
+		}
+	}
+
+
 	dpdk_init();
 	printf("FUSE-DPDK-SERVER BEGIN\n");
 

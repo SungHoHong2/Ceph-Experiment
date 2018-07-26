@@ -15,10 +15,10 @@
     - [x] collect the latency
 
 - [ ] **server side**
-    - [ ] find a special sudo command that may run FUSE in root
-    - [ ] find some process that does not have the sudo permission that is run by FUSE
-    - [ ] solve the situation where dpdk can work with FUSE
-    - [ ] run DPDK
+    - [x] find a special sudo command that may run FUSE in root
+    - [x] find some process that does not have the sudo permission that is run by FUSE
+    - [x] solve the situation where dpdk can work with FUSE
+    - [x] Mellanox Connect X-3 is not working
     - [ ] get the cache hit results
     - [ ] get the non-remote storage result
 
@@ -28,7 +28,15 @@
 x86_64
 libibumad3 ucx libibmad5 libopensm5 librxe-1 librxe-dev librxe-1-dbg
 https://community.mellanox.com/docs/DOC-2197
+
 run MLNX_OFED_SRC-4.2-1.2.0.0
+- this will not install properly it gets stuck in openmpi or something but it will finish the install
+- and then the os will ask for installing ibstat
+- after this run `ibstat` and check if the mellanox driver is running
+
+
+
+
 ofed_info -s
 https://www.dell.com/support/home/us/en/04/drivers/driversdetails?driverid=4mvxh
 
