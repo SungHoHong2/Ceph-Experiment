@@ -224,15 +224,11 @@ l2fwd_rx_loop()
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
                 // rte_pktmbuf_dump(stdout, m, 60);
+                l2fwd_simple_forward(m,1);
 
-                if(rte_mbuf_packet_length==PKT_SIZE) {
-                    // if (strcmp(hostname, "w1") == 0) {
-                        dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
-                   // }
-                    //if (strcmp(hostname, "c3n24") == 0) {
-                      //  dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 2);
-                   // }
-                }
+                // if(rte_mbuf_packet_length==PKT_SIZE) {
+                //        dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
+                // }
 
             }
     }
