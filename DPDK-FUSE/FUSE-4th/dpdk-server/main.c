@@ -260,9 +260,6 @@ int dpdk_init(){
 
 		rte_eth_tx_buffer_init(tx_buffer[portid], MAX_PKT_BURST);
 
-		ret = rte_eth_tx_buffer_set_err_callback(tx_buffer[portid],
-												 rte_eth_tx_buffer_count_callback,
-												 &port_statistics[portid].dropped);
 		if (ret < 0)
 			rte_exit(EXIT_FAILURE, "Cannot set error callback for "
 								   "tx buffer on port %u\n", (unsigned) portid);
@@ -294,8 +291,6 @@ int dpdk_init(){
 		rte_exit(EXIT_FAILURE,
 				 "All available ports are disabled. Please set portmask.\n");
 	}
-
-	check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
 }
 
 static int
