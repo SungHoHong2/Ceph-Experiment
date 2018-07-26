@@ -15,6 +15,18 @@ then
   cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
   make
   ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x1 -T 1
+
+  elif [ "$HOSTS" = "c3n24" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
+  make
+  ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
+
+  elif [ "$HOSTS" = "c3n25" ]
+  then
+  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
+  make
+  ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
   fi
 
 elif [ "$1" = "dpdk_client_kill" ]
