@@ -163,7 +163,7 @@ l2fwd_tx_loop()
             // printf("Failed to recv message - message discarded\n");
         } else {
                 _msg = (struct message *)__msg;
-                printf("send msg in DPDK: %s\n",_msg->data);
+                printf("CHARA: send msg in DPDK: %s\n",_msg->data);
                 dpdk_av = malloc(sizeof(struct avg_node));
                 dpdk_av->start_time = getTimeStamp();
                 dpdk_av->num = dpdk_requests;
