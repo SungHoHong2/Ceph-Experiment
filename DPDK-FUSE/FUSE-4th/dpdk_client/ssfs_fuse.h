@@ -508,11 +508,32 @@ static struct fuse_operations xmp_oper = {
 
 void *without_fuse_launch(){
 
+    sleep(5);
+
     while(1){
 
         sleep(1);
+        char client[] = "Hello World From CLIENT!\n";
+        char *selectedText = NULL;
+        struct fuse_message *e = NULL;
+        void *msg;
+        struct message *_msg;
 
-        printf("howdy whody howdy\n");
+        selectedText = client;
+        _msg = malloc(sizeof(struct message));
+        strcpy(_msg->data, selectedText);
+
+        if (rte_ring_enqueue(tx_ring, _msg) < 0) {
+            printf("Failed to send message - message discarded\n");
+        } else {
+            av = malloc(sizeof(struct avg_node));
+            av->start_time = getTimeStamp();
+            av->num = total_requests;
+            printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+            TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+            total_requests++;
+        }
+
     }
 
 }
