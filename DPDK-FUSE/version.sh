@@ -92,8 +92,8 @@ then
 
   elif [ "$HOSTS" = "c3n25" ]
   then
-  umount -l /data1/sungho/trash
-   # sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
+  umount -l /mnt/ssd_cache
+  sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
   fi
 
 elif [ "$1" = "ssfs_experiment" ]
