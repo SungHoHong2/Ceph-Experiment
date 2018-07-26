@@ -180,7 +180,8 @@ l2fwd_tx_loop()
                     rte_memcpy(data, msg, sizeof(struct message));
 
 
-                rte_pktmbuf_dump(stdout, m, 1024);
+                rte_pktmbuf_dump(stdout, rm[0], 1024);
+                printf("CHARA: send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 rte_eth_tx_burst(portid, 0, rm, 1);
         }
