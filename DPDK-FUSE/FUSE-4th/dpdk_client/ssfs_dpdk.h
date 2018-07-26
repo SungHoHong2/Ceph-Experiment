@@ -182,7 +182,7 @@ l2fwd_tx_loop()
                     rte_memcpy(data, msg, sizeof(struct message));
 
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-                rte_eth_tx_burst(portid, 0, rm, 1);
+                rte_eth_tx_burst(portid, 0, rm, 0);
         }
 
     }
