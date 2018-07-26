@@ -111,7 +111,7 @@ int dpdk_init(){
 	dpdk_argv[2]="0x2";
 	dpdk_argv[3]="-n";
 	dpdk_argv[4]="4";
-	dpdk_argv[5]="--";./ve
+	dpdk_argv[5]="--";
 	dpdk_argv[6]="-q";
 	dpdk_argv[7]="8";
 	dpdk_argv[8]="-p";
