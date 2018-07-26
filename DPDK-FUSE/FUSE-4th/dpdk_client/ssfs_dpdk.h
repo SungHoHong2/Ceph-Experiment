@@ -183,13 +183,13 @@ l2fwd_tx_loop()
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 // l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-
+                data+=sizeof(struct ether_hdr);
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
 
                 printf("send msg in DPDK: %s\n",_msg->data);
-                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                // rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 l2fwd_mac_updating(rm[0], portid);
                 rte_pktmbuf_dump(stdout, rm[0], 60);
                 rte_eth_tx_burst(portid, 0, rm, 1);
