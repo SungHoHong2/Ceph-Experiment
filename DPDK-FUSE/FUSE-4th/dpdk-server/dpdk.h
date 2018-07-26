@@ -227,7 +227,14 @@ l2fwd_rx_loop()
                 // l2fwd_simple_forward(m,1);
 
                  if(rte_mbuf_packet_length==PKT_SIZE) {
-                        dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
+
+                     if(strcmp(hostname,"w1")==0) {
+                         dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
+                     }
+                    
+                     if(strcmp(hostname,"c3n24")==0) {
+                         dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
+                     }
                  }
 
             }
