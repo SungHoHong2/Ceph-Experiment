@@ -22,8 +22,8 @@
       <file leaf-file-name="dpdk.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="193" column="18" lean-forward="true" selection-start-line="193" selection-start-column="18" selection-end-line="193" selection-end-column="18" />
+            <state relative-caret-position="370">
+              <caret line="77" column="3" selection-start-line="77" selection-start-column="3" selection-end-line="77" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -31,26 +31,8 @@
       <file leaf-file-name="ssfs_dpdk.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_dpdk.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="182" column="48" selection-start-line="182" selection-start-column="48" selection-end-line="182" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="115" column="62" selection-start-line="115" selection-start-column="43" selection-end-line="115" selection-end-column="62" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4604">
-              <caret line="523" column="35" selection-start-line="523" selection-start-column="35" selection-end-line="523" selection-end-column="35" />
+            <state relative-caret-position="686">
+              <caret line="80" column="3" lean-forward="true" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -297,12 +279,12 @@
       <workItem from="1532367785336" duration="13690000" />
       <workItem from="1532447937353" duration="2323000" />
       <workItem from="1532540650787" duration="4088000" />
-      <workItem from="1532626181611" duration="7837000" />
+      <workItem from="1532626181611" duration="7932000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210745000" />
+    <option name="totallyTimeSpent" value="210840000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -672,15 +654,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="182" column="48" selection-start-line="182" selection-start-column="48" selection-end-line="182" selection-end-column="48" />
+        <state relative-caret-position="686">
+          <caret line="80" column="3" lean-forward="true" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="193" column="18" lean-forward="true" selection-start-line="193" selection-start-column="18" selection-end-line="193" selection-end-column="18" />
+        <state relative-caret-position="370">
+          <caret line="77" column="3" selection-start-line="77" selection-start-column="3" selection-end-line="77" selection-end-column="3" />
         </state>
       </provider>
     </entry>
