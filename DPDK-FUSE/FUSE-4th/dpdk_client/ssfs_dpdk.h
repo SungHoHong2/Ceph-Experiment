@@ -223,6 +223,7 @@ void
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
+            printf("working???\n");
             for (j = 0; j < nb_rx; j++) {
                 //CHARA BEGIN
                 m = pkts_burst[j];
