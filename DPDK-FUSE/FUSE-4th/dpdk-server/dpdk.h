@@ -139,7 +139,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         zdata+=sizeof(struct ether_hdr)-2;
 
         rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], 1);
+        l2fwd_mac_updating(rm[0], 0);
 
         rte_pktmbuf_dump(stdout, rm[0], 60);
         printf("send msg in DPDK: %s\n", msg->data);
