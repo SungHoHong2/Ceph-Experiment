@@ -115,12 +115,11 @@ int main( int argc, char **argv )
     pthread_t threads[2];
     dpdk_msg_init();
     int rc = pthread_create(&threads[0], NULL, dpdk_launch, NULL);
-    rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL);
-    while(1);
+    // rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL); while(1);
 
     printf("FUS-CLIENT BEGIN\n");
     umask(0);
-    // fuse_main(argc, argv, &xmp_oper, NULL);
+    fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
     return 0;
 }

@@ -99,7 +99,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
-    printf("recv msg in DPDK: %s\n", msg->data);
+    // printf("recv msg in DPDK: %s\n", msg->data);
     if (rte_ring_enqueue(rx_ring, msg) < 0) {
         printf("Failed to recv message - message discarded\n");
     } else {
@@ -231,7 +231,7 @@ l2fwd_rx_loop() {
                 int header_length = rte_mbuf_packet_length - 1024;
 
                 if (rte_mbuf_packet_length == 1024) {
-                    rte_pktmbuf_dump(stdout, m, 60);
+                    // rte_pktmbuf_dump(stdout, m, 60);
 
                     if(strcmp(hostname,"w2")==0) {
                         dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
