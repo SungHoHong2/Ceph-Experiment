@@ -309,28 +309,6 @@ l2fwd_parse_nqueue(const char *q_arg)
     return n;
 }
 
-static int
-l2fwd_parse_timer_period(const char *q_arg)
-{
-    char *end = NULL;
-    int n;
-
-    /* parse number string */
-    n = strtol(q_arg, &end, 10);
-    if ((q_arg[0] == '\0') || (end == NULL) || (*end != '\0'))
-        return -1;
-    if (n >= MAX_TIMER_PERIOD)
-        return -1;
-
-    return n;
-}
-
-static const char short_options[] =
-        "p:"  /* portmask */
-        "q:"  /* number of queues */
-        "T:"  /* timer period */
-;
-
 #define CMD_LINE_OPT_MAC_UPDATING "mac-updating"
 #define CMD_LINE_OPT_NO_MAC_UPDATING "no-mac-updating"
 
