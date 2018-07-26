@@ -73,8 +73,6 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
     eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 
-    /* 02:00:00:00:00:xx */
-
     // A0:36:9F:83:AB:BD
     tmp = &eth->d_addr.addr_bytes[0];
     *((uint64_t *)tmp) = 0xbdab839f36a0 + ((uint64_t)dest_portid << 40);
@@ -165,7 +163,7 @@ l2fwd_tx_loop()
             // printf("Failed to recv message - message discarded\n");
         } else {
                 _msg = (struct message *)__msg;
-                // printf("send msg in DPDK: %s\n",_msg->data);
+                printf("send msg in DPDK: %s\n",_msg->data);
                 dpdk_av = malloc(sizeof(struct avg_node));
                 dpdk_av->start_time = getTimeStamp();
                 dpdk_av->num = dpdk_requests;
@@ -221,7 +219,7 @@ void
                 int header_length = rte_mbuf_packet_length - 1024;
 
                 if (rte_mbuf_packet_length == 1024) {
-                    // rte_pktmbuf_dump(stdout, m, 1024);
+                    rte_pktmbuf_dump(stdout, m, 1024);
                     dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
                 //CHARA END
