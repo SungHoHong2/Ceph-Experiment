@@ -197,7 +197,14 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0x000000000002 + ((uint64_t)dest_portid << 40);
+
+
+	if(strcmp(hostname,"c3n24")==0){
+        *((uint64_t *)tmp) = 0xb1bfd92d1de4 + ((uint64_t)dest_portid << 40);
+	}else if (strcmp(hostname,"c3n25")==0){
+        *((uint64_t *)tmp) = 0x81cbd92d1de4  + ((uint64_t)dest_portid << 40);
+	}
+
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
