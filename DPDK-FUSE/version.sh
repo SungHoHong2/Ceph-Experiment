@@ -143,7 +143,9 @@ then
 
   elif [ "$HOSTS" = "c3n24" ]
   then
-  echo "this is c3n24"
+  export RTE_SDK=/home/sungho/dpdk-stable-17.05.1
+  export DESTDIR=/usr/local
+  export RTE_TARGET=x86_64-native-linuxapp-gcc
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk-server/
   make
   ./build/dpdk-server
