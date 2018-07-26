@@ -36,6 +36,12 @@ cd /data1/sungho/Ceph-Experiment/Seastar-FUSE
 /data1/sungho/Ceph-Experiment/Seastar-FUSE/version.sh $2 $3
 
 
+elif [ "$1" = "run_passthrough_example" ]
+then
+cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-3rd/pass_through_example
+./passthrough -f /data1/sungho/trash/
+
+
 elif [ "$1" = "FUSE-install-ready" ]
 then
 

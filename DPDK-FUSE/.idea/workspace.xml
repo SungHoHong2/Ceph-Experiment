@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_posix.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="684">
-              <caret line="36" column="51" lean-forward="true" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+              <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -40,7 +40,7 @@
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
+            <state relative-caret-position="551">
               <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
             </state>
           </provider>
@@ -49,7 +49,7 @@
       <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
+            <state relative-caret-position="1406">
               <caret line="74" column="25" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
             </state>
           </provider>
@@ -67,7 +67,7 @@
       <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_server/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="766">
+            <state relative-caret-position="912">
               <caret line="48" column="62" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="62" />
             </state>
           </provider>
@@ -196,6 +196,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -240,7 +241,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -301,16 +301,16 @@
       <workItem from="1532224447870" duration="15618000" />
       <workItem from="1532288695438" duration="11567000" />
       <workItem from="1532367785336" duration="13690000" />
-      <workItem from="1532447937353" duration="2083000" />
+      <workItem from="1532447937353" duration="2323000" />
+      <workItem from="1532540650787" duration="537000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198580000" />
+    <option name="totallyTimeSpent" value="199357000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18958333" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -623,12 +623,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="306" column="1" lean-forward="true" selection-start-line="306" selection-start-column="1" selection-end-line="306" selection-end-column="1" />
-          <folding>
-            <element signature="e#739#758#0" expanded="true" />
-            <element signature="e#780#844#0" expanded="true" />
-            <element signature="e#1053#1075#0" expanded="true" />
-            <element signature="e#5200#5486#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -641,7 +635,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_server/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
+        <state relative-caret-position="912">
           <caret line="48" column="62" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="62" />
         </state>
       </provider>
@@ -655,7 +649,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
+        <state relative-caret-position="1406">
           <caret line="74" column="25" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
         </state>
       </provider>
@@ -663,13 +657,13 @@
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_posix.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
-          <caret line="36" column="51" lean-forward="true" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
+        <state relative-caret-position="551">
           <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
         </state>
       </provider>

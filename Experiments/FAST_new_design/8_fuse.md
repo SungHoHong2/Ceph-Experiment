@@ -15,14 +15,12 @@
     - [x] collect the latency
 
 - [ ] **server side**
+    - [ ] find a special sudo command that may run FUSE in root
+    - [ ] find some process that does not have the sudo permission that is run by FUSE
     - [ ] solve the situation where dpdk can work with FUSE
     - [ ] run DPDK
     - [ ] get the cache hit results
     - [ ] get the non-remote storage result
-
-
-
-
 
 
 ### installing libfuse
