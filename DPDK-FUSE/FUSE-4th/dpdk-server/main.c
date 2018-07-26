@@ -190,8 +190,10 @@ int dpdk_init(){
 	/* Initialize the port/queue configuration of each logical core */
 	for (portid = 0; portid < nb_ports; portid++) {
 		/* skip ports that are not enabled */
-		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
+		if ((l2fwd_enabled_port_mask & (1 << portid)) == 0) {
+			printf("CHARA: port %u is skipped\n", portid);
 			continue;
+		}
 
 		/* get the lcore_id for this port */
 		while (rte_lcore_is_enabled(rx_lcore_id) == 0 ||
