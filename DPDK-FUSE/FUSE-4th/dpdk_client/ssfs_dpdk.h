@@ -231,9 +231,15 @@ l2fwd_rx_loop() {
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
                 int header_length = rte_mbuf_packet_length - 1024;
 
-                // rte_pktmbuf_dump(stdout, m, 60);
                 if (rte_mbuf_packet_length == 1024) {
-                    dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
+                    // rte_pktmbuf_dump(stdout, m, 60);
+
+                    if(strcmp(hostname,"w2")==0) {
+                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
+                    }
+                    if(strcmp(hostname,"c3n25")==0) {
+                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr)-2);
+                    }
                 }
                 //CHARA END
                 rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
