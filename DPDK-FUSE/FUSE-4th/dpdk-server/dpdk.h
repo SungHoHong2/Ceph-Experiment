@@ -110,7 +110,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
     struct message obj;
-    portid = qconf->rx_port_list[0];
+    unsigned portid = qconf->rx_port_list[0];
 
         e = malloc(sizeof(struct fuse_message));
         printf("recv msg in DPDK: %s\n",msg->data);
@@ -162,7 +162,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         }
 
         rte_memcpy(zdata, msg, sizeof(struct message));
-        printf("send msg in DPDK: %s\n",_msg->data);
+        printf("send msg in DPDK: %s\n",obj->data);
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
         // rte_pktmbuf_dump(stdout, rm[0], 60);
         rte_eth_tx_burst(portid, 0, rm, 1);
