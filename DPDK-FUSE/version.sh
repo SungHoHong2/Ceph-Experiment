@@ -144,7 +144,7 @@ then
 elif [ "$1" = "Fuse_4th_DPDK_Experiments" ]
 then
   export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
-  cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/l2fwd/
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/l2fwd/
   make
   ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
 
