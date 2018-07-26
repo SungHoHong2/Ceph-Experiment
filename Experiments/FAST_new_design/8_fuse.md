@@ -21,9 +21,14 @@
     - [x] Mellanox Connect X-3 is not working
 
     - [] dpdk is not sending the data
-      - could it be that you are actually sending the data but DPDK is not understanding your packets? 
+      - could it be that you are actually sending the data but DPDK is not understanding your packets?
     - [ ] get the cache hit results
     - [ ] get the non-remote storage result
+
+
+### the correct data
+00000000: E4 1D 2D D9 CB 82 E4 1D 2D D9 BF B1 46 72 6F 6D | ..-.....-...From
+
 
 
 
