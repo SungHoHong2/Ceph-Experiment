@@ -505,3 +505,14 @@ static struct fuse_operations xmp_oper = {
 };
 
 
+
+void *without_fuse_launch(){
+
+    while(1){
+
+        sleep(1);
+
+        printf("howdy whody howdy\n");
+    }
+
+}
