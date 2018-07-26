@@ -136,7 +136,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
         zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr);
+        zdata+=sizeof(struct ether_hdr)-2;
 
         rte_memcpy(zdata, msg, sizeof(struct message));
         l2fwd_mac_updating(rm[0], 1);
@@ -231,7 +231,7 @@ l2fwd_rx_loop()
                      if(strcmp(hostname,"w1")==0) {
                          dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
                      }
-                    
+
                      if(strcmp(hostname,"c3n24")==0) {
                          dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
                      }
