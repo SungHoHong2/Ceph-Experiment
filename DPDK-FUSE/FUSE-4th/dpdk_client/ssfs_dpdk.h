@@ -163,7 +163,7 @@ l2fwd_tx_loop()
             // printf("Failed to recv message - message discarded\n");
         } else {
                 _msg = (struct message *)__msg;
-                printf("CHARA: send msg in DPDK: %s\n",_msg->data);
+                printf("BEFORE::send msg in DPDK: %s\n",_msg->data);
                 dpdk_av = malloc(sizeof(struct avg_node));
                 dpdk_av->start_time = getTimeStamp();
                 dpdk_av->num = dpdk_requests;
@@ -172,6 +172,8 @@ l2fwd_tx_loop()
 
                 msg = &obj;
                 strncpy(obj.data, _msg->data, 100);
+                strncpy(obj.data, "test howdy howdy howdy howdy", 100);
+
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
@@ -180,7 +182,7 @@ l2fwd_tx_loop()
                     rte_memcpy(data, msg, sizeof(struct message));
 
 
-                printf("CHARA: send msg in DPDK: %s\n",_msg->data);
+                printf("send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 rte_pktmbuf_dump(stdout, rm[0], 1024);
                 rte_eth_tx_burst(portid, 0, rm, 1);
