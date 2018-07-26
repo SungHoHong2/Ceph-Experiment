@@ -110,9 +110,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
     struct message obj;
+    struct lcore_queue_conf *qconf;
+    qconf = &lcore_queue_conf[1];
     unsigned portid = qconf->rx_port_list[0];
 
-        e = malloc(sizeof(struct fuse_message));
+    e = malloc(sizeof(struct fuse_message));
         printf("recv msg in DPDK: %s\n",msg->data);
         strcpy(e->data, msg->data);
 
