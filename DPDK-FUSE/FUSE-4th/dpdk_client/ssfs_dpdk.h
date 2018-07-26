@@ -74,8 +74,10 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 
     /* 02:00:00:00:00:xx */
+
+    // A0:36:9F:83:AB:BD
     tmp = &eth->d_addr.addr_bytes[0];
-    *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
+    *((uint64_t *)tmp) = 0xbdab839f36a0 + ((uint64_t)dest_portid << 40);
 
     // ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
     // *((uint64_t *)tmp) = 0x81cbd92d1de4 + ((uint64_t)dest_portid << 40);
@@ -270,18 +272,16 @@ l2fwd_parse_nqueue(const char *q_arg)
 
 /* Parse the argument given in the command line of the application */
 static int
-l2fwd_parse_args(int argc, char **argv)
+l2fwd_parse_args()
 {
-    int opt, ret;
-    char **argvopt;
-    int option_index;
-    char *prgname = argv[0];
-    argvopt = argv;
-    l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
+    int ret;
+    char *prgname = "dpdk-client";
+    l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x2");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
     ret = 6;
     return ret;
 }
+
 
 /* Check the link status of all ports in up to 9s, and print them finally */
 static void
@@ -411,7 +411,7 @@ void dpdk_msg_init(void *threadarg) {
     signal(SIGTERM, signal_handler);
 
     /* parse application arguments (after the EAL ones) */
-    ret = l2fwd_parse_args(argc, argv);
+    ret = l2fwd_parse_args();
     if (ret < 0)
         rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
 
