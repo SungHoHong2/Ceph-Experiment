@@ -35,7 +35,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <unistd.h>
+#include <unistd.h>vi
 #include <inttypes.h>
 #include <sys/types.h>
 #include <sys/queue.h>
@@ -204,7 +204,8 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 	if(strcmp(hostname,"c3n24")==0){
         *((uint64_t *)tmp) = 0xb1bfd92d1de4 + ((uint64_t)dest_portid << 40);
 	}else if (strcmp(hostname,"c3n25")==0){
-        *((uint64_t *)tmp) = 0x81cbd92d1de4  + ((uint64_t)dest_portid << 40);
+        *((uint64_t *)tmp) = 0x000000000000  + ((uint64_t)dest_portid << 40);
+        // *((uint64_t *)tmp) = 0x81cbd92d1de4  + ((uint64_t)dest_portid << 40);
 	}
 
 
