@@ -154,11 +154,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
 
-        if(strcmp(hostname,"w2")==0) {
+        if(strcmp(hostname,"w1")==0) {
             l2fwd_mac_updating(rm[0], portid); // WORKSTATION
         }
 
-        if(strcmp(hostname,"c3n25")==0) {
+        if(strcmp(hostname,"c3n24")==0) {
             zdata += sizeof(struct ether_hdr) - 2; // ASU SERVER
             l2fwd_mac_updating(rm[0], portid); // ASU SERVER
         }
