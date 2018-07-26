@@ -196,7 +196,7 @@ l2fwd_rx_loop()
                 m = pkts_burst[j];
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
-                // rte_pktmbuf_dump(stdout, m, 60);
+//                 rte_pktmbuf_dump(stdout, m, 60);
 
                  if(rte_mbuf_packet_length==PKT_SIZE) {
 

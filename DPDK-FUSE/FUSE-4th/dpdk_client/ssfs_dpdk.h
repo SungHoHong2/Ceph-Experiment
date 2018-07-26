@@ -238,7 +238,8 @@ l2fwd_rx_loop() {
                         dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                     }
                     if(strcmp(hostname,"c3n25")==0) {
-                        dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr)-2);
+                        printf("packet read BEGIN\n");
+                        dpdk_pktmbuf_dump(stdout, m, 1024, 0);
                     }
                 }
                 //CHARA END
