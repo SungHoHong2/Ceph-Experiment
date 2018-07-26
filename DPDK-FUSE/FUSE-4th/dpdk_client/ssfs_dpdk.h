@@ -190,7 +190,7 @@ l2fwd_tx_loop()
 
                 printf("send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-                rte_pktmbuf_dump(stdout, rm[0], 1024);
+                rte_pktmbuf_dump(stdout, rm[0], 60);
                 rte_eth_tx_burst(portid, 0, rm, 1);
         }
 
