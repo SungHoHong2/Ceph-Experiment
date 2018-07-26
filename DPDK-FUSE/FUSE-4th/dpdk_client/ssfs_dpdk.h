@@ -82,6 +82,9 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     }else if (strcmp(hostname,"c3n25")==0){
         // ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
         *((uint64_t *)tmp) = 0x81cbd92d1de4  + ((uint64_t)dest_portid << 40);
+    }else if (strcmp(hostname,"c3n24")==0){
+        // ASU c3n24 -> c3n25 E4:1D:2D:D9:BF:B1
+        *((uint64_t *)tmp) = 0xb1bfd92d1de4 + ((uint64_t)dest_portid << 40);
     }
 
     /* src addr */
