@@ -200,7 +200,7 @@ l2fwd_tx_loop()
 
 
 void
-*l2fwd_rx_loop() {
+l2fwd_rx_loop() {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
 
@@ -220,7 +220,6 @@ void
          */
         for (i = 0; i < qconf->n_rx_port; i++) {
             portid = qconf->rx_port_list[0];
-            printf("what is the portid? %u\n",portid);
 
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
