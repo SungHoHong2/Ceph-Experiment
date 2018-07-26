@@ -10,9 +10,7 @@ static int mac_updating = 1;
 #define NB_MBUF   8192
 
 // #define MAX_PKT_BURST 32
-#define PKT_SIZE   1024
 #define MAX_PKT_BURST 1
-
 
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
@@ -30,7 +28,6 @@ static struct ether_addr l2fwd_ports_eth_addr[RTE_MAX_ETHPORTS];
 
 /* mask of enabled ports */
 static uint32_t l2fwd_enabled_port_mask = 0;
-struct rte_mempool *test_pktmbuf_pool = NULL;
 
 /* list of enabled ports */
 static uint32_t l2fwd_dst_ports[RTE_MAX_ETHPORTS];
@@ -44,8 +41,14 @@ struct lcore_queue_conf {
     unsigned rx_port_list[MAX_RX_QUEUE_PER_LCORE];
 } __rte_cache_aligned;
 struct lcore_queue_conf lcore_queue_conf[RTE_MAX_LCORE];
-
 static struct rte_eth_dev_tx_buffer *tx_buffer[RTE_MAX_ETHPORTS];
+struct rte_mempool *test_pktmbuf_pool = NULL;
+struct rte_ring *rx_ring;
+struct rte_ring *tx_ring;
+
+
+
+
 
 static const struct rte_eth_conf port_conf = {
         .rxmode = {
@@ -63,7 +66,6 @@ static const struct rte_eth_conf port_conf = {
 
 struct rte_mempool * l2fwd_pktmbuf_pool = NULL;
 
-
 static void
 l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 {
@@ -71,32 +73,19 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
     void *tmp;
 
     eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
+
     tmp = &eth->d_addr.addr_bytes[0];
-    if(strcmp(hostname,"w1")==0){
-        *((uint64_t *)tmp) = 0xd5d4a6211b00 + ((uint64_t)dest_portid << 40);
-    }else if (strcmp(hostname,"c3n24")==0){
-        // ASU c3n24 -> c3n25 E4:1D:2D:D9:BF:B1
-        *((uint64_t *)tmp) = 0xb1bfd92d1de4 + ((uint64_t)dest_portid << 40);
+
+    if(strcmp(hostname,"w2")==0){
+        // w1: A0:36:9F:83:AB:BD
+        *((uint64_t *)tmp) = 0xbdab839f36a0 + ((uint64_t)dest_portid << 40);
+    }else if (strcmp(hostname,"c3n25")==0){
+        // ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
+        *((uint64_t *)tmp) = 0x81cbd92d1de4  + ((uint64_t)dest_portid << 40);
     }
 
     /* src addr */
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
-}
-
-static void
-l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
-{
-    unsigned dst_port;
-    int sent;
-    struct rte_eth_dev_tx_buffer *buffer;
-
-    dst_port = l2fwd_dst_ports[portid];
-
-    if (mac_updating)
-        l2fwd_mac_updating(m, dst_port);
-    buffer = tx_buffer[dst_port];
-    sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-
 }
 
 
@@ -109,37 +98,19 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     data+=ofs;
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
-    struct message obj;
 
-        e = malloc(sizeof(struct fuse_message));
-        printf("recv msg in DPDK: %s\n",msg->data);
-        strcpy(e->data, msg->data);
+    // printf("recv msg in DPDK: %s\n", msg->data);
+    if (rte_ring_enqueue(rx_ring, msg) < 0) {
+        printf("Failed to recv message - message discarded\n");
+    } else {
+        dpdk_av = TAILQ_FIRST(&dpdk_queue);
+        dpdk_av->end_time = getTimeStamp();
+        dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
+        printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
+        TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
+        free(dpdk_av);
+    }
 
-        struct rte_mbuf *rm[1];
-        int c;
-        char *zdata;
-        FILE *file;
-        char sdata[PKT_SIZE];
-        file = fopen("/mnt/ssd_cache/server", "r");
-        if (file) {
-            c = fread(sdata, sizeof(char), 26, file);
-            // printf("send msg in FILESYSTEM: %s\n", sdata);
-            fclose(file);
-        }
-
-        msg = &obj;
-        strncpy(obj.data, sdata, 26);
-        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-
-        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr);
-
-        rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], 1);
-
-        printf("send msg in DPDK: %s\n", msg->data);
-        rte_eth_tx_burst(1, 0, rm, 1);
 }
 
 
@@ -150,6 +121,7 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     __rte_mbuf_sanity_check(m, 1);
     nb_segs = m->nb_segs;
 
+//    printf("dpdk_pktmbuf_dump\n");
     while (m && nb_segs != 0) {
         __rte_mbuf_sanity_check(m, 0);
         len = dump_len;
@@ -165,9 +137,10 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
     }
 }
 
+/* main processing loop */
 
 void
-l2fwd_rx_loop()
+l2fwd_tx_loop()
 {
     struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
     struct rte_mbuf *m;
@@ -175,42 +148,100 @@ l2fwd_rx_loop()
     unsigned lcore_id;
     unsigned i, j, portid, nb_rx;
     struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
 
     lcore_id = 1;
     qconf = &lcore_queue_conf[lcore_id];
 
+    struct rte_mbuf *rm[1];
+    portid = qconf->rx_port_list[0];
+    char* data;
+    struct message obj;
+    struct fuse_message * e = NULL;
+    struct message *msg, *_msg;
+    void *__msg;
+
+    while (!force_quit) {
+
+        if (rte_ring_dequeue(tx_ring, &__msg) < 0) {
+            // printf("Failed to recv message - message discarded\n");
+        } else {
+                _msg = (struct message *)__msg;
+                dpdk_av = malloc(sizeof(struct avg_node));
+                dpdk_av->start_time = getTimeStamp();
+                dpdk_av->num = dpdk_requests;
+                TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
+                dpdk_requests++;
+
+                msg = &obj;
+                strncpy(obj.data, _msg->data, 100);
+
+                rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+                data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+                if(strcmp(hostname,"w2")==0) {
+                    l2fwd_mac_updating(rm[0], portid); // WORKSTATION
+                }
+
+                if(strcmp(hostname,"c3n25")==0) {
+                    data += sizeof(struct ether_hdr) - 2; // ASU SERVER
+                    l2fwd_mac_updating(rm[0], portid); // ASU SERVER
+                }
+
+                rte_memcpy(data, msg, sizeof(struct message));
+                printf("send msg in DPDK: %s\n",_msg->data);
+                rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+                rte_pktmbuf_dump(stdout, rm[0], 60);
+                rte_eth_tx_burst(portid, 0, rm, 1);
+        }
+
+    }
+}
+
+
+void
+*l2fwd_rx_loop() {
+    struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
+    struct rte_mbuf *m;
+
+    unsigned lcore_id;
+    unsigned i, j, portid, nb_rx;
+    struct lcore_queue_conf *qconf;
+    struct rte_eth_dev_tx_buffer *buffer;
+
+    lcore_id = 1;
+    qconf = &lcore_queue_conf[lcore_id];
+
+    struct rte_mbuf *rm[1];
 
     while (!force_quit) {
         /*
          * Read packet from RX queues
          */
+        for (i = 0; i < qconf->n_rx_port; i++) {
             portid = qconf->rx_port_list[0];
             nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
                                      pkts_burst, MAX_PKT_BURST);
 
             for (j = 0; j < nb_rx; j++) {
+                //CHARA BEGIN
                 m = pkts_burst[j];
+
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+                int header_length = rte_mbuf_packet_length - 1024;
 
-                // rte_pktmbuf_dump(stdout, m, 60);
-
-                if(rte_mbuf_packet_length==PKT_SIZE){
-                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
+                if (rte_mbuf_packet_length == 1024) {
+                    // rte_pktmbuf_dump(stdout, m, 1024);
+                    dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
-
+                //CHARA END
+                rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
+                rte_pktmbuf_free(m);
             }
+        }
     }
-}
-
-
-/* main processing loop */
-void
-*l2fwd_tx_loop()
-{
 
 }
-
-
 
 
 static int
@@ -248,29 +279,13 @@ l2fwd_parse_nqueue(const char *q_arg)
     return n;
 }
 
-#define CMD_LINE_OPT_MAC_UPDATING "mac-updating"
-#define CMD_LINE_OPT_NO_MAC_UPDATING "no-mac-updating"
-
-enum {
-    /* long options mapped to a short option */
-
-    /* first long only option value must be >= 256, so that we won't
-     * conflict with short options */
-            CMD_LINE_OPT_MIN_NUM = 256,
-};
-
-static const struct option lgopts[] = {
-        { CMD_LINE_OPT_MAC_UPDATING, no_argument, &mac_updating, 1},
-        { CMD_LINE_OPT_NO_MAC_UPDATING, no_argument, &mac_updating, 0},
-        {NULL, 0, 0, 0}
-};
 
 /* Parse the argument given in the command line of the application */
 static int
 l2fwd_parse_args()
 {
     int ret;
-    char *prgname = "dpdk-server_backup";
+    char *prgname = "dpdk-client";
     l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x2");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
     ret = 6;
@@ -338,7 +353,6 @@ check_all_ports_link_status(uint8_t port_num, uint32_t port_mask)
 }
 
 
-
 static void
 signal_handler(int signum)
 {
@@ -350,20 +364,16 @@ signal_handler(int signum)
 }
 
 
-int dpdk_init(){
+struct thread_data
+{
+    int c;
+    char **v;
+};
 
-    TAILQ_INIT(&fuse_tx_queue);
-    TAILQ_INIT(&fuse_rx_queue);
 
-    if (pthread_mutex_init(&rx_lock, NULL) != 0) {
-        printf("\n mutex init has failed\n");
-        return 1;
-    }
+void dpdk_msg_init() {
 
-    if (pthread_mutex_init(&tx_lock, NULL) != 0) {
-        printf("\n mutex init has failed\n");
-        return 1;
-    }
+    printf("DPDK BEGIN\n");
 
     struct lcore_queue_conf *qconf;
     struct rte_eth_dev_info dev_info;
@@ -374,15 +384,16 @@ int dpdk_init(){
     unsigned lcore_id, rx_lcore_id;
     unsigned nb_ports_in_mask = 0;
 
-    int count = 12;
-    char** dpdk_argv;
-    dpdk_argv = malloc(count * sizeof(char*));      // allocate the array to hold the pointer
-    for (size_t i = 0; i < count; i += 1)
-        dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
 
-    dpdk_argv[0]="./build/dpdk_server";
+    int dpdk_argc = 12;
+    char** dpdk_argv;
+    dpdk_argv = malloc(dpdk_argc * sizeof(char*));
+    for (size_t i = 0; i < dpdk_argc; i += 1)
+        dpdk_argv[i] = malloc(255 * sizeof(char));
+
+    dpdk_argv[0]="./sfss";
     dpdk_argv[1]="-c";
-    dpdk_argv[2]="0x2";
+    dpdk_argv[2]="0x12";
     dpdk_argv[3]="-n";
     dpdk_argv[4]="4";
     dpdk_argv[5]="--";
@@ -393,9 +404,11 @@ int dpdk_init(){
     dpdk_argv[10]="-T";
     dpdk_argv[11]="1";
 
-
     /* init EAL */
-    ret = rte_eal_init(count, dpdk_argv);
+    ret = rte_eal_init(dpdk_argc, dpdk_argv);
+    if (ret < 0)
+        rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
+
     force_quit = false;
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
@@ -406,6 +419,8 @@ int dpdk_init(){
         rte_exit(EXIT_FAILURE, "Invalid L2FWD arguments\n");
 
     printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
+
+
 
     /* create the mbuf pool */
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
@@ -418,6 +433,10 @@ int dpdk_init(){
                                                     NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
 
+    rx_ring = rte_ring_create("mbuf_rx_ring", 32, rte_socket_id(), 0);
+    tx_ring = rte_ring_create("mbuf_tx_ring", 32, rte_socket_id(), 0);
+
+
     if (l2fwd_pktmbuf_pool == NULL)
         rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
@@ -425,14 +444,10 @@ int dpdk_init(){
     if (nb_ports == 0)
         rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
 
-    printf("CHARA: available ports %u\n",nb_ports);
-
-
     /* reset l2fwd_dst_ports */
     for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
         l2fwd_dst_ports[portid] = 0;
     last_port = 0;
-
 
     /*
      * Each logical core is assigned a dedicated TX queue on each port.
@@ -464,10 +479,8 @@ int dpdk_init(){
     /* Initialize the port/queue configuration of each logical core */
     for (portid = 0; portid < nb_ports; portid++) {
         /* skip ports that are not enabled */
-        if ((l2fwd_enabled_port_mask & (1 << portid)) == 0) {
-            printf("CHARA: port %u is skipped\n", portid);
+        if ((l2fwd_enabled_port_mask & (1 << portid)) == 0)
             continue;
-        }
 
         /* get the lcore_id for this port */
         while (rte_lcore_is_enabled(rx_lcore_id) == 0 ||
@@ -489,7 +502,9 @@ int dpdk_init(){
 
     nb_ports_available = nb_ports;
 
-    /* Initialise each port */
+
+
+/* Initialise each port */
     for (portid = 0; portid < nb_ports; portid++) {
         /* skip ports that are not enabled */
         if ((l2fwd_enabled_port_mask & (1 << portid)) == 0) {
@@ -497,6 +512,7 @@ int dpdk_init(){
             nb_ports_available--;
             continue;
         }
+
         /* init port */
         printf("Initializing port %u... ", (unsigned) portid);
         fflush(stdout);
@@ -536,9 +552,6 @@ int dpdk_init(){
 
         rte_eth_tx_buffer_init(tx_buffer[portid], MAX_PKT_BURST);
 
-        if (ret < 0)
-            rte_exit(EXIT_FAILURE, "Cannot set error callback for "
-                                   "tx buffer on port %u\n", (unsigned) portid);
 
         /* Start device */
         ret = rte_eth_dev_start(portid);
@@ -548,7 +561,7 @@ int dpdk_init(){
 
         printf("done: \n");
 
-        rte_eth_promiscuous_enable(portid);
+        rte_eth_promiscuous_disable(portid);
 
         printf("Port %u, MAC address: %02X:%02X:%02X:%02X:%02X:%02X\n\n",
                (unsigned) portid,
@@ -565,4 +578,9 @@ int dpdk_init(){
         rte_exit(EXIT_FAILURE,
                  "All available ports are disabled. Please set portmask.\n");
     }
+
+    check_all_ports_link_status(nb_ports, l2fwd_enabled_port_mask);
+
+    printf("DPDK END\n");
 }
+
