@@ -179,6 +179,8 @@ l2fwd_tx_loop()
                 if (data != NULL)
                     rte_memcpy(data, msg, sizeof(struct message));
 
+
+                rte_pktmbuf_dump(stdout, m, 1024);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 rte_eth_tx_burst(portid, 0, rm, 1);
         }
@@ -219,7 +221,7 @@ void
                 int header_length = rte_mbuf_packet_length - 1024;
 
                 if (rte_mbuf_packet_length == 1024) {
-                    rte_pktmbuf_dump(stdout, m, 1024);
+                    // rte_pktmbuf_dump(stdout, m, 1024);
                     dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
                 }
                 //CHARA END
