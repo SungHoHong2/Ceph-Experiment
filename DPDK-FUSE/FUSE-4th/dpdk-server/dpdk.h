@@ -164,7 +164,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         }
 
         rte_memcpy(zdata, msg, sizeof(struct message));
-        printf("send msg in DPDK: %s\n",obj->data);
+        printf("send msg in DPDK: %s\n",obj.data);
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
         // rte_pktmbuf_dump(stdout, rm[0], 60);
         rte_eth_tx_burst(portid, 0, rm, 1);
