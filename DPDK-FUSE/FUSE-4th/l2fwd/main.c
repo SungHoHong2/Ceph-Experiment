@@ -75,7 +75,6 @@ static volatile bool force_quit;
 
 /* MAC updating enabled by default */
 static int mac_updating = 1;
-char hostname[1024];
 
 #define RTE_LOGTYPE_L2FWD RTE_LOGTYPE_USER1
 
@@ -198,9 +197,6 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-
-
-
 	*((uint64_t *)tmp) = 0x000000000002 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
@@ -330,7 +326,7 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 	return 0;
 }
 
-/* display usage */ O
+/* display usage */
 static void
 l2fwd_usage(const char *prgname)
 {
@@ -563,9 +559,6 @@ main(int argc, char **argv)
 	uint8_t portid, last_port;
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
-
-	gethostname(hostname, 1023);
-
 
 	/* init EAL */
 	ret = rte_eal_init(argc, argv);
