@@ -75,10 +75,10 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
     /* 02:00:00:00:00:xx */
     tmp = &eth->d_addr.addr_bytes[0];
-    // *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
+    *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
 
     // ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
-    *((uint64_t *)tmp) = 0x81cbd92d1de4 + ((uint64_t)dest_portid << 40);
+    // *((uint64_t *)tmp) = 0x81cbd92d1de4 + ((uint64_t)dest_portid << 40);
 
     /* src addr */
     ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);

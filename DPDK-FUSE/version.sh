@@ -80,7 +80,6 @@ gcc ssfs.c -o ssfs -lm `pkg-config fuse --cflags --libs`
 fi
 
 
-
 # RUNNING THE FUSE-DPDK BEGN
 elif [ "$1" = "ssfs_setup" ]
 then
