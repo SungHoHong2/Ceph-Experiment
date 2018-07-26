@@ -19,6 +19,9 @@
     - [x] find some process that does not have the sudo permission that is run by FUSE
     - [x] solve the situation where dpdk can work with FUSE
     - [x] Mellanox Connect X-3 is not working
+
+    - [] dpdk is not sending the data
+      - could it be that you are actually sending the data but DPDK is not understanding your packets? 
     - [ ] get the cache hit results
     - [ ] get the non-remote storage result
 
