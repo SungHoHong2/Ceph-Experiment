@@ -18,12 +18,14 @@ then
 
   elif [ "$HOSTS" = "c3n24" ]
   then
+  export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-server/
   make
   ./build/dpdk-server -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
 
   elif [ "$HOSTS" = "c3n25" ]
   then
+  export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/dpdk-client/
   make
   ./build/dpdk-client -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
