@@ -332,7 +332,7 @@ l2fwd_parse_args()
 {
     int ret;
     char *prgname = "dpdk-server_backup";
-    l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
+    l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x2");
     l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
     ret = 6;
     return ret;
