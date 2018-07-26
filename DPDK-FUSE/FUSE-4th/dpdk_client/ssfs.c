@@ -109,6 +109,8 @@ int main( int argc, char **argv )
         return 1;
     }
 
+    gethostname(hostname, 1023);
+
     printf("FUSE-DPDK-CLIENT BEGIN\n");
     pthread_t threads[2];
     dpdk_msg_init();

@@ -95,6 +95,7 @@ main(int argc, char **argv)
 		}
 	}
 
+	gethostname(hostname, 1023);
 
 	dpdk_init();
 	printf("FUSE-DPDK-SERVER BEGIN\n");
