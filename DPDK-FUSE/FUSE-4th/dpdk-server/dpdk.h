@@ -127,22 +127,47 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             fclose(file);
         }
 
-        msg = &obj;
-        strncpy(obj.data, sdata, 26);
-        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//        msg = &obj;
+//        strncpy(obj.data, sdata, 26);
+//        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+//        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+//
+//        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
+//        zdata+=sizeof(struct ether_hdr);
+//
+//        rte_memcpy(zdata, msg, sizeof(struct message));
+//        l2fwd_mac_updating(rm[0], 1);
+//
+//        rte_pktmbuf_dump(stdout, rm[0], 60);
+//        printf("send msg in DPDK: %s\n", msg->data);
+//
+//        rte_eth_tx_burst(1, 0, rm, 1);
 
+
+
+        msg = &obj;
+        strncpy(obj.data, sdata, 100);
+
+        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr);
-        zdata-=2;
+
+        if(strcmp(hostname,"w2")==0) {
+            l2fwd_mac_updating(rm[0], portid); // WORKSTATION
+        }
+
+        if(strcmp(hostname,"c3n25")==0) {
+            zdata += sizeof(struct ether_hdr) - 2; // ASU SERVER
+            l2fwd_mac_updating(rm[0], portid); // ASU SERVER
+        }
 
         rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], 1);
+        printf("send msg in DPDK: %s\n",_msg->data);
+        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+        // rte_pktmbuf_dump(stdout, rm[0], 60);
+        rte_eth_tx_burst(portid, 0, rm, 1);
 
-        rte_pktmbuf_dump(stdout, rm[0], 60);
-        printf("send msg in DPDK: %s\n", msg->data);
 
-        rte_eth_tx_burst(1, 0, rm, 1);
+
 }
 
 
