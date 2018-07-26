@@ -181,15 +181,20 @@ l2fwd_tx_loop()
                 strncpy(obj.data, _msg->data, 100);
 
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-                // l2fwd_mac_updating(rm[0], portid);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-                data+=sizeof(struct ether_hdr)-2;
-                if (data != NULL)
-                    rte_memcpy(data, msg, sizeof(struct message));
 
+                if(strcmp(hostname,"w2")==0) {
+                    l2fwd_mac_updating(rm[0], portid); // WORKSTATION
+                }
+
+                if(strcmp(hostname,"c3n25")==0) {
+                    data += sizeof(struct ether_hdr) - 2; // ASU SERVER
+                    l2fwd_mac_updating(rm[0], portid); // ASU SERVER
+                }
+
+                rte_memcpy(data, msg, sizeof(struct message));
                 printf("send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-                l2fwd_mac_updating(rm[0], portid);
                 rte_pktmbuf_dump(stdout, rm[0], 60);
                 rte_eth_tx_burst(portid, 0, rm, 1);
         }
