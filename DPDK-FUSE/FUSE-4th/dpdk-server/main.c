@@ -283,8 +283,6 @@ int dpdk_init(){
 			   l2fwd_ports_eth_addr[portid].addr_bytes[4],
 			   l2fwd_ports_eth_addr[portid].addr_bytes[5]);
 
-		/* initialize port stats */
-		memset(&port_statistics, 0, sizeof(port_statistics));
 	}
 
 	if (!nb_ports_available) {
