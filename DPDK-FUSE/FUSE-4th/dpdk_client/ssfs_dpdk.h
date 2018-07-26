@@ -361,12 +361,12 @@ struct thread_data
 };
 
 
-void dpdk_msg_init(void *threadarg) {
+void dpdk_msg_init() {
 
     printf("DPDK BEGIN\n");
 
-    struct thread_data *my_data;
-    my_data = (struct thread_data *) threadarg;
+//    struct thread_data *my_data;
+//    my_data = (struct thread_data *) threadarg;
 
 //    int argc = my_data->c;
 //    char **argv = my_data->v;
