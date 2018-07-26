@@ -1,6 +1,3 @@
-export RTE_SDK=/home/sungho/dpdk-stable-17.05.2
-export DESTDIR=/usr/local
-export RTE_TARGET=x86_64-native-linuxapp-gcc
 git pull origin master
 HOSTS="$(cat /etc/hostname)"
 
