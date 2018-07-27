@@ -106,6 +106,12 @@ int main( int argc, char **argv )
             if(strcmp(argv[i],"TEN")==0){
                 MAX_LOOP = 10;
             }
+            if(strcmp(argv[i],"HUNDRED")==0){
+                MAX_LOOP = 100;
+            }
+            if(strcmp(argv[i],"THOUSAND")==0){
+                MAX_LOOP = 1000;
+            }
         }
     }
 

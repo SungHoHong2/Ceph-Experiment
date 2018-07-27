@@ -137,7 +137,8 @@ then
   elif [ "$HOSTS" = "c3n25" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
-  gcc bench.c -o bench -lm && ./bench
+  # gcc bench.c -o bench -lm && ./bench "TEN"
+  gcc bench.c -o bench -lm && ./bench "HUNDRED"
   fi
 
 elif [ "$1" = "Fuse_4th_DPDK_Experiments" ]
