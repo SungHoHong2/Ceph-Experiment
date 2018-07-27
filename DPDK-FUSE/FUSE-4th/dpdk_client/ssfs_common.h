@@ -1,6 +1,6 @@
 #include <sys/time.h>
 #include <math.h>
-int NOFILESYSTEM = 0;
+int CACHE_HIT = 0;
 int total_requests = 0;
 int dpdk_requests = 0;
 

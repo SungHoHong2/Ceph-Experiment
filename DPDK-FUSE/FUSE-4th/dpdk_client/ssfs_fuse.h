@@ -324,29 +324,39 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
 
-    printf("CHARA:: %s %d\n", buf, size);
 
     if(total_requests==MAX_LOOP){
         calculateSD(intervals);
     }
 
 
-    if(fi == NULL)
-        fd = open(path, O_RDONLY);
-    else
-        fd = fi->fh;
+    if(CACHE_HIT==0){
+        if(fi == NULL)
+            fd = open(path, O_RDONLY);
+        else
+            fd = fi->fh;
 
-    if (fd == -1)
-        return -errno;
+        if (fd == -1)
+            return -errno;
 
-    res = pread(fd, buf, size, offset);
+        res = pread(fd, buf, size, offset);
 
 
-    if (res == -1)
-        res = -errno;
+        if (res == -1)
+            res = -errno;
 
-    if(fi == NULL)
-        close(fd);
+        if(fi == NULL)
+            close(fd);
+
+        printf("CHARA:: %s %d %d\n", buf, size, ret);
+
+    }
+
+    else {
+        strcpy(buf,_msg->data, strlen(_msg->data));
+        ret = 1;
+    }
+
 
 
 
