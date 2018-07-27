@@ -141,6 +141,9 @@ int main( int argc, char **argv )
 
     printf("FUSE-DPDK-CLIENT BEGIN");
     if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
+    if(MAX_LOOP == 10) printf(" 10 REQ");
+    if(MAX_LOOP == 100) printf(" 100 REQ");
+
     printf("\n");
 
     umask(0);
