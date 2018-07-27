@@ -351,7 +351,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         printf("CHARA:: %s %d %d\n", buf, size, res);
     }
 
-    else {
+    if(CACHE_HIT==1){
         strcpy(buf,_msg->data);
         res = 26;
     }
