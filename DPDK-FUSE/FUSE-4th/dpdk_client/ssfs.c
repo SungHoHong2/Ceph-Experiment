@@ -95,7 +95,6 @@ void *dpdk_launch(){
 int main( int argc, char **argv )
 {
 
-
     printf("CHECKING ARGUEMENTS\n");
     if(argc>0){
         int i =0;
@@ -143,7 +142,7 @@ int main( int argc, char **argv )
 
     fuse_argv[0]="./ssfs";
     fuse_argv[1]="-f";
-    fuse_argv[2]="/data1/sungho/trash";
+    fuse_argv[2]= argv[2];
     fuse_main(fuse_argc, fuse_argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
     return 0;
