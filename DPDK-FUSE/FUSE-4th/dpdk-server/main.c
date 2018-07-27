@@ -91,6 +91,7 @@ main(int argc, char **argv)
 	NOFILESYSTEM = 0;
 	if(argc>0){
 		if(strcmp(argv[0],"NOFILESYSTEM")==0){
+			printf("NOFILESYSTEM enabled");
 			NOFILESYSTEM = 1;
 		}
 	}
