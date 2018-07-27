@@ -43,7 +43,11 @@ int main( int argc, char **argv )
         printf("\n mutex init has failed\n");
         return 1;
     }
-    printf("FUSE-POSIX BEGIN\n");
+    printf("FUSE-POSIX-SERVER BEGIN");
+    if(NOFILESYSTEM == 1) printf(" WITH NOFILESYSTEM");
+    printf("\n");
+
+
     pthread_t threads[2];
     int rc = pthread_create(&threads[0], NULL, tcp_recv_launch, NULL);
         rc = pthread_create(&threads[1], NULL, tcp_send_launch, NULL);
