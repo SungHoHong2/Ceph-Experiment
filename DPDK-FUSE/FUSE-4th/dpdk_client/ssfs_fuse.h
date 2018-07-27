@@ -340,11 +340,16 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         return -errno;
 
     res = pread(fd, buf, size, offset);
+
+    printf("CHARA:: %s %d\n", buf, size);
+
     if (res == -1)
         res = -errno;
 
     if(fi == NULL)
         close(fd);
+
+
 
     return res;
 }
