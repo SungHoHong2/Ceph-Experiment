@@ -207,8 +207,8 @@ elif [ "$HOSTS" = "c3n25" ]
 then
 cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/posix_client
 gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread
-# ./ssfs -f /data1/sungho/trash  "HUNDRED"
-./ssfs -f /data1/sungho/trash "CACHE_HIT"  "HUNDRED"
+./ssfs -f /data1/sungho/trash  "HUNDRED"
+# ./ssfs -f /data1/sungho/trash "CACHE_HIT"  "HUNDRED"
 
 fi
 
