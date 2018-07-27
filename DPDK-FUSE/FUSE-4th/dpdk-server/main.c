@@ -90,6 +90,14 @@ main(int argc, char **argv)
 
 	NOFILESYSTEM = 0;
 	if(argc>0){
+
+		printf("all args\n");
+		int s =0;
+		for(s;s<argc; s++){
+			printf("%s\n", argv[s]);
+
+		}
+
 		if(strcmp(argv[0],"NOFILESYSTEM")==0){
 			printf("NOFILESYSTEM enabled");
 			NOFILESYSTEM = 1;
