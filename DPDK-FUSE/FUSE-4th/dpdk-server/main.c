@@ -93,7 +93,7 @@ main(int argc, char **argv)
 	printf("CHECKING ARGUEMENTS\n");
 	if(argc>0){
 		if(strcmp(argv[1],"NOFILESYSTEM")==0){
-			printf("NOFILESYSTEM enabled");
+			printf("NOFILESYSTEM enabled\n");
 			NOFILESYSTEM = 1;
 		}
 	}

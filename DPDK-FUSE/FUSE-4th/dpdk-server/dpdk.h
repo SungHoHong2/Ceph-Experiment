@@ -123,6 +123,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         char *zdata;
 
         if( NOFILESYSTEM == 1 ) {
+            msg = &obj;
+            strncpy(obj.data, "Hello World From SERVER!\n", 26);
+        } else {
             FILE *file;
             char sdata[PKT_SIZE];
             file = fopen("/mnt/ssd_cache/server", "r");
@@ -134,9 +137,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             msg = &obj;
             strncpy(obj.data, sdata, 26);
-        } else {
-            msg = &obj;
-            strncpy(obj.data, "Hello World From SERVER!\n", 26);
         }
 
 
