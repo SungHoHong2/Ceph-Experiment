@@ -1,4 +1,3 @@
-#define MAX_LOOP 10
 uint64_t start_time, end_time;
 FILE *test_file;
 char test_data[1024];

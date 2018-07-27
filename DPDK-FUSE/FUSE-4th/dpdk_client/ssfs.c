@@ -102,6 +102,10 @@ int main( int argc, char **argv )
             if(strcmp(argv[i],"CACHE_HIT")==0){
                 CACHE_HIT = 1;
             }
+
+            if(strcmp(argv[i],"TEN")==0){
+                MAX_LOOP = 10;
+            }
         }
     }
 
