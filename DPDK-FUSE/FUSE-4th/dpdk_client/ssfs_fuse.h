@@ -348,13 +348,13 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         if(fi == NULL)
             close(fd);
 
-        printf("CHARA:: %s %d %d\n", buf, size, ret);
+        printf("CHARA:: %s %d %d\n", buf, size, res);
 
     }
 
     else {
-        strcpy(buf,_msg->data, strlen(_msg->data));
-        ret = 1;
+        strcpy(buf,_msg->data);
+        res = 1;
     }
 
 

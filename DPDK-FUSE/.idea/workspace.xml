@@ -19,11 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="134" column="17" lean-forward="true" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="17" />
+            <state relative-caret-position="156">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="656">
+              <caret line="355" column="29" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -126,8 +135,8 @@
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h" />
-        <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c" />
+        <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h" />
       </list>
     </option>
   </component>
@@ -272,12 +281,12 @@
       <workItem from="1532367785336" duration="13690000" />
       <workItem from="1532447937353" duration="2323000" />
       <workItem from="1532540650787" duration="4088000" />
-      <workItem from="1532626181611" duration="17866000" />
+      <workItem from="1532626181611" duration="17894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220774000" />
+    <option name="totallyTimeSpent" value="220802000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -626,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2429">
-          <caret line="322" column="13" lean-forward="true" selection-start-line="322" selection-start-column="13" selection-end-line="322" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-22">
@@ -656,8 +658,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="134" column="17" lean-forward="true" selection-start-line="134" selection-start-column="17" selection-end-line="134" selection-end-column="17" />
+        <state relative-caret-position="156">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="355" column="29" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
         </state>
       </provider>
     </entry>
