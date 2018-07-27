@@ -349,12 +349,11 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             close(fd);
 
         printf("CHARA:: %s %d %d\n", buf, size, res);
-
     }
 
     else {
         strcpy(buf,_msg->data);
-        res = 1;
+        res = 26;
     }
 
 
