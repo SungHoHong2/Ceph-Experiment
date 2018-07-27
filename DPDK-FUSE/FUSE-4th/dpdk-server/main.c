@@ -89,6 +89,8 @@ main(int argc, char **argv)
 {
 
 	NOFILESYSTEM = 0;
+
+	printf("CHECKING ARGUEMENTS\n");
 	if(argc>0){
 
 		printf("all args\n");
