@@ -119,7 +119,8 @@ then
   cat /mnt/ssd_cache/home/sungho/client.txt
   elif [ "$HOSTS" = "c3n25" ]
   then
-  cat /data1/sungho/trash/data1/sungho/client.txt
+  cat /mnt/ssd_cache/data1/sungho/client.txt
+
   fi
 
 elif [ "$1" = "ssfs_experiment_multi" ]

@@ -84,7 +84,7 @@ int main( int argc, char **argv ){
     for(i=0; i<MAX_LOOP; i++) {
         sleep(1);
         start_time = getTimeStamp();
-        file = fopen("/data1/sungho/trash/data1/sungho/client.txt", "r");
+        file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
         // file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
             fread(data, sizeof(char), 23, file);

@@ -46,11 +46,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="600">
               <caret line="347" column="43" selection-start-line="347" selection-start-column="42" selection-end-line="347" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bench.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="642">
+              <caret line="84" column="17" lean-forward="true" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -168,11 +177,11 @@
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk_common.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h" />
-        <option value="$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_common.h" />
+        <option value="$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c" />
       </list>
     </option>
   </component>
@@ -318,12 +327,12 @@
       <workItem from="1532447937353" duration="2323000" />
       <workItem from="1532540650787" duration="4088000" />
       <workItem from="1532626181611" duration="22274000" />
-      <workItem from="1532714199674" duration="501000" />
+      <workItem from="1532714199674" duration="785000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225683000" />
+    <option name="totallyTimeSpent" value="225967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -635,13 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="73" selection-start-line="73" selection-end-line="78" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_server/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="699">
@@ -702,6 +704,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="347" column="43" selection-start-line="347" selection-start-column="42" selection-end-line="347" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="642">
+          <caret line="84" column="17" lean-forward="true" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
         </state>
       </provider>
     </entry>
