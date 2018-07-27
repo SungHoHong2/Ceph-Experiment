@@ -324,6 +324,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
 
+    printf("CHARA:: %s\n", buf);
 
     if(total_requests==MAX_LOOP){
         calculateSD(intervals);
