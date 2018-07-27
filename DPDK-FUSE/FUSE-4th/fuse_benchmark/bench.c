@@ -20,7 +20,7 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define MAX_LOOP 10
+int MAX_LOOP;
 
 uint64_t getTimeStamp() {
     struct timeval tv;
@@ -28,7 +28,7 @@ uint64_t getTimeStamp() {
     return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
 
-double intervals[MAX_LOOP];
+double intervals[99999];
 
 void calculateSD(double data[])
 {
@@ -56,12 +56,30 @@ void calculateSD(double data[])
 // DPDK run the benchmark with the sudo
 
 
-int main(){
+int main( int argc, char **argv ){
 
     uint64_t start_time, end_time;
     FILE *file;
     char data[1024];
     int i;
+
+    printf("CHECKING ARGUEMENTS\n");
+
+    if(argc>1){
+        int i =0;
+        for(i=0;i<argc; i++){
+            if(strcmp(argv[i],"TEN")==0){
+                MAX_LOOP = 10;
+            }
+            if(strcmp(argv[i],"HUNDRED")==0){
+                MAX_LOOP = 100;
+            }
+            if(strcmp(argv[i],"THOUSAND")==0){
+                MAX_LOOP = 1000;
+            }
+        }
+    }
+
 
     for(i=0; i<MAX_LOOP; i++) {
         sleep(1);
