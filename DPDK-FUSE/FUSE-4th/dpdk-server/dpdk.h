@@ -121,17 +121,25 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         struct rte_mbuf *rm[1];
         int c;
         char *zdata;
-        FILE *file;
-        char sdata[PKT_SIZE];
-        file = fopen("/mnt/ssd_cache/server", "r");
-        if (file) {
-            c = fread(sdata, sizeof(char), 26, file);
-            // printf("send msg in FILESYSTEM: %s\n", sdata);
-            fclose(file);
+
+        if( NOFILESYSTEM == 1 ) {
+            FILE *file;
+            char sdata[PKT_SIZE];
+            file = fopen("/mnt/ssd_cache/server", "r");
+            if (file) {
+                c = fread(sdata, sizeof(char), 26, file);
+                // printf("send msg in FILESYSTEM: %s\n", sdata);
+                fclose(file);
+            }
+
+            msg = &obj;
+            strncpy(obj.data, sdata, 26);
+        } else {
+            msg = &obj;
+            strncpy(obj.data, "Hello World From SERVER!\n", 26);
         }
 
-        msg = &obj;
-        strncpy(obj.data, sdata, 26);
+
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
