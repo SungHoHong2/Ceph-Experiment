@@ -101,8 +101,11 @@ main(int argc, char **argv)
 	gethostname(hostname, 1023);
 
 	dpdk_init();
-	printf("FUSE-DPDK-SERVER BEGIN\n");
 
+	printf("FUSE-DPDK-SERVER BEGIN");
+	if(NOFILESYSTEM == 1) printf(" WITH NOFILESYSTEM");
+	printf("\n");
+	
 	/* launch per-lcore init on every lcore */
 	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);
 	printf("Closing port %d...", 1);
