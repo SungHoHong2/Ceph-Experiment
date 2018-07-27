@@ -339,20 +339,30 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 
 
-    if(fi == NULL)
-        fd = open(path, O_RDONLY);
-    else
-        fd = fi->fh;
+    if(CACHE_HIT==0){
+        if(fi == NULL)
+            fd = open(path, O_RDONLY);
+        else
+            fd = fi->fh;
 
-    if (fd == -1)
-        return -errno;
+        if (fd == -1)
+            return -errno;
 
-    res = pread(fd, buf, size, offset);
-    if (res == -1)
-        res = -errno;
+        res = pread(fd, buf, size, offset);
 
-    if(fi == NULL)
-        close(fd);
+
+        if (res == -1)
+            res = -errno;
+
+        if(fi == NULL)
+            close(fd);
+    }
+
+    if(CACHE_HIT==1){
+        strcpy(buf,_msg->data);
+        res = 26;
+    }
+
 
     return res;
 }

@@ -56,6 +56,17 @@
 
 int main( int argc, char **argv )
 {
+
+    printf("CHECKING ARGUEMENTS\n");
+    if(argc>1){
+        int i =0;
+        for(i=0;i<argc; i++){
+            if(strcmp(argv[i],"CACHE_HIT")==0){
+                CACHE_HIT = 1;
+            }
+        }
+    }
+
     TAILQ_INIT(&avg_queue);
     TAILQ_INIT(&posix_queue);
     TAILQ_INIT(&fuse_tx_queue);
@@ -77,9 +88,11 @@ int main( int argc, char **argv )
         rc = pthread_create(&threads[1], NULL, tcp_recv_launch, NULL);
 
 
-    printf("FUS-CLIENT BEGIN\n");
-    umask(0);
+    printf("FUSE-POSIX-CLIENT BEGIN");
+    if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
+    printf("\n");
 
+    umask(0);
     fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
 

@@ -194,24 +194,31 @@ void *tcp_send_launch(){
 
             msg = &obj;
 
-            int c;
-            FILE *file;
-            char sdata[1024];
-            file = fopen("/data1/sungho/trash/server", "r");
-            if (file) {
-                fread(sdata, sizeof(char), 1024, file);
-                 // printf("send msg in FILESYSTEM: %s\n", sdata);
-                fclose(file);
-            }
-
-            strncpy(obj.data, sdata, 1024);
-            data = (char*)&obj;
-
-            if (data != NULL) {
-                memcpy(data, msg, sizeof(struct message));
-                success = send(sockfd, data, PKT_SIZE, 0);
+            if( NOFILESYSTEM == 1 ) {
+                success = send(sockfd, "Hello World From SERVER!", PKT_SIZE, 0);
                 if (success && strlen(data) > 0) {
-                     printf("send msg in POSIX: %s\n",msg->data);
+                    printf("send msg in POSIX: %s\n",msg->data);
+                }
+            } else {
+                int c;
+                FILE *file;
+                char sdata[1024];
+                file = fopen("/data1/sungho/trash/server", "r");
+                if (file) {
+                    fread(sdata, sizeof(char), 1024, file);
+                    // printf("send msg in FILESYSTEM: %s\n", sdata);
+                    fclose(file);
+                }
+
+                strncpy(obj.data, sdata, 1024);
+                data = (char*)&obj;
+
+                if (data != NULL) {
+                    memcpy(data, msg, sizeof(struct message));
+                    success = send(sockfd, data, PKT_SIZE, 0);
+                    if (success && strlen(data) > 0) {
+                        printf("send msg in POSIX: %s\n",msg->data);
+                    }
                 }
             }
 

@@ -1,6 +1,6 @@
 #include <sys/time.h>
 #include <math.h>
-
+int CACHE_HIT = 0;
 int total_requests = 0;
 int posix_requests = 0;
 
