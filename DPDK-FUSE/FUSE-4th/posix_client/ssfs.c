@@ -93,7 +93,16 @@ int main( int argc, char **argv )
     printf("\n");
 
     umask(0);
-    fuse_main(argc, argv, &xmp_oper, NULL);
+    int fuse_argc = 3;
+    char** fuse_argv;
+    fuse_argv = malloc(fuse_argc * sizeof(char*));
+    for (size_t i = 0; i < fuse_argc; i += 1)
+        fuse_argv[i] = malloc(255 * sizeof(char));
+
+    fuse_argv[0]="./ssfs";
+    fuse_argv[1]="-f";
+    fuse_argv[2]= argv[2];
+    fuse_main(fuse_argc, fuse_argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
 
 
