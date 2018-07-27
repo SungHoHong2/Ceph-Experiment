@@ -347,8 +347,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
         if(fi == NULL)
             close(fd);
-
-        printf("CHARA:: %s %d %d\n", buf, size, res);
     }
 
     if(CACHE_HIT==1){
