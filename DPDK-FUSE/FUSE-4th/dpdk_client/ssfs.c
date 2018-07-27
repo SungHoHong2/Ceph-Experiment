@@ -94,6 +94,20 @@ void *dpdk_launch(){
 
 int main( int argc, char **argv )
 {
+
+    printf("CHECKING ARGUEMENTS\n");
+    if(argc>0){
+        int i =0;
+        for(i=0;i<argc; i++){
+            printf("%s\n",argv[i]);
+        }
+
+        if(strcmp(argv[1],"NOFILESYSTEM")==0){
+            NOFILESYSTEM = 1;
+        }
+    }
+
+
     TAILQ_INIT(&dpdk_queue);
     TAILQ_INIT(&avg_queue);
     TAILQ_INIT(&fuse_tx_queue);
@@ -117,8 +131,23 @@ int main( int argc, char **argv )
     int rc = pthread_create(&threads[0], NULL, dpdk_launch, NULL);
     // rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL); while(1);
 
-    printf("FUS-CLIENT BEGIN\n");
+    printf("FUSE-DPDK-CLIENT BEGIN");
+    if(NOFILESYSTEM == 1) printf(" WITH CACHE-HIT");
+    printf("\n");
+
+
     umask(0);
+//    int fuse_argc = 12;
+//    char** fuse_argv;
+//    dpdk_argv = malloc(fuse_argc * sizeof(char*));
+//    for (size_t i = 0; i < fuse_argc; i += 1)
+//        fuse_argv[i] = malloc(255 * sizeof(char));
+//
+//    dpdk_argv[0]="./sfss";
+//    dpdk_argv[1]="-c";
+//    dpdk_argv[2]="0x12";
+//    dpdk_argv[3]="-n";
+
     fuse_main(argc, argv, &xmp_oper, NULL);
     printf("FUSE-CLIENT END\n");
     return 0;
