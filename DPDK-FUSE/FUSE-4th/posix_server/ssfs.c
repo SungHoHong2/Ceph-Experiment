@@ -31,6 +31,18 @@
 
 int main( int argc, char **argv )
 {
+
+    NOFILESYSTEM = 0;
+    printf("CHECKING ARGUEMENTS\n");
+    if(argc>1){
+        int i;
+        for(i=0;i<argc; i++){
+            if(strcmp(argv[i],"NOFILESYSTEM")==0){
+                NOFILESYSTEM = 1;
+            }
+        }
+    }
+
     TAILQ_INIT(&fuse_tx_queue);
     TAILQ_INIT(&fuse_rx_queue);
 

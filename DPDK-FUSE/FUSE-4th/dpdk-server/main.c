@@ -89,16 +89,17 @@ main(int argc, char **argv)
 {
 
 	NOFILESYSTEM = 0;
-
 	printf("CHECKING ARGUEMENTS\n");
 	if(argc>1){
-		if(strcmp(argv[1],"NOFILESYSTEM")==0){
-			NOFILESYSTEM = 1;
+		int i;
+		for(i=0;i<argc; i++){
+			if(strcmp(argv[i],"NOFILESYSTEM")==0){
+				NOFILESYSTEM = 1;
+			}
 		}
 	}
 
 	gethostname(hostname, 1023);
-
 	dpdk_init();
 
 	printf("FUSE-DPDK-SERVER BEGIN");
