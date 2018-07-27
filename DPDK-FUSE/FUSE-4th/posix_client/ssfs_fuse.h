@@ -297,7 +297,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     selectedText = client;
     _msg = malloc(sizeof(struct message));
-    strcpy(_msg->data, selectedText);
 
     pthread_mutex_lock(&tx_lock);
         e = malloc(sizeof(struct fuse_message));
@@ -320,6 +319,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
         printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        strcpy(_msg->data, e->data);
         intervals[test_i] = (double)av->interval;
         test_i++;
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
@@ -335,8 +335,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     pthread_mutex_unlock(&rx_lock);
-
-
 
 
     if(CACHE_HIT==0){
