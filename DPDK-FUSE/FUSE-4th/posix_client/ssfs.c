@@ -100,7 +100,8 @@ int main( int argc, char **argv )
 
     printf("FUSE-POSIX-CLIENT BEGIN");
     if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
-    printf("\n");
+    if(MAX_LOOP == 10) printf(" 10 REQ");
+    if(MAX_LOOP == 100) printf(" 100 REQ");
 
     umask(0);
     int fuse_argc = 3;
