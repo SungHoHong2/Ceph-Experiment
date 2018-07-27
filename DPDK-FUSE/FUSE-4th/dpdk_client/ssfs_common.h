@@ -1,7 +1,7 @@
 #include <sys/time.h>
 #include <math.h>
-int MAX_LOOP = 0;
-int CACHE_HIT = 0;
+int MAX_LOOP;
+int CACHE_HIT;
 int total_requests = 0;
 int dpdk_requests = 0;
 

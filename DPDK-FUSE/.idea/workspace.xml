@@ -19,11 +19,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="103" column="43" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+            <state relative-caret-position="814">
+              <caret line="64" column="25" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -130,13 +139,13 @@
         <option value="$PROJECT_DIR$/FUSE-4th/posix_server/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk_common.h" />
-        <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c" />
+        <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h" />
       </list>
     </option>
   </component>
@@ -281,12 +290,12 @@
       <workItem from="1532367785336" duration="13690000" />
       <workItem from="1532447937353" duration="2323000" />
       <workItem from="1532540650787" duration="4088000" />
-      <workItem from="1532626181611" duration="21329000" />
+      <workItem from="1532626181611" duration="21386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224237000" />
+    <option name="totallyTimeSpent" value="224294000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -602,13 +611,6 @@
     <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk-server/dpdk_common.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -667,8 +669,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-4th/posix_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="103" column="43" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
+        <state relative-caret-position="814">
+          <caret line="64" column="25" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
         </state>
       </provider>
     </entry>
