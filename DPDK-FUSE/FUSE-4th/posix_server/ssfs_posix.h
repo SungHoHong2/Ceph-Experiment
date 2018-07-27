@@ -195,7 +195,10 @@ void *tcp_send_launch(){
             msg = &obj;
 
             if( NOFILESYSTEM == 1 ) {
-                success = send(sockfd, "Hello World From SERVER!", PKT_SIZE, 0);
+                strncpy(obj.data, "Hello World From SERVER!\n", 64);
+                data = (char*)&obj;
+                memcpy(data, msg, sizeof(struct message));
+                success = send(sockfd, data, PKT_SIZE, 0);
                 if (success && strlen(data) > 0) {
                     printf("send msg in POSIX: %s\n",msg->data);
                 }
