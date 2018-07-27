@@ -96,7 +96,7 @@ int main( int argc, char **argv )
 {
 
     printf("CHECKING ARGUEMENTS\n");
-    if(argc>0){
+    if(argc>1){
         int i =0;
         for(i=0;i<argc; i++){
             if(strcmp(argv[i],"CACHE_HIT")==0){
