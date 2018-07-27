@@ -52,6 +52,9 @@ void calculateSD(double data[])
 }
 
 
+// POSIX run the benchmark without the sudo
+// DPDK run the benchmark with the sudo
+
 
 int main(){
 

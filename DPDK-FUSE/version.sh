@@ -128,7 +128,6 @@ then
       cat /mnt/ssd_cache/home/sungho/client.txt
   done
 
-
 elif [ "$1" = "Fuse_exp_benchmark" ]
 then
   if [ "$HOSTS" = "w2" ]
@@ -207,7 +206,6 @@ gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/includ
 sudo -u sungho ./ssfs -f /data1/sungho/trash
 fi
 
-/data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/dpdk_client/ssfs
 # RUNNING THE FUSE-DPDK END
 else
 echo "no argument"
