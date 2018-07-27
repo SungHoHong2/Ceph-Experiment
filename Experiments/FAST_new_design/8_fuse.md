@@ -30,6 +30,8 @@
 00000000: E4 1D 2D D9 CB 82 E4 1D 2D D9 BF B1 46 72 6F 6D | ..-.....-...From
 00000000: E4 1D 2D D9 CB 82 E4 1D 2D D9 BF B1 00 00 48 65 | ..-.....-.....He
 
+516.719971
+67.566580
 
 ### installing Mellanox driver
 x86_64
