@@ -12,8 +12,8 @@ int main()
     char fl_nm[]={"/dev/nvme0n1p1"};
     char buf_wr[]={"FIRST TEXT INPUT\n"};
     char buf_wr2[]={"SECOND TEXT INPUT\n"};
-    char buf_rd[120];
-    char buf_rd2[120];
+    char buf_rd[strlen(buf_wr)];
+    char buf_rd2[strlen(buf_wr2)];
 
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
@@ -27,8 +27,6 @@ int main()
         perror("[error in write]\n");
     }
     else{
-
-        printf("length of the buf_wr %d\n", strlen(buf_wr));
         /*if open and write process are okey, read first write data
         * from file*/
         nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
@@ -53,7 +51,7 @@ int main()
         printf("%s\n", buf_rd2);
     }
 
-    
+
     //error checking for close process
     if(close(fd) == -1){
         perror("[error in close]\n");
