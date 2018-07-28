@@ -133,9 +133,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 //                // printf("send msg in FILESYSTEM: %s\n", sdata);
 //                fclose(file);
 //            }
-
-            msg = &obj;
-            strncpy(obj.data, sdata, 26);
+//            msg = &obj;
+//            strncpy(obj.data, sdata, 26);
         }
 
 
