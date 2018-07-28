@@ -43,8 +43,8 @@ int main(){
 
 
     lseek(fd, 0, SEEK_SET);        // go back to first block's start
-    write(fd, data, sizeof(data)); // write our message
-    printf("write data: %s\n",data);
+    int val = write(fd, data, sizeof(data)); // write our message
+    printf("write data: %s :: %d \n",data, val);
 
 
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
