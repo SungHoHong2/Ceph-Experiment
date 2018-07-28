@@ -54,7 +54,7 @@ int main()
 
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
     // fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
-    nr = pread(fd, aligned_buf_r, sizeof(aligned_buf_r), 0);
+    nr = pread(fd, aligned_buf_r, 4089, 0);
 
     printf("AFTER READ BEGIN\n");
     printf("\taligned_buf_r::%s\n",aligned_buf_r);
