@@ -2,7 +2,7 @@ git pull origin master
 HOSTS="$(cat /etc/hostname)"
 
 
-elif [ "$1" = "raw_filesystem_exp" ]
+if [ "$1" = "raw_filesystem_exp" ]
 then
   elif [ "$HOSTS" = "c3n24" ]
   then
