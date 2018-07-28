@@ -37,7 +37,7 @@ int main(){
     lseek(fd, 0, SEEK_SET);
     read(fd, read_buf, sizeof(read_buf));
 
-    // sanity check, should be all 0xFF if erase worked
+    // sanity check
     for(i = 0; i<20; i++)
         printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
@@ -49,7 +49,6 @@ int main(){
 
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
-
     printf("read data: %s\n", read_buf);
 
 
