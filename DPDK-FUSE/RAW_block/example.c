@@ -22,9 +22,10 @@ int main(){
 
     unsigned char read_buf[4096] = {0x00};
 
-    // int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
-     int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
+    int fd = open("/dev/nvme0n1p1", O_CREAT|O_TRUNC|O_WRONLY|O_DIRECT, S_IRWXU);
+    // int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
+    // int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
 //    ei.length = mtd_info.erasesize;   //set the erase block size
 //    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
