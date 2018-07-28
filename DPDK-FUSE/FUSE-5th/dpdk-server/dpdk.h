@@ -426,13 +426,13 @@ int dpdk_init(){
 
     /* create the mbuf pool */
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
-                                                 MEMPOOL_CACHE_SIZE, 0, PKT_SIZE,
+                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
                                                  rte_socket_id());
 
     /* create memory pool for send data */
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, PKT_SIZE, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
 
     if (l2fwd_pktmbuf_pool == NULL)
