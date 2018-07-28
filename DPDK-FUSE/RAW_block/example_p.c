@@ -48,18 +48,18 @@ int main()
 
     }
 
-//    //second write process.
-//    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
-//
-//    //write error checking
-//    if(nw2 == -1){
-//        perror("[error in write 2]\n");
-//    }else{
-//        /*if write process is correct
-//        * second read process*/
-//        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
-//        printf("%s\n", buf_rd3);
-//    }
+    //second write process.
+    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
+
+    //write error checking
+    if(nw2 == -1){
+        perror("[error in write 2]\n");
+    }else{
+        /*if write process is correct
+        * second read process*/
+        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
+        printf("%s\n", buf_rd3);
+    }
 
 
     //error checking for close process
