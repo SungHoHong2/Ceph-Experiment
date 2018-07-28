@@ -2,6 +2,9 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <mtd/mtd-user.h>
+#define _GNU_SOURCE
+
+
 
 
 int main(){
