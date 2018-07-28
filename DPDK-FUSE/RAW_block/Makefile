@@ -1,2 +1,2 @@
-examplemake: example.c
-        gcc -o example example.c example.c -I.
+examplemake:    example.c
+    gcc -o example example.c example.c -I.
