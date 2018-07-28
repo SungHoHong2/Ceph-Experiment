@@ -451,7 +451,7 @@ void dpdk_msg_init() {
 //                                                 rte_socket_id());
 
 
-    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", 30,
+    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
                                                  MEMPOOL_CACHE_SIZE, 0, 4089,
                                                  rte_socket_id());
 
@@ -463,7 +463,7 @@ void dpdk_msg_init() {
 
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    30, MEMPOOL_CACHE_SIZE, 0, 4089, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 4089, rte_socket_id());
     }
 
 
