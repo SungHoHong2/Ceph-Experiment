@@ -62,13 +62,6 @@ then
   gcc bench.c -o bench -lm && ./bench "HUNDRED"
   fi
 
-elif [ "$1" = "Fuse_5th_DPDK_Experiments" ]
-then
-  export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
-  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/l2fwd/
-  make
-  ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
-
 elif [ "$1" = "Fuse_5th_DPDK_make_launch" ]
 then
   if [ "$HOSTS" = "w1" ]
