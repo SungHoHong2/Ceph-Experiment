@@ -29,7 +29,10 @@ int main()
 
     str = (char *)(ad);
 
+    strcpy(str, "howdy howdy\n");
+    printf("CHARA: %s\n", str);
 
+    
 
 
 
