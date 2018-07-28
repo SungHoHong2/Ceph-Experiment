@@ -23,7 +23,16 @@ int main()
 
     char* str = NULL;
     void* ad = NULL;
-    if (posix_memalign(&ad, 1024, 512)) { perror("posix_memalign failed"); exit (EXIT_FAILURE); }
+    if (posix_memalign(&ad, 1024, 512)) {
+        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+    }
+
+    str = (char *)(ad);
+
+
+
+
+
     // str = new(ad) char[512];
 
 
