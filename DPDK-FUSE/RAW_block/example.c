@@ -23,8 +23,7 @@ int main(){
     unsigned char read_buf[BUFFER_SIZE] = {0x00};
 
 
-//    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
-  int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
+    int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
     ei.length = mtd_info.erasesize;   //set the erase block size
     for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
@@ -35,7 +34,7 @@ int main(){
 
     lseek(fd, 0, SEEK_SET);
     read(fd, read_buf, sizeof(read_buf));
-    printf("read data: %ld\n", strlen(read_buf));
+     printf("read data: %ld\n", strlen(read_buf));
 
 
     // sanity check
@@ -43,15 +42,16 @@ int main(){
     //        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
-//    lseek(fd, 0, SEEK_SET);        // go back to first block's start
-//    int val = write(fd, data, sizeof(data)); // write our message
-//    printf("write data: %ld :: %d \n", strlen(data), val);
+    lseek(fd, 0, SEEK_SET);        // go back to first block's start
+    int val = write(fd, data, sizeof(data)); // write our message
+    printf("write data: %ld :: %d \n", strlen(data), val);
 
-//    lseek(fd, 0, SEEK_SET);              // go back to first block's start
-//    read(fd, read_buf, sizeof(read_buf));// read the data
-//    printf("read data: %ld\n", strlen(read_buf));
+    lseek(fd, 0, SEEK_SET);              // go back to first block's start
+    read(fd, read_buf, sizeof(read_buf));// read the data
+    printf("read data: %ld\n", strlen(read_buf));
 
-    // sanity check, now you see the message we wrote!
+
+    // sanity check
     //    for(i = 0; i<20; i++)
     //        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
