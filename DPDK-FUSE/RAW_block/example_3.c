@@ -32,13 +32,13 @@ int main()
     aligned_buf_r = (char *)(ad);
 
 
-    strcpy(aligned_buf_w, "BEFORE TEXT READ\n");
-    strcpy(aligned_buf_r, "BEFORE TEXT READ\n");
+    strcpy(aligned_buf_w, "BEFORE TEXT READ");
+    strcpy(aligned_buf_r, "");
 
 
     printf("BEFORE READ BEGIN\n");
-    printf("\t%s",aligned_buf_w);
-    printf("\t%s",aligned_buf_r);
+    printf("\t aligned_buf_w::%s\n",aligned_buf_w);
+    printf("\t aligned_buf_r::%s\n",aligned_buf_r);
     printf("BEFORE READ END\n");
 
 
@@ -53,23 +53,19 @@ int main()
     }
 
 
+    fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
+    nr = pread(fd, aligned_buf_r, sizeof(aligned_buf_r), 0);
 
+    printf("AFTER READ BEGIN\n");
+    printf("\t%s",aligned_buf_r);
+    printf("AFTER READ END\n");
 
-//    fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
-//    nr = pread(fd, aligned_buf_wr, sizeof(aligned_buf_wr), 0);
-//
-//
-//    printf("AFTER READ BEGIN\n");
-//    printf("\t%s",aligned_buf_wr2);
-//    printf("AFTER READ END\n");
-//
-//
-//    //error checking for close process
-//    if(close(fd) == -1){
-//        perror("[error in close]\n");
-//    }else{
-//        printf("[succeeded in close]\n");
-//    }
+    //error checking for close process
+    if(close(fd) == -1){
+        perror("[error in close]\n");
+    }else{
+        printf("[succeeded in close]\n");
+    }
 
     return 0;
 }
