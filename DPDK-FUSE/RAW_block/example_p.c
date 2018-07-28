@@ -48,8 +48,8 @@ int main()
 
 
     //open file
-    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    nw = pwrite(fd, &buf_wr, strlen(buf_wr), 0);
+    fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
+    nw = pwrite(fd, aligned_buf_wr, strlen(aligned_buf_wr), 0);
 
     //error checking
     if(fd == -1){
@@ -61,12 +61,12 @@ int main()
     else{
         /*if open and write process are okey, read first write data
         * from file*/
-        nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
-        if(nr == -1){
-            perror("[error in read]\n");
-        } else{
-            printf("%s\n", buf_rd);
-        }
+//        nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
+//        if(nr == -1){
+//            perror("[error in read]\n");
+//        } else{
+//            printf("%s\n", buf_rd);
+//        }
 
     }
 
