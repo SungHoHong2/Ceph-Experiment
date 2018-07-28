@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <mtd/mtd-user.h>
-
+#include <string.h>
 
 
 
@@ -14,7 +14,7 @@ int main(){
     erase_info_t ei;               // the erase block structure
     int i;
 
-    
+
     char data[20];
     strcpy(data,"howdyhowdy\n");
 
