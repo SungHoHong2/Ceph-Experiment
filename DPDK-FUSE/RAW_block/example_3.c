@@ -25,7 +25,7 @@ int main()
     aligned_buf_w = (char *)(ad);
 
 
-    void* ad = NULL;
+    ad = NULL;
     if (posix_memalign(&ad, 32, 4089)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
