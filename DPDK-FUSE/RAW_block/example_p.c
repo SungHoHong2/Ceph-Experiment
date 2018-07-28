@@ -41,8 +41,8 @@ int main()
 
 
     printf("OUTPUT BEGIN\n");
-    printf("\t\t%s",aligned_buf_wr);
-    printf("\t\t%s",aligned_buf_wr2);
+    printf("\t%s",aligned_buf_wr);
+    printf("\t%s",aligned_buf_wr2);
     printf("OUTPUT END\n");
 
 
