@@ -15,22 +15,21 @@ int main(){
     int i;
 
 
-    char data[20];
-    strcpy(data,"TEST WRITING DATA\n");
+    char data[4096];
+    strcpy(data,"GENERATE WRITING DATA\n");
 
-    unsigned char read_buf[20] = {0x00};
-    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
+    memset(data, '*', 4096*sizeof(char));
+
+    unsigned char read_buf[4096] = {0x00};
+
+    int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
     printf("MTD Type: %x\nMTD total size: %x bytes\nMTD erase size: %x bytes\n",
            mtd_info.type, mtd_info.size, mtd_info.erasesize);
 
-
     ei.length = mtd_info.erasesize;   //set the erase block size
-
     for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
     {
         ioctl(fd, MEMUNLOCK, &ei);
-        // printf("Eraseing Block %#x\n", ei.start); // show the blocks erasing
-        // warning, this prints a lot!
         ioctl(fd, MEMERASE, &ei);
     }
 
@@ -38,8 +37,8 @@ int main(){
     read(fd, read_buf, sizeof(read_buf));
 
     // sanity check
-    for(i = 0; i<20; i++)
-        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
+    //    for(i = 0; i<20; i++)
+    //        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
     lseek(fd, 0, SEEK_SET);        // go back to first block's start
@@ -53,8 +52,8 @@ int main(){
 
 
     // sanity check, now you see the message we wrote!
-    for(i = 0; i<20; i++)
-        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
+    //    for(i = 0; i<20; i++)
+    //        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
     close(fd);
