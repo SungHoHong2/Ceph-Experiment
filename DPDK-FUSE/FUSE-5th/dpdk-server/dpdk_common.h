@@ -1,4 +1,4 @@
-#define PKT_SIZE 1024
+#define PKT_SIZE 2048
 int NOFILESYSTEM;
 
 struct message {
