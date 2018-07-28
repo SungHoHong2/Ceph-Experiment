@@ -16,6 +16,9 @@ int main()
     char buf_rd2[strlen(buf_wr2)];
     char buf_rd3[strlen(buf_wr)+strlen(buf_wr2)];
 
+
+    memset(buf_rd3, 0, 255);
+    
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
     nw = pwrite(fd, &buf_wr, strlen(buf_wr), 0);
