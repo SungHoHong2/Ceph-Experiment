@@ -23,23 +23,13 @@ int main()
 
     char* str = NULL;
     void* ad = NULL;
-    if (posix_memalign(&ad, 1024, 512)) {
+    if (posix_memalign(&ad, 0, 512)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
 
     str = (char *)(ad);
-
     strcpy(str, "howdy howdy\n");
     printf("CHARA: %s\n", str);
-
-    
-
-
-
-    // str = new(ad) char[512];
-
-
-
 
 
     //open file
