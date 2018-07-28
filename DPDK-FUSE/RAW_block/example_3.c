@@ -42,7 +42,7 @@ int main()
     printf("BEFORE READ END\n");
 
 
-    fd = open(fl_nm, O_RDWR|O_CREAT);
+    fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT);
     pwrite(fd, aligned_buf_w, 4089, 0);
 
     //error checking for close process
