@@ -205,15 +205,15 @@ void *tcp_send_launch(){
             } else {
                 int c;
                 FILE *file;
-                char sdata[1024];
+                char sdata[PKT_SIZE];
                 file = fopen("/data1/sungho/trash/server", "r");
                 if (file) {
-                    fread(sdata, sizeof(char), 1024, file);
+                    fread(sdata, sizeof(char), PKT_SIZE, file);
                     // printf("send msg in FILESYSTEM: %s\n", sdata);
                     fclose(file);
                 }
 
-                strncpy(obj.data, sdata, 1024);
+                strncpy(obj.data, sdata, PKT_SIZE);
                 data = (char*)&obj;
 
                 if (data != NULL) {

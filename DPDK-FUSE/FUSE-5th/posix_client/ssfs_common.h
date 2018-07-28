@@ -1,6 +1,6 @@
 #include <sys/time.h>
 #include <math.h>
-
+#define PKT_SIZE 1024 // max number of bytes we can get at once
 int MAX_LOOP;
 int CACHE_HIT;
 
