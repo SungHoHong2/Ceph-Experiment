@@ -48,7 +48,7 @@ int main()
     }
 
     //second write process.
-    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), 0);
+    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
 
     //write error checking
     if(nw2 == -1){
