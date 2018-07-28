@@ -40,9 +40,11 @@ int main()
     strcpy(aligned_buf_wr2, "SECOND TEXT INPUT\n");
 
 
-    printf("OUTPUT\n");
+    printf("OUTPUT BEGIN\n");
     printf("%s",aligned_buf_wr);
     printf("%s",aligned_buf_wr2);
+    printf("OUTPUT END\n");
+
 
 
 
