@@ -26,12 +26,13 @@ int main(){
     printf("MTD Type: %x\nMTD total size: %x bytes\nMTD erase size: %x bytes\n",
            mtd_info.type, mtd_info.size, mtd_info.erasesize);
 
-    ei.length = mtd_info.erasesize;   //set the erase block size
-    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
-    {
-        ioctl(fd, MEMUNLOCK, &ei);
-        ioctl(fd, MEMERASE, &ei);
-    }
+
+//    ei.length = mtd_info.erasesize;   //set the erase block size
+//    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
+//    {
+//        ioctl(fd, MEMUNLOCK, &ei);
+//        ioctl(fd, MEMERASE, &ei);
+//    }
 
     lseek(fd, 0, SEEK_SET);
     read(fd, read_buf, sizeof(read_buf));
@@ -47,8 +48,7 @@ int main(){
 
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
-    printf("read data: %s\n", read_buf);
-
+    printf("read data: %ld\n", strlen(read_buf));
 
     // sanity check, now you see the message we wrote!
     //    for(i = 0; i<20; i++)

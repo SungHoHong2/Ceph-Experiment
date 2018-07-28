@@ -22,8 +22,8 @@
       <file leaf-file-name="example.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RAW_block/example.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+            <state relative-caret-position="326">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -257,12 +257,12 @@
       <workItem from="1532447937353" duration="2323000" />
       <workItem from="1532540650787" duration="4088000" />
       <workItem from="1532626181611" duration="22274000" />
-      <workItem from="1532714199674" duration="4579000" />
+      <workItem from="1532714199674" duration="4625000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229761000" />
+    <option name="totallyTimeSpent" value="229807000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -639,8 +639,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RAW_block/example.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+        <state relative-caret-position="326">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
