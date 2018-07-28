@@ -16,7 +16,7 @@ int main(){
 
 
     char data[20];
-    strcpy(data,"howdyhowdy\n");
+    strcpy(data,"TEST WRITING DATA\n");
 
 
     unsigned char read_buf[20] = {0x00};
@@ -46,14 +46,15 @@ int main(){
         printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
-    printf("write data\n");
     lseek(fd, 0, SEEK_SET);        // go back to first block's start
     write(fd, data, sizeof(data)); // write our message
+    printf("write data: %s\n",data);
 
 
-    printf("read data\n");
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
+
+    printf("read data: %s\n", read_buf);
 
 
     // sanity check, now you see the message we wrote!
