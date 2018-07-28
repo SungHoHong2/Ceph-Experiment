@@ -172,11 +172,24 @@ l2fwd_tx_loop()
                 TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
                 dpdk_requests++;
 
+                printf("step1\n");
+
                 msg = &obj;
                 strncpy(obj.data, _msg->data, 100);
 
+
+                printf("step2\n");
+
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+
+                printf("step3\n");
+
+
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
+
+
+                printf("step4\n");
+
 
                 if(strcmp(hostname,"w2")==0) {
                     l2fwd_mac_updating(rm[0], portid); // WORKSTATION
