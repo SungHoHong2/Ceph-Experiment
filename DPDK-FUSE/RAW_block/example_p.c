@@ -30,7 +30,7 @@ int main()
 
         /*if open and write process are okey, read first write data
         * from file*/
-        nr = pread(fd, &buf_rd, sizeof(buf_rd), 30);
+        nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
 
         //display succeeded message about first write and open process
         printf("[file is opened]\n");
