@@ -426,6 +426,7 @@ void dpdk_msg_init() {
     printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
 
 
+    printf("[CHARA]: %d %d\n",RTE_MBUF_DEFAULT_BUF_SIZE, MEMPOOL_CACHE_SIZE);
 
     /* create the mbuf pool */
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
