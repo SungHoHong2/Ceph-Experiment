@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include <unistd.h>
+#include <new>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
@@ -21,7 +22,13 @@ int main()
 
     char *test;
 
-    posix_memalign(test, 4096, 4096);
+    char* str = NULL;
+    void* ad = NULL;
+    if (posix_memalign(&ad, 1024, 512))
+    { perror("posix_memalign failed"); exit (EXIT_FAILURE); }
+    str = new(ad) char[512];
+
+
 
 
 
