@@ -47,7 +47,7 @@ int main()
     }else{
         /*if write process is correct
         * second read process*/
-        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 0);
+        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd)+sizeof(buf_rd2), 0);
         printf("%s\n", buf_rd2);
     }
 
