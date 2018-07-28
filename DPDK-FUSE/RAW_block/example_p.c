@@ -32,7 +32,7 @@ int main()
 
 
     char* aligned_buf_wr2 = NULL;
-    void* ad = NULL;
+    ad = NULL;
     if (posix_memalign(&ad, 32, 512)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
@@ -41,7 +41,7 @@ int main()
 
 
     printf("OUTPUT\n");
-    printf("%s",aligned_buf_wr1);
+    printf("%s",aligned_buf_wr);
     printf("%s",aligned_buf_wr2);
 
 
