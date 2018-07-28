@@ -19,7 +19,7 @@ int main(){
     strcpy(data,"TEST WRITING DATA\n");
 
     unsigned char read_buf[20] = {0x00};
-    int fd = open("/mnt/ssd_cache", O_RDWR); // get the device info
+    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
     printf("MTD Type: %x\nMTD total size: %x bytes\nMTD erase size: %x bytes\n",
            mtd_info.type, mtd_info.size, mtd_info.erasesize);
 
