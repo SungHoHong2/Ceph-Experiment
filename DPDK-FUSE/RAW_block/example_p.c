@@ -14,7 +14,7 @@ int main()
     char buf_wr2[]={"SECOND TEXT INPUT\n"};
     char buf_rd[strlen(buf_wr)];
     char buf_rd2[strlen(buf_wr2)];
-    char buf_rd3[strlen(buf_wr1)+strlen(buf_wr2)];
+    char buf_rd3[strlen(buf_wr)+strlen(buf_wr2)];
 
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
