@@ -1,5 +1,5 @@
 #define _GNU_SOURCE
-
+#include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,6 +17,11 @@ int main()
     char buf_rd[strlen(buf_wr)];
     char buf_rd2[strlen(buf_wr2)];
     char buf_rd3[strlen(buf_wr)+strlen(buf_wr2)];
+
+    char *test;
+
+    posix_memalign(test, 4096, 4096);
+
 
 
     //open file

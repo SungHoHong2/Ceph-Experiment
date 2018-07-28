@@ -17,8 +17,6 @@ int main(){
     buff = (char *)(((uintptr_t)buff+align)&~((uintptr_t)align));
 
 
-
-
     if(write(fd,buff,(size_t)blksize)<1) {
         //Error handling
         free((char *)buff);
