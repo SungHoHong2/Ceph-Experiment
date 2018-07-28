@@ -7,7 +7,7 @@ then
   if [ "$HOSTS" = "c3n24" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
-  gcc -o example example_p.c
+  gcc -o example example_3.c
   ./example
   fi
 
