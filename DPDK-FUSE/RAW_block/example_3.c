@@ -46,14 +46,14 @@ int main()
     pwrite(fd, aligned_buf_w, 4089, 0);
 
     //error checking for close process
-    if(close(fd) == -1){
-        perror("[error in close]\n");
-    }else{
-        printf("[succeeded in close]\n");
-    }
+//    if(close(fd) == -1){
+//        perror("[error in close]\n");
+//    }else{
+//        printf("[succeeded in close]\n");
+//    }
 
 //    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    fd = open(fl_nm, O_RDONLY|O_DIRECT);
+//    fd = open(fl_nm, O_RDONLY|O_DIRECT);
     nr = pread(fd, aligned_buf_r, 4089, 0);
 
     printf("AFTER READ BEGIN\n");
