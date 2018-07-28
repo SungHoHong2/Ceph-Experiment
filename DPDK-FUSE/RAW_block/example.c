@@ -6,7 +6,7 @@
 #include <mtd/mtd-user.h>
 #include <string.h>
 
-
+#define BUFFER_SIZE 1024
 
 int main(){
 
@@ -15,17 +15,16 @@ int main(){
     int i;
 
 
-    char data[4096];
+    char data[BUFFER_SIZE];
     strcpy(data,"GENERATE WRITING DATA\n");
 
-    memset(data, '*', 4096*sizeof(char));
+    memset(data, '*', BUFFER_SIZE*sizeof(char));
 
-    unsigned char read_buf[4096] = {0x00};
+    unsigned char read_buf[BUFFER_SIZE] = {0x00};
 
 
-    int fd = open("/dev/nvme0n1p1", O_CREAT|O_TRUNC|O_WRONLY, S_IRWXU);
-    // int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
-    // int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
+//     int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
+     int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
 //    ei.length = mtd_info.erasesize;   //set the erase block size
 //    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
