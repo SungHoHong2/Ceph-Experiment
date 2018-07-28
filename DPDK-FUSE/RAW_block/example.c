@@ -23,6 +23,6 @@
 
 int main(){
 
-    printf("howdy\n");=
+    printf("howdy\n");
     return 0;
 }
