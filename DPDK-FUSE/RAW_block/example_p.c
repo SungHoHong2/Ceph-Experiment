@@ -30,7 +30,7 @@ int main()
 
         /*if open and write process are okey, read first write data
         * from file*/
-        nr = pread(fd, &buf_rd, sizeof(buf_rd));
+        nr = pread(fd, &buf_rd, sizeof(buf_rd), 30);
 
         //display succeeded message about first write and open process
         printf("[file is opened]\n");
@@ -56,7 +56,7 @@ int main()
 
         /*if write process is correct
         * second read process*/
-        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd));
+        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 30);
 
         printf("-----------------------------------\n");
         printf("[succeeded write(2) process]\n");
