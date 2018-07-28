@@ -9,6 +9,7 @@ then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
   make
   ./example
+  fi
 
 # RUNNING THE FUSE-DPDK BEGN
 elif [ "$1" = "filesystem_setup" ]
