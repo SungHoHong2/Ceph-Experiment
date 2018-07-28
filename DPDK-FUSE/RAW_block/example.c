@@ -26,10 +26,6 @@ int main(){
     // int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
 
-    printf("MTD Type: %x\nMTD total size: %x bytes\nMTD erase size: %x bytes\n",
-           mtd_info.type, mtd_info.size, mtd_info.erasesize);
-
-
 //    ei.length = mtd_info.erasesize;   //set the erase block size
 //    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
 //    {
