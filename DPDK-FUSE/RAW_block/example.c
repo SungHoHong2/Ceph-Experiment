@@ -14,11 +14,10 @@ int main(){
     erase_info_t ei;               // the erase block structure
     int i;
 
-    unsigned char data[20] = { 0xDE, 0xAD, 0xBE, 0xEF,  // our data to write
-                               0xDE, 0xAD, 0xBE, 0xEF,
-                               0xDE, 0xAD, 0xBE, 0xEF,
-                               0xDE, 0xAD, 0xBE, 0xEF,
-                               0xDE, 0xAD, 0xBE, 0xEF};
+    
+    char data[20];
+    strcpy(data,"howdyhowdy\n");
+
 
     unsigned char read_buf[20] = {0x00};
 
