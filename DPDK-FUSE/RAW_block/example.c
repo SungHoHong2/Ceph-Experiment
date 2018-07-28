@@ -47,10 +47,12 @@ int main(){
         printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
+    printf("write data\n");
     lseek(fd, 0, SEEK_SET);        // go back to first block's start
     write(fd, data, sizeof(data)); // write our message
 
 
+    printf("read data\n");
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
 
