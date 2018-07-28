@@ -43,7 +43,7 @@ int main()
 
 
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    nw = pwrite(fd, aligned_buf_w, strlen(aligned_buf_w), 0);
+    pwrite(fd, aligned_buf_w, strlen(aligned_buf_w), 0);
 
     //error checking for close process
     if(close(fd) == -1){
