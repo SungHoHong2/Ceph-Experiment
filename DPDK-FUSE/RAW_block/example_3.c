@@ -52,12 +52,11 @@ int main()
         printf("[succeeded in close]\n");
     }
 
-
     fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
     nr = pread(fd, aligned_buf_r, sizeof(aligned_buf_r), 0);
 
     printf("AFTER READ BEGIN\n");
-    printf("\t%s",aligned_buf_r);
+    printf("\taligned_buf_r::%s\n",aligned_buf_r);
     printf("AFTER READ END\n");
 
     //error checking for close process
