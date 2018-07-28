@@ -4,7 +4,7 @@ HOSTS="$(cat /etc/hostname)"
 
 if [ "$1" = "raw_filesystem_exp" ]
 then
-  elif [ "$HOSTS" = "c3n24" ]
+  if [ "$HOSTS" = "c3n24" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
   make
