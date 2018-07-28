@@ -21,15 +21,30 @@ int main()
 
     char *test;
 
-    char* str = NULL;
+    char* aligned_buf_wr = NULL;
     void* ad = NULL;
     if (posix_memalign(&ad, 32, 512)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
 
-    str = (char *)(ad);
-    strcpy(str, "howdy howdy\n");
-    printf("CHARA: %s\n", str);
+    aligned_buf_wr = (char *)(ad);
+    strcpy(aligned_buf_wr, "FIRST TEXT INPUT\n");
+
+
+    char* aligned_buf_wr2 = NULL;
+    void* ad = NULL;
+    if (posix_memalign(&ad, 32, 512)) {
+        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+    }
+    aligned_buf_wr2 = (char *)(ad);
+    strcpy(aligned_buf_w2, "SECOND TEXT INPUT\n");
+
+
+    printf("OUTPUT\n");
+    printf("%s",aligned_buf_wr1);
+    printf("%s",aligned_buf_wr2);
+
+
 
 
     //open file
@@ -55,18 +70,18 @@ int main()
 
     }
 
-    //second write process.
-    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
-
-    //write error checking
-    if(nw2 == -1){
-        perror("[error in write 2]\n");
-    }else{
-        /*if write process is correct
-        * second read process*/
-        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
-        printf("%s\n", buf_rd3);
-    }
+//    //second write process.
+//    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
+//
+//    //write error checking
+//    if(nw2 == -1){
+//        perror("[error in write 2]\n");
+//    }else{
+//        /*if write process is correct
+//        * second read process*/
+//        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
+//        printf("%s\n", buf_rd3);
+//    }
 
 
     //error checking for close process
