@@ -14,6 +14,7 @@ int main()
     char buf_wr2[]={"SECOND TEXT INPUT\n"};
     char buf_rd[strlen(buf_wr)];
     char buf_rd2[strlen(buf_wr2)];
+    char buf_rd3[strlen(buf_wr1)+strlen(buf_wr2)];
 
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
@@ -47,8 +48,8 @@ int main()
     }else{
         /*if write process is correct
         * second read process*/
-        nr2 = pread(fd, &buf_rd2, strlen(buf_wr2) + strlen(buf_wr), 0);
-        printf("%s\n", buf_rd2);
+        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
+        printf("%s\n", buf_rd3);
     }
 
 
