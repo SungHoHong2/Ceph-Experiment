@@ -42,9 +42,9 @@ int main(){
     //        printf("buf[%d] = 0x%02x\n", i, (unsigned int)read_buf[i]);
 
 
-    lseek(fd, 0, SEEK_SET);        // go back to first block's start
-    int val = write(fd, data, sizeof(data)); // write our message
-    printf("write data: %ld :: %d \n", strlen(data), val);
+//    lseek(fd, 0, SEEK_SET);        // go back to first block's start
+//    int val = write(fd, data, sizeof(data)); // write our message
+//    printf("write data: %ld :: %d \n", strlen(data), val);
 
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
