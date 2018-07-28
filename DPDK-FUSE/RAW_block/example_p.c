@@ -32,17 +32,10 @@ int main()
         /*if open and write process are okey, read first write data
         * from file*/
         nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
-
-        //display succeeded message about first write and open process
-        printf("[file is opened]\n");
-        printf("[succeeded write(1) process]\n");
-
-        //read process error control
         if(nr == -1){
             perror("[error in read]\n");
         } else{
-            printf("[reading(1) data] from %s\n", fl_nm);
-            printf("[%s]\n", buf_rd);
+            printf("%s\n", buf_rd);
         }
 
     }
@@ -54,17 +47,13 @@ int main()
     if(nw2 == -1){
         perror("[error in write 2]\n");
     }else{
-
         /*if write process is correct
         * second read process*/
         nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 0);
-        printf("-----------------------------------\n");
-        printf("[succeeded write(2) process]\n");
-        printf("[reading(2) data] from %s\n", fl_nm);
-        printf("[%s]\n", buf_rd2);
+        printf("%s\n", buf_rd2);
     }
 
-
+    
     //error checking for close process
     if(close(fd) == -1){
         perror("[error in close]\n");
