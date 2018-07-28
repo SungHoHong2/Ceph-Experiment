@@ -17,7 +17,7 @@ int main()
 
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    nw = pwrite(fd, &buf_wr, strlen(buf_wr), 14);
+    nw = pwrite(fd, &buf_wr, strlen(buf_wr), 0);
 
     //error checking
     if(fd == -1){
@@ -28,6 +28,7 @@ int main()
     }
     else{
 
+        printf("length of the buf_wr %d\n", strlen(buf_wr));
         /*if open and write process are okey, read first write data
         * from file*/
         nr = pread(fd, &buf_rd, sizeof(buf_rd), 0);
