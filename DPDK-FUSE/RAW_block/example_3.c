@@ -52,8 +52,8 @@ int main()
         printf("[succeeded in close]\n");
     }
 
-    // fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
+    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
+    // fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
     nr = pread(fd, aligned_buf_r, 4089, 0);
 
     printf("AFTER READ BEGIN\n");
