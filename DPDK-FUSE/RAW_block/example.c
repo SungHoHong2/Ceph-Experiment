@@ -26,12 +26,12 @@ int main(){
      int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
 //     int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
-//    ei.length = mtd_info.erasesize;   //set the erase block size
-//    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
-//    {
-//        ioctl(fd, MEMUNLOCK, &ei);
-//        ioctl(fd, MEMERASE, &ei);
-//    }
+    ei.length = mtd_info.erasesize;   //set the erase block size
+    for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
+    {
+        ioctl(fd, MEMUNLOCK, &ei);
+        ioctl(fd, MEMERASE, &ei);
+    }
 
     lseek(fd, 0, SEEK_SET);
     read(fd, read_buf, sizeof(read_buf));
