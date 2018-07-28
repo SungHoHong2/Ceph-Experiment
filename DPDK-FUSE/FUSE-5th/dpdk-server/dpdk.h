@@ -10,7 +10,6 @@ static int mac_updating = 1;
 #define NB_MBUF   8192
 
 // #define MAX_PKT_BURST 32
-#define PKT_SIZE   1024
 #define MAX_PKT_BURST 1
 
 
@@ -126,16 +125,14 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
         } else {
-            FILE *file;
-            char sdata[PKT_SIZE];
-
-            // fd = open(argv[1], O_RDONLY | O_DIRECT);
-            file = fopen("/mnt/ssd_cache/server", "r");
-            if (file) {
-                c = fread(sdata, sizeof(char), 26, file);
-                // printf("send msg in FILESYSTEM: %s\n", sdata);
-                fclose(file);
-            }
+//            FILE *file;
+//            char sdata[PKT_SIZE];
+//            file = fopen("/mnt/ssd_cache/server", "r");
+//            if (file) {
+//                c = fread(sdata, sizeof(char), 26, file);
+//                // printf("send msg in FILESYSTEM: %s\n", sdata);
+//                fclose(file);
+//            }
 
             msg = &obj;
             strncpy(obj.data, sdata, 26);

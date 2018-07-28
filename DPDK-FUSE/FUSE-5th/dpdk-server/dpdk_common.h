@@ -1,12 +1,13 @@
+#define PKT_SIZE 4089
 int NOFILESYSTEM;
 
 struct message {
-    char data[1024];
+    char data[PKT_SIZE];
 };
 
 struct fuse_message
 {
-    char data[1024];
+    char data[PKT_SIZE];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 
