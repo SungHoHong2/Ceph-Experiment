@@ -47,6 +47,11 @@ int main()
 
 
     fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
+    nr = pread(fd, aligned_buf_wr2, sizeof(aligned_buf_wr2), 0);
+
+
+    
+
 
 
 //    //open file
