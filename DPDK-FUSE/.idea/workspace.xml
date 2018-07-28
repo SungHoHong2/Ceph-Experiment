@@ -22,8 +22,17 @@
       <file leaf-file-name="example_p.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RAW_block/example_p.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="474">
+              <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example_3.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RAW_block/example_3.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -86,7 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/posix_server/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/FUSE-3rd/posix_client/ssfs_posix.h" />
         <option value="$PROJECT_DIR$/dpdk-client/Makefile" />
@@ -136,6 +144,7 @@
         <option value="$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/posix_server/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h" />
+        <option value="$PROJECT_DIR$/RAW_block/example_3.c" />
         <option value="$PROJECT_DIR$/RAW_block/example_p.c" />
       </list>
     </option>
@@ -264,12 +273,12 @@
       <workItem from="1532540650787" duration="4088000" />
       <workItem from="1532626181611" duration="22274000" />
       <workItem from="1532714199674" duration="10064000" />
-      <workItem from="1532807317312" duration="3189000" />
+      <workItem from="1532807317312" duration="3681000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238435000" />
+    <option name="totallyTimeSpent" value="238927000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -308,17 +317,10 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/history/FUSE-3rd/history/dpdk_client_0/ssfs.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="76" column="60" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/history/FUSE-3rd/history/dpdk_client_0/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -638,10 +640,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RAW_block/example_3.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RAW_block/example_p.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="474">
+          <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
         </state>
       </provider>
     </entry>

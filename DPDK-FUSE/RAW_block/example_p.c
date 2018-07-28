@@ -16,11 +16,16 @@ int main()
     char buf_rd[strlen(buf_wr)];
     char buf_rd2[strlen(buf_wr2)];
     char buf_rd3[strlen(buf_wr)+strlen(buf_wr2)];
+    char *string = "Testing page";
+
+    char *ptr;
+    posix_memalign((void **)&ptr, 4096, 4096);
+    sprintf(ptr, "%s", string);
 
 
     //open file
     fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
-    nw = pwrite(fd, &buf_wr, strlen(buf_wr), 0);
+    nw = pwrite(fd, ptr, strlen(buf_wr), 0);
 
     //error checking
     if(fd == -1){
@@ -41,18 +46,18 @@ int main()
 
     }
 
-    //second write process.
-    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
-
-    //write error checking
-    if(nw2 == -1){
-        perror("[error in write 2]\n");
-    }else{
-        /*if write process is correct
-        * second read process*/
-        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
-        printf("%s\n", buf_rd3);
-    }
+//    //second write process.
+//    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), strlen(buf_wr));
+//
+//    //write error checking
+//    if(nw2 == -1){
+//        perror("[error in write 2]\n");
+//    }else{
+//        /*if write process is correct
+//        * second read process*/
+//        nr2 = pread(fd, &buf_rd3, sizeof(buf_rd)+sizeof(buf_rd2), 0);
+//        printf("%s\n", buf_rd3);
+//    }
 
 
     //error checking for close process
