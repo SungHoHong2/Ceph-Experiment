@@ -443,13 +443,13 @@ void dpdk_msg_init() {
 
     /* create the mbuf pool */
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
-                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
+                                                 MEMPOOL_CACHE_SIZE, 0, PKT_SIZE,
                                                  rte_socket_id());
 
     /* create memory pool for send data */
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, PKT_SIZE, rte_socket_id());
     }
 
     rx_ring = rte_ring_create("mbuf_rx_ring", 32, rte_socket_id(), 0);
