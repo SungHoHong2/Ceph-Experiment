@@ -41,8 +41,6 @@
 
 
 struct message {
-	int start_time;
-	int end_time;
 	char data[1024];
 };
 
@@ -129,7 +127,10 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	/* A0:36:9F:83:AB:BC w1*/
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
+	// *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
+
+	// ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
+	*((uint64_t *)tmp) = 0x81cbd92d1de4 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -147,11 +148,14 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 	char* data;
 	struct message obj;
 
-	obj.start_time = 1;
-	strncpy(obj.data, "Hello World From CLIENT!\n", 100);
+	strncpy(obj.data, "        Hello World From CLIENT!\n", 100);
 
 	struct message *msg =&obj;
 	data = rte_pktmbuf_append(m, sizeof(struct message));
+
+
+
+
 
 	if (data != NULL)
 		rte_memcpy(data, msg, sizeof(struct message));
@@ -271,23 +275,29 @@ l2fwd_main_loop(void)
 			nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
 									 pkts_burst, MAX_PKT_BURST);
 
-			port_statistics[portid].rx += nb_rx;
 
-			for (j = 0; j < nb_rx; j++) {
-				m = pkts_burst[j];
-				//CHARA BEGIN
-				m = pkts_burst[j];
-				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-				int header_length =  rte_mbuf_packet_length - 1024;
+			m = pkts_burst[0];
+			rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+			l2fwd_simple_forward(m, portid);
 
-				if(header_length>0){
-					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
-				}
-				//CHARA END
-				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
 
-				l2fwd_simple_forward(m, portid);
-			}
+
+
+//			for (j = 0; j < nb_rx; j++) {
+//				m = pkts_burst[j];
+//				//CHARA BEGIN
+//				m = pkts_burst[j];
+//				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+//				int header_length =  rte_mbuf_packet_length - 1024;
+//
+//				if(header_length>0){
+//					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
+//				}
+//				//CHARA END
+//				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+//
+//				l2fwd_simple_forward(m, portid);
+//			}
 		}
 
 	}

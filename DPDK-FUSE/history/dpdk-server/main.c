@@ -75,8 +75,6 @@
 
 
 struct message {
-	int start_time;
-	int end_time;
 	char data[1024];
 };
 
@@ -160,7 +158,10 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-	*((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
+	// *((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
+
+	// ASU c3n24 -> c3n25 E4:1D:2D:D9:BF:B1
+	*((uint64_t *)tmp) = 0xb1bfd92d1de4  + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -197,8 +198,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 	ofs = start;
 	data+=ofs;
 	struct message *msg = (struct message *) data;
-	fprintf(f,"recv msg: %s\n", msg->data);
-	fflush(f);
+
+	if(strcmp(msg->data, "Hello World From CLIENT!\n")==0) {
+			printf("recv msg: %s\n", msg->data);
+	}
+
 }
 
 
@@ -268,15 +272,15 @@ l2fwd_main_loop(void)
 
 
 			for (j = 0; j < nb_rx; j++) {
-
 				//CHARA BEGIN
 				m = pkts_burst[j];
-					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-					int header_length =  rte_mbuf_packet_length - 1024;
+				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+				int header_length =  rte_mbuf_packet_length - 1024;
 
-					if(header_length>0){
-						// printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
-						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+				// rte_pktmbuf_dump(stdout, m, 1024);
+				if(header_length>0){
+						 // printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						 // printf("header_length: %d\n", header_length);  // lenght of the offset: 456
 						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
 					}
 				//CHARA END

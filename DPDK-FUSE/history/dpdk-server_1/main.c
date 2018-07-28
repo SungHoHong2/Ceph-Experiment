@@ -1,7 +1,39 @@
+/*-
+ *   BSD LICENSE
+ *
+ *   Copyright(c) 2010-2016 Intel Corporation. All rights reserved.
+ *   All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following conditions
+ *   are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in
+ *       the documentation and/or other materials provided with the
+ *       distribution.
+ *     * Neither the name of Intel Corporation nor the names of its
+ *       contributors may be used to endorse or promote products derived
+ *       from this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ *   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ *   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ *   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ *   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ *   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ *   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <sys/types.h>
@@ -14,6 +46,8 @@
 #include <getopt.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <unistd.h>
+
 
 #include <rte_common.h>
 #include <rte_log.h>
@@ -41,6 +75,8 @@
 
 
 struct message {
+	int start_time;
+	int end_time;
 	char data[1024];
 };
 
@@ -101,8 +137,6 @@ static const struct rte_eth_conf port_conf = {
 };
 
 struct rte_mempool * l2fwd_pktmbuf_pool = NULL;
-struct rte_mempool * test_pktmbuf_pool = NULL;
-
 
 /* Per-port statistics struct */
 struct l2fwd_port_statistics {
@@ -116,7 +150,6 @@ struct l2fwd_port_statistics port_statistics[RTE_MAX_ETHPORTS];
 /* A tsc-based timer responsible for triggering statistics printout */
 static uint64_t timer_period = 10; /* default period is 10 seconds */
 
-
 static void
 l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 {
@@ -125,12 +158,9 @@ l2fwd_mac_updating(struct rte_mbuf *m, unsigned dest_portid)
 
 	eth = rte_pktmbuf_mtod(m, struct ether_hdr *);
 
-	/* A0:36:9F:83:AB:BC w1*/
+	/* 02:00:00:00:00:xx */
 	tmp = &eth->d_addr.addr_bytes[0];
-	// *((uint64_t *)tmp) = 0xbcab839f36a0 + ((uint64_t)dest_portid << 40);
-
-	// ASU c3n25 -> c3n24 E4:1D:2D:D9:CB:81
-	*((uint64_t *)tmp) = 0x81cbd92d1de4 + ((uint64_t)dest_portid << 40);
+	*((uint64_t *)tmp) = 0xd4d4a6211b00 + ((uint64_t)dest_portid << 40);
 
 	/* src addr */
 	ether_addr_copy(&l2fwd_ports_eth_addr[dest_portid], &eth->s_addr);
@@ -145,31 +175,18 @@ l2fwd_simple_forward(struct rte_mbuf *m, unsigned portid)
 
 	dst_port = l2fwd_dst_ports[portid];
 
-	char* data;
-	struct message obj;
-
-	strncpy(obj.data, "        Hello World From CLIENT!\n", 100);
-
-	struct message *msg =&obj;
-	data = rte_pktmbuf_append(m, sizeof(struct message));
-
-
-
-
-
-	if (data != NULL)
-		rte_memcpy(data, msg, sizeof(struct message));
-
 	if (mac_updating)
 		l2fwd_mac_updating(m, dst_port);
-
 	buffer = tx_buffer[dst_port];
+
+
+
+
+
 	sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
 	if (sent)
 		port_statistics[dst_port].tx += sent;
-
 }
-
 
 
 void
@@ -208,22 +225,17 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
 }
 
 
+
 /* main processing loop */
 static void
 l2fwd_main_loop(void)
 {
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 	struct rte_mbuf *m;
-	int sent;
+
 	unsigned lcore_id;
-	uint64_t prev_tsc, diff_tsc, cur_tsc;
 	unsigned i, j, portid, nb_rx;
 	struct lcore_queue_conf *qconf;
-	const uint64_t drain_tsc = (rte_get_tsc_hz() + US_PER_S - 1) / US_PER_S *
-							   BURST_TX_DRAIN_US;
-	struct rte_eth_dev_tx_buffer *buffer;
-
-	prev_tsc = 0;
 
 	lcore_id = rte_lcore_id();
 	qconf = &lcore_queue_conf[lcore_id];
@@ -245,27 +257,6 @@ l2fwd_main_loop(void)
 
 	while (!force_quit) {
 
-		cur_tsc = rte_rdtsc();
-
-		/*
-		 * TX burst queue drain
-		 */
-		diff_tsc = cur_tsc - prev_tsc;
-		if (unlikely(diff_tsc > drain_tsc)) {
-
-			for (i = 0; i < qconf->n_rx_port; i++) {
-
-				portid = l2fwd_dst_ports[qconf->rx_port_list[i]];
-				buffer = tx_buffer[portid];
-
-				sent = rte_eth_tx_buffer_flush(portid, 0, buffer);
-				if (sent)
-					port_statistics[portid].tx += sent;
-
-			}
-
-		}
-
 		/*
 		 * Read packet from RX queues
 		 */
@@ -276,30 +267,23 @@ l2fwd_main_loop(void)
 									 pkts_burst, MAX_PKT_BURST);
 
 
-			m = pkts_burst[0];
-			rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-			l2fwd_simple_forward(m, portid);
+			for (j = 0; j < nb_rx; j++) {
 
+				//CHARA BEGIN
+				m = pkts_burst[j];
+					int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+					int header_length =  rte_mbuf_packet_length - 1024;
 
-
-
-//			for (j = 0; j < nb_rx; j++) {
-//				m = pkts_burst[j];
-//				//CHARA BEGIN
-//				m = pkts_burst[j];
-//				int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
-//				int header_length =  rte_mbuf_packet_length - 1024;
-//
-//				if(header_length>0){
-//					dpdk_pktmbuf_dump(stdout, m, 1024, sizeof(struct ether_hdr));
-//				}
-//				//CHARA END
-//				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
-//
-//				l2fwd_simple_forward(m, portid);
-//			}
+					if(header_length>0){
+						// printf("rte_mbuf_packet_length: %d\n", rte_mbuf_packet_length);  // lenght of the offset: 456
+						// printf("header_length: %d\n", header_length);  // lenght of the offset: 456
+						dpdk_pktmbuf_dump(stdout, m, 1024, header_length);
+					}
+				//CHARA END
+				rte_prefetch0(rte_pktmbuf_mtod(m, void *));
+				l2fwd_simple_forward(m, portid);
+			}
 		}
-
 	}
 }
 
@@ -401,67 +385,16 @@ static const struct option lgopts[] = {
 
 /* Parse the argument given in the command line of the application */
 static int
-l2fwd_parse_args(int argc, char **argv)
+l2fwd_parse_args()
 {
-	int opt, ret, timer_secs;
-	char **argvopt;
-	int option_index;
-	char *prgname = argv[0];
-
-	argvopt = argv;
-
-	while ((opt = getopt_long(argc, argvopt, short_options,
-							  lgopts, &option_index)) != EOF) {
-
-		switch (opt) {
-			/* portmask */
-			case 'p':
-				l2fwd_enabled_port_mask = l2fwd_parse_portmask(optarg);
-				if (l2fwd_enabled_port_mask == 0) {
-					printf("invalid portmask\n");
-					l2fwd_usage(prgname);
-					return -1;
-				}
-				break;
-
-				/* nqueue */
-			case 'q':
-				l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue(optarg);
-				if (l2fwd_rx_queue_per_lcore == 0) {
-					printf("invalid queue number\n");
-					l2fwd_usage(prgname);
-					return -1;
-				}
-				break;
-
-				/* timer period */
-			case 'T':
-				timer_secs = l2fwd_parse_timer_period(optarg);
-				if (timer_secs < 0) {
-					printf("invalid timer period\n");
-					l2fwd_usage(prgname);
-					return -1;
-				}
-				timer_period = timer_secs;
-				break;
-
-				/* long options */
-			case 0:
-				break;
-
-			default:
-				l2fwd_usage(prgname);
-				return -1;
-		}
-	}
-
-	if (optind >= 0)
-		argv[optind-1] = prgname;
-
-	ret = optind-1;
-	optind = 1; /* reset getopt lib */
+	int ret;
+	char *prgname = "dpdk-server_backup";
+	l2fwd_enabled_port_mask = l2fwd_parse_portmask("0x1");
+	l2fwd_rx_queue_per_lcore = l2fwd_parse_nqueue("8");
+	ret = 6;
 	return ret;
 }
+
 
 /* Check the link status of all ports in up to 9s, and print them finally */
 static void
@@ -544,8 +477,44 @@ main(int argc, char **argv)
 	unsigned lcore_id, rx_lcore_id;
 	unsigned nb_ports_in_mask = 0;
 
+    int j=0;
+//    for(j=0; j<argc; j++){
+//        printf("args[%d]=%s\n",j,*argv);
+//        *argv++;
+//    }
+
+    int count = 12;
+    char** dpdk_argv;
+    dpdk_argv = malloc(count * sizeof(char*));      // allocate the array to hold the pointer
+    for (size_t i = 0; i < count; i += 1)
+        dpdk_argv[i] = malloc(255 * sizeof(char));  // allocate each array to hold the strings
+
+        dpdk_argv[0]="./build/dpdk_server";
+        dpdk_argv[1]="-c";
+        dpdk_argv[2]="0x2";
+        dpdk_argv[3]="-n";
+        dpdk_argv[4]="4";
+        dpdk_argv[5]="--";
+        dpdk_argv[6]="-q";
+        dpdk_argv[7]="8";
+        dpdk_argv[8]="-p";
+        dpdk_argv[9]="0x1";
+        dpdk_argv[10]="-T";
+        dpdk_argv[11]="1";
+
+    printf("DPDK\n");
+
+//    int dpdk_argc = 1;
+//    for(j=0; j<argc; j++){
+//        printf("args[%d]=%s\n",j,*dpdk_argv);
+//        *dpdk_argv++;
+//    }
+
+
+    printf("END\n");
+
 	/* init EAL */
-	ret = rte_eal_init(argc, argv);
+	ret = rte_eal_init(argc, dpdk_argv);
 	if (ret < 0)
 		rte_exit(EXIT_FAILURE, "Invalid EAL arguments\n");
 	argc -= ret;
@@ -572,12 +541,6 @@ main(int argc, char **argv)
 	if (l2fwd_pktmbuf_pool == NULL)
 		rte_exit(EXIT_FAILURE, "Cannot init mbuf pool\n");
 
-	/* create memory pool for send data */
-	if (test_pktmbuf_pool == NULL) {
-		test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-													NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 1024, rte_socket_id());
-	}
-
 	nb_ports = rte_eth_dev_count();
 	if (nb_ports == 0)
 		rte_exit(EXIT_FAILURE, "No Ethernet ports - bye\n");
@@ -586,7 +549,6 @@ main(int argc, char **argv)
 	for (portid = 0; portid < RTE_MAX_ETHPORTS; portid++)
 		l2fwd_dst_ports[portid] = 0;
 	last_port = 0;
-
 
 	/*
 	 * Each logical core is assigned a dedicated TX queue on each port.
@@ -669,7 +631,6 @@ main(int argc, char **argv)
 			rte_exit(EXIT_FAILURE, "rte_eth_rx_queue_setup:err=%d, port=%u\n",
 					 ret, (unsigned) portid);
 
-
 		/* init one TX queue on each port */
 		fflush(stdout);
 		ret = rte_eth_tx_queue_setup(portid, 0, nb_txd,
@@ -704,7 +665,7 @@ main(int argc, char **argv)
 
 		printf("done: \n");
 
-		// rte_eth_promiscuous_enable(portid);
+		rte_eth_promiscuous_enable(portid);
 
 		printf("Port %u, MAC address: %02X:%02X:%02X:%02X:%02X:%02X\n\n",
 			   (unsigned) portid,
