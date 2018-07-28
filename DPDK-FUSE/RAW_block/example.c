@@ -36,6 +36,8 @@ int main(){
 
     lseek(fd, 0, SEEK_SET);
     read(fd, read_buf, sizeof(read_buf));
+    printf("read data: %ld\n", strlen(read_buf));
+
 
     // sanity check
     //    for(i = 0; i<20; i++)
@@ -46,9 +48,9 @@ int main(){
 //    int val = write(fd, data, sizeof(data)); // write our message
 //    printf("write data: %ld :: %d \n", strlen(data), val);
 
-    lseek(fd, 0, SEEK_SET);              // go back to first block's start
-    read(fd, read_buf, sizeof(read_buf));// read the data
-    printf("read data: %ld\n", strlen(read_buf));
+//    lseek(fd, 0, SEEK_SET);              // go back to first block's start
+//    read(fd, read_buf, sizeof(read_buf));// read the data
+//    printf("read data: %ld\n", strlen(read_buf));
 
     // sanity check, now you see the message we wrote!
     //    for(i = 0; i<20; i++)
