@@ -47,7 +47,7 @@ int main()
     }
 
     //second write process.
-    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), 30);
+    nw2= pwrite(fd, &buf_wr2, strlen(buf_wr2), 0);
 
     //write error checking
     if(nw2 == -1){
@@ -56,7 +56,7 @@ int main()
 
         /*if write process is correct
         * second read process*/
-        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 30);
+        nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 0);
 
         printf("-----------------------------------\n");
         printf("[succeeded write(2) process]\n");
