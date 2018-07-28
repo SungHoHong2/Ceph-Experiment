@@ -22,7 +22,7 @@ int main(){
 
     unsigned char read_buf[4096] = {0x00};
 
-    int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
+    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
     printf("MTD Type: %x\nMTD total size: %x bytes\nMTD erase size: %x bytes\n",
            mtd_info.type, mtd_info.size, mtd_info.erasesize);
 
@@ -43,7 +43,7 @@ int main(){
 
     lseek(fd, 0, SEEK_SET);        // go back to first block's start
     int val = write(fd, data, sizeof(data)); // write our message
-    printf("write data: %d :: %d \n", strlen(data), val);
+    printf("write data: %ld :: %d \n", strlen(data), val);
 
     lseek(fd, 0, SEEK_SET);              // go back to first block's start
     read(fd, read_buf, sizeof(read_buf));// read the data
