@@ -33,7 +33,7 @@ int main()
 
 
     strcpy(aligned_buf_w, "BEFORE TEXT READ");
-    strcpy(aligned_buf_r, "");
+    strcpy(aligned_buf_r, "XXXXXXXXXXXXXXXX");
 
 
     printf("BEFORE READ BEGIN\n");
