@@ -50,8 +50,9 @@ int main()
     nr = pread(fd, aligned_buf_wr2, sizeof(aligned_buf_wr2), 0);
 
 
-    
-
+    printf("AFTER READ BEGIN\n");
+    printf("\t%s",aligned_buf_wr2);
+    printf("AFTER READ END\n");
 
 
 //    //open file
