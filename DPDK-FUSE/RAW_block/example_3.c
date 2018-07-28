@@ -42,15 +42,15 @@ int main()
     printf("BEFORE READ END\n");
 
 
-    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-    pwrite(fd, aligned_buf_w, strlen(aligned_buf_w), 0);
-
-    //error checking for close process
-    if(close(fd) == -1){
-        perror("[error in close]\n");
-    }else{
-        printf("[succeeded in close]\n");
-    }
+//    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
+//    pwrite(fd, aligned_buf_w, strlen(aligned_buf_w), 0);
+//
+//    //error checking for close process
+//    if(close(fd) == -1){
+//        perror("[error in close]\n");
+//    }else{
+//        printf("[succeeded in close]\n");
+//    }
 
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
     // fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT, 0777);
