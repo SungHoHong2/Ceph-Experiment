@@ -31,8 +31,8 @@
       <file leaf-file-name="example_p.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RAW_block/example_p.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="531">
+              <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -135,8 +135,8 @@
         <option value="$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/posix_server/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h" />
-        <option value="$PROJECT_DIR$/RAW_block/example_p.c" />
         <option value="$PROJECT_DIR$/RAW_block/example_3.c" />
+        <option value="$PROJECT_DIR$/RAW_block/example_p.c" />
       </list>
     </option>
   </component>
@@ -264,12 +264,12 @@
       <workItem from="1532540650787" duration="4088000" />
       <workItem from="1532626181611" duration="22274000" />
       <workItem from="1532714199674" duration="10064000" />
-      <workItem from="1532807317312" duration="6641000" />
+      <workItem from="1532807317312" duration="6701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241887000" />
+    <option name="totallyTimeSpent" value="241947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -640,8 +640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RAW_block/example_p.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="531">
+          <caret line="39" column="7" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
         </state>
       </provider>
     </entry>

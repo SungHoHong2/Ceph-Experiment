@@ -37,7 +37,7 @@ int main()
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
     aligned_buf_wr2 = (char *)(ad);
-    strcpy(aligned_buf_wr2, "SECOND TEXT INPUT\n");
+    // strcpy(aligned_buf_wr2, "SECOND TEXT INPUT\n");
 
 
     printf("OUTPUT BEGIN\n");
