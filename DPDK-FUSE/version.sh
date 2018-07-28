@@ -11,6 +11,7 @@ then
   ./example
   fi
 
+  # ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
 
 # RUNNING THE FUSE-DPDK BEGN
 elif [ "$1" = "filesystem_setup" ]
