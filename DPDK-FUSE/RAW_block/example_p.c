@@ -10,8 +10,8 @@ int main()
 
     int fd, nr, nr2, nw, nw2;
     char fl_nm[]={"/dev/nvme0n1p1"};
-    char buf_wr[]={"hello everyone this is first text\n"};
-    char buf_wr2[]={"Did you miss me? Don't afraid\n"};
+    char buf_wr[]={"FIRST TEXT INPUT\n"};
+    char buf_wr2[]={"SECOND TEXT INPUT\n"};
     char buf_rd[120];
     char buf_rd2[120];
 
@@ -58,7 +58,6 @@ int main()
         /*if write process is correct
         * second read process*/
         nr2 = pread(fd, &buf_rd2, sizeof(buf_rd), 0);
-
         printf("-----------------------------------\n");
         printf("[succeeded write(2) process]\n");
         printf("[reading(2) data] from %s\n", fl_nm);
