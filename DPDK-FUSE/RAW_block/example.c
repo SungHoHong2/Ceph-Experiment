@@ -6,7 +6,7 @@
 #include <mtd/mtd-user.h>
 #include <string.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 512
 
 int main(){
 
@@ -23,8 +23,8 @@ int main(){
     unsigned char read_buf[BUFFER_SIZE] = {0x00};
 
 
-    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
-//  int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
+//    int fd = open("/dev/nvme0n1p1", O_RDWR); // get the device info
+  int fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT); // get the device info
 
     ei.length = mtd_info.erasesize;   //set the erase block size
     for(ei.start = 0; ei.start < mtd_info.size; ei.start += ei.length)
