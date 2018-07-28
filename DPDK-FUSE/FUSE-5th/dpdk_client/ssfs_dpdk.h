@@ -446,15 +446,26 @@ void dpdk_msg_init() {
     printf("[CHARA]: %d %d\n",RTE_MBUF_DEFAULT_BUF_SIZE, MEMPOOL_CACHE_SIZE);
 
     /* create the mbuf pool */
-    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
-                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
+//    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
+//                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
+//                                                 rte_socket_id());
+
+
+    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", 30,
+                                                 MEMPOOL_CACHE_SIZE, 0, 4089,
                                                  rte_socket_id());
 
     /* create memory pool for send data */
+//    if (test_pktmbuf_pool == NULL) {
+//        test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
+//                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+//    }
+
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
+                                                    30, MEMPOOL_CACHE_SIZE, 0, 4089, rte_socket_id());
     }
+
 
     rx_ring = rte_ring_create("mbuf_rx_ring", 32, rte_socket_id(), 0);
     tx_ring = rte_ring_create("mbuf_tx_ring", 32, rte_socket_id(), 0);
