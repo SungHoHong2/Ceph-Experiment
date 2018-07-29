@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdlib.h>
-#define BUF_SIZE 16
+#define BUF_SIZE 4096
 
 int main()
 {
