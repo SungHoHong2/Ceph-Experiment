@@ -82,8 +82,8 @@ main(int argc, char **argv)
 	dpdk_init();
 
 	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
-	if(NOFILESYSTEM == 1) printf("\tNOFILESYSTEM");
-	if(strlen(raw_device)>0) printf("\t%s");
+	if(NOFILESYSTEM == 1) printf("\tNOFILESYSTEM\n");
+	if(strlen(raw_device)>0) printf("\t%s\n", raw_device);
 	printf("FUSE-DPDK-SERVER CONFIGURATION END\n");
 
 
