@@ -112,6 +112,15 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct lcore_queue_conf *qconf;
     qconf = &lcore_queue_conf[1];
     unsigned portid = qconf->rx_port_list[0];
+    char* aligned_buf_r = NULL;
+    void* ad = NULL;
+    int fd;
+
+    if (posix_memalign(&ad, 32, BUF_SIZE)) {
+        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+    }
+
+    aligned_buf_r = (char *)(ad);
 
     e = malloc(sizeof(struct fuse_message));
         printf("recv msg in DPDK: %s\n",msg->data);
@@ -124,6 +133,13 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
+
+            fd = open(fl_nm, O_RDWR|O_CREAT);
+            pread(fd, aligned_buf_r, 4096, 0);
+            printf("\taligned_buf_r::%s\n",aligned_buf_r);
+            close(fd);
+
+            
         } else {
 //            FILE *file;
 //            char sdata[PKT_SIZE];
@@ -135,10 +151,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 //            }
 //            msg = &obj;
 //            strncpy(obj.data, sdata, 26);
-
-
-
-
         }
 
 
