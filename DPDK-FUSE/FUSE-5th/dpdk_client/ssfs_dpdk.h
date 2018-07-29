@@ -95,16 +95,16 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
 
-     printf("recv msg in DPDK: %s\n", msg->data);
     if (rte_ring_enqueue(rx_ring, msg) < 0) {
         printf("Failed to recv message - message discarded\n");
     } else {
-        dpdk_av = TAILQ_FIRST(&dpdk_queue);
-        dpdk_av->end_time = getTimeStamp();
-        dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
-        printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
-        TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
-//        free(dpdk_av);
+    // dpdk_av = TAILQ_FIRST(&dpdk_queue);
+    // dpdk_av->end_time = getTimeStamp();
+    // dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
+       printf("recv msg in DPDK: %s\n", msg->data);
+    // printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
+    // TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
+    // free(dpdk_av);
     }
 
 }
