@@ -318,7 +318,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
         strcat(collected_data, _msg->data);
         collect_packets++;
-        if(collect_packets>=MERGE_PACKETS) break;
+        if(collect_packets>MERGE_PACKETS) break;
     }
 
 
