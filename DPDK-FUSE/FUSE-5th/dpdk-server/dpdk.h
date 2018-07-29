@@ -151,12 +151,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             for(i=0; i<MERGE_PACKETS; i++){
                 memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
                 printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
-                // aligned_buf_r+=PKT_SIZE;
+                 aligned_buf_r+=PKT_SIZE;
             }
 
 
             for(i=0; i<MERGE_PACKETS; i++){
-                msg = &obj[i];
+                msg = &objs[i];
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
