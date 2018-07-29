@@ -96,15 +96,27 @@ main(int argc, char **argv)
 			if(strcmp(argv[i],"NOFILESYSTEM")==0){
 				NOFILESYSTEM = 1;
 			}
+
+			if(strcmp(argv[i],"/dev/nvme0n1p1")==0){
+				strcpy(raw_device, "/dev/nvme0n1p1");
+			}
 		}
 	}
+
+	if(strlen(raw_device)>0){
+		printf("no ssd location\n");
+		return 0;
+	}
+
 
 	gethostname(hostname, 1023);
 	dpdk_init();
 
-	printf("FUSE-DPDK-SERVER BEGIN");
-	if(NOFILESYSTEM == 1) printf(" WITH NOFILESYSTEM");
-	printf("\n");
+	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
+	if(NOFILESYSTEM == 1) printf("\tNOFILESYSTEM");
+	if(strlen(raw_device)>0) printf("\t%s");
+	printf("FUSE-DPDK-SERVER CONFIGURATION END\n");
+
 
 	/* launch per-lcore init on every lcore */
 	rte_eal_mp_remote_launch(l2fwd_launch_one_lcore, NULL, CALL_MASTER);

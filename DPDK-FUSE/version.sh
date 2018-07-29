@@ -83,8 +83,8 @@ then
   export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/dpdk-server/
   make
-  # ./build/dpdk-server
-  ./build/dpdk-server "NOFILESYSTEM"
+  # ./build/dpdk-server "/dev/nvme0n1p1"
+  ./build/dpdk-server "NOFILESYSTEM" "/dev/nvme0n1p1"
 
 
   elif [ "$HOSTS" = "c3n25" ]
