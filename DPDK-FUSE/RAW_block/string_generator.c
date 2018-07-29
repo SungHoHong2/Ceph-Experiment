@@ -68,7 +68,7 @@ int main()
     for(i=0; i<3; i++){
         memcpy(array_test[i], aligned_buf_r, 1024);
         printf("%s\n", array_test[i]);
-        aligned_buf_r+=1024;
+        aligned_buf_r+=2048;
     }
 
 
