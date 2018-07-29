@@ -310,27 +310,35 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     char collected_data[DATA_SIZE*2];
 
-    while(1){
+
+    if(NOFILESYSTEM==0) {
+        while (1) {
+            while (rte_ring_dequeue(rx_ring, &msg) < 0) {
+                usleep(5);
+            }
+            _msg = (struct message *) msg;
+            strcat(collected_data, _msg->data);
+            collect_packets++;
+            if (collect_packets > MERGE_PACKETS) break;
+        }
+    }
+
+    else if(NOFILESYSTEM==1) {
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
         }
-        _msg = (struct message *)msg;
-        strcat(collected_data, _msg->data);
-        collect_packets++;
-        if(collect_packets>MERGE_PACKETS) break;
     }
-//
-//
-//    av = TAILQ_FIRST(&avg_queue);
-//    av->end_time = getTimeStamp();
-//    av->interval = av->end_time - av->start_time;
-//    printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
-//
-//    intervals[test_i] = (double)av->interval;
-//    TAILQ_REMOVE(&avg_queue, av, nodes);
-//    free(av);
-//    test_i++;
 
+
+    av = TAILQ_FIRST(&avg_queue);
+    av->end_time = getTimeStamp();
+    av->interval = av->end_time - av->start_time;
+    printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
+
+    intervals[test_i] = (double)av->interval;
+    TAILQ_REMOVE(&avg_queue, av, nodes);
+    free(av);
+    test_i++;
 
 
 //    _msg = (struct message *)msg;
@@ -349,28 +357,29 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         calculateSD(intervals);
     }
 
-
     if(CACHE_HIT==0){
-        if(fi == NULL)
-            fd = open(path, O_RDONLY);
-        else
-            fd = fi->fh;
+        strcpy(buf,"MISS\n");
+        res = 26;
 
-        if (fd == -1)
-            return -errno;
-
-        res = pread(fd, buf, size, offset);
-
-
-        if (res == -1)
-            res = -errno;
-
-        if(fi == NULL)
-            close(fd);
+//        if(fi == NULL)
+//            fd = open(path, O_RDONLY);
+//        else
+//            fd = fi->fh;
+//
+//        if (fd == -1)
+//            return -errno;
+//
+//        res = pread(fd, buf, size, offset);
+//
+//        if (res == -1)
+//            res = -errno;
+//
+//        if(fi == NULL)
+//            close(fd);
     }
 
     if(CACHE_HIT==1){
-        strcpy(buf,_msg->data);
+        strcpy(buf,collected_data);
         res = 26;
     }
 

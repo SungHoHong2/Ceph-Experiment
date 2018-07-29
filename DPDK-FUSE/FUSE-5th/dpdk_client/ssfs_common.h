@@ -73,6 +73,7 @@
 #define DATA_SIZE 4089
 #define MERGE_PACKETS 4
 
+int NOFILESYSTEM;
 int CHARA_DEBUG;
 int MAX_LOOP;
 int CACHE_HIT;
