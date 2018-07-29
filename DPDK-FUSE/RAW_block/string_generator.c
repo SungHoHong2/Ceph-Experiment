@@ -73,7 +73,7 @@ int main()
 //        printf("%s\n", array_test[i]);
 //        aligned_buf_r+=1024;
 //    }
-
+int i;
 
     struct message objs[4];
 
