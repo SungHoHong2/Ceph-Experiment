@@ -442,28 +442,15 @@ void dpdk_msg_init() {
 
     printf("MAC updating %s\n", mac_updating ? "enabled" : "disabled");
 
-
-    printf("[CHARA]: %d %d\n",RTE_MBUF_DEFAULT_BUF_SIZE, MEMPOOL_CACHE_SIZE);
-
     /* create the mbuf pool */
-//    l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
-//                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
-//                                                 rte_socket_id());
-
-
     l2fwd_pktmbuf_pool = rte_pktmbuf_pool_create("mbuf_pool", NB_MBUF,
-                                                 MEMPOOL_CACHE_SIZE, 0, 4089,
+                                                 MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE,
                                                  rte_socket_id());
 
     /* create memory pool for send data */
-//    if (test_pktmbuf_pool == NULL) {
-//        test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-//                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
-//    }
-
     if (test_pktmbuf_pool == NULL) {
         test_pktmbuf_pool = rte_pktmbuf_pool_create("test_pktmbuf_pool",
-                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, 4089, rte_socket_id());
+                                                    NB_MBUF, MEMPOOL_CACHE_SIZE, 0, RTE_MBUF_DEFAULT_BUF_SIZE, rte_socket_id());
     }
 
 
