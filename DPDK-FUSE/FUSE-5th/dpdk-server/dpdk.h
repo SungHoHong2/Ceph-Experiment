@@ -11,7 +11,6 @@ static int mac_updating = 1;
 //#define MAX_PKT_BURST 32
 #define MAX_PKT_BURST 1
 
-
 #define BURST_TX_DRAIN_US 100 /* TX drain every ~100us */
 #define MEMPOOL_CACHE_SIZE 256
 
@@ -114,13 +113,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     char* aligned_buf_r = NULL;
     void* ad = NULL;
     int fd, nr;
-    struct rte_mbuf *rm[3];
-    int c;
+    struct rte_mbuf *rm[MERGE_PACKETS];
+    int i;
     char *zdata;
 
-//    e = malloc(sizeof(struct fuse_message));
-//        printf("recv msg in DPDK: %s\n",msg->data);
-//        strcpy(e->data, msg->data);
 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
@@ -138,48 +134,20 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
         }
 
+        for(i=0; i<MERGE_PACKETS; i++){
+            rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+            rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
+            zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
+            zdata+=sizeof(struct ether_hdr)-2;
 
-        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[1], void *));
-
-        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr)-2;
-
-        rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[0], 0);
-
-        printf("first packet\n");
-
-
-        rm[1] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[1], void *));
-
-
-        zdata = rte_pktmbuf_append(rm[1], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr)-2;
-
-        rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[1], 0);
-
-        printf("second packet\n");
-
-
-        rm[2] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[2], void *));
-
-        zdata = rte_pktmbuf_append(rm[2], sizeof(struct message));
-        zdata+=sizeof(struct ether_hdr)-2;
-
-        rte_memcpy(zdata, msg, sizeof(struct message));
-        l2fwd_mac_updating(rm[2], 0);
-
-        printf("third packet\n");
-
+            rte_memcpy(zdata, msg, sizeof(struct message));
+            l2fwd_mac_updating(rm[i], 0);
+        }
 
         // rte_pktmbuf_dump(stdout, rm[0], 60);
         printf("send msg in DPDK: %s\n", msg->data);
-        rte_eth_tx_burst(1, 0, rm, 3);
+        rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
 }
 
 

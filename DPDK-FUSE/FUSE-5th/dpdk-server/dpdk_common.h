@@ -46,6 +46,7 @@
 #define CON_SIZE 255
 #define PKT_SIZE 1024
 #define DATA_SIZE 4089
+#define MERGE_PACKETS 4
 
 int NOFILESYSTEM;
 char hostname[CON_SIZE];
