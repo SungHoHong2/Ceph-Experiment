@@ -83,6 +83,7 @@ int i;
     nr = pread(fd, aligned_buf_r, BUF_SIZE, 0);
     close(fd);
 
+    printf("%s",aligned_buf_r);
 
 //    printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
 
