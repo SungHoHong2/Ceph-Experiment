@@ -229,7 +229,7 @@ l2fwd_rx_loop() {
                 int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
                 if (rte_mbuf_packet_length == PKT_SIZE) {
-                    // rte_pktmbuf_dump(stdout, m, 60);
+                     rte_pktmbuf_dump(stdout, m, 60);
 
                     if(strcmp(hostname,"w2")==0) {
                         dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr));
