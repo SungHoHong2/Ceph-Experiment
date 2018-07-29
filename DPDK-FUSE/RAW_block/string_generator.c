@@ -86,11 +86,11 @@ int i;
 
 //    printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
 
-    for(i=0; i<3; i++){
-        memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
-        printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
-        aligned_buf_r+=PKT_SIZE;
-    }
+//    for(i=0; i<3; i++){
+//        memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
+//        printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
+//        aligned_buf_r+=PKT_SIZE;
+//    }
 
 
 
