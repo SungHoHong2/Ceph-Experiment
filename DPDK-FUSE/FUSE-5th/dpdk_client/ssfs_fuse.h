@@ -307,19 +307,19 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
 
-//    int collect_packets = 1;
-//    char collected_data[DATA_SIZE];
-//
-//    while(1){
-//        while(rte_ring_dequeue(rx_ring, &msg) < 0){
-//            usleep(5);
-//        }
-//        _msg = (struct message *)msg;
-//
-//        strcat(collected_data, _msg->data);
-//        collect_packets++;
-//        if(collect_packets>MERGE_PACKETS) break;
-//    }
+    int collect_packets = 1;
+    char collected_data[DATA_SIZE];
+
+    while(1){
+        while(rte_ring_dequeue(rx_ring, &msg) < 0){
+            usleep(5);
+        }
+        _msg = (struct message *)msg;
+
+        strcat(collected_data, _msg->data);
+        collect_packets++;
+        if(collect_packets>MERGE_PACKETS) break;
+    }
 //
 //
 //    av = TAILQ_FIRST(&avg_queue);
