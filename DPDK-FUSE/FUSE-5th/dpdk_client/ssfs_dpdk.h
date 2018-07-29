@@ -96,15 +96,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     if (rte_ring_enqueue(rx_ring, msg) < 0) {
-        printf("Failed to recv message - message discarded\n");
+
     } else {
-    // dpdk_av = TAILQ_FIRST(&dpdk_queue);
-    // dpdk_av->end_time = getTimeStamp();
-    // dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
-       printf("recv msg in DPDK: %s\n", msg->data);
-    // printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
-    // TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
-    // free(dpdk_av);
+        printf("recv msg in DPDK: %ld\n", strlen(msg->data));
     }
 
 }
@@ -162,19 +156,12 @@ l2fwd_tx_loop()
             // printf("Failed to recv message - message discarded\n");
         } else {
                 _msg = (struct message *)__msg;
-                dpdk_av = malloc(sizeof(struct avg_node));
-                dpdk_av->start_time = getTimeStamp();
-                dpdk_av->num = dpdk_requests;
-                TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
-                dpdk_requests++;
 
                 msg = &obj;
                 strncpy(obj.data, _msg->data, 100);
 
-
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-
 
                 if(strcmp(hostname,"w2")==0) {
                     l2fwd_mac_updating(rm[0], portid); // WORKSTATION
