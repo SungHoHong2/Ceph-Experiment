@@ -19,7 +19,7 @@ int main()
     char* aligned_buf_r = NULL;
 
     void* ad = NULL;
-    if (posix_memalign(&ad, 32, BUF_SIZE)) {
+    if (posix_memalign(&ad, 2, BUF_SIZE)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
 
@@ -27,7 +27,7 @@ int main()
 
 
     ad = NULL;
-    if (posix_memalign(&ad, 32, BUF_SIZE)) {
+    if (posix_memalign(&ad, 2, BUF_SIZE)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
     aligned_buf_r = (char *)(ad);
