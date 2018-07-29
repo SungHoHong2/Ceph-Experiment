@@ -116,8 +116,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
+    char split_data[MERGE_PACKETS][PKT_SIZE];
 
 
+    
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
@@ -131,6 +133,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
             printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+
+            for(i=0; i<MERGE_PACKETS; i++){
+                memcpy(split_data[i], aligned_buf_r, PKT_SIZE);
+                printf("%ld\n", strlen(split_data[i]));
+                aligned_buf_r+=PKT_SIZE;
+            }
 
         } else {
             if (posix_memalign(&ad, 32, DATA_SIZE)) {
