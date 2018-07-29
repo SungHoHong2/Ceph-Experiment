@@ -34,10 +34,10 @@ int main()
 
     memset(aligned_buf_w, '*', BUF_SIZE * sizeof(char));
 
-    printf("BEFORE READ BEGIN\n");
-    printf("\t aligned_buf_w::%s\n",aligned_buf_w);
-    printf("\t aligned_buf_r::%s\n",aligned_buf_r);
-    printf("BEFORE READ END\n");
+//    printf("BEFORE READ BEGIN\n");
+//    printf("\t aligned_buf_w::%s\n",aligned_buf_w);
+//    printf("\t aligned_buf_r::%s\n",aligned_buf_r);
+//    printf("BEFORE READ END\n");
 
 
     fd = open(fl_nm, O_RDWR|O_CREAT);
@@ -46,10 +46,10 @@ int main()
 
 
     pread(fd, aligned_buf_r, BUF_SIZE, 0);
-
-    printf("AFTER READ BEGIN\n");
+//    printf("AFTER READ BEGIN\n");
     printf("\taligned_buf_r::%s\n",aligned_buf_r);
-    printf("AFTER READ END\n");
+//    printf("AFTER READ END\n");
+
 
     //error checking for close process
     if(close(fd) == -1){
