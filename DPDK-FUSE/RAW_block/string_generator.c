@@ -47,7 +47,6 @@ int main()
 
     pread(fd, aligned_buf_r, BUF_SIZE, 0);
 //    printf("AFTER READ BEGIN\n");
-    printf("\taligned_buf_r::%s\n",aligned_buf_r);
 //    printf("AFTER READ END\n");
 
 
@@ -68,7 +67,7 @@ int main()
     for(i=0; i<3; i++){
         printf("%s\n", array_test[i]);
     }
-    
+
 
     // aligned_buf_r
 
