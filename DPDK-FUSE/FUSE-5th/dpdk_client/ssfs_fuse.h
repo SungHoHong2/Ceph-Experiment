@@ -306,9 +306,18 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         total_requests++;
     }
 
-//    while(rte_ring_dequeue(rx_ring, &msg) < 0){
-//        usleep(5);
-//    }
+    int collect_packets = 0;
+
+    while(1){
+        while(rte_ring_dequeue(rx_ring, &msg) < 0){
+            usleep(5);
+        }
+        _msg = (struct message *)msg;
+
+        printf("CHARA: %s\n",_msg->data);
+        collect_packets++;
+        if(collect_packets>2) break;
+    }
 //
 //    _msg = (struct message *)msg;
 ////     printf("CHARA Received '%s'\n", _msg->data);
