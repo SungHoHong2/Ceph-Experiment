@@ -66,13 +66,13 @@ main(int argc, char **argv)
 				NOFILESYSTEM = 1;
 			}
 
-			if(strcmp(argv[i],"nvme0n1p1")==0){
+			if(strcmp(argv[i],"/dev/nvme0n1p1")==0){
 				strcpy(raw_device, "/dev/nvme0n1p1");
 			}
 		}
 	}
 
-	if(strlen(raw_device)>0){
+	if(strlen(raw_device)==0){
 		printf("no ssd location\n");
 		return 0;
 	}
