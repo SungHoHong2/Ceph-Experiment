@@ -66,16 +66,16 @@ main(int argc, char **argv)
 				NOFILESYSTEM = 1;
 			}
 
-//			if(strcmp(argv[i],"nvme0n1p1")==0){
-//				strcpy(raw_device, "/dev/nvme0n1p1");
-//			}
+			if(strcmp(argv[i],"nvme0n1p1")==0){
+				strcpy(raw_device, "/dev/nvme0n1p1");
+			}
 		}
 	}
 
-//	if(strlen(raw_device)==0){
-//		printf("no ssd location\n");
-//		return 0;
-//	}
+	if(strlen(raw_device)==0){
+		printf("no ssd location\n");
+		return 0;
+	}
 
 
 	gethostname(hostname, 1023);
@@ -83,7 +83,7 @@ main(int argc, char **argv)
 
 	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
 	if(NOFILESYSTEM == 1) printf("\tNOFILESYSTEM\n");
-//	if(strlen(raw_device)>0) printf("\t%s\n", raw_device);
+	if(strlen(raw_device)>0) printf("\t%s\n", raw_device);
 	printf("FUSE-DPDK-SERVER CONFIGURATION END\n");
 
 
