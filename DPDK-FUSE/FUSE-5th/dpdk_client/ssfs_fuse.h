@@ -306,7 +306,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         total_requests++;
     }
 
+
+
     int collect_packets = 0;
+    char collected_data[DATA_SIZE];
 
     while(1){
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
@@ -314,19 +317,22 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
         _msg = (struct message *)msg;
 
-        av = TAILQ_FIRST(&avg_queue);
-        av->end_time = getTimeStamp();
-        av->interval = av->end_time - av->start_time;
-        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
-        intervals[test_i] = (double)av->interval;
-        TAILQ_REMOVE(&avg_queue, av, nodes);
-        free(av);
-
+        strcat(collected_data, msg->data);
         collect_packets++;
         if(collect_packets>2) break;
     }
 
+
+    av = TAILQ_FIRST(&avg_queue);
+    av->end_time = getTimeStamp();
+    av->interval = av->end_time - av->start_time;
+    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
+    intervals[test_i] = (double)av->interval;
+    TAILQ_REMOVE(&avg_queue, av, nodes);
+    free(av);
     test_i++;
+
+
 
 
 //    _msg = (struct message *)msg;

@@ -47,7 +47,6 @@
 #define PKT_SIZE 1024
 #define DATA_SIZE 4089
 
-
 int NOFILESYSTEM;
 char hostname[CON_SIZE];
 char raw_device[CON_SIZE];
