@@ -105,7 +105,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
-    struct fuse_message *e = NULL;
+//    struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
     struct message obj;
     struct lcore_queue_conf *qconf;
@@ -114,20 +114,18 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     char* aligned_buf_r = NULL;
     void* ad = NULL;
     int fd, nr;
+    struct rte_mbuf *rm[3];
+    int c;
+    char *zdata;
 
-    e = malloc(sizeof(struct fuse_message));
-        printf("recv msg in DPDK: %s\n",msg->data);
-        strcpy(e->data, msg->data);
-
-        struct rte_mbuf *rm[1];
-        int c;
-        char *zdata;
+//    e = malloc(sizeof(struct fuse_message));
+//        printf("recv msg in DPDK: %s\n",msg->data);
+//        strcpy(e->data, msg->data);
 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
-
-
+        } else {
             if (posix_memalign(&ad, 32, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
@@ -137,33 +135,13 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
 
-            printf("send msg in FILESYSTEM: %s\n", aligned_buf_r);
-
-
-        } else {
-//            FILE *file;
-//            char sdata[PKT_SIZE];
-//            file = fopen("/mnt/ssd_cache/server", "r");
-//            if (file) {
-//                c = fread(sdata, sizeof(char), 26, file);
-//                // printf("send msg in FILESYSTEM: %s\n", sdata);
-//                fclose(file);
-//            }
-//            msg = &obj;
-//            strncpy(obj.data, sdata, 26);
-
-
-
-
-
-
-
-
+            printf("send msg in FILESYSTEM: %s\n", strlen(aligned_buf_r));
         }
 
 
+
         rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+        rte_prefetch0(rte_pktmbuf_mtod(rm[1], void *));
 
         zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
         zdata+=sizeof(struct ether_hdr)-2;
@@ -171,9 +149,37 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         rte_memcpy(zdata, msg, sizeof(struct message));
         l2fwd_mac_updating(rm[0], 0);
 
+        printf("first packet\n");
+
+
+        rm[1] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+        rte_prefetch0(rte_pktmbuf_mtod(rm[1], void *));
+
+
+        zdata = rte_pktmbuf_append(rm[1], sizeof(struct message));
+        zdata+=sizeof(struct ether_hdr)-2;
+
+        rte_memcpy(zdata, msg, sizeof(struct message));
+        l2fwd_mac_updating(rm[1], 0);
+
+        printf("second packet\n");
+
+        
+        rm[2] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+        rte_prefetch0(rte_pktmbuf_mtod(rm[2], void *));
+
+        zdata = rte_pktmbuf_append(rm[2], sizeof(struct message));
+        zdata+=sizeof(struct ether_hdr)-2;
+
+        rte_memcpy(zdata, msg, sizeof(struct message));
+        l2fwd_mac_updating(rm[2], 0);
+
+        printf("third packet\n");
+
+
         // rte_pktmbuf_dump(stdout, rm[0], 60);
         printf("send msg in DPDK: %s\n", msg->data);
-        rte_eth_tx_burst(1, 0, rm, 1);
+        rte_eth_tx_burst(1, 0, rm, 3);
 }
 
 
