@@ -87,7 +87,6 @@ int i;
     nr = pread(fd, aligned_buf_r, BUF_SIZE, 0);
     printf("ddd\n");
 
-    close(fd);
 
     printf("ddd\n");
 
@@ -99,6 +98,7 @@ int i;
     }
 
 
+    close(fd);
 
 
 
