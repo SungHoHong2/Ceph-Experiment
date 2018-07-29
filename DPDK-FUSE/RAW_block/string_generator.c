@@ -8,9 +8,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #define BUF_SIZE 4096
-struct message {
-    char data[PKT_SIZE];
-};
+
 int main()
 {
 
@@ -73,7 +71,9 @@ int main()
         aligned_buf_r+=1024;
     }
 
-    
+
+
+
 
 
 
