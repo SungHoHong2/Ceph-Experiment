@@ -44,6 +44,7 @@
 #include <rte_mbuf.h>
 
 #define PKT_SIZE 1024
+#define DATA_SIZE 4096
 int NOFILESYSTEM;
 
 int fd, nr;
