@@ -31,10 +31,14 @@ int main( int argc, char **argv )
     if(argc>1){
         int i =0;
         for(i=0;i<argc; i++){
+
+            if(strcmp(argv[i],"DEBUG")==0){
+                CHARA_DEBUG = 1;
+            }
+
             if(strcmp(argv[i],"CACHE_HIT")==0){
                 CACHE_HIT = 1;
             }
-
             if(strcmp(argv[i],"TEN")==0){
                 MAX_LOOP = 10;
             }
@@ -44,6 +48,10 @@ int main( int argc, char **argv )
             if(strcmp(argv[i],"THOUSAND")==0){
                 MAX_LOOP = 1000;
             }
+
+
+
+
         }
     }
 

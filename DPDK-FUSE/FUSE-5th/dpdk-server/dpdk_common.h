@@ -48,6 +48,7 @@
 #define DATA_SIZE 4089
 #define MERGE_PACKETS 4
 
+int CHARA_DEBUG;
 int NOFILESYSTEM;
 char hostname[CON_SIZE];
 char raw_device[CON_SIZE];

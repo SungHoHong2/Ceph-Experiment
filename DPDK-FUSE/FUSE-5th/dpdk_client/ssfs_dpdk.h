@@ -98,7 +98,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     if (rte_ring_enqueue(rx_ring, msg) < 0) {
 
     } else {
-        printf("recv msg in DPDK: %ld\n", strlen(msg->data));
+        if(CHARA_DEBUG) printf("recv msg in DPDK: %ld\n", strlen(msg->data));
     }
 
 }
@@ -173,8 +173,7 @@ l2fwd_tx_loop()
                 }
 
                 rte_memcpy(data, msg, sizeof(struct message));
-
-                printf("send msg in DPDK: %s\n",_msg->data);
+                if(CHARA_DEBUG) printf("send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
                 // rte_pktmbuf_dump(stdout, rm[0], 60);
                 rte_eth_tx_burst(portid, 0, rm, 1);
