@@ -116,60 +116,56 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
-    char split_data[MERGE_PACKETS][PKT_SIZE];
     struct message objs[MERGE_PACKETS];
 
+    if( NOFILESYSTEM == 1 ) {
+        msg = &obj;
+        strncpy(obj.data, "Hello World From SERVER!\n", 26);
 
-        if( NOFILESYSTEM == 1 ) {
-            msg = &obj;
-            strncpy(obj.data, "Hello World From SERVER!\n", 26);
+        rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+        rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
 
-            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+        zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
+        zdata+=sizeof(struct ether_hdr)-2;
 
-            zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
+        rte_memcpy(zdata, msg, sizeof(struct message));
+        l2fwd_mac_updating(rm[0], 0);
+
+        // rte_pktmbuf_dump(stdout, rm[0], 60);
+        printf("send msg in DPDK: %s\n", msg->data);
+        rte_eth_tx_burst(1, 0, rm, 1);
+
+
+    } else {
+        if (posix_memalign(&ad, 32, DATA_SIZE)) {
+            perror("posix_memalign failed"); exit (EXIT_FAILURE);
+        }
+        aligned_buf_r = (char *)(ad);
+        fd = open(raw_device, O_RDWR|O_CREAT, 0777);
+        nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
+        close(fd);
+        printf("CHARA: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+        for(i=0; i<MERGE_PACKETS; i++){
+            memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
+            printf("merged msg in DPDK: %ld\n", strlen(objs[i].data));
+            // aligned_buf_r+=PKT_SIZE;
+        }
+
+        for(i=0; i<MERGE_PACKETS; i++){
+            msg = &objs[i];
+            rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+            rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
+
+            zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
             zdata+=sizeof(struct ether_hdr)-2;
 
             rte_memcpy(zdata, msg, sizeof(struct message));
-            l2fwd_mac_updating(rm[0], 0);
-
-            // rte_pktmbuf_dump(stdout, rm[0], 60);
-            printf("send msg in DPDK: %s\n", msg->data);
-            rte_eth_tx_burst(1, 0, rm, 1);
-
-
-        } else {
-            if (posix_memalign(&ad, 32, DATA_SIZE)) {
-                perror("posix_memalign failed"); exit (EXIT_FAILURE);
-            }
-
-            aligned_buf_r = (char *)(ad);
-            fd = open(raw_device, O_RDWR|O_CREAT, 0777);
-            nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
-            close(fd);
-            printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
-            for(i=0; i<MERGE_PACKETS; i++){
-                memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
-                printf("merged msg in DPDK: %ld\n", strlen(objs[i].data));
-                aligned_buf_r+=PKT_SIZE;
-            }
-
-            for(i=0; i<MERGE_PACKETS; i++){
-                msg = &objs[i];
-                rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-                rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
-
-                zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
-                zdata+=sizeof(struct ether_hdr)-2;
-
-                rte_memcpy(zdata, msg, sizeof(struct message));
-                l2fwd_mac_updating(rm[i], 0);
-            }
-            // rte_pktmbuf_dump(stdout, rm[0], 60);
-            rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
+            l2fwd_mac_updating(rm[i], 0);
         }
 
-
+        // rte_pktmbuf_dump(stdout, rm[0], 60);
+        rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
+    }
 }
 
 
@@ -214,28 +210,28 @@ l2fwd_rx_loop()
         /*
          * Read packet from RX queues
          */
-            portid = qconf->rx_port_list[0];
-            nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
-                                     pkts_burst, MAX_PKT_BURST);
+        portid = qconf->rx_port_list[0];
+        nb_rx = rte_eth_rx_burst((uint8_t) portid, 0,
+                                 pkts_burst, MAX_PKT_BURST);
 
-            for (j = 0; j < nb_rx; j++) {
-                m = pkts_burst[j];
-                int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
+        for (j = 0; j < nb_rx; j++) {
+            m = pkts_burst[j];
+            int rte_mbuf_packet_length = rte_pktmbuf_pkt_len(m);
 
 //                 rte_pktmbuf_dump(stdout, m, 60);
 
-                 if(rte_mbuf_packet_length==PKT_SIZE) {
+            if(rte_mbuf_packet_length==PKT_SIZE) {
 
-                     if(strcmp(hostname,"w1")==0) {
-                         dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
-                     }
+                if(strcmp(hostname,"w1")==0) {
+                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
+                }
 
-                     if(strcmp(hostname,"c3n24")==0) {
-                         dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
-                     }
-                 }
-
+                if(strcmp(hostname,"c3n24")==0) {
+                    dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
+                }
             }
+
+        }
     }
 }
 
