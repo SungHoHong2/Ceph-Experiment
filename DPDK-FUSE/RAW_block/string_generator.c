@@ -79,18 +79,13 @@ int i;
 
 //    char* aligned_buf_r = NULL;
     aligned_buf_r = (char *)(ad);
-    printf("ddd\n");
     fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
-
-    printf("ddd\n");
-
     nr = pread(fd, aligned_buf_r, BUF_SIZE, 0);
-    printf("ddd\n");
+    close(fd);
 
 
-    printf("ddd\n");
+//    printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
 
-    printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
     for(i=0; i<3; i++){
         memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
         printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
@@ -98,7 +93,6 @@ int i;
     }
 
 
-    close(fd);
 
 
 
