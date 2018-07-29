@@ -321,27 +321,27 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         _msg = (struct message *)msg;
 
         strcat(collected_data, _msg->data);
+        printf("CHARA Received '%s'\n", _msg->data);
         collect_packets++;
         if(collect_packets>MERGE_PACKETS) break;
     }
 
-    printf("step2\n");
-
-
-    av = TAILQ_FIRST(&avg_queue);
-    av->end_time = getTimeStamp();
-    av->interval = av->end_time - av->start_time;
-
-    printf("step3\n");
-
-
-    if(CHARA_DEBUG) printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
-
-    intervals[test_i] = (double)av->interval;
-    TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av);
-    test_i++;
-
+//    printf("step2\n");
+//
+//    av = TAILQ_FIRST(&avg_queue);
+//    av->end_time = getTimeStamp();
+//    av->interval = av->end_time - av->start_time;
+//
+//    printf("step3\n");
+//
+//
+//    if(CHARA_DEBUG) printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
+//
+//    intervals[test_i] = (double)av->interval;
+//    TAILQ_REMOVE(&avg_queue, av, nodes);
+//    free(av);
+//    test_i++;
+//
 
 
 //    _msg = (struct message *)msg;
