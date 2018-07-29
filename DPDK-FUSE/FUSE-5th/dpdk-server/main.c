@@ -60,7 +60,7 @@ main(int argc, char **argv)
 	if(argc>1){
 		int i;
 		for(i=0;i<argc; i++){
-			printf("%s\n",argv[i]);
+			// printf("%s\n",argv[i]);
 
 			if(strcmp(argv[i],"NOFILESYSTEM")==0){
 				NOFILESYSTEM = 1;
