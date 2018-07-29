@@ -1,5 +1,6 @@
 #define PKT_SIZE 1024
 int NOFILESYSTEM;
+char hostname[1024];
 
 struct message {
     char data[PKT_SIZE];

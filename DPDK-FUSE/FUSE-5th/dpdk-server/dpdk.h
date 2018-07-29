@@ -1,5 +1,4 @@
 #include <unistd.h>
-char hostname[1024];
 static volatile bool force_quit;
 
 /* MAC updating enabled by default */
