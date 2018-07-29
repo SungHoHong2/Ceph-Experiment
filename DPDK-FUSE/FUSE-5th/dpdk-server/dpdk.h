@@ -113,7 +113,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     unsigned portid = qconf->rx_port_list[0];
     char* aligned_buf_r = NULL;
     void* ad = NULL;
-    int fd;
+    int fd, nr;
 
     e = malloc(sizeof(struct fuse_message));
         printf("recv msg in DPDK: %s\n",msg->data);
@@ -134,7 +134,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             aligned_buf_r = (char *)(ad);
             fd = open(raw_device, O_RDWR|O_CREAT, 0777);
-            pread(fd, aligned_buf_r, DATA_SIZE, 0);
+            nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
 
             printf("send msg in FILESYSTEM: %s\n", aligned_buf_r);
