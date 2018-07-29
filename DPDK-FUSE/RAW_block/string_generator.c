@@ -8,7 +8,9 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #define BUF_SIZE 4096
-
+struct message {
+    char data[PKT_SIZE];
+};
 int main()
 {
 
@@ -59,17 +61,34 @@ int main()
     }
 
 
-    printf("splitting string into 1024 bytes\n");
+//    printf("splitting string into 1024 bytes\n");
+//
+//
+//    char array_test[3][1024];
+//
+//    int i;
+//    for(i=0; i<3; i++){
+//        memcpy(array_test[i], aligned_buf_r, 1024);
+//        printf("%s\n", array_test[i]);
+//        aligned_buf_r+=1024;
+//    }
 
 
-    char array_test[3][1024];
+    struct message objs[4];
 
-    int i;
-    for(i=0; i<3; i++){
-        memcpy(array_test[i], aligned_buf_r, 1024);
-        printf("%s\n", array_test[i]);
-        aligned_buf_r+=1024;
+    char* aligned_buf_r = NULL;
+    aligned_buf_r = (char *)(ad);
+    fd = open(fl_nm, O_RDWR|O_CREAT, 0777);
+    nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
+    close(fd);
+    printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+    for(i=0; i<MERGE_PACKETS; i++){
+        memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
+        printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
+        aligned_buf_r+=PKT_SIZE;
     }
+
+
 
 
 
