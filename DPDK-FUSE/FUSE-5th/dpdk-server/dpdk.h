@@ -146,7 +146,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             close(fd);
             printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
             for(i=0; i<MERGE_PACKETS; i++){
-                memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
+                memcpy(objs[i].data, aligned_buf_r, 1024);
                 printf("merged msg in DPDK: %ld\n", strlen(objs[i].data));
                 // aligned_buf_r+=PKT_SIZE;
             }
