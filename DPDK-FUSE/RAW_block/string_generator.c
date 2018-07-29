@@ -72,7 +72,6 @@ int main()
 
     // aligned_buf_r
 
-    splits[0]
 
 
 
