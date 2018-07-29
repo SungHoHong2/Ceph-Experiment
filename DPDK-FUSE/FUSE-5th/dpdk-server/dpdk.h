@@ -1,5 +1,3 @@
-#include <unistd.h>
-char hostname[1024];
 static volatile bool force_quit;
 
 /* MAC updating enabled by default */
@@ -139,7 +137,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("\taligned_buf_r::%s\n",aligned_buf_r);
             close(fd);
 
-            
+
         } else {
 //            FILE *file;
 //            char sdata[PKT_SIZE];
