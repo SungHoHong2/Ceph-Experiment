@@ -15,6 +15,9 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <rte_common.h>
 #include <rte_log.h>
