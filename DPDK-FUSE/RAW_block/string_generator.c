@@ -83,7 +83,7 @@ int i;
     nr = pread(fd, aligned_buf_r, BUF_SIZE, 0);
     close(fd);
     printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
-    for(i=0; i<MERGE_PACKETS; i++){
+    for(i=0; i<4; i++){
         memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
         printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
         aligned_buf_r+=PKT_SIZE;
