@@ -87,8 +87,8 @@ int main( int argc, char **argv ){
         file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
         // file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
-            fread(data, sizeof(char), 23, file);
-            printf("recv msg in FUSE: %s\n", data);
+            fread(data, sizeof(char), 4096, file);
+            printf("recv msg in FUSE: %ld\n", strlen(data));
             fclose(file);
         }
         end_time = getTimeStamp();
