@@ -132,7 +132,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
 
-            fd = open(raw_device, O_RDWR|O_CREAT);
+            fd = open(raw_device, O_RDWR|O_CREAT, 0777);
             pread(fd, aligned_buf_r, DATA_SIZE, 0);
             printf("\taligned_buf_r::%s\n",aligned_buf_r);
             close(fd);
