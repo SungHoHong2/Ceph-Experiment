@@ -46,10 +46,6 @@ struct rte_mempool *test_pktmbuf_pool = NULL;
 struct rte_ring *rx_ring;
 struct rte_ring *tx_ring;
 
-
-
-
-
 static const struct rte_eth_conf port_conf = {
         .rxmode = {
                 .split_hdr_size = 0,
@@ -172,23 +168,12 @@ l2fwd_tx_loop()
                 TAILQ_INSERT_TAIL(&dpdk_queue, dpdk_av, nodes);
                 dpdk_requests++;
 
-                printf("step1\n");
-
                 msg = &obj;
                 strncpy(obj.data, _msg->data, 100);
 
 
-                printf("step2\n");
-
                 rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-
-                printf("step3\n");
-
-
                 data = rte_pktmbuf_append(rm[0], sizeof(struct message));
-
-
-                printf("step4\n");
 
 
                 if(strcmp(hostname,"w2")==0) {
@@ -200,10 +185,7 @@ l2fwd_tx_loop()
                     l2fwd_mac_updating(rm[0], portid); // ASU SERVER
                 }
 
-                printf("step5\n");
-
                 rte_memcpy(data, msg, sizeof(struct message));
-
 
                 printf("send msg in DPDK: %s\n",_msg->data);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
