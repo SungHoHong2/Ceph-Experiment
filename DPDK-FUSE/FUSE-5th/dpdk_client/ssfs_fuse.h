@@ -295,6 +295,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     _msg = malloc(sizeof(struct message));
     strcpy(_msg->data, selectedText);
 
+
+
     if (rte_ring_enqueue(tx_ring, _msg) < 0) {
         printf("Failed to send message - message discarded\n");
     } else {
@@ -310,6 +312,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     char collected_data[DATA_SIZE];
 
+    printf("step1\n");
+
     while(1){
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
@@ -321,10 +325,16 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         if(collect_packets>MERGE_PACKETS) break;
     }
 
+    printf("step2\n");
+
 
     av = TAILQ_FIRST(&avg_queue);
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
+
+    printf("step3\n");
+
+
     if(CHARA_DEBUG) printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
 
     intervals[test_i] = (double)av->interval;
