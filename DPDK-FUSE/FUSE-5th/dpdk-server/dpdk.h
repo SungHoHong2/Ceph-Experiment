@@ -110,7 +110,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct lcore_queue_conf *qconf;
     qconf = &lcore_queue_conf[1];
     unsigned portid = qconf->rx_port_list[0];
-    char* aligned_buf_r = NULL;
     void* ad = NULL;
     int fd, nr;
     struct rte_mbuf *rm[MERGE_PACKETS];
@@ -143,6 +142,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
 
+            char* aligned_buf_r = NULL;
             aligned_buf_r = (char *)(ad);
             fd = open(raw_device, O_RDWR|O_CREAT, 0777);
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
