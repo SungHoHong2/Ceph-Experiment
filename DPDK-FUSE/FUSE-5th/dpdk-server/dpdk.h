@@ -135,7 +135,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
 
-            printf("send msg in FILESYSTEM: %s\n", strlen(aligned_buf_r));
+            printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
         }
 
 
@@ -164,7 +164,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         printf("second packet\n");
 
-        
+
         rm[2] = rte_pktmbuf_alloc(test_pktmbuf_pool);
         rte_prefetch0(rte_pktmbuf_mtod(rm[2], void *));
 
