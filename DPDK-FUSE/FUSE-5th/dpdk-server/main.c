@@ -76,9 +76,8 @@ main(int argc, char **argv)
 //		printf("no ssd location\n");
 //		return 0;
 //	}
-
-
-	gethostname(hostname, 1023);
+	
+	gethostname(hostname, CON_SIZE);
 	dpdk_init();
 
 	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
