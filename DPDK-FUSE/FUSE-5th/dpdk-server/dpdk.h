@@ -130,8 +130,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             fd = open(raw_device, O_RDWR|O_CREAT, 0777);
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
-
             printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+
+
+
+
+
         }
 
         for(i=0; i<MERGE_PACKETS; i++){

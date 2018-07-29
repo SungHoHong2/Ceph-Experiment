@@ -58,5 +58,24 @@ int main()
         printf("[succeeded in close]\n");
     }
 
+
+    printf("splitting string into 1024 bytes\n");
+
+
+    char array_test[3][50] = {"Rock and Rolla","iToka","Thats it"};
+
+    int i;
+    for(i=0; i<3; i++){
+        printf("%s\n", array_test[i]);
+    }
+    
+
+    // aligned_buf_r
+
+    splits[0]
+
+
+
+
     return 0;
 }
