@@ -1,8 +1,6 @@
 #define PKT_SIZE 1024
 int NOFILESYSTEM;
 
-char raw_device[255];
-
 struct message {
     char data[PKT_SIZE];
 };
