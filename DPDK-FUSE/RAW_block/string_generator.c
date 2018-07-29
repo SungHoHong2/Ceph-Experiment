@@ -72,11 +72,6 @@ int main()
     }
 
 
-    // aligned_buf_r
-
-
-
-
 
     return 0;
 }

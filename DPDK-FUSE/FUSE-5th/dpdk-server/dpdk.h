@@ -121,6 +121,17 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
+
+            if (posix_memalign(&ad, 32, DATA_SIZE)) {
+                perror("posix_memalign failed"); exit (EXIT_FAILURE);
+            }
+
+            aligned_buf_r = (char *)(ad);
+            fd = open(raw_device, O_RDWR|O_CREAT, 0777);
+            nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
+            close(fd);
+            printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+
         } else {
             if (posix_memalign(&ad, 32, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
