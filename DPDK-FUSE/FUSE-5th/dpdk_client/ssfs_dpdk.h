@@ -103,7 +103,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         dpdk_av->end_time = getTimeStamp();
         dpdk_av->interval = dpdk_av->end_time - dpdk_av->start_time;
         printf("[%ld] recv msg in DPDK :: %ld\n", dpdk_av->num, dpdk_av->interval);
-//        TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
+        TAILQ_REMOVE(&dpdk_queue, dpdk_av, nodes);
 //        free(dpdk_av);
     }
 
