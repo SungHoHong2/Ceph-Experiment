@@ -116,8 +116,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
-    char split_data[MERGE_PACKETS][PKT_SIZE];
-    struct message objs[MERGE_PACKETS];
 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
@@ -138,6 +136,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
         } else {
+            struct message objs[MERGE_PACKETS];
             if (posix_memalign(&ad, 32, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
