@@ -3,11 +3,9 @@
 - [ ] User direct-io *having trouble with configuring ssd*
 - [ ] use HDD in client
 - [ ] `send data 4kb per message`
-    - it seems that l2fwd works when I change the packet size in the rte_mempool
-    - the mtu size seems not be working in the server
-    - lets check the testpmd in the workstation to check whether it is working in the workstation with huge packets
-    - or we can `just send multiple same sized packets just send them four times`.
-
+    - [x] the mtu size seems not be working in the server
+    - [x] `just send multiple same sized packets just send them four times`.
+    - [ ] find out why the file size is keep increasing for some reason..
 
 
 

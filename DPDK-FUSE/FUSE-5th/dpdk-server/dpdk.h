@@ -147,15 +147,16 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             fd = open(raw_device, O_RDWR|O_CREAT, 0777);
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
-            printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+            printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
             for(i=0; i<MERGE_PACKETS; i++){
                 memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
-                printf("merged msg in DPDK: %ld\n", strlen(objs[i].data));
-                aligned_buf_r+=PKT_SIZE;
+                printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
+                // aligned_buf_r+=PKT_SIZE;
             }
 
+
             for(i=0; i<MERGE_PACKETS; i++){
-                msg = &objs[i];
+                msg = &obj[i];
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
@@ -165,8 +166,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
                 rte_memcpy(zdata, msg, sizeof(struct message));
                 l2fwd_mac_updating(rm[i], 0);
             }
+
             // rte_pktmbuf_dump(stdout, rm[0], 60);
+            // printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
+
         }
 
 
