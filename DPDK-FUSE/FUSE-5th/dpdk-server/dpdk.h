@@ -116,6 +116,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
+    struct message objs[MERGE_PACKETS];
 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
@@ -136,17 +137,16 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
         } else {
-            struct message objs[MERGE_PACKETS];
             if (posix_memalign(&ad, 32, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
-
             aligned_buf_r = (char *)(ad);
             fd = open(raw_device, O_RDWR|O_CREAT, 0777);
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
             printf("send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
             for(i=0; i<MERGE_PACKETS; i++){
+                memset(objs[i].data, 0, PKT_SIZE);
                 memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
                 printf("merged msg in DPDK: %ld\n", strlen(objs[i].data));
                 aligned_buf_r+=PKT_SIZE;
