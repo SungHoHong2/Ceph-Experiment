@@ -49,7 +49,7 @@ int main()
 
     pread(fd, aligned_buf_r, BUF_SIZE, 0);
 //    printf("AFTER READ BEGIN\n");
-    printf("\taligned_buf_r::%ld\n",strlen(aligned_buf_r));
+//    printf("\taligned_buf_r::%ld\n",strlen(aligned_buf_r));
 //    printf("AFTER READ END\n");
 
 
