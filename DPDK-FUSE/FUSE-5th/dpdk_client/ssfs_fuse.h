@@ -308,7 +308,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 
     int collect_packets = 1;
-    char* collected_data =  malloc(DATA_SIZE * sizeof(char));
+    char* collected_data =  malloc(2* DATA_SIZE * sizeof(char));
     free(collected_data);
 
     if(NOFILESYSTEM==0) {
@@ -382,7 +382,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         strcpy(buf,collected_data);
         res = 26;
     }
-    free(collected_data);
+    // free(collected_data);
     return res;
 }
 
