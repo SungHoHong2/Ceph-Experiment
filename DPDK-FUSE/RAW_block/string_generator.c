@@ -20,7 +20,7 @@ int main()
     char* aligned_buf_r = NULL;
 
     void* ad = NULL;
-    if (posix_memalign(&ad, SECTOR, BUF_SIZE*4)) {
+    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
 
@@ -28,7 +28,7 @@ int main()
 
 
     ad = NULL;
-    if (posix_memalign(&ad, SECTOR, BUF_SIZE)) {
+    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
     aligned_buf_r = (char *)(ad);
@@ -45,7 +45,7 @@ int main()
     pwrite(fd, aligned_buf_w, BUF_SIZE * 4, 0);
 
 
-    pread(fd, aligned_buf_r, BUF_SIZE, 0);
+    pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
 //    printf("AFTER READ BEGIN\n");
     printf("\taligned_buf_r::%ld\n",strlen(aligned_buf_r));
 //    printf("AFTER READ END\n");
