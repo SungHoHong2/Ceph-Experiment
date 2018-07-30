@@ -93,37 +93,25 @@ int main()
 
     printf("splitting string into 1024 bytes\n");
 
-    char array_test[4][1024];
     int i;
     int end_size = 1024;
 
+    char** pp;
+    pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
 
-    char *p1 = malloc( sizeof(char) * 1024);
-    char *p2 = malloc( sizeof(char) * 1024);
-    char *p3 = malloc( sizeof(char) * 1024);
-    char *p4 = malloc( sizeof(char) * 1024);
+    for(i=0; i<4;i++){
+        pp[i] = malloc( sizeof(char) * 1024);
+        memcpy(pp[i], aligned_buf_r, end_size);
+        printf("%ld\n", strlen(pp[i]));
+        aligned_buf_r+=1024;
 
-    memcpy(p1, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p1));
-    aligned_buf_r+=1024;
+    }
 
-    memcpy(p2, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p2));
-    aligned_buf_r+=1024;
+    for(i=0; i<4;i++) {
+        free(pp[i]);
+        aligned_buf_r-=1024;
 
-    memcpy(p3, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p3));
-    aligned_buf_r+=1024;
-
-    memcpy(p4, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p4));
-    aligned_buf_r+=1024;
-
-    free(p1);
-    free(p2);
-    free(p3);
-    free(p4);
-    aligned_buf_r-=4096;
+    }
 
 
 //    for(i=0; i<4; i++){
@@ -132,7 +120,7 @@ int main()
 //        aligned_buf_r+=1024;
 //    }
 
-        
+
     aligned_buf_r = NULL;
     ad = NULL;
     if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
@@ -154,26 +142,6 @@ int main()
 //        aligned_buf_r+=1024;
 //    }
 
-    p1 = malloc( sizeof(char) * 1024);
-    p2 = malloc( sizeof(char) * 1024);
-    p3 = malloc( sizeof(char) * 1024);
-    p4 = malloc( sizeof(char) * 1024);
-
-    memcpy(p1, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p1));
-    aligned_buf_r+=1024;
-
-    memcpy(p2, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p2));
-    aligned_buf_r+=1024;
-
-    memcpy(p3, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p3));
-    aligned_buf_r+=1024;
-
-    memcpy(p4, aligned_buf_r, end_size);
-    printf("%ld\n", strlen(p4));
-    aligned_buf_r+=1024;
 
 
 
