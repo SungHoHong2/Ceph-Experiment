@@ -339,7 +339,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         if (file) {
             res = pread(file, buf, DATA_SIZE, roffset);
             if (res < 0 || res == 0) {
-                printf("Read error %d\n", ret);
+                printf("Read error %d\n", res);
                 return 0;
             }
             printf("recv msg in offset: %llu in FUSE\n", roffset);
