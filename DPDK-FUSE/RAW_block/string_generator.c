@@ -72,6 +72,24 @@ int main()
         aligned_buf_r+=1024;
     }
 
+    aligned_buf_r-=4096;
+
+
+    for(i=0; i<4; i++){
+        memcpy(array_test[i], aligned_buf_r, 1024);
+        printf("%ld\n", strlen(array_test[i]));
+        aligned_buf_r+=1024;
+    }
+
+    aligned_buf_r-=4096;
+
+
+    for(i=0; i<4; i++){
+        memcpy(array_test[i], aligned_buf_r, 1024);
+        printf("%ld\n", strlen(array_test[i]));
+        aligned_buf_r+=1024;
+    }
+
 
     return 0;
 }
