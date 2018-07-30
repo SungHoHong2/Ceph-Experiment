@@ -21,8 +21,8 @@ main(int argc, char **argv)
 		for(i=0;i<argc; i++){
 			 printf("%s\n",argv[i]);
 
-			if(strcmp(argv[i],"NOFILESYSTEM")==0){
-				NOFILESYSTEM = 1;
+			if(strcmp(argv[i],"CACHE_MISS")==0){
+				CACHE_MISS = 1;
 			}
 
 			if(strcmp(argv[i],"nvme0n1p1")==0){

@@ -53,6 +53,10 @@ int main( int argc, char **argv )
             if(strcmp(argv[i],"THOUSAND")==0){
                 MAX_LOOP = 1000;
             }
+
+
+
+
         }
     }
 
