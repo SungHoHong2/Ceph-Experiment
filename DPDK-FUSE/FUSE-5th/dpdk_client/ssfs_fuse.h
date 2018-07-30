@@ -319,7 +319,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             }
             _msg = (struct message *) msg;
             collected_data[collect_packets] =  malloc(PKT_SIZE*sizeof(char));
-            strcpy(aggregated, _msg->data);
+            strcat(aggregated, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
             printf("recv msg in FUSE: %ld\n", strlen(collected_data[collect_packets]));
