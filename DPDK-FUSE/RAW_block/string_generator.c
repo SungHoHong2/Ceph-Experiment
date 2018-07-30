@@ -61,16 +61,16 @@ int main()
 
 
 
-//    printf("splitting string into 1024 bytes\n");
-//
-//
-//    char array_test[3][1024];
-//    int i;
-//    for(i=0; i<3; i++){
-//        memcpy(array_test[i], aligned_buf_r, 1024);
-//        printf("%ld\n", strlen(array_test[i]));
-//        aligned_buf_r+=1024;
-//    }
+    printf("splitting string into 1024 bytes\n");
+
+
+    char array_test[3][1024];
+    int i;
+    for(i=0; i<3; i++){
+        memcpy(array_test[i], aligned_buf_r, 1024);
+        printf("%ld\n", strlen(array_test[i]));
+        aligned_buf_r+=1024;
+    }
 
 
     return 0;
