@@ -116,7 +116,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     int i;
     char *zdata;
     struct message objs[MERGE_PACKETS];
-    char** pp;
     struct message** msg_objs;
 
         if( NOFILESYSTEM == 1 ) {
@@ -136,40 +135,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, 1);
 
-
-            if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
-                perror("posix_memalign failed"); exit (EXIT_FAILURE);
-            }
-
-            aligned_buf_r = (char *)(ad);
-
-            printf("BEFORE READ BEGIN\n");
-            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-            printf("BEFORE READ END\n");
-
-            fd = open(raw_device, O_RDWR | O_DIRECT);
-            pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
-            close(fd);
-
-            printf("AFTER READ BEGIN\n");
-            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-            printf("AFTER READ END\n");
-
-
-            pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
-            for(i=0; i<MERGE_PACKETS; i++){
-                pp[i] = malloc( sizeof(char) * PKT_SIZE);
-                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
-                printf("%ld\n", strlen(pp[i]));
-                aligned_buf_r+=PKT_SIZE;
-            }
-
-            for(i=0; i<MERGE_PACKETS; i++) {
-                free(pp[i]);
-                aligned_buf_r-=PKT_SIZE;
-            }
-
-
         } else {
 
             if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
@@ -177,17 +142,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             }
 
             aligned_buf_r = (char *)(ad);
-            printf("BEFORE READ BEGIN\n");
-            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-            printf("BEFORE READ END\n");
-
             fd = open(raw_device, O_RDWR | O_DIRECT);
             pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
             close(fd);
-
-            printf("AFTER READ BEGIN\n");
-            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-            printf("AFTER READ END\n");
+            // printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
             pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
             msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
@@ -195,10 +153,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
                 memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                printf("%ld\n", strlen(msg_objs[i]->data));
+                printf("merge msg in DPDK: %ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
 
-//                msg = msg_objs[i];
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
