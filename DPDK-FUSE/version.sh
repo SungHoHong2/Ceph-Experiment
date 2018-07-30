@@ -6,18 +6,16 @@ if [ "$1" = "raw_filesystem_exp" ]
 then
   if [ "$HOSTS" = "c3n24" ]
   then
-      if [ "$2" = "generate" ]
-      then
-      cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
-      gcc -o string_generator string_generator.c
-      ./string_generator
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
+  gcc -o string_generator string_generator.c
+  ./string_generator
 
-      elif [ "$2" = "random" ]
-      then
-      cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
-      gcc -o random_read random_read.c
-      ./random_read
-      fi
+elif [ "$2" = "c3n25" ]
+  then
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
+  gcc -o random_read random_read.c
+  ./random_read
+
   fi
 
   # ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
@@ -38,7 +36,8 @@ then
   elif [ "$HOSTS" = "c3n25" ]
   then
   # umount -l /data1/sungho/trash
-  umount -l /mnt/ssd_cache
+  umount -l /mnt/hdd
+  # umount -l /mnt/ssd_cache
   # sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
   sudo kill -9 `pidof ssfs`
   fi

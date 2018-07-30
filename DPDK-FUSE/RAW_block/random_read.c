@@ -13,14 +13,6 @@
 
 int max_loop = 1000;
 
-int getTimeStamp() {
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
-}
-
-double intervals[99999];
-
 void calculateSD(double data[])
 {
     float sum = 0.0, mean, standardDeviation = 0.0;
@@ -55,7 +47,7 @@ int main( int argc, char **argv ){
     int ret;
     for(i=0; i<max_loop; i++) {
 
-        file = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
+        file = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
         if (file < 0) {
             printf("Open error\n");
             return -1;
