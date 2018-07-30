@@ -23,12 +23,14 @@ int main( int argc, char **argv ){
     unsigned long long offset;
     int ret;
 
+
+    for(int i=0; i< 10; i ++) {
         file = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
         if (file < 0) {
             printf("Open error\n");
             return -1;
         }
-        offset = ((rand() % (1024 *1024 *1024)) / SECTOR) * SECTOR;
+        offset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
         // printf("offset = %llu", offset);
         if (file) {
             ret = pread(file, buf, BS, offset);
@@ -39,6 +41,7 @@ int main( int argc, char **argv ){
             printf("recv msg in offset: %llu\n", offset);
             close(file);
         }
+    }
 
     return  0;
 }
