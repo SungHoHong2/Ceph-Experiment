@@ -337,7 +337,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av); free(aggregated);
+    free(av); 
     test_i++;
 
     if(total_requests==MAX_LOOP){
