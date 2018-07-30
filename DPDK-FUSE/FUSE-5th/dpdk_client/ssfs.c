@@ -80,10 +80,10 @@ int main( int argc, char **argv )
 
 
     printf("FUSE-DPDK-CLIENT BEGIN\n");
-    if(CACHE_HIT == 1) printf("\tWITH CACHE_HIT");
-    if(CACHE_MISS == 1) printf("\tWITH CACHE_MISS");
-    if(MAX_LOOP == 10) printf("\t10 REQ");
-    if(MAX_LOOP == 100) printf("\t100 REQ");
+    if(CACHE_HIT == 1) printf("\tWITH CACHE_HIT\n");
+    if(CACHE_MISS == 1) printf("\tWITH CACHE_MISS\n");
+    if(MAX_LOOP == 10) printf("\t10 REQ\n");
+    if(MAX_LOOP == 100) printf("\t100 REQ\n");
     printf("FUSE-DPDK-CLIENT END\n");
 
     umask(0);
