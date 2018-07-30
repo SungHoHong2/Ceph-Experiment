@@ -143,7 +143,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             aligned_buf_r = (char *)(ad);
             fd = open(raw_device, O_RDWR | O_DIRECT);
-            pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
+            nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
             close(fd);
             // printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
