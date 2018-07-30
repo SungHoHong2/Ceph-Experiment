@@ -173,29 +173,32 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
         } else {
-            if (posix_memalign(&ad, SECTOR, DATA_SIZE)) {
+
+            if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
 
-
-            char* aligned_buf_r = NULL;
             aligned_buf_r = (char *)(ad);
-            // fd = open(raw_device, O_RDWR|O_CREAT, 0777);
-            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
+            printf("BEFORE READ BEGIN\n");
+            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+            printf("BEFORE READ END\n");
 
-            nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
+            fd = open(raw_device, O_RDWR | O_DIRECT);
+            pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
             close(fd);
-            printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
 
+            printf("AFTER READ BEGIN\n");
+            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+            printf("AFTER READ END\n");
 
+            pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
             for(i=0; i<MERGE_PACKETS; i++){
-                pp[i] = malloc( sizeof(char) * 1024);
+                pp[i] = malloc( sizeof(char) * PKT_SIZE);
                 memcpy(pp[i], aligned_buf_r, PKT_SIZE);
                 memcpy(objs[i].data, pp[i], PKT_SIZE);
-                printf("CHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
+                printf("%ld\n", strlen(objs[i].data));
                 aligned_buf_r+=PKT_SIZE;
             }
-
 
             for(i=0; i<MERGE_PACKETS; i++){
                 msg = &objs[i];
