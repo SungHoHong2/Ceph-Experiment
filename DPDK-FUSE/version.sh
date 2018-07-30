@@ -6,9 +6,18 @@ if [ "$1" = "raw_filesystem_exp" ]
 then
   if [ "$HOSTS" = "c3n24" ]
   then
-  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
-  gcc -o string_generator string_generator.c
-  ./string_generator
+      if [ "$2" = "generate" ]
+      then
+      cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
+      gcc -o string_generator string_generator.c
+      ./string_generator
+
+      elif [ "$2" = "random" ]
+      then
+      cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
+      gcc -o random_read random_read.c
+      ./random_read
+      fi
   fi
 
   # ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
