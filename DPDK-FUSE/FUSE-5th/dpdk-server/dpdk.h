@@ -120,17 +120,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         if( CACHE_MISS == 1 ) {
 
-
-
-
-
-
-
-
-
-
-
-
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
 

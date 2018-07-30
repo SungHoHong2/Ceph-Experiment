@@ -60,7 +60,7 @@ int main()
 
 
     ad = NULL;
-    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
+    if (posix_memalign(&ad, SECTOR, 1024 * BUF_SIZE * 4 )) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
     aligned_buf_r = (char *)(ad);
