@@ -138,24 +138,22 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, 1);
 
 
+
+
             char* aligned_buf_r = NULL;
-            if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4)) {
+            if (posix_memalign(&ad, SECTOR, PKT_SIZE * 4 )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
 
-
-
-            if (posix_memalign(&ad, SECTOR, DATA_SIZE )) {
-                perror("posix_memalign failed"); exit (EXIT_FAILURE);
-            }
             aligned_buf_r = (char *)(ad);
 
             printf("BEFORE READ BEGIN\n");
             printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
             printf("BEFORE READ END\n");
 
-            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
-            pread(fd, aligned_buf_r, DATA_SIZE, 0);
+            fd = open(raw_device, O_RDWR | O_DIRECT);
+//            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
+            pread(fd, aligned_buf_r, PKT_SIZE * 4, 0);
             close(fd);
 
             printf("AFTER READ BEGIN\n");
