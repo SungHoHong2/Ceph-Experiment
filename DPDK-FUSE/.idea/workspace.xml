@@ -17,22 +17,32 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="example_4.c" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/RAW_block/example_4.c">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="376">
+                    <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="string_generator.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="string_generator.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RAW_block/string_generator.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="57" column="41" lean-forward="true" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="example_4.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RAW_block/example_4.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="766">
-              <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+            <state relative-caret-position="770">
+              <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -153,8 +163,8 @@
         <option value="$PROJECT_DIR$/FUSE-4th/fuse_benchmark/bench.c" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk_0.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk.h" />
-        <option value="$PROJECT_DIR$/RAW_block/string_generator.c" />
         <option value="$PROJECT_DIR$/RAW_block/example_4.c" />
+        <option value="$PROJECT_DIR$/RAW_block/string_generator.c" />
       </list>
     </option>
   </component>
@@ -283,12 +293,12 @@
       <workItem from="1532626181611" duration="22274000" />
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
-      <workItem from="1532892468635" duration="1171000" />
+      <workItem from="1532892468635" duration="1455000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258220000" />
+    <option name="totallyTimeSpent" value="258504000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -644,17 +654,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RAW_block/string_generator.c">
+    <entry file="file://$PROJECT_DIR$/RAW_block/example_4.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="57" column="41" lean-forward="true" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+        <state relative-caret-position="376">
+          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RAW_block/example_4.c">
+    <entry file="file://$PROJECT_DIR$/RAW_block/string_generator.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
-          <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+        <state relative-caret-position="770">
+          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
         </state>
       </provider>
     </entry>

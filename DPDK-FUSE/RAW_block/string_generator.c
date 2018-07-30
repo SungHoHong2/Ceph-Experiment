@@ -7,7 +7,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdlib.h>
-#define BUF_SIZE 4096
+#define BUF_SIZE 1024
+#define SECTOR 512
 
 int main()
 {
@@ -19,7 +20,7 @@ int main()
     char* aligned_buf_r = NULL;
 
     void* ad = NULL;
-    if (posix_memalign(&ad, 32, BUF_SIZE)) {
+    if (posix_memalign(&ad, SECTOR, BUF_SIZE*4)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
 
@@ -27,21 +28,20 @@ int main()
 
 
     ad = NULL;
-    if (posix_memalign(&ad, 32, BUF_SIZE)) {
+    if (posix_memalign(&ad, SECTOR, BUF_SIZE)) {
         perror("posix_memalign failed"); exit (EXIT_FAILURE);
     }
     aligned_buf_r = (char *)(ad);
 
-    memset(aligned_buf_w, '*', BUF_SIZE * sizeof(char));
+    memset(aligned_buf_w, '*', BUF_SIZE * 4 * sizeof(char));
 
-//    printf("BEFORE READ BEGIN\n");
-//    printf("\t aligned_buf_w::%s\n",aligned_buf_w);
-//    printf("\t aligned_buf_r::%s\n",aligned_buf_r);
-//    printf("BEFORE READ END\n");
+    printf("BEFORE READ BEGIN\n");
+    printf("\t aligned_buf_w::%ld\n",strlen(aligned_buf_w));
+    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+    printf("BEFORE READ END\n");
 
 
-    fd = open(fl_nm, O_RDWR|O_CREAT);
-    // fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT);
+    fd = open(fl_nm, O_RDWR | O_DIRECT);
     pwrite(fd, aligned_buf_w, BUF_SIZE, 0);
 
 
@@ -59,16 +59,18 @@ int main()
     }
 
 
-    printf("splitting string into 1024 bytes\n");
 
 
-    char array_test[3][1024];
-    int i;
-    for(i=0; i<3; i++){
-        memcpy(array_test[i], aligned_buf_r, 1024);
-        printf("%ld\n", strlen(array_test[i]));
-        aligned_buf_r+=1024;
-    }
+//    printf("splitting string into 1024 bytes\n");
+//
+//
+//    char array_test[3][1024];
+//    int i;
+//    for(i=0; i<3; i++){
+//        memcpy(array_test[i], aligned_buf_r, 1024);
+//        printf("%ld\n", strlen(array_test[i]));
+//        aligned_buf_r+=1024;
+//    }
 
 
     return 0;
