@@ -78,9 +78,9 @@ int main()
 
 
     pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
-//    printf("AFTER READ BEGIN\n");
+    printf("AFTER READ BEGIN\n");
     printf("\taligned_buf_r::%ld\n",strlen(aligned_buf_r));
-//    printf("AFTER READ END\n");
+    printf("AFTER READ END\n");
 
 
     //error checking for close process
@@ -113,20 +113,19 @@ int main()
 
     }
 
-
-    aligned_buf_r = NULL;
-    ad = NULL;
-    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
-        perror("posix_memalign failed"); exit (EXIT_FAILURE);
-    }
-    aligned_buf_r = (char *)(ad);
-
-
-    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-    fd = open(fl_nm, O_RDWR | O_DIRECT);
-    pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
-    close(fd);
-    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+//    aligned_buf_r = NULL;
+//    ad = NULL;
+//    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
+//        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+//    }
+//    aligned_buf_r = (char *)(ad);
+//
+//
+//    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+//    fd = open(fl_nm, O_RDWR | O_DIRECT);
+//    pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
+//    close(fd);
+//    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
 
     for(i=0; i<4;i++){
