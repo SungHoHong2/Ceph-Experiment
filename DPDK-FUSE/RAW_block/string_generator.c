@@ -73,14 +73,11 @@ int main()
     }
 
 
+    aligned_buf_r = NULL;
     fd = open(fl_nm, O_RDWR | O_DIRECT);
     pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
     close(fd);
 
-
-//    aligned_buf_r-=4096;
-//    end_size-=4096;
-//
     for(i=0; i<4; i++){
         memcpy(array_test[i], aligned_buf_r, end_size);
         printf("%ld\n", strlen(array_test[i]));
