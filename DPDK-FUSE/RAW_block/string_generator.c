@@ -81,9 +81,10 @@ int main()
     end_size-=4096;
 
     for(i=0; i<4; i++){
-        memcpy(array_test[i], aligned_buf_r, 1024);
+        memcpy(array_test[i], aligned_buf_r, end_size);
         printf("%ld\n", strlen(array_test[i]));
         aligned_buf_r+=1024;
+        end_size+=1024;
     }
 
     aligned_buf_r-=4096;
@@ -91,9 +92,11 @@ int main()
 
 
     for(i=0; i<4; i++){
-        memcpy(array_test[i], aligned_buf_r, 1024);
+        memcpy(array_test[i], aligned_buf_r, end_size);
         printf("%ld\n", strlen(array_test[i]));
         aligned_buf_r+=1024;
+        end_size+=1024;
+
     }
 
 
