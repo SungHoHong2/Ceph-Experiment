@@ -115,8 +115,10 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
-    char split_data[MERGE_PACKETS][PKT_SIZE];
     struct message objs[MERGE_PACKETS];
+
+    char** pp;
+    pp = malloc(MERGE_PACKETS * sizeof(char*));
 
 
         if( NOFILESYSTEM == 1 ) {
@@ -138,20 +140,27 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
         } else {
-            if (posix_memalign(&ad, 32, DATA_SIZE)) {
+            if (posix_memalign(&ad, SECTOR, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
 
+
             char* aligned_buf_r = NULL;
             aligned_buf_r = (char *)(ad);
-            fd = open(raw_device, O_RDWR|O_CREAT, 0777);
+            // fd = open(raw_device, O_RDWR|O_CREAT, 0777);
+            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
+
             nr = pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
             printf("CHARA:: send msg in FILESYSTEM: %ld\n", strlen(aligned_buf_r));
+
+
             for(i=0; i<MERGE_PACKETS; i++){
-                memcpy(objs[i].data, aligned_buf_r, PKT_SIZE);
+                pp[i] = malloc( sizeof(char) * 1024);
+                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
+                memcpy(objs[i].data, pp[i], PKT_SIZE);
                 printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
-                 aligned_buf_r+=PKT_SIZE;
+                aligned_buf_r+=PKT_SIZE;
             }
 
 
@@ -170,6 +179,13 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             // rte_pktmbuf_dump(stdout, rm[0], 60);
             // printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
+
+            for(i=0; i<MERGE_PACKETS;i++) {
+                free(pp[i]);
+                aligned_buf_r-=PKT_SIZE;
+            }
+
+
 
         }
 
