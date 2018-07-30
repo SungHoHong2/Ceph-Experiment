@@ -26,12 +26,6 @@ then
   umount -l /mnt/ssd_cache
   sudo mount -t ext4 /dev/sdb1 /mnt/ssd_cache
 
-elif [ "$HOSTS" = "c3n24" ]
-  then
-  # umount -l /data1/sungho/trash
-  umount -l /mnt/ssd_cache
-  sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
-
   elif [ "$HOSTS" = "c3n25" ]
   then
   # umount -l /data1/sungho/trash

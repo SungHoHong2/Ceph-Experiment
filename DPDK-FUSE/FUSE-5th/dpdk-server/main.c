@@ -23,6 +23,10 @@ main(int argc, char **argv)
 			if(strcmp(argv[i],"nvme0n1p1")==0){
 				strcpy(raw_device, "/dev/nvme0n1p1");
 			}
+			if(strcmp(argv[i],"DEBUG")==0){
+				CHARA_DEBUG = 1;
+			}
+
 		}
 	}
 
