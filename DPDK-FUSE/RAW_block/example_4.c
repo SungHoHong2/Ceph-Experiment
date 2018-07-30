@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 
-#define BUF_SIZE 1024
+#define BUF_SIZE 2048
 #define SECTOR 512
 
 
