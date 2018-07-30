@@ -74,6 +74,14 @@ int main()
 
 
     aligned_buf_r = NULL;
+    ad = NULL;
+    if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
+        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+    }
+    aligned_buf_r = (char *)(ad);
+
+
+    
     fd = open(fl_nm, O_RDWR | O_DIRECT);
     pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
     close(fd);
