@@ -9,8 +9,8 @@
 #include <stdlib.h>
 
 
-#define BUF_SIZE 4089
-#define SECTOR 4089
+#define BUF_SIZE 512
+#define SECTOR 512
 
 
 int main() {
@@ -38,8 +38,8 @@ int main() {
     aligned_buf_r = (char *) (ad);
 
 
-    memset(aligned_buf_w, 0, sizeof(BUF_SIZE));
-    memset(aligned_buf_r, 0, sizeof(BUF_SIZE));
+    memset(aligned_buf_w, 0, BUF_SIZE);
+    memset(aligned_buf_r, 0, BUF_SIZE);
     strcpy(aligned_buf_w, "BEFORE TEXT READ");
     strcpy(aligned_buf_r, "XXXXXXXXXXXXXXXX");
 
