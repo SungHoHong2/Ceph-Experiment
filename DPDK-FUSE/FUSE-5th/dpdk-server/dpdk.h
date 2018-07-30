@@ -117,8 +117,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     char *zdata;
     struct message objs[MERGE_PACKETS];
     char** pp;
-    pp = malloc(MERGE_PACKETS * sizeof(char*));
-
+    struct message** msg_objs;
 
         if( NOFILESYSTEM == 1 ) {
             msg = &obj;
@@ -171,7 +170,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             }
 
 
-
         } else {
 
             if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
@@ -192,17 +190,22 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("AFTER READ END\n");
 
             pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
+            msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
+
+
+
             for(i=0; i<MERGE_PACKETS; i++){
+                msg_objs[i] = malloc( sizeof(struct message));
                 pp[i] = malloc( sizeof(char) * PKT_SIZE);
                 memcpy(pp[i], aligned_buf_r, PKT_SIZE);
-                memcpy(objs[i].data, pp[i], PKT_SIZE);
+                memcpy(msg_objs[i]->data, pp[i], PKT_SIZE);
                 printf("%ld\n", strlen(pp[i]));
-                printf("%ld\n", strlen(objs[i].data));
+                printf("%ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
             }
 
             for(i=0; i<MERGE_PACKETS; i++){
-                msg = &objs[i];
+                msg = msg_objs[i];
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
