@@ -78,8 +78,8 @@ then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/dpdk-server/
   make
   # ./build/dpdk-server "nvme0n1p1"
-  ./build/dpdk-server "nvme0n1p1" "DEBUG"
-  # ./build/dpdk-server "CACHE_MISS" "nvme0n1p1" "DEBUG"
+  # ./build/dpdk-server "nvme0n1p1" "DEBUG"
+  ./build/dpdk-server "CACHE_MISS" "nvme0n1p1" "DEBUG"
 
 
   elif [ "$HOSTS" = "c3n25" ]
