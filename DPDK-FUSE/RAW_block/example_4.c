@@ -59,7 +59,7 @@ int main() {
     printf("\taligned_buf_r::%s\n", aligned_buf_r);
 
 
-    pread(fd, aligned_buf_r, BUF_SIZE, BUF_SIZE;
+    pread(fd, aligned_buf_r, BUF_SIZE, 512);
     printf("\taligned_buf_r::%s\n", aligned_buf_r);
 
 
