@@ -13,7 +13,7 @@
 
 int max_loop = 1000;
 
-uint64_t getTimeStamp() {
+int getTimeStamp() {
     struct timeval tv;
     gettimeofday(&tv,NULL);
     return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
@@ -53,30 +53,26 @@ int main( int argc, char **argv ){
 
     unsigned long long offset;
     int ret;
-    for(i=0; i<max_loop; i++) {
-        start_time = getTimeStamp();
-        file = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
-        if (file < 0) {
-            printf("Open error\n");
-            return -1;
-        }
-        offset = ((rand() % (1024 *1024 *1024)) / SECTOR) * SECTOR;
-        // printf("offset = %llu", offset);
-        if (file) {
-            ret = pread(file, buf, BS, offset);
-            if (ret < 0 || ret == 0) {
-                printf("Read error %d\n", ret);
-                return 0;
-            }
-            printf("recv msg in offset: %llu\n", offset);
-            close(file);
-        }
-        end_time = getTimeStamp();
-        intervals[i] = (double)end_time-start_time;
-        //printf("[%d] interval : %f\n", i, intervals[i]);
+
+    file = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
+    if (file < 0) {
+        printf("Open error\n");
+        return -1;
     }
 
-    calculateSD(intervals);
+    offset = ((rand() % (1024 *1024 *1024)) / SECTOR) * SECTOR;
+    // printf("offset = %llu", offset);
+    if (file) {
+        ret = pread(file, buf, BS, offset);
+        if (ret < 0 || ret == 0) {
+            printf("Read error %d\n", ret);
+            return 0;
+        }
+        printf("recv msg in offset: %llu\n", offset);
+        close(file);
+    }
+
+
     return  0;
 }
 
