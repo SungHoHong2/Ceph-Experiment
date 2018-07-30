@@ -331,7 +331,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
 
         void *rbuf;
-        posix_memalign(&rbuf, SECTOR, DATA_SIZE);
+        res = posix_memalign(&rbuf, SECTOR, DATA_SIZE);
 
         fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
         if (fd < 0) {
