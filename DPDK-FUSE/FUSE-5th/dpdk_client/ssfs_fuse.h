@@ -331,16 +331,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
     }
 
-
     av = TAILQ_FIRST(&avg_queue);
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av);
+    free(av); free(aggregated);
     test_i++;
-
 
     if(total_requests==MAX_LOOP){
         calculateSD(intervals);
@@ -349,22 +347,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     if(CACHE_HIT==0){
         strcpy(buf,"MISS\n");
         res = 26;
-
-//        if(fi == NULL)
-//            fd = open(path, O_RDONLY);
-//        else
-//            fd = fi->fh;
-//
-//        if (fd == -1)
-//            return -errno;
-//
-//        res = pread(fd, buf, size, offset);
-//
-//        if (res == -1)
-//            res = -errno;
-//
-//        if(fi == NULL)
-//            close(fd);
     }
 
     if(CACHE_HIT==1){
