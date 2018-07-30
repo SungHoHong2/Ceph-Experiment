@@ -309,8 +309,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     int collect_packets = 1;
     char** collected_data = malloc(MERGE_PACKETS * sizeof(char *));
-
-    free(collected_data);
+    char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
     if(NOFILESYSTEM==0) {
         while (1) {
@@ -343,16 +342,12 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     test_i++;
 
 
-//    _msg = (struct message *)msg;
-//     printf("CHARA Received '%s'\n", _msg->data);
-//    av = TAILQ_FIRST(&avg_queue);
-//    av->end_time = getTimeStamp();
-//    av->interval = av->end_time - av->start_time;
-//    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
-//    intervals[test_i] = (double)av->interval;
-//    test_i++;
-//    TAILQ_REMOVE(&avg_queue, av, nodes);
-//    free(av);
+
+    for(int i =0; i<MERGE_PACKETS; i++){
+        strcat(aggregated,collected_data[i]);
+        free(collected_data[i]);
+    }
+
 
 
     if(total_requests==MAX_LOOP){
@@ -381,10 +376,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(CACHE_HIT==1){
-        strcpy(buf,"HIT");
+        strcpy(buf,aggregated);
         res = 26;
+        free(aggregated);
     }
-    // free(collected_data);
     return res;
 }
 
