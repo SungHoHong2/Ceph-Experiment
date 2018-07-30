@@ -310,7 +310,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     char* collected_data =  malloc(DATA_SIZE * sizeof(char));
     free(collected_data);
-
     printf("BEFORE::%ld\n", strlen(collected_data));
 
     if(NOFILESYSTEM==0) {
