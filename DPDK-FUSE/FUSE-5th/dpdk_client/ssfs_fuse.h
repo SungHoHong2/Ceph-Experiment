@@ -336,7 +336,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             return -1;
         }
         roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
-        if (file) {
+        if (fd) {
             res = pread(fd, buf, DATA_SIZE, roffset);
             if (res < 0 || res == 0) {
                 printf("Read error %d\n", res);
