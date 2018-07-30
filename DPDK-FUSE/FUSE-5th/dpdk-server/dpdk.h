@@ -139,6 +139,47 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, 1);
 
 
+
+
+            char** pp;
+            pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
+
+            for(i=0; i<4;i++){
+                pp[i] = malloc( sizeof(char) * 1024);
+                memcpy(pp[i], aligned_buf_r, end_size);
+                printf("%ld\n", strlen(pp[i]));
+                aligned_buf_r+=1024;
+
+            }
+
+            for(i=0; i<4;i++) {
+                free(pp[i]);
+                aligned_buf_r-=1024;
+
+            }
+
+            aligned_buf_r = NULL;
+            ad = NULL;
+            if (posix_memalign(&ad, SECTOR, DATA_SIZE )) {
+                perror("posix_memalign failed"); exit (EXIT_FAILURE);
+            }
+            aligned_buf_r = (char *)(ad);
+
+            printf("BEFORE READ BEGIN\n");
+            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+            printf("BEFORE READ END\n");
+
+            fd = open(fl_nm, O_RDWR | O_DIRECT, 0777);
+            pread(fd, aligned_buf_r, BUF_SIZE, 0);
+            close(fd);
+
+            printf("AFTER READ BEGIN\n");
+            printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+            printf("AFTER READ END\n");
+
+
+
+
         } else {
             if (posix_memalign(&ad, SECTOR, DATA_SIZE)) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
@@ -159,7 +200,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
                 pp[i] = malloc( sizeof(char) * 1024);
                 memcpy(pp[i], aligned_buf_r, PKT_SIZE);
                 memcpy(objs[i].data, pp[i], PKT_SIZE);
-                printf("cHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
+                printf("CHARA: merged msg in DPDK: %ld\n", strlen(objs[i].data));
                 aligned_buf_r+=PKT_SIZE;
             }
 
