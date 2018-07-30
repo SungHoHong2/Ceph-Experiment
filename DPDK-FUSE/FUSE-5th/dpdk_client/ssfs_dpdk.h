@@ -225,8 +225,8 @@ l2fwd_rx_loop() {
                     }
                 }
                 //CHARA END
-                rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
-                rte_pktmbuf_free(m);
+                // rte_prefetch0(rte_pktmbuf_mtod(m, void * ));
+                // rte_pktmbuf_free(m);
             }
         }
     }
