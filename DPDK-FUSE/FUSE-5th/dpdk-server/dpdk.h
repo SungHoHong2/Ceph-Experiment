@@ -197,9 +197,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
                 pp[i] = malloc( sizeof(char) * PKT_SIZE);
-                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
-                memcpy(msg_objs[i]->data, pp[i], PKT_SIZE);
-                printf("%ld\n", strlen(pp[i]));
+                // memcpy(pp[i], aligned_buf_r, PKT_SIZE);
+                memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
+                // printf("%ld\n", strlen(pp[i]));
                 printf("%ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
             }
@@ -222,7 +222,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             for(i=0; i<MERGE_PACKETS;i++) {
                 free(msg_objs[i]);
-                free(pp[i]);
+                // free(pp[i]);
                 aligned_buf_r-=PKT_SIZE;
             }
 
