@@ -308,7 +308,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 
     int collect_packets = 1;
-    char* collected_data =  malloc(2* DATA_SIZE * sizeof(char));
+    char** collected_data = malloc(MERGE_PACKETS * sizeof(char *));
+
     free(collected_data);
 
     if(NOFILESYSTEM==0) {
@@ -317,7 +318,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
                 usleep(5);
             }
             _msg = (struct message *) msg;
-            strcpy(collected_data, _msg->data);
+            collected_data[collect_packets] =  malloc(PKT_SIZE*sizeof(char));
+            strcpy(collected_data[collect_packets], _msg->data);
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
@@ -333,7 +335,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av = TAILQ_FIRST(&avg_queue);
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
-    printf("[%ld] recv msg in FUSE: %ld :: %ld :: %ld\n", av->num, strlen(_msg->data), strlen(collected_data), av->interval);
+    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
 
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
