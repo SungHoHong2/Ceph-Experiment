@@ -310,7 +310,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     // char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
-    if(CACHE_MISS==0) {
+    if(CACHE_HIT==1) {
         while (1) {
             while (rte_ring_dequeue(rx_ring, &msg) < 0) {
                 usleep(5);
@@ -329,6 +329,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
         }
+
+        strcpy(buf,"MISS\n");
+
     }
 
     av = TAILQ_FIRST(&avg_queue);
@@ -344,14 +347,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         calculateSD(intervals);
     }
 
-    if(CACHE_HIT==0){
-        strcpy(buf,"MISS\n");
-        res = 26;
-    }
-
-    if(CACHE_HIT==1){
-        res = 26;
-    }
+    res = 26;
     return res;
 }
 

@@ -53,26 +53,28 @@ int main( int argc, char **argv ){
 
     unsigned long long offset;
     int ret;
+    for(i=0; i<max_loop; i++) {
 
-    file = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
-    if (file < 0) {
-        printf("Open error\n");
-        return -1;
-    }
-
-    offset = ((rand() % (1024 *1024 *1024)) / SECTOR) * SECTOR;
-    // printf("offset = %llu", offset);
-    if (file) {
-        ret = pread(file, buf, BS, offset);
-        if (ret < 0 || ret == 0) {
-            printf("Read error %d\n", ret);
-            return 0;
+        file = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
+        if (file < 0) {
+            printf("Open error\n");
+            return -1;
         }
-        printf("recv msg in offset: %llu\n", offset);
-        close(file);
+        offset = ((rand() % (1024 *1024 *1024)) / SECTOR) * SECTOR;
+        // printf("offset = %llu", offset);
+        if (file) {
+            ret = pread(file, buf, BS, offset);
+            if (ret < 0 || ret == 0) {
+                printf("Read error %d\n", ret);
+                return 0;
+            }
+            printf("recv msg in offset: %llu\n", offset);
+            close(file);
+        }
+
     }
 
-
+    calculateSD(intervals);
     return  0;
 }
 
