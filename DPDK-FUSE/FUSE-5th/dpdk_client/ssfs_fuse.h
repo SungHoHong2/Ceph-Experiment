@@ -320,6 +320,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
             printf("merge msg in FUSE: %ld\n", strlen(aggregated));
+            strcpy(buf,aggregated);
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
@@ -337,7 +338,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av); 
+    free(av);
     test_i++;
 
     if(total_requests==MAX_LOOP){
@@ -350,7 +351,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(CACHE_HIT==1){
-        strcpy(buf,"HIT\n");
+        // strcpy(buf,"HIT\n");
         res = 26;
     }
     return res;
