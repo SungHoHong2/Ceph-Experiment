@@ -284,7 +284,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 {
     int fd;
     int res;
-
+    unsigned long long offset;
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
@@ -330,8 +330,23 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             usleep(5);
         }
 
-        strcpy(buf,"MISS\n");
+        fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
+        if (fd < 0) {
+            printf("Open error\n");
+            return -1;
+        }
+        offset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
+        if (file) {
+            res = pread(file, buf, BS, offset);
+            if (res < 0 || res == 0) {
+                printf("Read error %d\n", ret);
+                return 0;
+            }
+            printf("recv msg in offset: %llu in FUSE\n", offset);
+            close(fd);
+        }
 
+        strcpy(buf,"MISS\n");
     }
 
     av = TAILQ_FIRST(&avg_queue);
