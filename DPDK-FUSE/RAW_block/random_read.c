@@ -11,28 +11,6 @@
 #define SECTOR 512
 #define BS 4096
 
-int max_loop = 1000;
-
-void calculateSD(double data[])
-{
-    float sum = 0.0, mean, standardDeviation = 0.0;
-
-    int i;
-
-    for(i=0; i<max_loop; ++i)
-    {
-        sum += data[i];
-    }
-
-    mean = sum/max_loop;
-    printf("mean: %f\n",mean);
-
-
-    for(i=0; i<max_loop; ++i)
-        standardDeviation += pow(data[i] - mean, 2);
-
-    printf("std: %f\n",sqrt(standardDeviation/max_loop));
-}
 
 
 int main( int argc, char **argv ){
@@ -45,7 +23,6 @@ int main( int argc, char **argv ){
 
     unsigned long long offset;
     int ret;
-    for(i=0; i<max_loop; i++) {
 
         file = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
         if (file < 0) {
@@ -63,10 +40,7 @@ int main( int argc, char **argv ){
             printf("recv msg in offset: %llu\n", offset);
             close(file);
         }
-
-    }
-
-    calculateSD(intervals);
+        
     return  0;
 }
 
