@@ -368,9 +368,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(CACHE_HIT==1){
-        strcpy(buf,aggregated);
+        strcpy(buf,"HIT\n");
         res = 26;
-        free(aggregated);
     }
     return res;
 }
