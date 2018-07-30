@@ -120,7 +120,9 @@ int main()
     aligned_buf_r+=1024;
 
     free(p1);
-
+    free(p2);
+    free(p3);
+    free(p4);
     aligned_buf_r-=4096;
 
 
