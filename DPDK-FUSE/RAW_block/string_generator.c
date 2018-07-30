@@ -132,9 +132,7 @@ int main()
 //        aligned_buf_r+=1024;
 //    }
 
-
-    free(aligned_buf_r);
-
+        
     aligned_buf_r = NULL;
     ad = NULL;
     if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
