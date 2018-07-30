@@ -330,7 +330,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             usleep(5);
         }
 
-        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(msg->data));
+        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(msg.data));
 
 
         void *rbuf;
