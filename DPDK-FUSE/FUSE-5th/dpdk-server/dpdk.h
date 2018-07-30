@@ -165,7 +165,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             }
 
             // rte_pktmbuf_dump(stdout, rm[0], 60);
-            printf("send merged msg in DPDK: %s\n", strlen(msg_objs->data)*MERGE_PACKETS);
+            printf("send merged msg in DPDK: %s\n", strlen(msg_objs[0]->data) * MERGE_PACKETS);
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
 
             for(i=0; i<MERGE_PACKETS;i++) {
