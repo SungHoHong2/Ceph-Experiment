@@ -73,6 +73,9 @@
 #define PKT_SIZE 1024
 #define DATA_SIZE 4089
 #define MERGE_PACKETS 4
+#define SECTOR 512
+
+
 
 int CHARA_DEBUG;
 int MAX_LOOP;
