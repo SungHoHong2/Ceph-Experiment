@@ -169,7 +169,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
             printf("BEFORE READ END\n");
 
-            fd = open(fl_nm, O_RDWR | O_DIRECT, 0777);
+            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
             pread(fd, aligned_buf_r, BUF_SIZE, 0);
             close(fd);
 
