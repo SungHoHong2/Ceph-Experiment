@@ -73,21 +73,18 @@ int main( int argc, char **argv )
     }
 
     gethostname(hostname, 1023);
-
-    printf("FUSE-DPDK-CLIENT BEGIN\n");
     pthread_t threads[2];
     dpdk_msg_init();
     int rc = pthread_create(&threads[0], NULL, dpdk_launch, NULL);
     // rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL); while(1);
 
-    printf("FUSE-DPDK-CLIENT BEGIN");
-    if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
-    if(NOFILESYSTEM == 1) printf(" WITH NOFILESYSTEM");
-    if(MAX_LOOP == 10) printf(" 10 REQ");
-    if(MAX_LOOP == 10) printf(" 10 REQ");
-    if(MAX_LOOP == 100) printf(" 100 REQ");
 
-    printf("\n");
+    printf("FUSE-DPDK-CLIENT BEGIN\n");
+    if(CACHE_HIT == 1) printf("\tWITH CACHE_HIT");
+    if(NOFILESYSTEM == 1) printf("\tWITH NOFILESYSTEM");
+    if(MAX_LOOP == 10) printf("\t10 REQ");
+    if(MAX_LOOP == 100) printf("\t100 REQ");
+    printf("FUSE-DPDK-CLIENT END\n");
 
     umask(0);
     int fuse_argc = 3;
