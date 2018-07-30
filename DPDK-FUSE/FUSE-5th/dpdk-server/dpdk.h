@@ -196,6 +196,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
                 pp[i] = malloc( sizeof(char) * PKT_SIZE);
                 memcpy(pp[i], aligned_buf_r, PKT_SIZE);
                 memcpy(objs[i].data, pp[i], PKT_SIZE);
+                printf("%ld\n", pp[i]);
                 printf("%ld\n", strlen(objs[i].data));
                 aligned_buf_r+=PKT_SIZE;
             }
