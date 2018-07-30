@@ -334,7 +334,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av = TAILQ_FIRST(&avg_queue);
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
-    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
+    printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
@@ -350,7 +350,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(CACHE_HIT==1){
-        // strcpy(buf,"HIT\n");
         res = 26;
     }
     return res;
