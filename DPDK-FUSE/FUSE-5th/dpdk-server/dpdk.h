@@ -221,6 +221,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
 
             for(i=0; i<MERGE_PACKETS;i++) {
+                free(msg_objs[i]);
                 free(pp[i]);
                 aligned_buf_r-=PKT_SIZE;
             }
