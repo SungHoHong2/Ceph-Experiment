@@ -40,8 +40,8 @@ int main( int argc, char **argv )
                 CACHE_HIT = 1;
             }
 
-            if(strcmp(argv[i],"NOFILESYSTEM")==0){
-                NOFILESYSTEM = 1;
+            if(strcmp(argv[i],"CACHE_MISS")==0){
+                CACHE_MISS = 1;
             }
 
             if(strcmp(argv[i],"TEN")==0){
@@ -81,7 +81,7 @@ int main( int argc, char **argv )
 
     printf("FUSE-DPDK-CLIENT BEGIN\n");
     if(CACHE_HIT == 1) printf("\tWITH CACHE_HIT");
-    if(NOFILESYSTEM == 1) printf("\tWITH NOFILESYSTEM");
+    if(CACHE_MISS == 1) printf("\tWITH CACHE_MISS");
     if(MAX_LOOP == 10) printf("\t10 REQ");
     if(MAX_LOOP == 100) printf("\t100 REQ");
     printf("FUSE-DPDK-CLIENT END\n");

@@ -73,10 +73,10 @@
 #define DATA_SIZE 4089
 #define MERGE_PACKETS 4
 
-int NOFILESYSTEM;
 int CHARA_DEBUG;
 int MAX_LOOP;
 int CACHE_HIT;
+int CACHE_MISS;
 
 int total_requests = 0;
 int dpdk_requests = 0;
