@@ -382,7 +382,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         strcpy(buf,collected_data);
         res = 26;
     }
-    // free(collected_data);
+    free(collected_data);
     return res;
 }
 
