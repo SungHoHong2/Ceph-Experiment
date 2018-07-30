@@ -330,10 +330,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             usleep(5);
         }
 
+        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(msg->data));
+
+
         void *rbuf;
         res = posix_memalign(&rbuf, SECTOR, DATA_SIZE);
 
-        fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
+        fd = open("/data1/sungho/trash/one_gig_example", O_RDWR );
+        // fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
         if (fd < 0) {
             printf("Open error\n");
             return -1;
