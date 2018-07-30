@@ -151,7 +151,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
                 memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                printf("merge msg in DPDK: %ld\n", strlen(msg_objs[i]->data));
+                printf("split msg in DPDK: %ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
 
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
