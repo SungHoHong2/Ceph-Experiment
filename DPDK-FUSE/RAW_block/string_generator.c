@@ -133,6 +133,7 @@ int main()
 //    }
 
 
+    free(aligned_buf_r);
 
     aligned_buf_r = NULL;
     ad = NULL;
@@ -154,7 +155,6 @@ int main()
 //        printf("%ld\n", strlen(array_test[i]));
 //        aligned_buf_r+=1024;
 //    }
-
 
     p1 = malloc( sizeof(char) * 1024);
     p2 = malloc( sizeof(char) * 1024);
