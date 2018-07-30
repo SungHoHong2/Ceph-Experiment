@@ -146,9 +146,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             for(i=0; i<4;i++){
                 pp[i] = malloc( sizeof(char) * 1024);
-                memcpy(pp[i], aligned_buf_r, end_size);
+                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
                 printf("%ld\n", strlen(pp[i]));
-                aligned_buf_r+=1024;
+                aligned_buf_r+=PKT_SIZE;
 
             }
 
@@ -170,7 +170,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("BEFORE READ END\n");
 
             fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
-            pread(fd, aligned_buf_r, BUF_SIZE, 0);
+            pread(fd, aligned_buf_r, DATA_SIZE, 0);
             close(fd);
 
             printf("AFTER READ BEGIN\n");
