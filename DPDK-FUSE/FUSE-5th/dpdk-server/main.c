@@ -17,12 +17,9 @@ main(int argc, char **argv)
 	if(argc>1){
 		int i;
 		for(i=0;i<argc; i++){
-			 printf("%s\n",argv[i]);
-
 			if(strcmp(argv[i],"CACHE_MISS")==0){
 				CACHE_MISS = 1;
 			}
-
 			if(strcmp(argv[i],"nvme0n1p1")==0){
 				strcpy(raw_device, "/dev/nvme0n1p1");
 			}
