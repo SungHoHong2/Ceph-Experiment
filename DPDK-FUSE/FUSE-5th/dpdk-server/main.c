@@ -13,8 +13,6 @@ l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 int
 main(int argc, char **argv)
 {
-
-	NOFILESYSTEM = 0;
 	printf("CHECKING ARGUEMENTS\n");
 	if(argc>1){
 		int i;
