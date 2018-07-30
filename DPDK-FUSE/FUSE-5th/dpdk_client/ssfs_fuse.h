@@ -342,13 +342,15 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     test_i++;
 
 
+    printf("collected:: %ld", strlen(collected_data[0]));
+    
 
-    for(int i =0; i<MERGE_PACKETS; i++){
-        strcat(aggregated,collected_data[i]);
-        free(collected_data[i]);
-    }
-
-    printf("dddd\n");
+//    for(int i =0; i<MERGE_PACKETS; i++){
+//        strcat(aggregated,collected_data[i]);
+//        free(collected_data[i]);
+//    }
+//
+//    printf("dddd\n");
 
 
     if(total_requests==MAX_LOOP){
