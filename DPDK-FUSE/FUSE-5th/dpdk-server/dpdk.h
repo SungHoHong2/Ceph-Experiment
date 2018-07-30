@@ -104,7 +104,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     const unsigned char *data = buf;
     ofs = start;
     data+=ofs;
-//    struct fuse_message *e = NULL;
     struct message *msg = (struct message *) data;
     struct message obj;
     struct lcore_queue_conf *qconf;
@@ -140,8 +139,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
             char* aligned_buf_r = NULL;
-            char** pp;
-            ad = NULL;
+            if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4)) {
+                perror("posix_memalign failed"); exit (EXIT_FAILURE);
+            }
+
+
+
             if (posix_memalign(&ad, SECTOR, DATA_SIZE )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
@@ -160,21 +163,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("AFTER READ END\n");
 
 
-            pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
 
-            for(i=0; i<4;i++){
-                pp[i] = malloc( sizeof(char) * 1024);
-                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
-                printf("%ld\n", strlen(pp[i]));
-                aligned_buf_r+=PKT_SIZE;
 
-            }
-
-            for(i=0; i<4;i++) {
-                free(pp[i]);
-                aligned_buf_r-=1024;
-
-            }
 
 
 
