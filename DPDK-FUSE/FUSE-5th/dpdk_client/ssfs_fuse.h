@@ -284,7 +284,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 {
     int fd;
     int res;
-    unsigned long long offset;
+    unsigned long long roffset;
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
@@ -335,14 +335,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             printf("Open error\n");
             return -1;
         }
-        offset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
+        roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
         if (file) {
-            res = pread(file, buf, DATA_SIZE, offset);
+            res = pread(file, buf, DATA_SIZE, roffset);
             if (res < 0 || res == 0) {
                 printf("Read error %d\n", ret);
                 return 0;
             }
-            printf("recv msg in offset: %llu in FUSE\n", offset);
+            printf("recv msg in offset: %llu in FUSE\n", roffset);
             close(fd);
         }
 
