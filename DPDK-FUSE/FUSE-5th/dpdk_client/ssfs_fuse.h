@@ -317,7 +317,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
                 usleep(5);
             }
             _msg = (struct message *) msg;
-            strcat(collected_data, _msg->data);
+            strcpy(collected_data, _msg->data);
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
@@ -382,7 +382,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         strcpy(buf,collected_data);
         res = 26;
     }
-    free(collected_data);
+    // free(collected_data);
     return res;
 }
 
