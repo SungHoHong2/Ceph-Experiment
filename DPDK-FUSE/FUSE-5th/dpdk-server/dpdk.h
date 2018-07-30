@@ -141,23 +141,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             char* aligned_buf_r = NULL;
             char** pp;
-            pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
-
-            for(i=0; i<4;i++){
-                pp[i] = malloc( sizeof(char) * 1024);
-                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
-                printf("%ld\n", strlen(pp[i]));
-                aligned_buf_r+=PKT_SIZE;
-
-            }
-
-            for(i=0; i<4;i++) {
-                free(pp[i]);
-                aligned_buf_r-=1024;
-
-            }
-
-            aligned_buf_r = NULL;
             ad = NULL;
             if (posix_memalign(&ad, SECTOR, DATA_SIZE )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
@@ -175,6 +158,23 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("AFTER READ BEGIN\n");
             printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
             printf("AFTER READ END\n");
+
+
+            pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
+
+            for(i=0; i<4;i++){
+                pp[i] = malloc( sizeof(char) * 1024);
+                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
+                printf("%ld\n", strlen(pp[i]));
+                aligned_buf_r+=PKT_SIZE;
+
+            }
+
+            for(i=0; i<4;i++) {
+                free(pp[i]);
+                aligned_buf_r-=1024;
+
+            }
 
 
 
