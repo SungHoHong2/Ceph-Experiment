@@ -10,7 +10,7 @@ then
   gcc -o string_generator string_generator.c
   ./string_generator
 
-elif [ "$2" = "c3n25" ]
+elif [ "$HOSTS" = "c3n25" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
   gcc -o random_read random_read.c
