@@ -139,8 +139,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, 1);
 
 
-
-
+            char* aligned_buf_r = NULL;
             char** pp;
             pp = malloc(4 * sizeof(char*));      // allocate the array to hold the pointer
 
