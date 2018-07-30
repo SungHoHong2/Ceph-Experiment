@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 
-#define BUF_SIZE 4089
+#define BUF_SIZE 1024
 #define SECTOR 512
 
 
@@ -51,7 +51,6 @@ int main() {
 
 
     fd = open(fl_nm, O_RDWR | O_DIRECT);
-    // fd = open(fl_nm, O_RDWR|O_CREAT|O_DIRECT);
     pwrite(fd, aligned_buf_w, BUF_SIZE, 0);
     pread(fd, aligned_buf_r, BUF_SIZE, 0);
 
