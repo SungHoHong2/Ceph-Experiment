@@ -301,7 +301,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         av->num = total_requests;
-        printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+        if(CHARA_DEBUG) printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
         total_requests++;
     }
