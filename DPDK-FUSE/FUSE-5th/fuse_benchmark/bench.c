@@ -60,7 +60,7 @@ int main( int argc, char **argv ){
 
     uint64_t start_time, end_time;
     FILE *file;
-    char data[1024];
+    char data[4089];
     int i;
 
     printf("CHECKING ARGUEMENTS\n");
@@ -87,7 +87,7 @@ int main( int argc, char **argv ){
         file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
         // file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
         if (file) {
-            fread(data, sizeof(char), 23, file);
+            fread(data, sizeof(char), 4089, file);
             printf("recv msg in FUSE: %s\n", data);
             fclose(file);
         }
