@@ -51,7 +51,7 @@ int main() {
 
 
     fd = open(fl_nm, O_RDWR | O_DIRECT);
-    pwrite(fd, aligned_buf_w, BUF_SIZE, 0);
+    // pwrite(fd, aligned_buf_w, BUF_SIZE, 0);
     pread(fd, aligned_buf_r, BUF_SIZE, 0);
 
     printf("AFTER READ BEGIN\n");
