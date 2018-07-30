@@ -7,8 +7,8 @@ then
   if [ "$HOSTS" = "c3n24" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/RAW_block
-  gcc -o string_generator string_generator.c
-  ./string_generator
+  gcc -o example_4 example_4.c
+  ./example_4
   fi
 
   # ./build/l2fwd -c 0x2 -n 4 -- -q 8 -p 0x2 -T 1
