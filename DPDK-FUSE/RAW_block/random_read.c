@@ -1,7 +1,13 @@
+#define _GNU_SOURCE
+#include <unistd.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <stdlib.h>
-
+#define BUF_SIZE 1024
 #define SECTOR 512
 #define BS 4096
 
