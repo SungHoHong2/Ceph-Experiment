@@ -310,7 +310,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     // char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
-    if(NOFILESYSTEM==0) {
+    if(CACHE_MISS==0) {
         while (1) {
             while (rte_ring_dequeue(rx_ring, &msg) < 0) {
                 usleep(5);
@@ -325,7 +325,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
     }
 
-    else if(NOFILESYSTEM==1) {
+    else if(CACHE_MISS==1) {
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
         }
