@@ -340,7 +340,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
 
-    printf("%s\n" aggregated);
+    printf("%s\n", aggregated);
 
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
