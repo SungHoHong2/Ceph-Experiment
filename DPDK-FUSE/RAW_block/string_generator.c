@@ -71,11 +71,11 @@ int main()
     int end_size = 1024;
 
 
-    for(i=0; i<4; i++){
+    for(i=0; i<5; i++){
         memcpy(array_test[i], aligned_buf_r, end_size);
         printf("%ld\n", strlen(array_test[i]));
         aligned_buf_r+=1024;
-        
+
     }
 
 //    aligned_buf_r-=4096;
