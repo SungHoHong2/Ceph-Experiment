@@ -311,6 +311,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     char** collected_data = malloc(MERGE_PACKETS * sizeof(char *));
     char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
+
     if(NOFILESYSTEM==0) {
         while (1) {
             while (rte_ring_dequeue(rx_ring, &msg) < 0) {
@@ -318,7 +319,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             }
             _msg = (struct message *) msg;
             collected_data[collect_packets] =  malloc(PKT_SIZE*sizeof(char));
-            strcpy(collected_data[collect_packets], _msg->data);
+            strcpy(aggregated, _msg->data);
+            // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
             printf("recv msg in FUSE: %ld\n", strlen(collected_data[collect_packets]));
             collect_packets++;
@@ -338,20 +340,23 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av->interval = av->end_time - av->start_time;
     printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
 
+    printf("%s\n" aggregated);
+
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
     test_i++;
 
 
+
   //  printf("collected:: %ld", strlen(collected_data[0]));
-    printf("CHECK collected BEGIN\n");
-    for(int i =0; i<MERGE_PACKETS; i++){
-        printf("recv msg in FUSE: %ld\n", strlen(collected_data[i]));
-        strcat(aggregated,collected_data[i]);
-        free(collected_data[i]);
-    }
-    printf("CHECK collected END\n");
+//    printf("CHECK collected BEGIN\n");
+//    for(int i =0; i<MERGE_PACKETS; i++){
+//        printf("recv msg in FUSE: %ld\n", strlen(collected_data[i]));
+//        strcat(aggregated,collected_data[i]);
+//        free(collected_data[i]);
+//    }
+//    printf("CHECK collected END\n");
 
 
     if(total_requests==MAX_LOOP){
