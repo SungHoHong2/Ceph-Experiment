@@ -147,9 +147,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             close(fd);
             // printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-            pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
             msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
                 memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
