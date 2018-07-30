@@ -41,8 +41,8 @@
       <file leaf-file-name="string_generator.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RAW_block/string_generator.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+            <state relative-caret-position="477">
+              <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -293,12 +293,12 @@
       <workItem from="1532626181611" duration="22274000" />
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
-      <workItem from="1532892468635" duration="2572000" />
+      <workItem from="1532892468635" duration="2766000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259621000" />
+    <option name="totallyTimeSpent" value="259815000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -663,8 +663,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RAW_block/string_generator.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+        <state relative-caret-position="477">
+          <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
         </state>
       </provider>
     </entry>

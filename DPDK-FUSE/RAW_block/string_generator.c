@@ -81,11 +81,13 @@ int main()
     aligned_buf_r = (char *)(ad);
 
 
-    
+    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
     fd = open(fl_nm, O_RDWR | O_DIRECT);
     pread(fd, aligned_buf_r, BUF_SIZE * 4, 0);
     close(fd);
+    printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
+    
     for(i=0; i<4; i++){
         memcpy(array_test[i], aligned_buf_r, end_size);
         printf("%ld\n", strlen(array_test[i]));
