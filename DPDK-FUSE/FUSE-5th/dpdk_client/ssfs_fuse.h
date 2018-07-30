@@ -353,8 +353,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             printf("recv msg in offset: %llu in FUSE\n", roffset);
             close(fd);
         }
-
-        strcpy(buf,"MISS\n");
+        
+        strcpy(buf,msg.data);
     }
 
     av = TAILQ_FIRST(&avg_queue);
