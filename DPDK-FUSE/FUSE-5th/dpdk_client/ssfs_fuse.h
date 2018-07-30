@@ -319,7 +319,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             _msg = (struct message *) msg;
             collected_data[collect_packets] =  malloc(PKT_SIZE*sizeof(char));
             strcpy(collected_data[collect_packets], _msg->data);
-            printf("FUSE: %s\n", _msg->data);
+            printf("FUSE: %ld\n", strlen(_msg->data));
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
