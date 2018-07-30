@@ -15,7 +15,6 @@
 
 int main( int argc, char **argv ){
 
-    uint64_t start_time, end_time;
     int file;
     int i;
     void *buf;
@@ -40,7 +39,7 @@ int main( int argc, char **argv ){
             printf("recv msg in offset: %llu\n", offset);
             close(file);
         }
-        
+
     return  0;
 }
 
