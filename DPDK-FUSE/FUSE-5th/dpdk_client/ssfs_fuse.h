@@ -330,7 +330,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             usleep(5);
         }
 
-        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(msg.data));
+        _msg = (struct message *) msg;
+        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
 
 
         void *rbuf;
@@ -353,8 +354,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             printf("recv msg in offset: %llu in FUSE\n", roffset);
             close(fd);
         }
-        
-        strcpy(buf,msg.data);
+
+        strcpy(buf,_msg->data);
     }
 
     av = TAILQ_FIRST(&avg_queue);
