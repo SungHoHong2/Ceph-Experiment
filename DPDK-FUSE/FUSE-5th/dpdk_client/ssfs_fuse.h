@@ -310,7 +310,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     char* collected_data =  malloc(DATA_SIZE * sizeof(char));
     free(collected_data);
-    printf("BEFORE::%ld\n", strlen(collected_data));
 
     if(NOFILESYSTEM==0) {
         while (1) {
@@ -338,7 +337,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
-    free(av); free(collected_data);
+    free(av);
     test_i++;
 
 
@@ -383,8 +382,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         strcpy(buf,collected_data);
         res = 26;
     }
-
-
+    free(collected_data);
     return res;
 }
 
