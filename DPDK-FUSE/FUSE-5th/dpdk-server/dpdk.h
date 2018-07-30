@@ -192,27 +192,20 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
             msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
 
-
-
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
-                pp[i] = malloc( sizeof(char) * PKT_SIZE);
-                // memcpy(pp[i], aligned_buf_r, PKT_SIZE);
                 memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                // printf("%ld\n", strlen(pp[i]));
                 printf("%ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
-            }
 
-            for(i=0; i<MERGE_PACKETS; i++){
-                msg = msg_objs[i];
+//                msg = msg_objs[i];
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
                 rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
 
                 zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
                 zdata+=sizeof(struct ether_hdr)-2;
 
-                rte_memcpy(zdata, msg, sizeof(struct message));
+                rte_memcpy(zdata, msg_objs[i], sizeof(struct message));
                 l2fwd_mac_updating(rm[i], 0);
             }
 
@@ -222,7 +215,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             for(i=0; i<MERGE_PACKETS;i++) {
                 free(msg_objs[i]);
-                // free(pp[i]);
                 aligned_buf_r-=PKT_SIZE;
             }
 
