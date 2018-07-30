@@ -14,6 +14,12 @@ int
 main(int argc, char **argv)
 {
 	printf("CHECKING ARGUEMENTS\n");
+
+	if (argc==1){
+			printf("no arguments\n");
+			return 0;
+	}
+
 	if(argc>1){
 		int i;
 		for(i=0;i<argc; i++){
@@ -29,6 +35,7 @@ main(int argc, char **argv)
 
 		}
 	}
+
 
 	if(strlen(raw_device)==0){
 		printf("no ssd location\n");
