@@ -308,7 +308,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 
     int collect_packets = 1;
-    char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
+    // char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
     if(NOFILESYSTEM==0) {
         while (1) {
@@ -316,11 +316,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
                 usleep(5);
             }
             _msg = (struct message *) msg;
-            strcat(aggregated, _msg->data);
+            strcat(buf, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
-            printf("merge msg in FUSE: %ld\n", strlen(aggregated));
-            strcpy(buf,aggregated);
+            printf("merge msg in FUSE: %ld\n", strlen(buf));
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
