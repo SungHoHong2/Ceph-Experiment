@@ -52,10 +52,18 @@ int main() {
 
     fd = open(fl_nm, O_RDWR | O_DIRECT);
     // pwrite(fd, aligned_buf_w, BUF_SIZE, 0);
-    pread(fd, aligned_buf_r, BUF_SIZE, 0);
+
 
     printf("AFTER READ BEGIN\n");
+    pread(fd, aligned_buf_r, BUF_SIZE, 0);
     printf("\taligned_buf_r::%s\n", aligned_buf_r);
+
+
+    pread(fd, aligned_buf_r, BUF_SIZE, BUF_SIZE;
+    printf("\taligned_buf_r::%s\n", aligned_buf_r);
+
+
+
     printf("AFTER READ END\n");
 
     //error checking for close process
