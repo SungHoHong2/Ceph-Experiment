@@ -110,12 +110,12 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     qconf = &lcore_queue_conf[1];
     unsigned portid = qconf->rx_port_list[0];
     void* ad = NULL;
+    char* aligned_buf_r = NULL;
     int fd, nr;
     struct rte_mbuf *rm[MERGE_PACKETS];
     int i;
     char *zdata;
     struct message objs[MERGE_PACKETS];
-
     char** pp;
     pp = malloc(MERGE_PACKETS * sizeof(char*));
 
@@ -138,10 +138,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, 1);
 
 
-
-
-            char* aligned_buf_r = NULL;
-            if (posix_memalign(&ad, SECTOR, PKT_SIZE * 4 )) {
+            if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);
             }
 
@@ -152,8 +149,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("BEFORE READ END\n");
 
             fd = open(raw_device, O_RDWR | O_DIRECT);
-//            fd = open(raw_device, O_RDWR | O_DIRECT, 0777);
-            pread(fd, aligned_buf_r, PKT_SIZE * 4, 0);
+            pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
             close(fd);
 
             printf("AFTER READ BEGIN\n");
@@ -161,9 +157,18 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             printf("AFTER READ END\n");
 
 
+            pp = malloc(MERGE_PACKETS * sizeof(char*));      // allocate the array to hold the pointer
+            for(i=0; i<MERGE_PACKETS; i++){
+                pp[i] = malloc( sizeof(char) * PKT_SIZE);
+                memcpy(pp[i], aligned_buf_r, PKT_SIZE);
+                printf("%ld\n", strlen(pp[i]));
+                aligned_buf_r+=PKT_SIZE;
+            }
 
-
-
+            for(i=0; i<MERGE_PACKETS; i++) {
+                free(pp[i]);
+                aligned_buf_r-=PKT_SIZE;
+            }
 
 
 
