@@ -114,13 +114,6 @@ int main()
     }
 
 
-//    for(i=0; i<4; i++){
-//        memcpy(array_test[i], aligned_buf_r, end_size);
-//        printf("%ld\n", strlen(array_test[i]));
-//        aligned_buf_r+=1024;
-//    }
-
-
     aligned_buf_r = NULL;
     ad = NULL;
     if (posix_memalign(&ad, SECTOR, BUF_SIZE * 4 )) {
@@ -136,28 +129,19 @@ int main()
     printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
 
-//    for(i=0; i<4; i++){
-//        memcpy(array_test[i], aligned_buf_r, end_size);
-//        printf("%ld\n", strlen(array_test[i]));
-//        aligned_buf_r+=1024;
-//    }
+    for(i=0; i<4;i++){
+        pp[i] = malloc( sizeof(char) * 1024);
+        memcpy(pp[i], aligned_buf_r, end_size);
+        printf("%ld\n", strlen(pp[i]));
+        aligned_buf_r+=1024;
 
+    }
 
+    for(i=0; i<4;i++) {
+        free(pp[i]);
+        aligned_buf_r-=1024;
 
-
-//
-//    aligned_buf_r-=4096;
-//    end_size-=4096;
-//
-//
-//    for(i=0; i<4; i++){
-//        memcpy(array_test[i], aligned_buf_r, end_size);
-//        printf("%ld\n", strlen(array_test[i]));
-//        aligned_buf_r+=1024;
-//        end_size+=1024;
-//
-//    }
-
+    }
 
     return 0;
 }
