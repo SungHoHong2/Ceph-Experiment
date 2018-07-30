@@ -64,28 +64,34 @@ int main()
     printf("splitting string into 1024 bytes\n");
 
 
+
+
     char array_test[4][1024];
     int i;
+    int end_size = 1024;
+
     for(i=0; i<4; i++){
-        strcpy(array_test[i], aligned_buf_r, 1024);
+        memcpy(array_test[i], aligned_buf_r, end_size);
+        printf("%ld\n", strlen(array_test[i]));
+        aligned_buf_r+=1024;
+        end_size+=1024;
+    }
+
+    aligned_buf_r-=4096;
+    end_size-=4096;
+
+    for(i=0; i<4; i++){
+        memcpy(array_test[i], aligned_buf_r, 1024);
         printf("%ld\n", strlen(array_test[i]));
         aligned_buf_r+=1024;
     }
 
     aligned_buf_r-=4096;
+    end_size-=4096;
 
 
     for(i=0; i<4; i++){
-        strcpy(array_test[i], aligned_buf_r, 1024);
-        printf("%ld\n", strlen(array_test[i]));
-        aligned_buf_r+=1024;
-    }
-
-    aligned_buf_r-=4096;
-
-
-    for(i=0; i<4; i++){
-        strcpy(array_test[i], aligned_buf_r, 1024);
+        memcpy(array_test[i], aligned_buf_r, 1024);
         printf("%ld\n", strlen(array_test[i]));
         aligned_buf_r+=1024;
     }
