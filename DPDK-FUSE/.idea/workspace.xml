@@ -101,11 +101,7 @@
       </file>
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="false">
@@ -117,9 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>enqueue</find>
-      <find>recv</find>
-      <find>avg_queue</find>
       <find>ad</find>
       <find>memset</find>
       <find>split_data</find>
@@ -147,6 +140,9 @@
       <find>FILESYSTEM</find>
       <find>NOFILESYSTEM</find>
       <find>test_data</find>
+      <find>test_file</find>
+      <find>end_time</find>
+      <find>start_time</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -346,12 +342,12 @@
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
       <workItem from="1532892468635" duration="13004000" />
-      <workItem from="1532970218897" duration="7587000" />
+      <workItem from="1532970218897" duration="7607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277640000" />
+    <option name="totallyTimeSpent" value="277660000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -726,11 +722,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

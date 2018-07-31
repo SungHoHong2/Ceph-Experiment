@@ -1,5 +1,3 @@
-uint64_t start_time, end_time;
-FILE *test_file;
 int test_i=0;
 double intervals[99999];
 
