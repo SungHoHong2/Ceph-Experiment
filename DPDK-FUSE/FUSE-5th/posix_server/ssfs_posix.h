@@ -194,7 +194,7 @@ void *tcp_send_launch(){
 
             msg = &obj;
 
-            if( NOFILESYSTEM == 1 ) {
+            if( cache_miss == 1 ) {
                 strncpy(obj.data, "Hello World From SERVER!\n", 64);
                 data = (char*)&obj;
                 memcpy(data, msg, sizeof(struct message));
