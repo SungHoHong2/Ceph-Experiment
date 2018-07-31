@@ -331,7 +331,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         calculateSD(intervals);
     }
 
-    if(cache_miss==0){
+    if(cache_miss==1){
         strcpy(buf,"MISS\n");
         res = 26;
     }
