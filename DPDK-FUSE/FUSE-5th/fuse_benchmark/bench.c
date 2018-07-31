@@ -21,6 +21,8 @@
 #include <math.h>
 
 int MAX_LOOP;
+int POSIX;
+int DPDK;
 
 uint64_t getTimeStamp() {
     struct timeval tv;
@@ -65,6 +67,8 @@ int main( int argc, char **argv ){
 
     printf("CHECKING ARGUEMENTS\n");
 
+    if(argc==0) return 0;
+
     if(argc>1){
         int i =0;
         for(i=0;i<argc; i++){
@@ -77,6 +81,16 @@ int main( int argc, char **argv ){
             if(strcmp(argv[i],"THOUSAND")==0){
                 MAX_LOOP = 1000;
             }
+
+            if(strcmp(argv[i],"POSIX")==0){
+                POSIX = 1;
+            }
+            if(strcmp(argv[i],"DPDK")==0){
+                DPDK = 1;
+            }
+
+
+
         }
     }
 
@@ -84,8 +98,10 @@ int main( int argc, char **argv ){
     for(i=0; i<MAX_LOOP; i++) {
         sleep(1);
         start_time = getTimeStamp();
-        file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
-        // file = fopen("/mnt/ssd_cache/home/sungho/client.txt", "r");
+
+        if(DPDK) file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
+        if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
+
         if (file) {
             fread(data, sizeof(char), 4089, file);
             printf("recv msg in FUSE: %s\n", data);

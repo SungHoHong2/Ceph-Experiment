@@ -75,7 +75,7 @@ then
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
   # gcc bench.c -o bench -lm && ./bench "TEN"
-  gcc bench.c -o bench -lm && ./bench "HUNDRED"
+  gcc bench.c -o bench -lm && ./bench $1
   fi
 
 elif [ "$1" = "Fuse_5th_DPDK_make_launch" ]
