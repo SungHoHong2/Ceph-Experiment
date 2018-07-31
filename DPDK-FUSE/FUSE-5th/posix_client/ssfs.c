@@ -14,16 +14,16 @@ int main( int argc, char **argv )
         int i =0;
         for(i=0;i<argc; i++){
             if(strcmp(argv[i],"CACHE_HIT")==0){
-                CACHE_HIT = 1;
+                cache_hit = 1;
             }
             if(strcmp(argv[i],"TEN")==0){
-                MAX_LOOP = 10;
+                max_loop = 10;
             }
             if(strcmp(argv[i],"HUNDRED")==0){
-                MAX_LOOP = 100;
+                max_loop = 100;
             }
             if(strcmp(argv[i],"THOUSAND")==0){
-                MAX_LOOP = 1000;
+                max_loop = 1000;
             }
 
         }
@@ -51,9 +51,9 @@ int main( int argc, char **argv )
 
 
     printf("FUSE-POSIX-CLIENT BEGIN");
-    if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
-    if(MAX_LOOP == 10) printf(" 10 REQ");
-    if(MAX_LOOP == 100) printf(" 100 REQ");
+    if(cache_hit == 1) printf(" WITH CACHE_HIT");
+    if(max_loop == 10) printf(" 10 REQ");
+    if(max_loop == 100) printf(" 100 REQ");
 
     umask(0);
     int fuse_argc = 3;

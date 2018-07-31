@@ -1,27 +1,23 @@
-uint64_t start_time, end_time;
-FILE *test_file;
-char test_data[1024];
 int test_i=0;
 double intervals[99999];
-
 
 void calculateSD(double data[])
 {
     float sum = 0.0, mean, standardDeviation = 0.0;
     int i;
-    for(i=0; i<MAX_LOOP; ++i)
+    for(i=0; i<max_loop; ++i)
     {
         sum += data[i];
     }
 
-    mean = sum/MAX_LOOP;
+    mean = sum/max_loop;
     printf("mean: %f\n",mean);
 
 
-    for(i=0; i<MAX_LOOP; ++i)
+    for(i=0; i<max_loop; ++i)
         standardDeviation += pow(data[i] - mean, 2);
 
-    printf("std: %f\n",sqrt(standardDeviation/MAX_LOOP));
+    printf("std: %f\n",sqrt(standardDeviation/max_loop));
 }
 
 
@@ -329,14 +325,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         e = NULL;
     }
 
-    if(total_requests==MAX_LOOP){
+    if(total_requests==max_loop){
         calculateSD(intervals);
     }
 
     pthread_mutex_unlock(&rx_lock);
 
 
-    if(CACHE_HIT==0){
+    if(cache_hit==0){
         if(fi == NULL)
             fd = open(path, O_RDONLY);
         else
@@ -355,7 +351,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             close(fd);
     }
 
-    if(CACHE_HIT==1){
+    if(cache_hit==1){
         strcpy(buf,_msg->data);
         res = 26;
     }
