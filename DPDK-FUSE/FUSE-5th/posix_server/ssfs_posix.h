@@ -183,7 +183,6 @@ void *tcp_send_launch(){
         void* ad = NULL;
         char* aligned_buf_r = NULL;
         int fd, nr;
-        struct message** msg_objs;
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
 
@@ -191,7 +190,7 @@ void *tcp_send_launch(){
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            msg = malloc(sizeof(struct message));
+            msg = &obj;
 
             if( cache_miss == 1 ) {
                 strncpy(obj.data, "Hello World From SERVER!\n", 64);
@@ -210,28 +209,17 @@ void *tcp_send_launch(){
                 aligned_buf_r = (char *)(ad);
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
-                strcpy(obj.data, aligned_buf_r);
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-//                msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-//                for(int i=0; i<MERGE_PACKETS; i++){
-//                    msg_objs[i] = malloc( sizeof(struct message));
-//                    memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-//                    if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
-//                    aligned_buf_r+=PKT_SIZE;
-//                }
-                    data = (char*)&obj;
-                    if (data != NULL) {
+                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
+                data = (char*)&obj;
+
+                if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, DATA_SIZE, 0);
                     if (success && strlen(data) > 0) {
                         if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
-
-                        for(int i=0; i<MERGE_PACKETS;i++) {
-                            free(msg_objs[i]);
-                        }
-
                     }
                 }
             }
