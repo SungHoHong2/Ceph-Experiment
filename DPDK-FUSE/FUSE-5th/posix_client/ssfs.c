@@ -1,6 +1,57 @@
+#define FUSE_USE_VERSION 31
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifdef linux
+/* For pread()/pwrite()/utimensat() */
+#define _XOPEN_SOURCE 700
+#endif
+
+#include <fuse.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/time.h>
+#ifdef HAVE_SETXATTR
+#include <sys/xattr.h>
+#endif
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <time.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <inttypes.h>
+#include <sys/types.h>
+#include <sys/queue.h>
+#include <netinet/in.h>
+#include <setjmp.h>
+#include <stdarg.h>
+#include <ctype.h>
+#include <errno.h>
+#include <getopt.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <sys/fcntl.h>
+#include <pthread.h>
+
 #include "ssfs_common.h"
 #include "ssfs_posix.h"
 #include "ssfs_fuse.h"
+
 
 
 int main( int argc, char **argv )
@@ -11,16 +62,16 @@ int main( int argc, char **argv )
         int i =0;
         for(i=0;i<argc; i++){
             if(strcmp(argv[i],"CACHE_HIT")==0){
-                cache_hit = 1;
+                CACHE_HIT = 1;
             }
             if(strcmp(argv[i],"TEN")==0){
-                max_loop = 10;
+                MAX_LOOP = 10;
             }
             if(strcmp(argv[i],"HUNDRED")==0){
-                max_loop = 100;
+                MAX_LOOP = 100;
             }
             if(strcmp(argv[i],"THOUSAND")==0){
-                max_loop = 1000;
+                MAX_LOOP = 1000;
             }
 
         }
@@ -48,9 +99,9 @@ int main( int argc, char **argv )
 
 
     printf("FUSE-POSIX-CLIENT BEGIN");
-    if(cache_hit == 1) printf(" WITH CACHE_HIT");
-    if(max_loop == 10) printf(" 10 REQ");
-    if(max_loop == 100) printf(" 100 REQ");
+    if(CACHE_HIT == 1) printf(" WITH CACHE_HIT");
+    if(MAX_LOOP == 10) printf(" 10 REQ");
+    if(MAX_LOOP == 100) printf(" 100 REQ");
 
     umask(0);
     int fuse_argc = 3;
