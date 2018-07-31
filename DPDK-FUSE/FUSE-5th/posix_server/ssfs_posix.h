@@ -213,7 +213,7 @@ void *tcp_send_launch(){
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
                 close(fd);
-                if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+                if(chara_debug) printf("aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
                 char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
                 msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));

@@ -323,6 +323,21 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = NULL;
         free(e);
         e = NULL;
+
+
+        struct message** msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
+        char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
+        for(int i=0; i<MERGE_PACKETS; i++){
+            msg_objs[i] = malloc( sizeof(struct message));
+            memcpy(msg_objs[i]->data, e->data, PKT_SIZE);
+            if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
+            aligned_buf_r+=PKT_SIZE;
+
+            strcat(test_buff, msg_objs[i]->data);
+            if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
+        }
+
+
     }
 
     pthread_mutex_unlock(&rx_lock);
