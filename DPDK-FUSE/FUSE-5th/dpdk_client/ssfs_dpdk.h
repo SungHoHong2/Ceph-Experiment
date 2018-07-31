@@ -96,7 +96,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message *msg = (struct message *) data;
 
     if (rte_ring_enqueue(rx_ring, msg) < 0) {
-        usleep(5);
+
     } else {
         if(chara_debug) printf("recv msg in DPDK: %ld\n", strlen(msg->data));
     }
@@ -153,7 +153,7 @@ l2fwd_tx_loop()
     while (!force_quit) {
 
         if (rte_ring_dequeue(tx_ring, &__msg) < 0) {
-            usleep(5);
+            // usleep(5);
             // printf("Failed to recv message - message discarded\n");
         } else {
                 _msg = (struct message *)__msg;
