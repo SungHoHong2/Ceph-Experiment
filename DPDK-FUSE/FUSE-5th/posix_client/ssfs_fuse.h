@@ -1,6 +1,5 @@
 uint64_t start_time, end_time;
 FILE *test_file;
-char test_data[1024];
 int test_i=0;
 double intervals[99999];
 

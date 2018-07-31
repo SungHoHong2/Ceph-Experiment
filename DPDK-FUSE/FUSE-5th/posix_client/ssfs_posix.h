@@ -1,7 +1,3 @@
-#define PORT "1234"  // the port users will be connecting to
-#define PKT_SIZE 1024 // max number of bytes we can get at once
-#define BACKLOG 10     // how many pending connections queue will hold
-
 void sigchld_handler(int s){
     // waitpid() might overwrite errno, so we save and restore it:
     int saved_errno = errno;
