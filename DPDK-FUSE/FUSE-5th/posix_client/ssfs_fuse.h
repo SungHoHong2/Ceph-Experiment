@@ -325,12 +325,21 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         e = NULL;
     }
 
+
+    printf("step1\n");
+
+
     if(total_requests==max_loop){
         calculateSD(intervals);
     }
 
+
+    printf("step2\n");
+
     pthread_mutex_unlock(&rx_lock);
 
+
+    printf("step3\n");
 
     if(cache_hit==0){
         if(fi == NULL)
@@ -356,6 +365,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         res = 26;
     }
 
+    printf("step4\n");
 
     return res;
 }

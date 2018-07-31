@@ -109,13 +109,14 @@ void *tcp_recv_launch(){
         success = recv(new_fd, buf, DATA_SIZE-1, 0);
         if(success && strlen(buf)>=23){
             pthread_mutex_lock(&rx_lock);
+            printf("recv msg in POSIX :: %ld\n", strlen(buf));
 
-            posix_av = TAILQ_FIRST(&posix_queue);
-            posix_av->end_time = getTimeStamp();
-            posix_av->interval = posix_av->end_time - posix_av->start_time;
-            printf("[%ld] recv msg in POSIX :: %ld ::  %ld\n", posix_av->num, strlen(buf), posix_av->interval);
-            TAILQ_REMOVE(&posix_queue, posix_av, nodes);
-            free(posix_av);
+//            posix_av = TAILQ_FIRST(&posix_queue);
+//            posix_av->end_time = getTimeStamp();
+//            posix_av->interval = posix_av->end_time - posix_av->start_time;
+//            printf("[%ld] recv msg in POSIX :: %ld ::  %ld\n", posix_av->num, strlen(buf), posix_av->interval);
+//            TAILQ_REMOVE(&posix_queue, posix_av, nodes);
+//            free(posix_av);
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -195,13 +196,7 @@ void *tcp_send_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-//                 printf("send msg in POSIX: %s\n",e->data);
-                posix_av = malloc(sizeof(struct avg_node));
-                posix_av->start_time = getTimeStamp();
-                posix_av->num = posix_requests;
-                // printf("send msg in POSIX: %ld\n",posix_av->num);
-                TAILQ_INSERT_TAIL(&posix_queue, posix_av, nodes);
-                posix_requests++;
+                printf("send msg in POSIX: %s\n",e->data);
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
