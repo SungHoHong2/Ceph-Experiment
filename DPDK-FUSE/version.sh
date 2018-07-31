@@ -35,10 +35,16 @@ then
 
   elif [ "$HOSTS" = "c3n25" ]
   then
-  # umount -l /data1/sungho/trash
-  umount -l /mnt/ssd_cache
-  sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
-  sudo kill -9 `pidof ssfs`
+    if [ "$2" = "DPDK" ]
+    then
+    umount -l /mnt/ssd_cache
+    sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
+    sudo kill -9 `pidof ssfs`
+  elif [ "$2" = "POSIX" ]
+    then
+    umount -l /mnt/hdd
+    sudo kill -9 `pidof ssfs`
+    fi
   fi
 
 elif [ "$1" = "ssfs_experiment" ]
@@ -49,6 +55,7 @@ then
   elif [ "$HOSTS" = "c3n25" ]
   then
   cat /mnt/ssd_cache/data1/sungho/client.txt
+
   fi
 
 
