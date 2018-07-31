@@ -332,7 +332,16 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     if(cache_miss==1){
+
+
+
+
+
         strcpy(buf,"MISS\n");
+
+
+
+
         res = 26;
     }
 

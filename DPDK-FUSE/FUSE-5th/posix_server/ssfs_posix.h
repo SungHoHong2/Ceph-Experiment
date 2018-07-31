@@ -190,7 +190,6 @@ void *tcp_send_launch(){
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-
             msg = &obj;
 
             if( cache_miss == 1 ) {
@@ -201,8 +200,6 @@ void *tcp_send_launch(){
                 if (success && strlen(data) > 0) {
                     printf("send msg in POSIX: %s\n",msg->data);
                 }
-
-
             } else {
                 int c;
                 if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
