@@ -215,7 +215,7 @@ void *tcp_send_launch(){
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
                 msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-                for(i=0; i<MERGE_PACKETS; i++){
+                for(int i=0; i<MERGE_PACKETS; i++){
                     msg_objs[i] = malloc( sizeof(struct message));
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
