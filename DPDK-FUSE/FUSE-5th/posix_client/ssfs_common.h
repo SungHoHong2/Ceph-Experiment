@@ -50,9 +50,7 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define PORT "1234"  // the port users will be connecting to
-#define PKT_SIZE 1024 // max number of bytes we can get at once
-#define BACKLOG 10     // how many pending connections queue will hold
+
 
 int MAX_LOOP;
 int CACHE_HIT;
