@@ -313,7 +313,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
-        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        printf("[%ld] CHARA: recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         strcpy(_msg->data, e->data);
         intervals[test_i] = (double)av->interval;
         test_i++;

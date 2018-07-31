@@ -106,14 +106,14 @@ void *tcp_recv_launch(){
         struct message *msg;
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
-        success = recv(new_fd, buf, PKT_SIZE-1, 0);
+        success = recv(new_fd, buf, DATA_SIZE-1, 0);
         if(success && strlen(buf)>=23){
             pthread_mutex_lock(&rx_lock);
 
             posix_av = TAILQ_FIRST(&posix_queue);
             posix_av->end_time = getTimeStamp();
             posix_av->interval = posix_av->end_time - posix_av->start_time;
-            printf("[%ld] recv msg in POSIX :: %ld\n", posix_av->num, posix_av->interval);
+            printf("[%ld] recv msg in POSIX :: %ld ::  %ld\n", posix_av->num, strlen(buf), posix_av->interval);
             TAILQ_REMOVE(&posix_queue, posix_av, nodes);
             free(posix_av);
                 e = malloc(sizeof(struct fuse_message));
