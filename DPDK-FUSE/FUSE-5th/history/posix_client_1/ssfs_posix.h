@@ -1,3 +1,7 @@
+#define PORT "1234"  // the port users will be connecting to
+#define PKT_SIZE 1024 // max number of bytes we can get at once
+#define BACKLOG 10     // how many pending connections queue will hold
+
 void sigchld_handler(int s){
     // waitpid() might overwrite errno, so we save and restore it:
     int saved_errno = errno;
@@ -102,29 +106,21 @@ void *tcp_recv_launch(){
         struct message *msg;
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
-
-        success = recv(new_fd, buf, PKT_SIZE-1, 0);
-        if(success && strlen(buf)>24){
-            if(chara_debug) printf("recv msg from POSIX: %s\n", buf);
+        success = recv(new_fd, buf, DATA_SIZE-1, 0);
+        if(success && strlen(buf)>=23){
             pthread_mutex_lock(&rx_lock);
-            if(strcmp(buf, "Hello World From CLIENT!\n")==0) {
+            if(chara_debug) printf("recv msg in POSIX :: %ld\n", strlen(buf));
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
-            }
             pthread_mutex_unlock(&rx_lock);
         }
-
     }
-
 }
-
 
 
 void *tcp_send_launch(){
 
-
-    sleep(5);
     printf("POSIX-TX BEGIN\n");
 
     int sockfd, numbytes, new_fd;
@@ -142,14 +138,11 @@ void *tcp_send_launch(){
     hints.ai_socktype = SOCK_STREAM;
     fcntl(sockfd, F_SETFL, O_NONBLOCK);
 
-    // get information of the WORKSTATION
-//    if ((rv = getaddrinfo("10.218.104.170", PORT, &hints, &servinfo)) != 0) {
-//        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-//    }
-
-    if ((rv = getaddrinfo("10.107.30.34", PORT, &hints, &servinfo)) != 0) {
+    // get information of the server
+    if ((rv = getaddrinfo("10.107.30.33", PORT, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     }
+
     // loop through all the results and connect to the first we can
     for(p = servinfo; p != NULL; p = p->ai_next) {
         if ((sockfd = socket(p->ai_family, p->ai_socktype,
@@ -180,73 +173,28 @@ void *tcp_send_launch(){
         struct message obj;
         struct fuse_message * e = NULL;
         struct message *msg;
-        void* ad = NULL;
-        char* aligned_buf_r = NULL;
-        int fd, nr;
-        struct message** msg_objs;
+        usleep(800);
+        while(TAILQ_EMPTY(&fuse_tx_queue)){}
 
-        while(TAILQ_EMPTY(&fuse_rx_queue)){}
-
-        pthread_mutex_lock(&rx_lock);
-        if(!TAILQ_EMPTY(&fuse_rx_queue)) {
-            e = TAILQ_FIRST(&fuse_rx_queue);
-            TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+        pthread_mutex_lock(&tx_lock);
+        if(!TAILQ_EMPTY(&fuse_tx_queue)) {
+            e = TAILQ_FIRST(&fuse_tx_queue);
             msg = &obj;
+            strncpy(obj.data, e->data, 100);
+            data = (char*)&obj;
 
-            if( cache_miss == 1 ) {
-                strncpy(obj.data, "Hello World From SERVER!\n", 64);
-                data = (char*)&obj;
+
+            if (data != NULL)
                 memcpy(data, msg, sizeof(struct message));
-                success = send(sockfd, data, PKT_SIZE, 0);
-                if (success && strlen(data) > 0) {
-                    if(chara_debug) printf("send msg in POSIX: %s\n",msg->data);
-                }
-            } else {
-                int c;
-                if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
-                    perror("posix_memalign failed"); exit (EXIT_FAILURE);
-                }
 
-                aligned_buf_r = (char *)(ad);
-                fd = open(raw_device, O_RDWR | O_DIRECT);
-                nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
-                close(fd);
-                if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-
-
-                msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-                for(int i=0; i<MERGE_PACKETS; i++){
-                    msg_objs[i] = malloc( sizeof(struct message));
-                    memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                    if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
-                    aligned_buf_r+=PKT_SIZE;
-
-//                    rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//                    rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
-
-//                    zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
-//                    zdata+=sizeof(struct ether_hdr)-2;
-
-//                    rte_memcpy(zdata, msg_objs[i], sizeof(struct message));
-//                    l2fwd_mac_updating(rm[i], 0);
-                }
-
-
-
-                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
-                data = (char*)&obj;
-
-                if (data != NULL) {
-                    memcpy(data, msg, sizeof(struct message));
-                    success = send(sockfd, data, DATA_SIZE, 0);
-                    if (success && strlen(data) > 0) {
-                        if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
-                    }
-                }
+            success=send(sockfd, data, PKT_SIZE, 0);
+            if(success && strlen(data)>0){
+                if(chara_debug) printf("send msg in POSIX: %s\n",e->data);
             }
 
+            TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
         }
-        pthread_mutex_unlock(&rx_lock);
+        pthread_mutex_unlock(&tx_lock);
 
     }
 }
