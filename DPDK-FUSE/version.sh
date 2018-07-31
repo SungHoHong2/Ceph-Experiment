@@ -40,7 +40,7 @@ then
     umount -l /mnt/ssd_cache
     sudo mount -t ext4 /dev/nvme0n1p1 /mnt/ssd_cache
     sudo kill -9 `pidof ssfs`
-  elif [ "$2" = "POSIX" ]
+    elif [ "$2" = "POSIX" ]
     then
     umount -l /mnt/hdd
     sudo kill -9 `pidof ssfs`
@@ -53,11 +53,15 @@ then
   then
   cat /mnt/ssd_cache/home/sungho/client.txt
   elif [ "$HOSTS" = "c3n25" ]
-  then
-  cat /mnt/ssd_cache/data1/sungho/client.txt
-
+    then
+    if [ "$2" = "DPDK" ]
+    then
+    cat /mnt/ssd_cache/data1/sungho/client.txt
+    elif [ "$2" = "POSIX" ]
+    then
+    cat /mnt/hdd/data1/sungho/client.txt
+    fi
   fi
-
 
 elif [ "$1" = "Fuse_exp_benchmark" ]
 then
