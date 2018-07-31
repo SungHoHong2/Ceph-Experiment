@@ -77,10 +77,10 @@
 
 
 
-int CHARA_DEBUG;
-int MAX_LOOP;
-int CACHE_HIT;
-int CACHE_MISS;
+int chara_debug;
+int max_loop;
+int cache_hit;
+int cache_miss;
 
 int total_requests = 0;
 int dpdk_requests = 0;

@@ -24,13 +24,13 @@ main(int argc, char **argv)
 		int i;
 		for(i=0;i<argc; i++){
 			if(strcmp(argv[i],"CACHE_MISS")==0){
-				CACHE_MISS = 1;
+				cache_miss = 1;
 			}
 			if(strcmp(argv[i],"nvme0n1p1")==0){
 				strcpy(raw_device, "/dev/nvme0n1p1");
 			}
 			if(strcmp(argv[i],"DEBUG")==0){
-				CHARA_DEBUG = 1;
+				chara_debug = 1;
 			}
 
 		}
@@ -46,7 +46,7 @@ main(int argc, char **argv)
 	dpdk_init();
 
 	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
-	if(CACHE_MISS == 1) printf("\tCACHE_MISS\n");
+	if(cache_miss == 1) printf("\tCACHE_MISS\n");
 	if(strlen(raw_device)>0) printf("\t%s\n", raw_device);
 	printf("FUSE-DPDK-SERVER CONFIGURATION END\n");
 

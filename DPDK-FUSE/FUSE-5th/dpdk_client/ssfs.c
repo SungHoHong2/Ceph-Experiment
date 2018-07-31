@@ -39,25 +39,25 @@ int main( int argc, char **argv )
         for(i=0;i<argc; i++){
 
             if(strcmp(argv[i],"DEBUG")==0){
-                CHARA_DEBUG = 1;
+                chara_debug = 1;
             }
 
             if(strcmp(argv[i],"CACHE_HIT")==0){
-                CACHE_HIT = 1;
+                cache_hit = 1;
             }
 
             if(strcmp(argv[i],"CACHE_MISS")==0){
-                CACHE_MISS = 1;
+                cache_miss = 1;
             }
 
             if(strcmp(argv[i],"TEN")==0){
-                MAX_LOOP = 10;
+                max_loop = 10;
             }
             if(strcmp(argv[i],"HUNDRED")==0){
-                MAX_LOOP = 100;
+                max_loop = 100;
             }
             if(strcmp(argv[i],"THOUSAND")==0){
-                MAX_LOOP = 1000;
+                max_loop = 1000;
             }
         }
     }
@@ -86,10 +86,10 @@ int main( int argc, char **argv )
 
 
     printf("FUSE-DPDK-CLIENT BEGIN\n");
-    if(CACHE_HIT == 1) printf("\tWITH CACHE_HIT\n");
-    if(CACHE_MISS == 1) printf("\tWITH CACHE_MISS\n");
-    if(MAX_LOOP == 10) printf("\t10 REQ\n");
-    if(MAX_LOOP == 100) printf("\t100 REQ\n");
+    if(cache_hit == 1) printf("\tWITH CACHE_HIT\n");
+    if(cache_miss == 1) printf("\tWITH CACHE_MISS\n");
+    if(max_loop == 10) printf("\t10 REQ\n");
+    if(max_loop == 100) printf("\t100 REQ\n");
     printf("FUSE-DPDK-CLIENT END\n");
 
     umask(0);

@@ -6,19 +6,19 @@ void calculateSD(double data[])
 {
     float sum = 0.0, mean, standardDeviation = 0.0;
     int i;
-    for(i=0; i<MAX_LOOP; ++i)
+    for(i=0; i<max_loop; ++i)
     {
         sum += data[i];
     }
 
-    mean = sum/MAX_LOOP;
+    mean = sum/max_loop;
     printf("mean: %f\n",mean);
 
 
-    for(i=0; i<MAX_LOOP; ++i)
+    for(i=0; i<max_loop; ++i)
         standardDeviation += pow(data[i] - mean, 2);
 
-    printf("std: %f\n",sqrt(standardDeviation/MAX_LOOP));
+    printf("std: %f\n",sqrt(standardDeviation/max_loop));
 }
 
 
@@ -301,7 +301,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         av->num = total_requests;
-        if(CHARA_DEBUG) printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+        if(chara_debug) printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
         total_requests++;
     }
@@ -310,7 +310,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     int collect_packets = 1;
     // char* aggregated = malloc(MERGE_PACKETS* PKT_SIZE * sizeof(char));
 
-    if(CACHE_HIT==1) {
+    if(cache_hit==1) {
         while (1) {
             while (rte_ring_dequeue(rx_ring, &msg) < 0) {
                 usleep(5);
@@ -319,19 +319,19 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             strcat(buf, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
-            if(CHARA_DEBUG) printf("merge msg in FUSE: %ld\n", strlen(buf));
+            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(buf));
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
     }
 
-    else if(CACHE_MISS==1) {
+    else if(cache_miss==1) {
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
             usleep(5);
         }
 
         _msg = (struct message *) msg;
-        if(CHARA_DEBUG) printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
+        if(chara_debug) printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
 
 
         void *rbuf;
@@ -345,12 +345,12 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
         roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
         if (fd) {
-            res = pread(fd, rbuf, PKT_SIZE*4, roffset);
+            res = pread(fd, rbuf, PKT_SIZE * 4, roffset);
             if (res < 0 || res == 0) {
                 printf("Read error %d\n", res);
                 return 0;
             }
-            if(CHARA_DEBUG) printf("recv msg in offset: %llu in FUSE\n", roffset);
+            if(chara_debug) printf("recv msg in offset: %llu in FUSE\n", roffset);
         }
         close(fd);
         strcpy(buf,_msg->data);
@@ -359,13 +359,13 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     av = TAILQ_FIRST(&avg_queue);
     av->end_time = getTimeStamp();
     av->interval = av->end_time - av->start_time;
-    if(CHARA_DEBUG) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
+    if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
     intervals[test_i] = (double)av->interval;
     TAILQ_REMOVE(&avg_queue, av, nodes);
     free(av);
     test_i++;
 
-    if(total_requests==MAX_LOOP){
+    if(total_requests==max_loop){
         calculateSD(intervals);
     }
 
@@ -554,7 +554,7 @@ void *without_fuse_launch(){
             av = malloc(sizeof(struct avg_node));
             av->start_time = getTimeStamp();
             av->num = total_requests;
-            if(CHARA_DEBUG) printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
+            if(chara_debug) printf("[%ld] send msg in FUSE: %s\n", av->num, _msg->data);
             TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
             total_requests++;
         }

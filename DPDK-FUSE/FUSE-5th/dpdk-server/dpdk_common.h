@@ -50,8 +50,8 @@
 #define SECTOR 512
 
 
-int CHARA_DEBUG;
-int CACHE_MISS;
+int chara_debug;
+int cache_miss;
 char hostname[CON_SIZE];
 char raw_device[CON_SIZE];
 struct message {

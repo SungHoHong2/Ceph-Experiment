@@ -118,7 +118,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message objs[MERGE_PACKETS];
     struct message** msg_objs;
 
-        if( CACHE_MISS == 1 ) {
+        if( cache_miss == 1 ) {
 
             msg = &obj;
             strncpy(obj.data, "Hello World From SERVER!\n", 26);
@@ -133,7 +133,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             l2fwd_mac_updating(rm[0], 0);
 
             // rte_pktmbuf_dump(stdout, rm[0], 60);
-            if(CHARA_DEBUG) printf("send msg in DPDK: %s\n", msg->data);
+            if(chara_debug) printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, 1);
 
         } else {
@@ -152,7 +152,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             for(i=0; i<MERGE_PACKETS; i++){
                 msg_objs[i] = malloc( sizeof(struct message));
                 memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                if(CHARA_DEBUG) printf("split msg in DPDK: %ld\n", strlen(msg_objs[i]->data));
+                if(chara_debug) printf("split msg in DPDK: %ld\n", strlen(msg_objs[i]->data));
                 aligned_buf_r+=PKT_SIZE;
 
                 rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
@@ -166,7 +166,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             }
 
             // rte_pktmbuf_dump(stdout, rm[0], 60);
-            if(CHARA_DEBUG) printf("send merged msg in DPDK\n\n");
+            if(chara_debug) printf("send merged msg in DPDK\n\n");
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
 
             for(i=0; i<MERGE_PACKETS;i++) {
