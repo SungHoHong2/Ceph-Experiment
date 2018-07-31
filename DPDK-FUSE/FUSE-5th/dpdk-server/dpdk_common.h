@@ -52,6 +52,8 @@
 
 int chara_debug;
 int cache_miss;
+int cache_hit;
+int cache_compact;
 char hostname[CON_SIZE];
 char raw_device[CON_SIZE];
 struct message {

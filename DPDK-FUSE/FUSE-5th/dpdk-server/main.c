@@ -32,6 +32,13 @@ main(int argc, char **argv)
 			if(strcmp(argv[i],"DEBUG")==0){
 				chara_debug = 1;
 			}
+			if(strcmp(argv[i],"CACHE_HIT")==0){
+				cache_hit = 1;
+			}
+
+			if(strcmp(argv[i],"CACHE_COMPACT")==0){
+				cache_compact = 1;
+			}
 
 		}
 	}

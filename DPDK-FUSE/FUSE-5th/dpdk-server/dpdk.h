@@ -136,7 +136,28 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             if(chara_debug) printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, 1);
 
-        } else {
+        } else if (cache_compact == 1) {
+
+
+            msg = &obj;
+            strncpy(obj.data, "Hello World From SERVER!\n", 26);
+
+            rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
+            rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
+
+            zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
+            zdata+=sizeof(struct ether_hdr)-2;
+
+            rte_memcpy(zdata, msg, sizeof(struct message));
+            l2fwd_mac_updating(rm[0], 0);
+
+            // rte_pktmbuf_dump(stdout, rm[0], 60);
+            if(chara_debug) printf("send msg in DPDK: %s\n", msg->data);
+            rte_eth_tx_burst(1, 0, rm, 1);
+
+
+
+        } else if (cache_hit == 1) {
 
             if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                 perror("posix_memalign failed"); exit (EXIT_FAILURE);

@@ -50,6 +50,10 @@ int main( int argc, char **argv )
                 cache_miss = 1;
             }
 
+            if(strcmp(argv[i],"CACHE_COMPACT")==0){
+                cache_compact = 1;
+            }
+
             if(strcmp(argv[i],"TEN")==0){
                 max_loop = 10;
             }

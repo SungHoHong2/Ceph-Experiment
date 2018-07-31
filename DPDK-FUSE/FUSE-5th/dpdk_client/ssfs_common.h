@@ -80,6 +80,7 @@
 int chara_debug;
 int max_loop;
 int cache_hit;
+int cache_compact;
 int cache_miss;
 
 int total_requests = 0;

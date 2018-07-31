@@ -380,8 +380,31 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
         close(fd);
         strcpy(buf,_msg->data);
-    }
 
+
+    } else if (cache_compact == 1){
+
+        while(rte_ring_dequeue(rx_ring, &msg) < 0){
+            usleep(5);
+        }
+
+        _msg = (struct message *) msg;
+        if(chara_debug) printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
+
+        av = TAILQ_FIRST(&avg_queue);
+        av->end_time = getTimeStamp();
+        av->interval = av->end_time - av->start_time;
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
+        intervals[test_i] = (double)av->interval;
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(av);
+        test_i++;
+
+        if(total_requests==max_loop){
+            calculateSD(intervals);
+        }
+        strcpy(buf,_msg->data);
+    }
     res = 26;
     return res;
 }
