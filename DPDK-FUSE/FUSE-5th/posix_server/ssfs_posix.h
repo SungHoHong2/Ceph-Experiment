@@ -1,4 +1,5 @@
 #define PORT "1234"  // the port users will be connecting to
+#define PKT_SIZE 1024 // max number of bytes we can get at once
 #define BACKLOG 10     // how many pending connections queue will hold
 
 void sigchld_handler(int s){
@@ -193,7 +194,7 @@ void *tcp_send_launch(){
 
             msg = &obj;
 
-            if( cache_miss == 1 ) {
+            if( NOFILESYSTEM == 1 ) {
                 strncpy(obj.data, "Hello World From SERVER!\n", 64);
                 data = (char*)&obj;
                 memcpy(data, msg, sizeof(struct message));
