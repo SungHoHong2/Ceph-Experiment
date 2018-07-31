@@ -212,7 +212,7 @@ void *tcp_send_launch(){
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
-
+                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
 
                 msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
                 for(int i=0; i<MERGE_PACKETS; i++){
@@ -233,7 +233,6 @@ void *tcp_send_launch(){
 
 
 
-                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;
 
                 if (data != NULL) {
