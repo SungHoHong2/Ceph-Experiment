@@ -94,7 +94,6 @@ int main( int argc, char **argv ){
         }
     }
 
-
     for(i=0; i<MAX_LOOP; i++) {
         sleep(1);
         start_time = getTimeStamp();
