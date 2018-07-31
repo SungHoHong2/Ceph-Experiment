@@ -224,8 +224,9 @@ void *tcp_send_launch(){
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
                     aligned_buf_r+=PKT_SIZE;
-                    
+
                     strcat(test_buff, msg_objs[i]->data);
+                    if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
 
 //                    rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 //                    rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
