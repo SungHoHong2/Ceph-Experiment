@@ -228,7 +228,7 @@ void *tcp_send_launch(){
                     if (success && strlen(data) > 0) {
                         if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
 
-                        for(i=0; i<MERGE_PACKETS;i++) {
+                        for(int i=0; i<MERGE_PACKETS;i++) {
                             free(msg_objs[i]);
                         }
 
