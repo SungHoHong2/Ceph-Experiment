@@ -180,6 +180,8 @@ void *tcp_send_launch(){
         struct message obj;
         struct fuse_message * e = NULL;
         struct message *msg;
+        void* ad = NULL;
+        char* aligned_buf_r = NULL;
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
 
@@ -198,6 +200,21 @@ void *tcp_send_launch(){
                 if (success && strlen(data) > 0) {
                     printf("send msg in POSIX: %s\n",msg->data);
                 }
+
+
+                if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
+                    perror("posix_memalign failed"); exit (EXIT_FAILURE);
+                }
+
+                aligned_buf_r = (char *)(ad);
+                fd = open(raw_device, O_RDWR | O_DIRECT);
+                nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
+                close(fd);
+                printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+
+
+
+
             } else {
                 int c;
                 FILE *file;

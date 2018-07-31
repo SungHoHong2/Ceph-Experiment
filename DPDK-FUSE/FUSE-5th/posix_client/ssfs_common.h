@@ -52,6 +52,8 @@
 
 int max_loop;
 int cache_hit;
+int raw_device;
+int chara_debug;
 
 int total_requests = 0;
 int posix_requests = 0;
