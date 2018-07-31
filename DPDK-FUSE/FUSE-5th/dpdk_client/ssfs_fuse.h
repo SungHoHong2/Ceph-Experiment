@@ -313,7 +313,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     if(cache_hit==1) {
         while (1) {
             while (rte_ring_dequeue(rx_ring, &msg) < 0) {
-                usleep(5);
+//                usleep(5);
             }
             _msg = (struct message *) msg;
             strcat(buf, _msg->data);
@@ -341,7 +341,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     else if(cache_miss==1) {
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
-            usleep(5);
+//            usleep(5);
         }
 
         _msg = (struct message *) msg;
