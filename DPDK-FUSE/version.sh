@@ -73,7 +73,7 @@ then
   gcc bench.c -o bench -lm && ./bench
   elif [ "$HOSTS" = "c3n25" ]
   then
-  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-4th/fuse_benchmark
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/fuse_benchmark
   # gcc bench.c -o bench -lm && ./bench "TEN"
   gcc bench.c -o bench -lm && ./bench $2 $3 $4 $5
   fi
