@@ -121,7 +121,7 @@ then
 cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/posix_server
 gcc ssfs.c -o ssfs -lpthread
 # ./ssfs
-./ssfs "NOFILESYSTEM"
+./ssfs "CACHE_MISS"
 
 elif [ "$HOSTS" = "c3n25" ]
 then

@@ -4,13 +4,12 @@
 int main( int argc, char **argv )
 {
 
-    NOFILESYSTEM = 0;
     printf("CHECKING ARGUEMENTS\n");
     if(argc>1){
         int i;
         for(i=0;i<argc; i++){
-            if(strcmp(argv[i],"NOFILESYSTEM")==0){
-                NOFILESYSTEM = 1;
+            if(strcmp(argv[i],"CACHE_MISS")==0){
+                cache_miss = 1;
             }
         }
     }
@@ -28,7 +27,7 @@ int main( int argc, char **argv )
         return 1;
     }
     printf("FUSE-POSIX-SERVER BEGIN");
-    if(NOFILESYSTEM == 1) printf(" WITH NOFILESYSTEM");
+    if(cache_miss == 1) printf(" WITH NOFILESYSTEM");
     printf("\n");
 
 

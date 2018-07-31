@@ -26,7 +26,7 @@
 #include <pthread.h>
 
 #define PKT_SIZE 1024 // max number of bytes we can get at once
-int NOFILESYSTEM;
+int cache_miss;
 
 struct message {
     char data[1024];
