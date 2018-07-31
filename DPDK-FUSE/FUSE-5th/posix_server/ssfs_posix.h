@@ -237,7 +237,7 @@ void *tcp_send_launch(){
 
 
                 data = (char*)msg_obj;
-                if (msg_obj != NULL) {
+                if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, DATA_SIZE, 0);
                     if (success && strlen(data) > 0) {
