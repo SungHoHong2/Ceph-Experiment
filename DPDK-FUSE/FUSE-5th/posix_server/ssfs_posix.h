@@ -183,6 +183,8 @@ void *tcp_send_launch(){
         void* ad = NULL;
         char* aligned_buf_r = NULL;
         int fd, nr;
+        struct message** msg_objs;
+
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
 
@@ -206,11 +208,20 @@ void *tcp_send_launch(){
                     perror("posix_memalign failed"); exit (EXIT_FAILURE);
                 }
 
+
                 aligned_buf_r = (char *)(ad);
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+
+                msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
+                for(i=0; i<MERGE_PACKETS; i++){
+                    msg_objs[i] = malloc( sizeof(struct message));
+                    memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
+                    if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
+                    aligned_buf_r+=PKT_SIZE;
+                }
 
                 strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;

@@ -74,9 +74,9 @@ then
   elif [ "$HOSTS" = "c3n25" ]
   then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/fuse_benchmark
-  # gcc bench.c -o bench -lm && ./bench "TEN"
+  # gcc bench.c -o bench -lm && ./bench "HUNDRED" "DPDK" "POSIX"
   gcc bench.c -o bench -lm && ./bench $2 $3 $4 $5
-  # sudocmd chmod 777 /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/fuse_benchmark/bench 
+  # sudocmd chmod 777 /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/fuse_benchmark/bench
   fi
 
 elif [ "$1" = "Fuse_5th_DPDK_make_launch" ]
