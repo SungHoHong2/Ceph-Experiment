@@ -333,15 +333,27 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
     if(cache_miss==1){
 
+        void *rbuf;
+        res = posix_memalign(&rbuf, SECTOR, PKT_SIZE*4);
 
+        fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
+        if (fd < 0) {
+            printf("Open error\n");
+            return -1;
+        }
 
+        roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
+        if (fd) {
+            res = pread(fd, rbuf, PKT_SIZE * 4, roffset);
+            if (res < 0 || res == 0) {
+                printf("Read error %d\n", res);
+                return 0;
+            }
+            if(chara_debug) printf("recv msg in offset: %llu in FUSE\n", roffset);
+        }
+        close(fd);
 
-
-        strcpy(buf,"MISS\n");
-
-
-
-
+        strcpy(buf,_msg->data);
         res = 26;
     }
 
