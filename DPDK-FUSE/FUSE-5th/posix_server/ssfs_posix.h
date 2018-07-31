@@ -215,8 +215,6 @@ void *tcp_send_launch(){
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
-
                 char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
                 msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
                 for(int i=0; i<MERGE_PACKETS; i++){
@@ -227,18 +225,9 @@ void *tcp_send_launch(){
 
                     strcat(test_buff, msg_objs[i]->data);
                     if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
-
-//                    rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
-//                    rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
-
-//                    zdata = rte_pktmbuf_append(rm[i], sizeof(struct message));
-//                    zdata+=sizeof(struct ether_hdr)-2;
-
-//                    rte_memcpy(zdata, msg_objs[i], sizeof(struct message));
-//                    l2fwd_mac_updating(rm[i], 0);
                 }
 
-
+                strncpy(obj.data, test_buff, DATA_SIZE);
                 data = (char*)&obj;
                 if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
