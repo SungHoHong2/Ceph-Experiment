@@ -1,56 +1,5 @@
-#define FUSE_USE_VERSION 31
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#ifdef linux
-/* For pread()/pwrite()/utimensat() */
-#define _XOPEN_SOURCE 700
-#endif
-
-#include <fuse.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <errno.h>
-#include <sys/time.h>
-#ifdef HAVE_SETXATTR
-#include <sys/xattr.h>
-#endif
-
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <time.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
-#include <sys/types.h>
-#include <sys/queue.h>
-#include <netinet/in.h>
-#include <setjmp.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <errno.h>
-#include <getopt.h>
-#include <signal.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <sys/fcntl.h>
-#include <pthread.h>
 #include <sys/time.h>
 #include <math.h>
-
-
 
 int MAX_LOOP;
 int CACHE_HIT;
