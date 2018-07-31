@@ -37,6 +37,9 @@
 #define SECTOR 512
 
 int cache_miss;
+int chara_debug;
+
+char raw_device[CON_SIZE];
 
 struct message {
     char data[1024];
