@@ -353,6 +353,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
                     return 0;
                 }
                 printf("recv msg in offset: %llu in FUSE\n", roffset);
+                roffset+=PKT_SIZE;
             }
         }
         close(fd);
