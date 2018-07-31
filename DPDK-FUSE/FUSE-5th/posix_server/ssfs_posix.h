@@ -210,7 +210,7 @@ void *tcp_send_launch(){
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
                 close(fd);
-                printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+                (chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
                 strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;
