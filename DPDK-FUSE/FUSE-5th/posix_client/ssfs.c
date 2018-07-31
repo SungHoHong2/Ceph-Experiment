@@ -13,6 +13,9 @@ int main( int argc, char **argv )
     if(argc>1){
         int i =0;
         for(i=0;i<argc; i++){
+            if(strcmp(argv[i],"DEBUG")==0){
+                chara_debug = 1;
+            }
             if(strcmp(argv[i],"CACHE_HIT")==0){
                 cache_hit = 1;
             }
