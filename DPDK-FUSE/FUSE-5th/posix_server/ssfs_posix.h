@@ -184,7 +184,7 @@ void *tcp_send_launch(){
         char* aligned_buf_r = NULL;
         int fd, nr;
         struct message** msg_objs;
-        struct message* msg_obj;
+        struct message** msg_obj;
 
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
@@ -215,15 +215,17 @@ void *tcp_send_launch(){
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-                msg_obj = malloc(sizeof(struct message));
-                strncpy(msg_obj->data, aligned_buf_r, DATA_SIZE);
+                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
 
+                char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
                 msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
                 for(int i=0; i<MERGE_PACKETS; i++){
                     msg_objs[i] = malloc( sizeof(struct message));
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
                     aligned_buf_r+=PKT_SIZE;
+                    
+                    strcat(test_buff, msg_objs[i]->data);
 
 //                    rm[i] = rte_pktmbuf_alloc(test_pktmbuf_pool);
 //                    rte_prefetch0(rte_pktmbuf_mtod(rm[i], void *));
@@ -236,7 +238,7 @@ void *tcp_send_launch(){
                 }
 
 
-                data = (char*)msg_obj;
+                data = (char*)&obj;
                 if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, DATA_SIZE, 0);
