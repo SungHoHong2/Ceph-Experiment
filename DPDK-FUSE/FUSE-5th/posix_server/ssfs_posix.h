@@ -205,7 +205,6 @@ void *tcp_send_launch(){
 
             } else {
                 int c;
-
                 if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                     perror("posix_memalign failed"); exit (EXIT_FAILURE);
                 }
@@ -221,9 +220,9 @@ void *tcp_send_launch(){
 
                 if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
-                    success = send(sockfd, data, PKT_SIZE, 0);
+                    success = send(sockfd, data, DATA_SIZE, 0);
                     if (success && strlen(data) > 0) {
-                        printf("send msg in POSIX: %s\n",msg->data);
+                        printf("send msg in POSIX: %ld\n",strlen(msg->data));
                     }
                 }
             }
