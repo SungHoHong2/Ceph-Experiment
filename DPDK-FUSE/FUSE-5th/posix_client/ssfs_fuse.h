@@ -328,13 +328,12 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         for(int i=0; i<MERGE_PACKETS; i++){
             msg_objs[i] = malloc( sizeof(struct message));
             memcpy(msg_objs[i]->data, tmp, PKT_SIZE);
-            if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
+            if(chara_debug) printf("split msg in FUSE: %ld\n", strlen(msg_objs[i]->data));
             tmp+=PKT_SIZE;
 
             strcat(test_buff, msg_objs[i]->data);
-            if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
+            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(test_buff));
         }
-
         free(e);
         e = NULL;
 
