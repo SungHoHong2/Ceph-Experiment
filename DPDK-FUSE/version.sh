@@ -137,7 +137,7 @@ gcc ssfs.c -o ssfs -lpthread
 # ./ssfs "CACHE_MISS" "nvme0n1p1"
 ./ssfs $1 $2 $3 $4
 
-elif [ "$HOSTS" = "c3n25" ]
+elif [ "$HOSTS" = "c3n25" ] # a lot of problem with permission issues
 then
 cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/posix_client
 # gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread

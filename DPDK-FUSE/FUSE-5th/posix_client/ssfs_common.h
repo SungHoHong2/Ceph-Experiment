@@ -57,6 +57,7 @@
 
 int max_loop;
 int cache_hit;
+int cache_miss;
 int raw_device;
 int chara_debug;
 

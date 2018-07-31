@@ -313,7 +313,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
-        printf("[%ld] CHARA: recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         strcpy(_msg->data, e->data);
         intervals[test_i] = (double)av->interval;
         test_i++;
@@ -325,32 +325,15 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         e = NULL;
     }
 
+    pthread_mutex_unlock(&rx_lock);
 
     if(total_requests==max_loop){
         calculateSD(intervals);
     }
 
-
-    pthread_mutex_unlock(&rx_lock);
-
-
-    if(cache_hit==0){
-        if(fi == NULL)
-            fd = open(path, O_RDONLY);
-        else
-            fd = fi->fh;
-
-        if (fd == -1)
-            return -errno;
-
-        res = pread(fd, buf, size, offset);
-
-
-        if (res == -1)
-            res = -errno;
-
-        if(fi == NULL)
-            close(fd);
+    if(cache_miss==0){
+        strcpy(buf,"MISS\n");
+        res = 26;
     }
 
     if(cache_hit==1){
