@@ -84,15 +84,19 @@ int main( int argc, char **argv ){
 
             if(strcmp(argv[i],"POSIX")==0){
                 POSIX = 1;
+                printf("POSIX ENABLED\n");
             }
             if(strcmp(argv[i],"DPDK")==0){
                 DPDK = 1;
+                printf("DPDK ENABLED\n");
             }
-
-
-
         }
     }
+
+
+
+
+
 
     for(i=0; i<MAX_LOOP; i++) {
         sleep(1);
