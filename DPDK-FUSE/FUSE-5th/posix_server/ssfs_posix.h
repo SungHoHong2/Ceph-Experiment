@@ -184,7 +184,7 @@ void *tcp_send_launch(){
         char* aligned_buf_r = NULL;
         int fd, nr;
         struct message** msg_objs;
-        struct message** msg_obj;
+        struct message* msg_obj;
 
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
