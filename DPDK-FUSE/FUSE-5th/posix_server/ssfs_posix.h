@@ -185,14 +185,13 @@ void *tcp_send_launch(){
         int fd, nr;
         struct message** msg_objs;
 
-
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
 
         pthread_mutex_lock(&rx_lock);
         if(!TAILQ_EMPTY(&fuse_rx_queue)) {
             e = TAILQ_FIRST(&fuse_rx_queue);
             TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-            msg = &obj;
+            msg = malloc(sizeof(struct message));
 
             if( cache_miss == 1 ) {
                 strncpy(obj.data, "Hello World From SERVER!\n", 64);
@@ -222,7 +221,7 @@ void *tcp_send_launch(){
                     aligned_buf_r+=PKT_SIZE;
                     strncat(obj.data, msg_objs[i]->data, PKT_SIZE);
                 }
-                data = (char*)&obj;
+                    data = (char*)&obj;
                     if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, DATA_SIZE, 0);
