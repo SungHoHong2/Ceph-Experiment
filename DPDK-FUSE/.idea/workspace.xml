@@ -68,8 +68,8 @@
       <file leaf-file-name="ssfs.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+            <state relative-caret-position="543">
+              <caret line="29" column="19" lean-forward="true" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
               <folding>
                 <element signature="e#49#68#0" expanded="true" />
                 <element signature="e#90#154#0" expanded="true" />
@@ -307,12 +307,12 @@
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
       <workItem from="1532892468635" duration="13004000" />
-      <workItem from="1532970218897" duration="7034000" />
+      <workItem from="1532970218897" duration="7059000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277087000" />
+    <option name="totallyTimeSpent" value="277112000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -679,8 +679,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="543">
+          <caret line="29" column="19" lean-forward="true" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
           <folding>
             <element signature="e#49#68#0" expanded="true" />
             <element signature="e#90#154#0" expanded="true" />
