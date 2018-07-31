@@ -335,7 +335,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 
         void *rbuf;
-        res = posix_memalign(&rbuf, SECTOR, PKT_SIZE);
+        res = posix_memalign(&rbuf, SECTOR, PKT_SIZE*4);
 
         // fd = open("/data1/sungho/trash/one_gig_example", O_RDWR );
         fd = open("/data1/sungho/trash/one_gig_example", O_RDWR | O_DIRECT);
@@ -345,16 +345,16 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         }
 
         roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
-        for(int i=0; i<MERGE_PACKETS; i++) {
+        // for(int i=0; i<MERGE_PACKETS; i++) {
             if (fd) {
-                res = pread(fd, rbuf, PKT_SIZE, roffset);
+                res = pread(fd, rbuf, PKT_SIZE*4, roffset);
                 if (res < 0 || res == 0) {
                     printf("Read error %d\n", res);
                     return 0;
                 }
                 printf("recv msg in offset: %llu in FUSE\n", roffset);
                 roffset+=PKT_SIZE;
-            }
+          //  }
         }
         close(fd);
         strcpy(buf,_msg->data);
