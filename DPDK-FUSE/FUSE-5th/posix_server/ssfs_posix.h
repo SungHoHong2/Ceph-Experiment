@@ -210,6 +210,7 @@ void *tcp_send_launch(){
                 aligned_buf_r = (char *)(ad);
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
+                strcpy(obj.data, aligned_buf_r);
                 close(fd);
                 if(chara_debug) printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
@@ -219,7 +220,6 @@ void *tcp_send_launch(){
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
                     aligned_buf_r+=PKT_SIZE;
-                    strcpy(obj.data, msg_objs[i]->data);
                 }
                     data = (char*)&obj;
                     if (data != NULL) {
