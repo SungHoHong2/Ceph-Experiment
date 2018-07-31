@@ -300,7 +300,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         av->num = total_requests;
-        printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
+        if(chara_debug) printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
         total_requests++;
     pthread_mutex_unlock(&tx_lock);
@@ -313,7 +313,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
-        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         strcpy(_msg->data, e->data);
         intervals[test_i] = (double)av->interval;
         test_i++;

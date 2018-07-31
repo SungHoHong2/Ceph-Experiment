@@ -109,7 +109,7 @@ void *tcp_recv_launch(){
         success = recv(new_fd, buf, DATA_SIZE-1, 0);
         if(success && strlen(buf)>=23){
             pthread_mutex_lock(&rx_lock);
-            printf("recv msg in POSIX :: %ld\n", strlen(buf));
+            if(chara_debug) printf("recv msg in POSIX :: %ld\n", strlen(buf));
                 e = malloc(sizeof(struct fuse_message));
                 strcpy(e->data, buf);
                 TAILQ_INSERT_TAIL(&fuse_rx_queue, e, nodes);
@@ -189,7 +189,7 @@ void *tcp_send_launch(){
 
             success=send(sockfd, data, PKT_SIZE, 0);
             if(success && strlen(data)>0){
-                printf("send msg in POSIX: %s\n",e->data);
+                if(chara_debug) printf("send msg in POSIX: %s\n",e->data);
             }
 
             TAILQ_REMOVE(&fuse_tx_queue, e, nodes);
