@@ -344,8 +344,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
             return -1;
         }
 
+        roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
         for(int i=0; i<MERGE_PACKETS; i++) {
-            roffset = ((rand() % (1024 * 1024 * 1024)) / SECTOR) * SECTOR;
             if (fd) {
                 res = pread(fd, rbuf, PKT_SIZE, roffset);
                 if (res < 0 || res == 0) {
