@@ -38,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="342" column="22" lean-forward="true" selection-start-line="342" selection-start-column="22" selection-end-line="342" selection-end-column="22" />
+            <state relative-caret-position="591">
+              <caret line="367" column="35" lean-forward="true" selection-start-line="367" selection-start-column="35" selection-end-line="367" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -50,17 +50,17 @@
       <file leaf-file-name="ssfs_common.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="95" column="22" lean-forward="true" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
+            <state relative-caret-position="137">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dpdk_common.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dpdk_common.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk_common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="52" column="16" lean-forward="true" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+            <state relative-caret-position="650">
+              <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -69,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>splits</find>
       <find>recv in DPDK</find>
       <find>recv msg</find>
       <find>enqueue</find>
@@ -99,6 +98,7 @@
       <find>MAX_LOOP</find>
       <find>CHARA_DEBUG</find>
       <find>CACHE_MISS</find>
+      <find>calculateSD</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -164,9 +164,9 @@
         <option value="$PROJECT_DIR$/RAW_block/random_read.c" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk-server/main.c" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs.c" />
-        <option value="$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk_common.h" />
+        <option value="$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_fuse.h" />
       </list>
     </option>
   </component>
@@ -291,12 +291,12 @@
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
       <workItem from="1532892468635" duration="13004000" />
-      <workItem from="1532970218897" duration="5426000" />
+      <workItem from="1532970218897" duration="5896000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275479000" />
+    <option name="totallyTimeSpent" value="275949000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -642,24 +642,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_fuse.h">
+    <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk_common.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="342" column="22" lean-forward="true" selection-start-line="342" selection-start-column="22" selection-end-line="342" selection-end-column="22" />
+        <state relative-caret-position="650">
+          <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_common.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="95" column="22" lean-forward="true" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
+        <state relative-caret-position="137">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk-server/dpdk_common.h">
+    <entry file="file://$PROJECT_DIR$/FUSE-5th/dpdk_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="52" column="16" lean-forward="true" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+        <state relative-caret-position="591">
+          <caret line="367" column="35" lean-forward="true" selection-start-line="367" selection-start-column="35" selection-end-line="367" selection-end-column="35" />
         </state>
       </provider>
     </entry>
