@@ -182,6 +182,7 @@ void *tcp_send_launch(){
         struct message *msg;
         void* ad = NULL;
         char* aligned_buf_r = NULL;
+        int fd, nr;
 
         while(TAILQ_EMPTY(&fuse_rx_queue)){}
 
