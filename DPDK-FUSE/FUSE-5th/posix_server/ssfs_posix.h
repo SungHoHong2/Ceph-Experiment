@@ -219,7 +219,7 @@ void *tcp_send_launch(){
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
                     aligned_buf_r+=PKT_SIZE;
-                    strncat(obj.data, msg_objs[i]->data, PKT_SIZE);
+                    strcpy(obj.data, msg_objs[i]->data, PKT_SIZE);
                 }
                     data = (char*)&obj;
                     if (data != NULL) {
