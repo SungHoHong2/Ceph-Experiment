@@ -108,7 +108,7 @@ void *tcp_recv_launch(){
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s);
         success = recv(new_fd, buf, PKT_SIZE-1, 0);
         if(success && strlen(buf)>=23){
-             pthread_mutex_lock(&rx_lock);
+            pthread_mutex_lock(&rx_lock);
 
             posix_av = TAILQ_FIRST(&posix_queue);
             posix_av->end_time = getTimeStamp();

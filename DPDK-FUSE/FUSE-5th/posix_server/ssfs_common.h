@@ -42,13 +42,13 @@ int chara_debug;
 char raw_device[CON_SIZE];
 
 struct message {
-    char data[1024];
+    char data[DATA_SIZE];
 };
 
 
 struct fuse_message
 {
-    char data[1024];
+    char data[DATA_SIZE];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 

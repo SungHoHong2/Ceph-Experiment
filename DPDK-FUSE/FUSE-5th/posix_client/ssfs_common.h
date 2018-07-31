@@ -50,6 +50,11 @@
 #include <sys/time.h>
 #include <math.h>
 
+#define CON_SIZE 255
+#define DATA_SIZE 4089
+#define MERGE_PACKETS 4
+#define SECTOR 512
+
 int max_loop;
 int cache_hit;
 int raw_device;
@@ -79,13 +84,13 @@ uint64_t getTimeStamp() {
 }
 
 struct message {
-    char data[1024];
+    char data[DATA_SIZE];
 };
 
 
 struct fuse_message
 {
-    char data[1024];
+    char data[DATA_SIZE];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 

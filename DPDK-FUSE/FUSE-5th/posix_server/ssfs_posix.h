@@ -203,6 +203,9 @@ void *tcp_send_launch(){
                 }
 
 
+            } else {
+                int c;
+
                 if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                     perror("posix_memalign failed"); exit (EXIT_FAILURE);
                 }
@@ -213,21 +216,7 @@ void *tcp_send_launch(){
                 close(fd);
                 printf("\t aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-
-
-
-            } else {
-                int c;
-                FILE *file;
-                char sdata[PKT_SIZE];
-                file = fopen("/data1/sungho/trash/server", "r");
-                if (file) {
-                    fread(sdata, sizeof(char), PKT_SIZE, file);
-                    // printf("send msg in FILESYSTEM: %s\n", sdata);
-                    fclose(file);
-                }
-
-                strncpy(obj.data, sdata, PKT_SIZE);
+                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;
 
                 if (data != NULL) {
