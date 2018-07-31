@@ -49,8 +49,8 @@
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="338" lean-forward="true" selection-start-line="338" selection-end-line="338" />
+            <state relative-caret-position="669">
+              <caret line="339" lean-forward="true" selection-start-line="339" selection-end-line="339" />
             </state>
           </provider>
         </entry>
@@ -300,12 +300,12 @@
       <workItem from="1532714199674" duration="10064000" />
       <workItem from="1532807317312" duration="21803000" />
       <workItem from="1532892468635" duration="13004000" />
-      <workItem from="1532970218897" duration="15907000" />
+      <workItem from="1532970218897" duration="16095000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="285960000" />
+    <option name="totallyTimeSpent" value="286148000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -678,8 +678,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-5th/posix_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="338" lean-forward="true" selection-start-line="338" selection-end-line="338" />
+        <state relative-caret-position="669">
+          <caret line="339" lean-forward="true" selection-start-line="339" selection-end-line="339" />
         </state>
       </provider>
     </entry>

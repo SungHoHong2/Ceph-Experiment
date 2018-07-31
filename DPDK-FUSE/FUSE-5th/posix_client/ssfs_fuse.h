@@ -337,15 +337,20 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         free(e);
         e = NULL;
 
+
+        if(total_requests==max_loop){
+            calculateSD(intervals);
+        }
     }
 
     pthread_mutex_unlock(&rx_lock);
 
-    if(total_requests==max_loop){
-        calculateSD(intervals);
-    }
 
     if(cache_miss==1){
+
+        if(total_requests==max_loop){
+            calculateSD(intervals);
+        }
 
         void *rbuf;
         res = posix_memalign(&rbuf, SECTOR, PKT_SIZE*4);
