@@ -353,9 +353,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
                     return 0;
                 }
                 printf("recv msg in offset: %llu in FUSE\n", roffset);
-                close(fd);
             }
         }
+        close(fd);
         strcpy(buf,_msg->data);
     }
 
