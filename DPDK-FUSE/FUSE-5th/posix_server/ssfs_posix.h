@@ -208,7 +208,6 @@ void *tcp_send_launch(){
                     perror("posix_memalign failed"); exit (EXIT_FAILURE);
                 }
 
-
                 aligned_buf_r = (char *)(ad);
                 fd = open(raw_device, O_RDWR | O_DIRECT);
                 nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
