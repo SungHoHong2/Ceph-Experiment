@@ -220,12 +220,10 @@ void *tcp_send_launch(){
                     memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
                     if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
                     aligned_buf_r+=PKT_SIZE;
+                    strncat(obj.data, msg_objs[i]->data, PKT_SIZE);
                 }
-
-                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;
-
-                if (data != NULL) {
+                    if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, DATA_SIZE, 0);
                     if (success && strlen(data) > 0) {
