@@ -310,17 +310,9 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
     pthread_mutex_lock(&rx_lock);
     if(!TAILQ_EMPTY(&fuse_rx_queue)) {
         e = TAILQ_FIRST(&fuse_rx_queue);
-        av = TAILQ_FIRST(&avg_queue);
-        av->end_time = getTimeStamp();
-        av->interval = av->end_time - av->start_time;
-        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         strcpy(_msg->data, e->data);
-        intervals[test_i] = (double)av->interval;
         test_i++;
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
-        TAILQ_REMOVE(&avg_queue, av, nodes);
-        free(av);
-        av = NULL;
 
         char * tmp = e->data;
         struct message** msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
@@ -337,20 +329,25 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         free(e);
         e = NULL;
 
-
-        if(total_requests==max_loop){
-            calculateSD(intervals);
-        }
+        av = TAILQ_FIRST(&avg_queue);
+        av->end_time = getTimeStamp();
+        av->interval = av->end_time - av->start_time;
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        intervals[test_i] = (double)av->interval;
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(av);
+        av = NULL;
     }
 
     pthread_mutex_unlock(&rx_lock);
 
 
-    if(cache_miss==1){
+    if(total_requests==max_loop){
+        calculateSD(intervals);
+    }
 
-        if(total_requests==max_loop){
-            calculateSD(intervals);
-        }
+
+    if(cache_miss==1){
 
         void *rbuf;
         res = posix_memalign(&rbuf, SECTOR, PKT_SIZE*4);
