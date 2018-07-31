@@ -283,7 +283,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 {
     int fd;
     int res;
-
+    unsigned long long roffset;
     char client[] = "Hello World From CLIENT!\n";
     char *selectedText = NULL;
     struct fuse_message *e = NULL;
