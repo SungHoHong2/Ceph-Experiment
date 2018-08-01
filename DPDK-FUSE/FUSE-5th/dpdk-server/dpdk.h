@@ -139,22 +139,19 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
         } else if (cache_compact == 1) {
 
             msg = &obj;
+            if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
+                perror("posix_memalign failed"); exit (EXIT_FAILURE);
+            }
             aligned_buf_r = (char *)(ad);
             fd = open(raw_device, O_RDWR | O_DIRECT);
             nr = pread(fd, aligned_buf_r, PKT_SIZE, 0);
             close(fd);
 
-            printf("step1\n;");
-
             strncpy(obj.data, aligned_buf_r, PKT_SIZE);
 
-            printf("step2\n;");
 
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
-
-            printf("step3\n;");
-
 
             zdata = rte_pktmbuf_append(rm[0], sizeof(struct message));
             zdata+=sizeof(struct ether_hdr)-2;
