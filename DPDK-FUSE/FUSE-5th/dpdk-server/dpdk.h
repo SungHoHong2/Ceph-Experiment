@@ -164,7 +164,6 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             rte_eth_tx_burst(1, 0, rm, 1);
 
 
-
         } else if (cache_hit == 1) {
 
             if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
