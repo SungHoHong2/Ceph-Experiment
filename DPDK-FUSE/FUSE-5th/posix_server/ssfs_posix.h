@@ -251,7 +251,7 @@ void *tcp_send_launch(){
                 strncpy(obj.data, aligned_buf_r, PKT_SIZE);
                 data = (char*)&obj;
                 if (data != NULL) {
-                    memcpy(data, msg, sizeof(struct PKT_SIZE));
+                    memcpy(data, msg, sizeof(struct message));
                     success = send(sockfd, data, PKT_SIZE, 0);
                     if (success && strlen(data) > 0) {
                         if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
