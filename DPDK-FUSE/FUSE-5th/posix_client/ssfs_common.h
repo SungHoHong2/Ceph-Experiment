@@ -52,7 +52,7 @@
 #include <math.h>
 
 #define CON_SIZE 255
-#define DATA_SIZE 4089
+#define DATA_SIZE 4096
 #define MERGE_PACKETS 4
 #define PKT_SIZE 1024
 #define SECTOR 512
