@@ -326,8 +326,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 //            strcat(test_buff, msg_objs[i]->data);
 //            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(test_buff));
 //        }
-        free(e);
-        e = NULL;
 
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
@@ -335,6 +333,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         intervals[test_i] = (double)av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(e);
+        e = NULL;
         free(av);
         av = NULL;
     }
