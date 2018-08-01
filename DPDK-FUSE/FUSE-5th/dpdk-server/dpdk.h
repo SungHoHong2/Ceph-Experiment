@@ -140,7 +140,11 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
 
             msg = &obj;
-            strncpy(obj.data, "Hello World From SERVER!\n", 26);
+            aligned_buf_r = (char *)(ad);
+            fd = open(raw_device, O_RDWR | O_DIRECT);
+            nr = pread(fd, aligned_buf_r, PKT_SIZE, 0);
+            strncpy(obj.data, aligned_buf_r, PKT_SIZE);
+            close(fd);
 
             rm[0] = rte_pktmbuf_alloc(test_pktmbuf_pool);
             rte_prefetch0(rte_pktmbuf_mtod(rm[0], void *));
