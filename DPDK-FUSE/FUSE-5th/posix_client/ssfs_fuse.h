@@ -314,19 +314,6 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         test_i++;
         TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
 
-//        char * tmp = e->data;
-//        struct message** msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-//        char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
-//        for(int i=0; i<MERGE_PACKETS; i++){
-//            msg_objs[i] = malloc( sizeof(struct message));
-//            memcpy(msg_objs[i]->data, tmp, PKT_SIZE);
-//            if(chara_debug) printf("split msg in FUSE: %ld\n", strlen(msg_objs[i]->data));
-//            tmp+=PKT_SIZE;
-//
-//            strcat(test_buff, msg_objs[i]->data);
-//            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(test_buff));
-//        }
-
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
@@ -373,7 +360,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
         res = 26;
     }
 
-    if(cache_hit==1){
+    if(cache_hit==1 || cache_compact == 1){
         strcpy(buf,_msg->data);
         res = 26;
     }

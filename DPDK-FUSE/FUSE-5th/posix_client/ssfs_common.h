@@ -54,6 +54,7 @@
 #define CON_SIZE 255
 #define DATA_SIZE 4089
 #define MERGE_PACKETS 4
+#define PKT_SIZE 1024
 #define SECTOR 512
 
 int max_loop;
@@ -87,13 +88,13 @@ uint64_t getTimeStamp() {
 }
 
 struct message {
-    char data[DATA_SIZE];
+    char data[PKT_SIZE];
 };
 
 
 struct fuse_message
 {
-    char data[DATA_SIZE];
+    char data[PKT_SIZE];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 
