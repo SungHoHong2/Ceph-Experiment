@@ -17,6 +17,13 @@ int main( int argc, char **argv )
             if(strcmp(argv[i],"CACHE_MISS")==0){
                 cache_miss = 1;
             }
+            if(strcmp(argv[i],"CACHE_HIT")==0){
+                cache_hit = 1;
+            }
+            if(strcmp(argv[i],"CACHE_COMPACT")==0){
+                cache_compact = 1;
+            }
+
             if(strcmp(argv[i],"nvme0n1p1")==0){
                 strcpy(raw_device, "/dev/nvme0n1p1");
             }

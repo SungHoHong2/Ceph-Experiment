@@ -38,6 +38,8 @@
 
 int cache_miss;
 int chara_debug;
+int cache_hit;
+int cache_compact;
 
 char raw_device[CON_SIZE];
 

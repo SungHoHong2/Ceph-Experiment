@@ -203,7 +203,7 @@ void *tcp_send_launch(){
                 if (success && strlen(data) > 0) {
                     if(chara_debug) printf("send msg in POSIX: %s\n",msg->data);
                 }
-            } else {
+            } else if(cache_hit == 1) {
                 int c;
                 if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
                     perror("posix_memalign failed"); exit (EXIT_FAILURE);
@@ -215,19 +215,19 @@ void *tcp_send_launch(){
                 close(fd);
                 if(chara_debug) printf("aligned_buf_r::%ld\n",strlen(aligned_buf_r));
 
-                char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
-                msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
-                for(int i=0; i<MERGE_PACKETS; i++){
-                    msg_objs[i] = malloc( sizeof(struct message));
-                    memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
-                    if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
-                    aligned_buf_r+=PKT_SIZE;
+//                char *test_buff = malloc(MERGE_PACKETS * PKT_SIZE * sizeof(char));
+//                msg_objs = malloc(MERGE_PACKETS * sizeof(struct message*));
+//                for(int i=0; i<MERGE_PACKETS; i++){
+//                    msg_objs[i] = malloc( sizeof(struct message));
+//                    memcpy(msg_objs[i]->data, aligned_buf_r, PKT_SIZE);
+//                    if(chara_debug) printf("split msg in POSIX: %ld\n", strlen(msg_objs[i]->data));
+//                    aligned_buf_r+=PKT_SIZE;
+//
+//                    strcat(test_buff, msg_objs[i]->data);
+//                    if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
+//                }
 
-                    strcat(test_buff, msg_objs[i]->data);
-                    if(chara_debug) printf("merge msg in POSIX: %ld\n", strlen(test_buff));
-                }
-
-                strncpy(obj.data, test_buff, DATA_SIZE);
+                strncpy(obj.data, aligned_buf_r, DATA_SIZE);
                 data = (char*)&obj;
                 if (data != NULL) {
                     memcpy(data, msg, sizeof(struct message));
@@ -236,7 +236,32 @@ void *tcp_send_launch(){
                         if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
                     }
                 }
+            } else if (cache_compact == 1){
+
+                if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
+                    perror("posix_memalign failed"); exit (EXIT_FAILURE);
+                }
+
+                aligned_buf_r = (char *)(ad);
+                fd = open(raw_device, O_RDWR | O_DIRECT);
+                nr = pread(fd, aligned_buf_r, PKT_SIZE, 0);
+                close(fd);
+                if(chara_debug) printf("aligned_buf_r::%ld\n",strlen(aligned_buf_r));
+
+                strncpy(obj.data, aligned_buf_r, PKT_SIZE);
+                data = (char*)&obj;
+                if (data != NULL) {
+                    memcpy(data, msg, sizeof(struct PKT_SIZE));
+                    success = send(sockfd, data, PKT_SIZE, 0);
+                    if (success && strlen(data) > 0) {
+                        if(chara_debug) printf("send msg in POSIX: %ld\n",strlen(msg->data));
+                    }
+                }
+
+
             }
+
+
 
         }
         pthread_mutex_unlock(&rx_lock);
