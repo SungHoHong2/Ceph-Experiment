@@ -88,13 +88,13 @@ uint64_t getTimeStamp() {
 }
 
 struct message {
-    char data[PKT_SIZE];
+    char data[DATA_SIZE];
 };
 
 
 struct fuse_message
 {
-    char data[PKT_SIZE];
+    char data[DATA_SIZE];
     TAILQ_ENTRY(fuse_message) nodes;
 };
 
