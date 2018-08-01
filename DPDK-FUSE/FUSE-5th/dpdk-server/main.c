@@ -35,7 +35,6 @@ main(int argc, char **argv)
 			if(strcmp(argv[i],"CACHE_HIT")==0){
 				cache_hit = 1;
 			}
-
 			if(strcmp(argv[i],"CACHE_COMPACT")==0){
 				cache_compact = 1;
 			}
@@ -54,6 +53,8 @@ main(int argc, char **argv)
 
 	printf("FUSE-DPDK-SERVER CONFIGURATION BEGIN\n");
 	if(cache_miss == 1) printf("\tCACHE_MISS\n");
+	if(cache_hit == 1) printf("\tCACHE_HIT\n");
+	if(cache_compact == 1) printf("\tCACHE_COMPACT\n");
 	if(strlen(raw_device)>0) printf("\t%s\n", raw_device);
 	printf("FUSE-DPDK-SERVER CONFIGURATION END\n");
 
