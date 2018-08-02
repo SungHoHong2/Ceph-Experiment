@@ -513,8 +513,8 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 
 
 	char test[4089];
-
-	res = pread(buf.buf[0].fd, test, len, buf.buf[0].pos);
+	int res;
+	res = pread(buf.buf[0].fd, test, size, buf.buf[0].pos);
 
 
 
