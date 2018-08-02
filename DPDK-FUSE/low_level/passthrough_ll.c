@@ -506,7 +506,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	unsigned char *c;
 	c = (unsigned char*)(&offset);
 
-	printf("CHARA: size:%ld buf:%ld\n",size, buf);
+	printf("CHARA: size:%ld buf:%ld\n",size, offset);
 
 
 
