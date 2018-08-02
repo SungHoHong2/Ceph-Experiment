@@ -502,7 +502,7 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 		iov[iov_count].iov_len = len;
 		iov_count++;
 
-		printf("UNDYNE: fuse_send_msg::buf->buf[0].mem::%s\n",buf->buf[0].mem);
+		printf("UNDYNE: fuse_send_msg::buf->buf[0].mem::%s\n",(char *)buf->buf[0].mem);
 		return fuse_send_msg(se, ch, iov, iov_count);
 	}
 
@@ -512,8 +512,7 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	if (res != 0)
 		return res;
 
-	printf("UNDYNE: step2\n");
-
+	printf("CHARA::FINAL::buf::%s\n", buf);
 
 	mem_buf.buf[0].mem = mbuf;
 	res = fuse_buf_copy(&mem_buf, buf, 0);
@@ -523,21 +522,15 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	}
 	len = res;
 
-	printf("UNDYNE: step3\n");
-
+	printf("CHARA::FINAL::iov_count::%d::mbuf::%s\n", iov_count, (char *)mbuf);
 
 	iov[iov_count].iov_base = mbuf;
 	iov[iov_count].iov_len = len;
 	iov_count++;
 
-	printf("CHARA::FINAL %d", iov_count);
-	// printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
 
 	res = fuse_send_msg(se, ch, iov, iov_count);
-
-	printf("UNDYNE: step4:: %s\n",(char *)mbuf);
 	free(mbuf);
-
 	return res;
 }
 

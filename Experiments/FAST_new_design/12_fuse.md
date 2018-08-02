@@ -4,12 +4,19 @@
     - so we need to track down `iov[1]` to see where the data can be viewed
 
 
+```c++
 
 
+
+static int fuse_send_data_iov_fallback(struct fuse_session *se,
+				       struct fuse_chan *ch,
+				       struct iovec *iov, int iov_count,
+				       struct fuse_bufvec *buf,
+				       size_t len)
 static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch, struct iovec *iov, int count);
+               printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
 
-
-
+```
 
 
 
