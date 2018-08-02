@@ -272,7 +272,7 @@ static void lo_readlink(fuse_req_t req, fuse_ino_t ino)
 
 
 	printf("probably the data is here: %s\n", buf);
-	
+
 	fuse_reply_readlink(req, buf);
 }
 
@@ -501,6 +501,12 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
 	buf.buf[0].fd = fi->fh;
 	buf.buf[0].pos = offset;
+
+
+	unsigned char *c;
+	c = (unsigned char*)(&offset);
+
+	printf("CHARA: size:%ld buf:%ld\n",size, buf);
 
 
 
