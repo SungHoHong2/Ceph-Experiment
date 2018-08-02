@@ -19,26 +19,21 @@ elif [ "$HOSTS" = "c3n25" ]
 
 elif [ "$1" = "fuselib_modify" ]
 then
-  if [ "$2" = "convert" ]
+  if [ "$HOSTS" = "c3n25" ]
   then
   cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/fuse_lowlevel.c /data1/sungho/libfuse/lib
-
-  elif [ "$2" = "make" ]
-  then
   export PATH=$PATH:/home/users/sungho/.local/bin/
   cd /data1/sungho/libfuse
   rm -rf build
   mkdir build; cd build
   meson ..
-
-  elif [ "$2" = "build" ]
-  then
-  cd /data1/sungho/libfuse/build
   ninja
   sudo ninja install
   cp /data1/sungho/libfuse/build/lib/libfuse3.so /usr/local/lib/x86_64-linux-gnu/
   cp /data1/sungho/libfuse/build/lib/libfuse3.so.3 /usr/local/lib/x86_64-linux-gnu/
   cp /data1/sungho/libfuse/build/lib/libfuse3.so.3.2.4 /usr/local/lib/x86_64-linux-gnu/
+
+
   fi
 
 
