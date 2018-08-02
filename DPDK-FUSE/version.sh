@@ -17,6 +17,29 @@ elif [ "$HOSTS" = "c3n25" ]
   ./random_read
   fi
 
+elif [ "$1" = "fuselib_modify" ]
+then
+  if [ "$2" = "convert" ]
+  then
+  cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/fuse_lowlevel /data1/sungho/libfuse/lib
+
+  elif [ "$2" = "make" ]
+  then
+  export PATH=$PATH:/home/users/sungho/.local/bin/
+  cd /data1/sungho/libfuse
+  rm -rf build
+  mkdir build; cd build
+  meson ..
+
+  elif [ "$2" = "build" ]
+  then
+  cd /data1/sungho/libfuse/build
+  ninja
+  sudo ninja install
+  fi
+
+
+
 
 elif [ "$1" = "low_level_exp" ]
 then
