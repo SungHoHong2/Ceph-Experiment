@@ -164,7 +164,12 @@ static struct fuse_req *fuse_ll_alloc_req(struct fuse_session *se)
 static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 			 struct iovec *iov, int count)
 {
+
+	printf("UNDYNE: fuse_send_msg\n");
+
 	struct fuse_out_header *out = iov[0].iov_base;
+	
+
 
 	out->len = iov_length(iov, count);
 	if (se->debug) {
