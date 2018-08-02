@@ -503,7 +503,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	buf.buf[0].pos = offset;
 
 	printf("CHARA: size:%ld buf:%ld\n",size, offset);
-	printf("CHARA: char: %s\n",buf.buf[0].mem);
+	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
 
 
 
