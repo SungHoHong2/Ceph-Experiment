@@ -187,8 +187,7 @@ static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 		}
 	}
 
-	printf("UNDYNE: iov[1]::%s\n", (char *)iov[0].iov_base);
-
+	printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
 
 
 	ssize_t res = writev(ch ? ch->fd : se->fd,
