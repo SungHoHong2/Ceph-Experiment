@@ -169,7 +169,7 @@ static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 
 	struct fuse_out_header *out = iov[0].iov_base;
 	printf("UNDYNE: iov[0].iov_base::%s\n", (char *)iov[0].iov_base);
-	
+
 	out->len = iov_length(iov, count);
 	if (se->debug) {
 		if (out->unique == 0) {
@@ -189,6 +189,9 @@ static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 
 	ssize_t res = writev(ch ? ch->fd : se->fd,
 			     iov, count);
+
+	printf("UNDYNE: count::%d\n", count);
+	\
 	int err = errno;
 
 	if (res == -1) {
