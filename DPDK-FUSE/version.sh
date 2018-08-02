@@ -21,7 +21,7 @@ elif [ "$1" = "fuselib_modify" ]
 then
   if [ "$2" = "convert" ]
   then
-  cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/fuse_lowlevel /data1/sungho/libfuse/lib
+  cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/fuse_lowlevel.c /data1/sungho/libfuse/lib
 
   elif [ "$2" = "make" ]
   then
