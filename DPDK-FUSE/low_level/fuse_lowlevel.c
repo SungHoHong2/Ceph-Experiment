@@ -503,7 +503,7 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 		iov[iov_count].iov_len = len;
 		iov_count++;
 
-		printf("UNDYNE: fuse_send_msg\n");
+		printf("UNDYNE: fuse_send_msg::buf->buf[0].mem::%s\n",buf->buf[0].mem);
 		return fuse_send_msg(se, ch, iov, iov_count);
 	}
 
