@@ -481,6 +481,9 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	void *mbuf;
 	int res;
 
+
+	printf("UNDYNE: fuse_send_data_iov_fallback\n");
+	
 	/* Optimize common case */
 	if (buf->count == 1 && buf->idx == 0 && buf->off == 0 &&
 	    !(buf->buf[0].flags & FUSE_BUF_IS_FD)) {
