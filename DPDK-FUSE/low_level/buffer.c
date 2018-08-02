@@ -283,7 +283,7 @@ ssize_t fuse_buf_copy(struct fuse_bufvec *dstv, struct fuse_bufvec *srcv,
 {
 	size_t copied = 0;
 
-	printf("CHARA: fuse_buf_copy BEGIN");
+	printf("CHARA: fuse_buf_copy BEGIN\n");
 
 	if (dstv == srcv)
 		return fuse_buf_size(dstv);
