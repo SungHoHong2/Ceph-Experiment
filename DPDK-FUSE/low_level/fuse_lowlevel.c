@@ -512,7 +512,7 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	if (res != 0)
 		return res;
 
-	printf("CHARA::FINAL::buf::%s\n", buf);
+	printf("CHARA::FINAL::buf::%s\n", (char *)buf);
 
 	mem_buf.buf[0].mem = mbuf;
 	res = fuse_buf_copy(&mem_buf, buf, 0);
