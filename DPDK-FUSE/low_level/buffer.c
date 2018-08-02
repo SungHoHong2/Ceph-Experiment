@@ -86,14 +86,13 @@ static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
 		if (src->flags & FUSE_BUF_FD_SEEK) {
 
 			printf("\t\t\t\tpread(src->fd, dst->mem + dst_off, len,src->pos + src_off)\n");
-			res = pread(src->fd, dst->mem + dst_off, len,
-				     src->pos + src_off);
 
+			printf("src->pos + src_off: %s\n", (char *)src->pos + src_off);
+			
+			res = pread(src->fd, dst->mem + dst_off, len, src->pos + src_off);
 
 			printf("src->pos + src_off: %s\n", (char *)src->pos + src_off);
 			printf("dst->mem + dst_off: %s\n", (char *)dst->mem + dst_off);
-
-
 
 		} else {
 			res = read(src->fd, dst->mem + dst_off, len);
