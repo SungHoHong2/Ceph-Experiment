@@ -259,6 +259,7 @@ static void lo_readlink(fuse_req_t req, fuse_ino_t ino)
 	char buf[PATH_MAX + 1];
 	int res;
 
+	printf("FRISK lo_readlink\n");
 
 
 	res = readlinkat(lo_fd(req, ino), "", buf, sizeof(buf));
@@ -446,6 +447,9 @@ static void lo_create(fuse_req_t req, fuse_ino_t parent, const char *name,
 static void lo_open(fuse_req_t req, fuse_ino_t ino,
 		    struct fuse_file_info *fi)
 {
+
+	printf("FRISK lo_open\n");
+
 	int fd;
 	char buf[64];
 
@@ -481,6 +485,8 @@ static void lo_open(fuse_req_t req, fuse_ino_t ino,
 
 static void lo_release(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
 {
+
+	printf("FRISK lo_release\n");
 	(void) ino;
 
 	close(fi->fh);
@@ -501,17 +507,15 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	buf.buf[0].fd = fi->fh;
 	buf.buf[0].pos = offset;
 
-	printf("CHARA: size:%ld buf:%ld\n",size, buf.buf[0].pos);
+	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
 
 
 	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 
 
-
-	printf("CHARA: size:%ld buf:%ld\n",size, buf.buf[0].pos);
+	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
-
 
 }
 
@@ -519,6 +523,9 @@ static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
 			 struct fuse_bufvec *in_buf, off_t off,
 			 struct fuse_file_info *fi)
 {
+
+	printf("FRISK WRITE\n");
+
 	(void) ino;
 	ssize_t res;
 	struct fuse_bufvec out_buf = FUSE_BUFVEC_INIT(fuse_buf_size(in_buf));
