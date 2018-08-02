@@ -498,8 +498,6 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 {
 	struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
 
-	printf("HOWDY\n");
-
 	printf( "lo_read(ino=%" PRIu64 ", size=%zd, "
 			"off=%lu)\n", ino, size, (unsigned long) offset);
 
