@@ -518,8 +518,8 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	printf("buf->idx: %d\n",buf->idx);
 	printf("buf->idx: %d\n",buf->count);
 
-	printf("buf->buf[0]: %s\n",(char *)buf->buf[0].mem);
-	printf("buf->buf[1]: %s\n",(char *)buf->buf[1].mem);
+	printf("buf->buf[0].mem: %s\n",(char *)buf->buf[0].mem);
+	printf("buf->buf[1].mem: %s\n",(char *)buf->buf[1].mem);
 
 
 	mem_buf.buf[0].mem = mbuf;
@@ -532,6 +532,8 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 
 	printf("CHARA::FINAL::buf::%s::iov_count::%d::mbuf::%s\n", buf, iov_count, (char *)mbuf);
 	printf("mem_buf.buf[0].mem: %s\n",(char *)mem_buf.buf[0].mem);
+	printf("buf->buf[0].mem: %s\n",(char *)buf->buf[0].mem);
+	printf("buf->buf[1].mem: %s\n",(char *)buf->buf[1].mem);
 
 
 	iov[iov_count].iov_base = mbuf;
