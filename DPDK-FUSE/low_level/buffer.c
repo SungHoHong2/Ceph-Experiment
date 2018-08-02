@@ -246,7 +246,7 @@ static ssize_t fuse_buf_copy_one(const struct fuse_buf *dst, size_t dst_off,
 			else
 				memmove(dstmem, srcmem, len);
 		}
-
+		printf("\t\tCHARA: fuse_buf_copy_one END\n");
 		return len;
 	} else if (!src_is_fd) {
 		return fuse_buf_write(dst, dst_off, src, src_off, len);
