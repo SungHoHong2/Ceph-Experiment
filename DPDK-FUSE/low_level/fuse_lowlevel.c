@@ -517,10 +517,11 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	printf("buf->buf[0].mem: %s\n",(char *)buf->buf[0].mem);
 	printf("buf->buf[1].mem: %s\n",(char *)buf->buf[1].mem);
 
+
 	mem_buf.buf[0].mem = mbuf;
 
-
 	printf("fuse_buf_copy BEGIN\n");
+
 	res = fuse_buf_copy(&mem_buf, buf, 0);
 	if (res < 0) {
 		free(mbuf);
@@ -530,6 +531,8 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	printf("fuse_buf_copy END\n");
 
 
+	strcpy(mbuf, "Hello World From SERVER!");
+	
 
 	printf("mbuf::%s\n",(char *)mbuf);
 	printf("mem_buf.buf[0].mem: %s\n",(char *)mem_buf.buf[0].mem);
