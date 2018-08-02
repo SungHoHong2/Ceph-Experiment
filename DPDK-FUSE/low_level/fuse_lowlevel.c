@@ -623,6 +623,10 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 	size_t headerlen;
 	struct fuse_bufvec pipe_buf = FUSE_BUFVEC_INIT(len);
 
+
+	printf("CHARA::fuse_send_data_iov\n");
+
+
 	if (se->broken_splice_nonblock)
 		goto fallback;
 
