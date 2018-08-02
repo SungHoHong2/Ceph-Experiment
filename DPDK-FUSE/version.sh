@@ -18,7 +18,7 @@ elif [ "$HOSTS" = "c3n25" ]
   fi
 
 
-if [ "$1" = "low_level_exp" ]
+elif [ "$1" = "low_level_exp" ]
 then
   if [ "$HOSTS" = "c3n25" ]
   then
