@@ -820,6 +820,9 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 int fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 		    enum fuse_buf_copy_flags flags)
 {
+
+	printf("FRISK: fuse_reply_data BEGIN\n");
+
 	struct iovec iov[2];
 	struct fuse_out_header out;
 	int res;
@@ -829,14 +832,17 @@ int fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 
 	out.unique = req->unique;
 	out.error = 0;
-
 	res = fuse_send_data_iov(req->se, req->ch, iov, 1, bufv, flags);
+
+	printf("FRISK: fuse_reply_data END\n");
 	if (res <= 0) {
 		fuse_free_req(req);
 		return res;
 	} else {
 		return fuse_reply_err(req, res);
 	}
+
+
 }
 
 int fuse_reply_statfs(fuse_req_t req, const struct statvfs *stbuf)
