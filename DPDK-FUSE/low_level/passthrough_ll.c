@@ -487,6 +487,8 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 {
 	struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
 
+	printf("HOWDY\n");
+
 	if (lo_debug(req))
 		fprintf(stderr, "lo_read(ino=%" PRIu64 ", size=%zd, "
 			"off=%lu)\n", ino, size, (unsigned long) offset);
@@ -495,7 +497,16 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	buf.buf[0].fd = fi->fh;
 	buf.buf[0].pos = offset;
 
+
+
+
+
+
+
+
+
 	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
+
 }
 
 static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
