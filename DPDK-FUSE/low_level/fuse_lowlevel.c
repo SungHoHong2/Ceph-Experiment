@@ -648,17 +648,21 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 	if (total_fd_size < 2 * pagesize)
 		goto fallback;
 
+	printf("CHARA::step3\n");
+
+
 	if (se->conn.proto_minor < 14 ||
 	    !(se->conn.want & FUSE_CAP_SPLICE_WRITE))
 		goto fallback;
+
+	printf("CHARA::step4\n");
+
 
 	llp = fuse_ll_get_pipe(se);
 	if (llp == NULL)
 		goto fallback;
 
-
-	printf("CHARA::step3\n");
-
+	printf("CHARA::step5\n");
 
 	headerlen = iov_length(iov, iov_count);
 
