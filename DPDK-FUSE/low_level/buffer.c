@@ -90,6 +90,10 @@ static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
 				     src->pos + src_off);
 
 
+			printf("src->pos + src_off: %s\n", (char *)src->pos + src_off);
+			printf("dst->mem + dst_off: %s\n", (char *)dst->mem + dst_off);
+
+
 
 		} else {
 			res = read(src->fd, dst->mem + dst_off, len);
