@@ -631,6 +631,8 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 	if (flags & FUSE_BUF_NO_SPLICE)
 		goto fallback;
 
+	printf("CHARA::step1\n");
+
 	total_fd_size = 0;
 	for (idx = buf->idx; idx < buf->count; idx++) {
 		if (buf->buf[idx].flags & FUSE_BUF_IS_FD) {
@@ -639,6 +641,10 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 				total_fd_size -= buf->off;
 		}
 	}
+
+	printf("CHARA::step2\n");
+
+
 	if (total_fd_size < 2 * pagesize)
 		goto fallback;
 
@@ -649,6 +655,9 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 	llp = fuse_ll_get_pipe(se);
 	if (llp == NULL)
 		goto fallback;
+
+
+	printf("CHARA::step3\n");
 
 
 	headerlen = iov_length(iov, iov_count);
@@ -675,6 +684,9 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 	}
 
 
+	printf("CHARA::step4\n");
+
+
 	res = vmsplice(llp->pipe[1], iov, iov_count, SPLICE_F_NONBLOCK);
 	if (res == -1)
 		goto fallback;
@@ -685,6 +697,8 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 			headerlen);
 		goto clear_pipe;
 	}
+
+	printf("CHARA::step5\n");
 
 	pipe_buf.buf[0].flags = FUSE_BUF_IS_FD;
 	pipe_buf.buf[0].fd = llp->pipe[1];
