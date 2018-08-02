@@ -693,7 +693,7 @@ static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
 			    FUSE_BUF_FORCE_SPLICE | FUSE_BUF_SPLICE_NONBLOCK);
 
 
-	printf("fuse_buf_copy: %s\n");
+	printf("fuse_buf_copy: %s\n",buf);
 
 	if (res < 0) {
 		if (res == -EAGAIN || res == -EINVAL) {
