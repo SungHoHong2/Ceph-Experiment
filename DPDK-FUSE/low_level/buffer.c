@@ -228,10 +228,15 @@ static ssize_t fuse_buf_copy_one(const struct fuse_buf *dst, size_t dst_off,
 				 const struct fuse_buf *src, size_t src_off,
 				 size_t len, enum fuse_buf_copy_flags flags)
 {
+	printf("\t\tCHARA: fuse_buf_copy_one BEGIN\n");
+
+
 	int src_is_fd = src->flags & FUSE_BUF_IS_FD;
 	int dst_is_fd = dst->flags & FUSE_BUF_IS_FD;
 
 	if (!src_is_fd && !dst_is_fd) {
+		printf("\t\tCHARA: !src_is_fd && !dst_is_fd BEGIN\n");
+
 		void *dstmem = dst->mem + dst_off;
 		void *srcmem = src->mem + src_off;
 
@@ -283,7 +288,7 @@ ssize_t fuse_buf_copy(struct fuse_bufvec *dstv, struct fuse_bufvec *srcv,
 {
 	size_t copied = 0;
 
-	printf("CHARA: fuse_buf_copy BEGIN\n");
+	printf("\t\tCHARA: fuse_buf_copy BEGIN\n");
 
 	if (dstv == srcv)
 		return fuse_buf_size(dstv);
@@ -318,6 +323,9 @@ ssize_t fuse_buf_copy(struct fuse_bufvec *dstv, struct fuse_bufvec *srcv,
 		if (res < len)
 			break;
 	}
+
+	printf("\t\tCHARA: fuse_buf_copy END\n");
+
 
 	return copied;
 }

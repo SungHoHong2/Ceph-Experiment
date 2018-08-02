@@ -529,6 +529,8 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	len = res;
 	printf("fuse_buf_copy END\n");
 
+
+
 	printf("mbuf::%s\n",(char *)mbuf);
 	printf("mem_buf.buf[0].mem: %s\n",(char *)mem_buf.buf[0].mem);
 	printf("buf->off: %d\n",buf->off);
