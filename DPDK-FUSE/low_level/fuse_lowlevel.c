@@ -490,23 +490,19 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	void *mbuf;
 	int res;
 
-	printf("UNDYNE: fuse_send_data_iov_fallback\n");
 
-	/* Optimize common case */
-	if (buf->count == 1 && buf->idx == 0 && buf->off == 0 &&
-	    !(buf->buf[0].flags & FUSE_BUF_IS_FD)) {
-		/* FIXME: also avoid memory copy if there are multiple buffers
-		   but none of them contain an fd */
+//	/* Optimize common case */
+//	if (buf->count == 1 && buf->idx == 0 && buf->off == 0 &&
+//	    !(buf->buf[0].flags & FUSE_BUF_IS_FD)) {
+//		/* FIXME: also avoid memory copy if there are multiple buffers
+//		   but none of them contain an fd */
+//
+//		iov[iov_count].iov_base = buf->buf[0].mem;
+//		iov[iov_count].iov_len = len;
+//		iov_count++;
+//		return fuse_send_msg(se, ch, iov, iov_count);
+//	}
 
-		iov[iov_count].iov_base = buf->buf[0].mem;
-		iov[iov_count].iov_len = len;
-		iov_count++;
-
-		printf("UNDYNE: fuse_send_msg::buf->buf[0].mem::%s\n",(char *)buf->buf[0].mem);
-		return fuse_send_msg(se, ch, iov, iov_count);
-	}
-
-	printf("UNDYNE: step1\n");
 
 	res = posix_memalign(&mbuf, pagesize, len);
 	if (res != 0)
@@ -532,6 +528,9 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 
 	printf("CHARA::FINAL::buf::%s::iov_count::%d::mbuf::%s\n", buf, iov_count, (char *)mbuf);
 	printf("mem_buf.buf[0].mem: %s\n",(char *)mem_buf.buf[0].mem);
+	printf("buf->off: %d\n",buf->off);
+	printf("buf->idx: %d\n",buf->idx);
+	printf("buf->idx: %d\n",buf->count);
 	printf("buf->buf[0].mem: %s\n",(char *)buf->buf[0].mem);
 	printf("buf->buf[1].mem: %s\n",(char *)buf->buf[1].mem);
 
