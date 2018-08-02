@@ -80,6 +80,8 @@ static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
 	ssize_t res = 0;
 	size_t copied = 0;
 
+	printf("\t\t\t\tfuse_buf_read BEGIN\n");
+
 	while (len) {
 		if (src->flags & FUSE_BUF_FD_SEEK) {
 			res = pread(src->fd, dst->mem + dst_off, len,
@@ -103,6 +105,8 @@ static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
 		src_off += res;
 		len -= res;
 	}
+
+	printf("\t\t\t\tfuse_buf_read END\n");
 
 	return copied;
 }
