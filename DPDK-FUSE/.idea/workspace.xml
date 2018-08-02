@@ -22,7 +22,7 @@
       <file leaf-file-name="fuse_lowlevel.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/low_level/fuse_lowlevel.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
+            <state relative-caret-position="525">
               <caret line="515" lean-forward="true" selection-start-line="515" selection-end-line="515" />
             </state>
           </provider>
@@ -49,7 +49,6 @@
       <find>recv</find>
       <find>struct PKT</find>
       <find>recv msg from POSIX</find>
-      <find>buf</find>
       <find>lo_read</find>
       <find>gdc_readlink</find>
       <find>lo_readlink</find>
@@ -71,6 +70,7 @@
       <find>step3</find>
       <find>iov[1]</find>
       <find>::FINAL</find>
+      <find>buf</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -255,12 +255,12 @@
       <workItem from="1532970218897" duration="17439000" />
       <workItem from="1533057981655" duration="6408000" />
       <workItem from="1533178055178" duration="7554000" />
-      <workItem from="1533232449859" duration="1063000" />
+      <workItem from="1533232449859" duration="1134000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="302517000" />
+    <option name="totallyTimeSpent" value="302588000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -631,7 +631,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/low_level/fuse_lowlevel.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
+        <state relative-caret-position="525">
           <caret line="515" lean-forward="true" selection-start-line="515" selection-end-line="515" />
         </state>
       </provider>
