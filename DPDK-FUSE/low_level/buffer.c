@@ -249,8 +249,10 @@ static ssize_t fuse_buf_copy_one(const struct fuse_buf *dst, size_t dst_off,
 		printf("\t\tCHARA: fuse_buf_copy_one END\n");
 		return len;
 	} else if (!src_is_fd) {
+		printf("\t\tCHARA: fuse_buf_write\n");
 		return fuse_buf_write(dst, dst_off, src, src_off, len);
 	} else if (!dst_is_fd) {
+		printf("\t\tCHARA: fuse_buf_read\n");
 		return fuse_buf_read(dst, dst_off, src, src_off, len);
 	} else if (flags & FUSE_BUF_NO_SPLICE) {
 		return fuse_buf_fd_to_fd(dst, dst_off, src, src_off, len);
