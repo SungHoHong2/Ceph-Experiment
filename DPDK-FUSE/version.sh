@@ -44,8 +44,10 @@ elif [ "$1" = "low_level_exp" ]
 then
   if [ "$HOSTS" = "c3n25" ]
   then
-  cd /data1/sungho/libfuse/build/example
-  # gcc passthrough_ll.c `pkg-config fuse3 --cflags --libs`  -o passthrough_ll
+  # cd /data1/sungho/libfuse/build/example
+  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level
+  gcc passthrough_ll.c `pkg-config fuse3 --cflags --libs`  -o passthrough_ll
+  
   ./passthrough_ll -f /mnt/ssd_cache
   fi
 

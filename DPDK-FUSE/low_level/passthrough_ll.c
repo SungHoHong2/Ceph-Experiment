@@ -514,7 +514,6 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 
 	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 
-
 	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
 
