@@ -517,6 +517,10 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
 
+	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[1].pos);
+	printf("CHARA: char: %s\n",(char *)buf.buf[1].mem);
+
+
 }
 
 static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
