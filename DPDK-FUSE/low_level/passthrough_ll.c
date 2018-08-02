@@ -479,6 +479,8 @@ static void lo_open(fuse_req_t req, fuse_ino_t ino,
 	if (fd == -1)
 		return (void) fuse_reply_err(req, errno);
 
+	printf("read file directory: %s\n",buf);
+
 	fi->fh = fd;
 	fuse_reply_open(req, fi);
 }
