@@ -165,10 +165,10 @@ static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 			 struct iovec *iov, int count)
 {
 
-	printf("UNDYNE: fuse_send_msg\n");
+	// printf("UNDYNE: fuse_send_msg\n");
 
 	struct fuse_out_header *out = iov[0].iov_base;
-	printf("UNDYNE: iov[0].iov_base::%s\n", (char *)iov[0].iov_base);
+	// printf("UNDYNE: iov[0].iov_base::%s\n", (char *)iov[0].iov_base);
 
 	out->len = iov_length(iov, count);
 	if (se->debug) {
@@ -187,13 +187,12 @@ static int fuse_send_msg(struct fuse_session *se, struct fuse_chan *ch,
 		}
 	}
 
-	printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
-
+	// printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
 
 	ssize_t res = writev(ch ? ch->fd : se->fd,
 			     iov, count);
 
-	printf("UNDYNE: count::%d\n", count);
+	// printf("UNDYNE: count::%d\n", count);
 
 	int err = errno;
 
@@ -530,9 +529,13 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 	iov[iov_count].iov_base = mbuf;
 	iov[iov_count].iov_len = len;
 	iov_count++;
+
+	printf("CHARA::FINAL %d", iov_count);
+	// printf("UNDYNE: iov[1]::%s\n", (char *)iov[1].iov_base);
+
 	res = fuse_send_msg(se, ch, iov, iov_count);
 
-	printf("UNDYNE: step4:: %s\n",(char)mbuf);
+	printf("UNDYNE: step4:: %s\n",(char *)mbuf);
 	free(mbuf);
 
 	return res;
