@@ -7,7 +7,6 @@
 ```c++
 
 
-
 static int fuse_send_data_iov_fallback(struct fuse_session *se,
 				       struct fuse_chan *ch,
 				       struct iovec *iov, int iov_count,

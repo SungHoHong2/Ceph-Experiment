@@ -22,6 +22,9 @@ then
   if [ "$HOSTS" = "c3n25" ]
   then
   cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/fuse_lowlevel.c /data1/sungho/libfuse/lib
+  cp /data1/sungho/Ceph-Experiment/DPDK-FUSE/low_level/buffer.c /data1/sungho/libfuse/lib
+
+
   export PATH=$PATH:/home/users/sungho/.local/bin/
   cd /data1/sungho/libfuse
   rm -rf build
