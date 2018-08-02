@@ -513,10 +513,11 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 
 
 	char test[4089];
-	char *_test = &test;
-	read(buf.buf[0].fd, _test, size);
 
-	
+	res = pread(buf.buf[0].fd, test, len, buf.buf[0].pos);
+
+
+
 
 	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 
