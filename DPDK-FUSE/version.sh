@@ -32,8 +32,8 @@ then
   cp /data1/sungho/libfuse/build/lib/libfuse3.so /usr/local/lib/x86_64-linux-gnu/
   cp /data1/sungho/libfuse/build/lib/libfuse3.so.3 /usr/local/lib/x86_64-linux-gnu/
   cp /data1/sungho/libfuse/build/lib/libfuse3.so.3.2.4 /usr/local/lib/x86_64-linux-gnu/
-
-
+  cp /data1/sungho/libfuse/build/util/fusermount3 /usr/bin/fusermount3
+  cp /data1/sungho/libfuse/build/util/fusermount3 /usr/local/bin/fusermount
   fi
 
 
