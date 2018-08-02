@@ -270,9 +270,9 @@ static void lo_readlink(fuse_req_t req, fuse_ino_t ino)
 
 	buf[res] = '\0';
 
-	
-	printf("probably the data is here: %s\n");
 
+	printf("probably the data is here: %s\n", buf);
+	
 	fuse_reply_readlink(req, buf);
 }
 
