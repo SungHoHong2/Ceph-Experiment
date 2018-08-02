@@ -507,12 +507,10 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 
 	char *test;
 	pread(buf.buf[0].fd, test, size, buf.buf[0].pos);
-
-
-	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 	printf("CHARA: %s\n", test);
 
 
+	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 
 
 }
