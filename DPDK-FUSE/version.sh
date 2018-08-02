@@ -36,9 +36,10 @@ then
   cd /data1/sungho/libfuse/build
   ninja
   sudo ninja install
+  cp /data1/sungho/libfuse/build/lib/libfuse3.so /usr/local/lib/x86_64-linux-gnu/
+  cp /data1/sungho/libfuse/build/lib/libfuse3.so.3 /usr/local/lib/x86_64-linux-gnu/
+  cp /data1/sungho/libfuse/build/lib/libfuse3.so.3.2.4 /usr/local/lib/x86_64-linux-gnu/
   fi
-
-
 
 
 elif [ "$1" = "low_level_exp" ]
