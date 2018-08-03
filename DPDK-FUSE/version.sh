@@ -147,7 +147,7 @@ then
   # sudo ./ssfs -f /mnt/ssd_cache "CACHE_HIT" "HUNDRED" "DEBUG"
   fi
 
-elif [ "$1" = "Fuse_5th_POSIX_make_launch" ]
+elif [ "$1" = "Fuse_6th_POSIX_make_launch" ]
 then
 if [ "$HOSTS" = "w1" ]
 then
@@ -157,7 +157,7 @@ gcc ssfs.c -o ssfs -pthread
 
 elif [ "$HOSTS" = "w2" ]
 then
-cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/posix_client
+cd /home/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/posix_client
 gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread
 ./ssfs -f /mnt/ssd_cache/
 fi
