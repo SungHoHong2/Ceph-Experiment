@@ -1,9 +1,7 @@
-
-
 #include "ssfs_common.h"
 #include "ssfs_posix.h"
 #include "ssfs_fuse.h"
-
+#include "ssfs_fuse_else.h"
 
 
 int main( int argc, char **argv )
