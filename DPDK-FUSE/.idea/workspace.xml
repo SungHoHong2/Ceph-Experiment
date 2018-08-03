@@ -34,8 +34,8 @@
       <file leaf-file-name="ssfs_fuse.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-6th/dpdk_client/ssfs_fuse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="199" column="9" lean-forward="true" selection-start-line="199" selection-start-column="9" selection-end-line="199" selection-end-column="9" />
+            <state relative-caret-position="471">
+              <caret line="212" column="9" lean-forward="true" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -56,7 +56,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lo_readlink</find>
       <find>printf</find>
       <find>read</find>
       <find>HOWDY</find>
@@ -86,6 +85,7 @@
       <find>main</find>
       <find>strcat(buf, _msg-&gt;data);</find>
       <find>if(chara_debug) printf(&quot;merge msg in FUSE: %ld\n&quot;, strlen(buf))</find>
+      <find>if(chara_debug) printf(&quot;[%ld] recv msg in FUSE: %ld :: %ld\n&quot;, av-&gt;num, strlen(buf), av-&gt;interv</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/dpdk-server</dir>
@@ -282,12 +282,12 @@
       <workItem from="1532970218897" duration="17439000" />
       <workItem from="1533057981655" duration="6408000" />
       <workItem from="1533178055178" duration="7554000" />
-      <workItem from="1533232449859" duration="9813000" />
+      <workItem from="1533232449859" duration="9850000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311267000" />
+    <option name="totallyTimeSpent" value="311304000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -673,8 +673,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-6th/dpdk_client/ssfs_fuse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="199" column="9" lean-forward="true" selection-start-line="199" selection-start-column="9" selection-end-line="199" selection-end-column="9" />
+        <state relative-caret-position="471">
+          <caret line="212" column="9" lean-forward="true" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
         </state>
       </provider>
     </entry>

@@ -202,7 +202,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
-        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
         intervals[test_i] = (double)av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
         free(av);
@@ -224,7 +224,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
         av->interval = av->end_time - av->start_time;
-        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(buf), av->interval);
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(_msg->data), av->interval);
         intervals[test_i] = (double)av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
         free(av);
