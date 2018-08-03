@@ -501,11 +501,9 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 					enum fuse_buf_copy_flags flags)
 {
 
-//	printf("FRISK: fuse_reply_data BEGIN\n");
-//
-//	struct iovec iov[2];
-//	struct fuse_out_header out;
-//	int res;
+	struct iovec iov[2];
+	struct fuse_out_header out;
+	int res;
 //
 //	iov[0].iov_base = &out;
 //	iov[0].iov_len = sizeof(struct fuse_out_header);
