@@ -108,10 +108,8 @@ int main( int argc, char **argv ){
         intervals[i] = (double)end_time-start_time;
         printf("[%d] interval : %f\n", i, intervals[i]);
         printf("recv msg in FUSE: %s\n", data);
+        fclose(file);
     }
-
     calculateSD(intervals);
-    fclose(file);
-
     return  0;
 }
