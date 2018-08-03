@@ -518,7 +518,7 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 	iov[0].iov_base = &out;
 	iov[0].iov_len = sizeof(struct fuse_out_header);
 
-	out.unique = req->unique;
+//	out.unique = req->unique;
 	out.error = 0;
 //	res = fuse_send_data_iov(req->se, req->ch, iov, 1, bufv, flags);
 //
