@@ -89,15 +89,15 @@ int main( int argc, char **argv )
     // rc = pthread_create(&threads[2], NULL, without_fuse_launch, NULL); while(1);
 
 
-    printf("FUSE-DPDK-CLIENT BEGIN\n");
+    printf("FUSE-DPDK-LOW_LEVEL-CLIENT BEGIN\n");
     if(cache_hit == 1) printf("\tCACHE_HIT\n");
     if(cache_miss == 1) printf("\tCACHE_MISS\n");
     if(cache_compact == 1) printf("\tCACHE_COMPACT\n");
     if(max_loop == 10) printf("\t10 REQ\n");
     if(max_loop == 100) printf("\t100 REQ\n");
-    printf("FUSE-DPDK-CLIENT END\n");
+    printf("FUSE-DPDK--LOW_LEVEL-CLIENT END\n");
 
-//    umask(0);
+
     int fuse_argc = 3;
     char** fuse_argv;
     fuse_argv = malloc(fuse_argc * sizeof(char*));
