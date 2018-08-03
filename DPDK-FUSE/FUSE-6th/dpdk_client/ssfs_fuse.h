@@ -233,7 +233,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         if(total_requests==max_loop){
             calculateSD(intervals);
         }
-        strcpy(buf,_msg->data);
+//        strcpy(buf,_msg->data);
     }
 
     struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
