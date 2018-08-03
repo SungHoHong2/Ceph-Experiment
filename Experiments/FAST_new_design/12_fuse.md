@@ -73,6 +73,5 @@ static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
 
 
 
-
 - [ ] break down the latency of file access + network + client fuse vice versa.
 - [ ]  dCat: Dynamic Cache Management for Efficient, Performance-sensitive Infrastructure-as-a-Service
