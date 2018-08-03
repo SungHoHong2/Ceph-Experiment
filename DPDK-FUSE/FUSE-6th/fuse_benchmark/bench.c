@@ -94,10 +94,11 @@ int main( int argc, char **argv ){
     }
 
 
-    if(DPDK) file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
-    if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
+
 
     for(i=0; i<MAX_LOOP; i++) {
+        if(DPDK) file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
+        if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
         sleep(1);
         start_time = getTimeStamp();
         if (file) {
