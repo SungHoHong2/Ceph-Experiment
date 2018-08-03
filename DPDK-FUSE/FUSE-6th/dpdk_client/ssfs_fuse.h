@@ -194,7 +194,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
             // strcat(buf, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
-            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(buf));
+            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(_msg->data));
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
