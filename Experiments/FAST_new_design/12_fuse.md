@@ -2,7 +2,18 @@
 - [ ] modify to passthrough low-level
     - [x] UNDYNE: iov[1]::Hello World From CLIENT!
     - [x] able to change the swap the data with the orignal one
-    - [ ] check whether this is available outside the library
+    - [ ] implement your result in low level passthrough
+
+
+
+
+    - [ ] swapping data of the local and the remote
+        - located the actual function that determines the output of of the FUSE
+        - however, the available parameters are
+          - file descriptor
+          - offset
+        - the buffer that is used to send the data to the user is allocated and free in the library
+
 
 
 

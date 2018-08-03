@@ -1,26 +1,42 @@
 #define _GNU_SOURCE
 #define FUSE_USE_VERSION 31
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
 
-#ifdef linux
-/* For pread()/pwrite()/utimensat() */
-#define _XOPEN_SOURCE 700
-#endif
-
-#include <fuse.h>
-#include <stdio.h>
-#include <string.h>
+#include <fuse_lowlevel.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <string.h>
+#include <limits.h>
 #include <dirent.h>
+#include <assert.h>
 #include <errno.h>
-#include <sys/time.h>
-#ifdef HAVE_SETXATTR
-#include <sys/xattr.h>
-#endif
+#include <err.h>
+#include <inttypes.h>
+
+
+//#ifdef HAVE_CONFIG_H
+//#include <config.h>
+//#endif
+//
+//#ifdef linux
+///* For pread()/pwrite()/utimensat() */
+//#define _XOPEN_SOURCE 700
+//#endif
+//
+//#include <fuse.h>
+//#include <stdio.h>
+//#include <string.h>
+//#include <unistd.h>
+//#include <fcntl.h>
+//#include <sys/stat.h>
+//#include <dirent.h>
+//#include <errno.h>
+//#include <sys/time.h>
+//#ifdef HAVE_SETXATTR
+//#include <sys/xattr.h>
+//#endif
 
 #include <stdio.h>
 #include <unistd.h>
