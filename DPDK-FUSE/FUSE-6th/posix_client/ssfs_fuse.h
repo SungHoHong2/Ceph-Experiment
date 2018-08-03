@@ -119,9 +119,60 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
                     off_t offset, struct fuse_file_info *fi)
 {
 
+    int fd;
+    int res;
+    unsigned long long roffset;
+    char client[] = "Hello World From CLIENT!\n";
+    char *selectedText = NULL;
+    struct fuse_message *e = NULL;
+    void *msg;
+    struct message *_msg;
+
+    selectedText = client;
+    _msg = malloc(sizeof(struct message));
+
+    pthread_mutex_lock(&tx_lock);
+        e = malloc(sizeof(struct fuse_message));
+        strcpy(e->data, selectedText);
+        TAILQ_INSERT_TAIL(&fuse_tx_queue, e, nodes);
+        av = malloc(sizeof(struct avg_node));
+        av->start_time = getTimeStamp();
+        av->num = total_requests;
+        if(chara_debug) printf("[%ld] send msg in FUSE: %s\n", av->num, e->data);
+        TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
+        total_requests++;
+    pthread_mutex_unlock(&tx_lock);
+
+    while(TAILQ_EMPTY(&fuse_rx_queue));
+
+    pthread_mutex_lock(&rx_lock);
+    if(!TAILQ_EMPTY(&fuse_rx_queue)) {
+        e = TAILQ_FIRST(&fuse_rx_queue);
+        strcpy(_msg->data, e->data);
+        test_i++;
+        TAILQ_REMOVE(&fuse_rx_queue, e, nodes);
+
+        av = TAILQ_FIRST(&avg_queue);
+        av->end_time = getTimeStamp();
+        av->interval = av->end_time - av->start_time;
+        if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
+        intervals[test_i] = (double)av->interval;
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(e);
+        e = NULL;
+        free(av);
+        av = NULL;
+    }
+
+    pthread_mutex_unlock(&rx_lock);
 
 
+    if(total_requests==max_loop){
+        calculateSD(intervals);
+    }
 
+    if(cache_miss==1){
+    }
 
     struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
     buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
