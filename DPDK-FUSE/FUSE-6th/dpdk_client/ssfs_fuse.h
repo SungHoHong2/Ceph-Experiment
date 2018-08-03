@@ -79,6 +79,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         if (total_requests == max_loop) {
             calculateSD(intervals);
         }
+        fuse_reply_buf(req, aggregated, strlen(aggregated));
 
     } else if(cache_miss==1) {
         while(rte_ring_dequeue(rx_ring, &msg) < 0){
@@ -100,6 +101,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         if(total_requests==max_loop){
             calculateSD(intervals);
         }
+        fuse_reply_buf(req, _msg->data, strlen(_msg->data));
 
 
     } else if (cache_compact == 1) {
@@ -125,13 +127,4 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         }
 //        strcpy(buf,_msg->data);
     }
-
-
-    struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
-    buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
-    buf.buf[0].fd = fi->fh;
-    buf.buf[0].pos = offset;
-
-    fuse_reply_buf(req, "howdy", 5);
-    // fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 }
