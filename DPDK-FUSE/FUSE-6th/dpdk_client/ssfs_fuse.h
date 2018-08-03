@@ -670,8 +670,8 @@ static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
 
 static struct fuse_lowlevel_ops lo_oper = {
         .init		= lo_init,
-        .lookup		= lo_lookup,
-        .forget		= lo_forget,
+//        .lookup		= lo_lookup,
+//        .forget		= lo_forget,
         .getattr	= lo_getattr,
         .readlink	= lo_readlink,
         .opendir	= lo_opendir,
@@ -682,7 +682,7 @@ static struct fuse_lowlevel_ops lo_oper = {
         .open		= lo_open,
         .release	= lo_release,
         .read		= lo_read,
-        .write_buf      = lo_write_buf
+//        .write_buf      = lo_write_buf
 };
 
 
