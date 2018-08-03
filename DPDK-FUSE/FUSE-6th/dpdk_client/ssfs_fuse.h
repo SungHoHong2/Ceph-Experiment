@@ -27,6 +27,8 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
     int fd;
     int res;
     unsigned long long roffset;
+    char client[] = "Hello World From CLIENT!\n";
+    char *selectedText = NULL;
     struct fuse_message *e = NULL;
     void *msg;
     struct message *_msg;

@@ -118,9 +118,12 @@ void calculateSD(double data[])
 static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
                     off_t offset, struct fuse_file_info *fi)
 {
+
     int fd;
     int res;
     unsigned long long roffset;
+    char client[] = "Hello World From CLIENT!\n";
+    char *selectedText = NULL;
     struct fuse_message *e = NULL;
     void *msg;
     struct message *_msg;
