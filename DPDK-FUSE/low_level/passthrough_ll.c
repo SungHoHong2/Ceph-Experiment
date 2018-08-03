@@ -37,6 +37,13 @@
 #define _GNU_SOURCE
 #define FUSE_USE_VERSION 31
 
+#include "config.h"
+#include "fuse_i.h"
+#include "fuse_kernel.h"
+#include "fuse_opt.h"
+#include "fuse_misc.h"
+
+
 #include <fuse_lowlevel.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -502,7 +509,7 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 {
 
 	struct iovec iov[2];
-	struct fuse_out_header zout;
+	struct fuse_out_header out;
 	int res;
 //
 //	iov[0].iov_base = &out;
