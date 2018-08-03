@@ -502,7 +502,7 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 {
 
 	struct iovec iov[2];
-	struct fuse_out_header out;
+	struct fuse_out_header zout;
 	int res;
 //
 //	iov[0].iov_base = &out;
