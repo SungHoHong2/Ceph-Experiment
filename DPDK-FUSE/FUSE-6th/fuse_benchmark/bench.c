@@ -98,14 +98,12 @@ int main( int argc, char **argv ){
     if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
 
     for(i=0; i<MAX_LOOP; i++) {
-        usleep(500);
+        sleep(1);
         start_time = getTimeStamp();
-
         if (file) {
             fread(data, sizeof(char), 4089, file);
             fclose(file);
         }
-
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
         printf("[%d] interval : %f\n", i, intervals[i]);
