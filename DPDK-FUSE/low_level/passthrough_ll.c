@@ -37,10 +37,6 @@
 #define _GNU_SOURCE
 #define FUSE_USE_VERSION 31
 
-#include "fuse_i.h"
-#include "fuse_kernel.h"
-#include "fuse_opt.h"
-#include "fuse_misc.h"
 
 
 #include <fuse_lowlevel.h>
@@ -56,6 +52,14 @@
 #include <errno.h>
 #include <err.h>
 #include <inttypes.h>
+
+
+
+struct chara_fuse_out_header {
+	uint32_t	len;
+	int32_t		error;
+	uint64_t	unique;
+};
 
 /* We are re-using pointers to our `struct lo_inode` and `struct
    lo_dirp` elements as inodes. This means that we must be able to
@@ -508,7 +512,7 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 {
 
 	struct iovec iov[2];
-	struct fuse_out_header out;
+	struct chara_fuse_out_header out;
 	int res;
 //
 //	iov[0].iov_base = &out;
