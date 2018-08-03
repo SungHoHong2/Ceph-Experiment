@@ -164,7 +164,7 @@ fi
 
 if [ "$HOSTS" = "c3n24" ]
 then
-cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/posix_server
+cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/posix_server
 gcc ssfs.c -o ssfs -lpthread
 # ./ssfs
 # ./ssfs "DEBUG" "CACHE_MISS" "nvme0n1p1"
@@ -172,7 +172,7 @@ gcc ssfs.c -o ssfs -lpthread
 
 elif [ "$HOSTS" = "c3n25" ] # a lot of problem with permission issues
 then
-cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/posix_client
+cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/posix_client
 # gcc -D _BSD_SOURCE ssfs.c -o ssfs -lm -D_FILE_OFFSET_BITS=64 -I/usr/local/include/fuse3 -L/usr/local/lib/x86_64-linux-gnu -lfuse3 -lpthread
 ./ssfs -f /mnt/hdd  $1 $2 $3 $4
 # ./ssfs -f /mnt/ssd_cache "CACHE_HIT" "HUNDRED"
