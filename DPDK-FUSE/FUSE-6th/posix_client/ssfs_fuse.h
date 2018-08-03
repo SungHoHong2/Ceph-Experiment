@@ -118,12 +118,9 @@ void calculateSD(double data[])
 static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
                     off_t offset, struct fuse_file_info *fi)
 {
-
     int fd;
     int res;
     unsigned long long roffset;
-    char client[] = "Hello World From CLIENT!\n";
-    char *selectedText = NULL;
     struct fuse_message *e = NULL;
     void *msg;
     struct message *_msg;
@@ -158,25 +155,16 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         if(chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(e->data), av->interval);
         intervals[test_i] = (double)av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
+        fuse_reply_buf(req, e->data, strlen(e->data));
         free(e);
         e = NULL;
         free(av);
         av = NULL;
     }
-
     pthread_mutex_unlock(&rx_lock);
-
 
     if(total_requests==max_loop){
         calculateSD(intervals);
     }
 
-    if(cache_miss==1){
-    }
-
-    struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
-    buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
-    buf.buf[0].fd = fi->fh;
-    buf.buf[0].pos = offset;
-    fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 }
