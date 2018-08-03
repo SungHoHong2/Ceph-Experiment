@@ -3,8 +3,6 @@
 #include "ssfs_fuse.h"
 #include "ssfs_fuse_else.h"
 
-
-
 static int
 l2fwd_launch_one_lcore(__attribute__((unused)) void *dummy)
 {
@@ -33,7 +31,6 @@ int main( int argc, char **argv )
         printf("no arguments\n");
         return 0;
     }
-
 
     if(argc>1){
         int i =0;
@@ -66,7 +63,6 @@ int main( int argc, char **argv )
             }
         }
     }
-
 
     TAILQ_INIT(&dpdk_queue);
     TAILQ_INIT(&avg_queue);
