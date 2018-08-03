@@ -37,7 +37,6 @@
 #define _GNU_SOURCE
 #define FUSE_USE_VERSION 31
 
-#include "config.h"
 #include "fuse_i.h"
 #include "fuse_kernel.h"
 #include "fuse_opt.h"
