@@ -508,24 +508,22 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 	buf.buf[0].fd = fi->fh;
 	buf.buf[0].pos = offset;
 
+
+
+
 	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
 
 
-	char test[4089];
-	int res;
-	res = pread(buf.buf[0].fd, test, size, buf.buf[0].pos);
-
-
-
+//	char test[4089];
+//	int res;
+//	res = pread(buf.buf[0].fd, test, size, buf.buf[0].pos);
 
 
 	fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 
-	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].pos);
+	printf("CHARA: size:%ld offset:%ld\n",size, buf.buf[0].size);
 	printf("CHARA: char: %s\n",(char *)buf.buf[0].mem);
-	printf("CHARA: char: %s\n",(char *)buf.buf[1].mem);
-
 
 
 }

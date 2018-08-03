@@ -8,16 +8,25 @@
 
 ```c++
 
-static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
-			     const struct fuse_buf *src, size_t src_off,
-			     size_t len)
+static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
+		    off_t offset, struct fuse_file_info *fi)
 
-static ssize_t fuse_buf_copy_one(const struct fuse_buf *dst, size_t dst_off,
-				 const struct fuse_buf *src, size_t src_off,
-				 size_t len, enum fuse_buf_copy_flags flags)
+        struct fuse_bufvec buf = FUSE_BUFVEC_INIT(size);
+        buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
+        buf.buf[0].fd = fi->fh;
+        buf.buf[0].pos = offset;
 
-ssize_t fuse_buf_copy(struct fuse_bufvec *dstv, struct fuse_bufvec *srcv,
-		      enum fuse_buf_copy_flags flags)
+
+int fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
+		    enum fuse_buf_copy_flags flags)
+        struct iovec iov[2];
+        struct fuse_out_header out;
+
+
+static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
+			       struct iovec *iov, int iov_count,
+			       struct fuse_bufvec *buf, unsigned int flags)
+
 
 static int fuse_send_data_iov_fallback(struct fuse_session *se,
 				       struct fuse_chan *ch,
@@ -25,13 +34,24 @@ static int fuse_send_data_iov_fallback(struct fuse_session *se,
 				       struct fuse_bufvec *buf,
 				       size_t len)
 
-static int fuse_send_data_iov(struct fuse_session *se, struct fuse_chan *ch,
-			       struct iovec *iov, int iov_count,
-			       struct fuse_bufvec *buf, unsigned int flags)
+               struct iovec *iov, int iov_count,
+  			       struct fuse_bufvec *buf, unsigned int flags)
 
-int fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
-		    enum fuse_buf_copy_flags flags)
+               posix_memalign(&mbuf, pagesize, len);
+               fuse_buf_copy(&mem_buf, buf, 0);
+               fuse_send_msg(se, ch, iov, iov_count); <-- this sends the data;
 
+
+ssize_t fuse_buf_copy(struct fuse_bufvec *dstv, struct fuse_bufvec *srcv,
+		      enum fuse_buf_copy_flags flags)
+
+static ssize_t fuse_buf_copy_one(const struct fuse_buf *dst, size_t dst_off,
+				 const struct fuse_buf *src, size_t src_off,
+				 size_t len, enum fuse_buf_copy_flags flags)
+
+static ssize_t fuse_buf_read(const struct fuse_buf *dst, size_t dst_off,
+			     const struct fuse_buf *src, size_t src_off,
+			     size_t len)
 
 ```
 
