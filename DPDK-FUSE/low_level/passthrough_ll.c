@@ -496,6 +496,38 @@ static void lo_release(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi
 }
 
 
+
+int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
+					enum fuse_buf_copy_flags flags)
+{
+
+//	printf("FRISK: fuse_reply_data BEGIN\n");
+//
+//	struct iovec iov[2];
+//	struct fuse_out_header out;
+//	int res;
+//
+//	iov[0].iov_base = &out;
+//	iov[0].iov_len = sizeof(struct fuse_out_header);
+//
+//	out.unique = req->unique;
+//	out.error = 0;
+//	res = fuse_send_data_iov(req->se, req->ch, iov, 1, bufv, flags);
+//
+//	printf("FRISK: fuse_reply_data END\n");
+//	if (res <= 0) {
+//		fuse_free_req(req);
+//		return res;
+//	} else {
+//		return fuse_reply_err(req, res);
+//	}
+
+	return 0;
+
+}
+
+
+
 static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 		    off_t offset, struct fuse_file_info *fi)
 {
@@ -527,6 +559,11 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 
 
 }
+
+
+
+
+
 
 static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
 			 struct fuse_bufvec *in_buf, off_t off,
