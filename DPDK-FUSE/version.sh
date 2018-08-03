@@ -108,7 +108,7 @@ then
   cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/fuse_benchmark
   # gcc bench.c -o bench -lm && ./bench  "TEN" "HUNDRED" "DPDK" "POSIX"
   gcc bench.c -o bench -lm && ./bench $2 $3 $4 $5
-  # sudocmd chmod 777 /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-5th/fuse_benchmark/bench
+  # sudocmd chmod 777 /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/fuse_benchmark/bench
   fi
 
 elif [ "$1" = "Fuse_6th_DPDK_make_launch" ]

@@ -94,21 +94,18 @@ int main( int argc, char **argv ){
     }
 
 
-
-
-
+    if(DPDK) file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
+    if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
 
     for(i=0; i<MAX_LOOP; i++) {
-        sleep(1);
+        usleep(500);
         start_time = getTimeStamp();
-
-        if(DPDK) file = fopen("/mnt/ssd_cache/data1/sungho/client.txt", "r");
-        if(POSIX) file = fopen("/mnt/hdd/data1/sungho/client.txt", "r");
 
         if (file) {
             fread(data, sizeof(char), 4089, file);
             fclose(file);
         }
+
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
         printf("[%d] interval : %f\n", i, intervals[i]);
