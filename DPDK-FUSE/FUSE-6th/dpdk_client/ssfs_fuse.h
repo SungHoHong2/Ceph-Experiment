@@ -638,40 +638,10 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
 }
 
 
-
-
-
-
-static void lo_write_buf(fuse_req_t req, fuse_ino_t ino,
-                         struct fuse_bufvec *in_buf, off_t off,
-                         struct fuse_file_info *fi)
-{
-
-    printf("FRISK WRITE\n");
-
-    (void) ino;
-    ssize_t res;
-    struct fuse_bufvec out_buf = FUSE_BUFVEC_INIT(fuse_buf_size(in_buf));
-
-    out_buf.buf[0].flags = FUSE_BUF_IS_FD | FUSE_BUF_FD_SEEK;
-    out_buf.buf[0].fd = fi->fh;
-    out_buf.buf[0].pos = off;
-
-    if (lo_debug(req))
-        fprintf(stderr, "lo_write(ino=%" PRIu64 ", size=%zd, off=%lu)\n",
-            ino, out_buf.buf[0].size, (unsigned long) off);
-
-    res = fuse_buf_copy(&out_buf, in_buf, 0);
-    if(res < 0)
-        fuse_reply_err(req, -res);
-    else
-        fuse_reply_write(req, (size_t) res);
-}
-
 static struct fuse_lowlevel_ops lo_oper = {
         .init		= lo_init,
-//        .lookup		= lo_lookup,
-//        .forget		= lo_forget,
+        .lookup		= lo_lookup,
+        .forget		= lo_forget,
         .getattr	= lo_getattr,
         .readlink	= lo_readlink,
         .opendir	= lo_opendir,
@@ -682,7 +652,6 @@ static struct fuse_lowlevel_ops lo_oper = {
         .open		= lo_open,
         .release	= lo_release,
         .read		= lo_read,
-//        .write_buf      = lo_write_buf
 };
 
 
