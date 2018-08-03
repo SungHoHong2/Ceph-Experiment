@@ -167,6 +167,8 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
     void *msg;
     struct message *_msg;
 
+
+
     selectedText = client;
     _msg = malloc(sizeof(struct message));
     strcpy(_msg->data, selectedText);
@@ -191,13 +193,34 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
                 usleep(5);
             }
             _msg = (struct message *) msg;
-            // strcat(buf, _msg->data);
+            strcat(aggregated, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
-            if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(_msg->data));
+            if (chara_debug) printf("merge msg in FUSE: %ld\n", strlen(_msg->data));
             collect_packets++;
             if (collect_packets > MERGE_PACKETS) break;
         }
+
+        av = TAILQ_FIRST(&avg_queue);
+        av->end_time = getTimeStamp();
+        av->interval = av->end_time - av->start_time;
+        if (chara_debug) printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(aggregated), av->interval);
+        intervals[test_i] = (double) av->interval;
+        TAILQ_REMOVE(&avg_queue, av, nodes);
+        free(av);
+        test_i++;
+
+        if (total_requests == max_loop) {
+            calculateSD(intervals);
+        }
+
+    } else if(cache_miss==1) {
+        while(rte_ring_dequeue(rx_ring, &msg) < 0){
+            usleep(5);
+        }
+
+        _msg = (struct message *) msg;
+        if(chara_debug) printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
 
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
@@ -211,6 +234,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
         if(total_requests==max_loop){
             calculateSD(intervals);
         }
+
 
     } else if (cache_compact == 1) {
 
@@ -242,7 +266,6 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
     buf.buf[0].pos = offset;
     fuse_reply_data(req, &buf, FUSE_BUF_SPLICE_MOVE);
 }
-
 
 
 void *without_fuse_launch(){
