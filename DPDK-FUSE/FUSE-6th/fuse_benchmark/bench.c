@@ -107,12 +107,12 @@ int main( int argc, char **argv ){
 
         if (file) {
             fread(data, sizeof(char), 4089, file);
-            printf("recv msg in FUSE: %s\n", data);
             fclose(file);
         }
         end_time = getTimeStamp();
         intervals[i] = (double)end_time-start_time;
         printf("[%d] interval : %f\n", i, intervals[i]);
+        printf("recv msg in FUSE: %s\n", data);
     }
 
     calculateSD(intervals);

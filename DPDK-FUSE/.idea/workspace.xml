@@ -40,11 +40,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ssfs_posix.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FUSE-6th/posix_client/ssfs_posix.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="402">
               <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bench.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/FUSE-6th/fuse_benchmark/bench.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="801">
+              <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
             </state>
           </provider>
         </entry>
@@ -135,7 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FUSE-4th/dpdk_client/ssfs_dpdk.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_server/ssfs_common.h" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_server/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-4th/posix_server/ssfs_posix.h" />
@@ -186,6 +194,7 @@
         <option value="$PROJECT_DIR$/FUSE-6th/posix_client/ssfs.c" />
         <option value="$PROJECT_DIR$/FUSE-6th/posix_client/ssfs_fuse.h" />
         <option value="$PROJECT_DIR$/FUSE-6th/posix_client/ssfs_posix.h" />
+        <option value="$PROJECT_DIR$/FUSE-6th/fuse_benchmark/bench.c" />
       </list>
     </option>
   </component>
@@ -233,6 +242,12 @@
               <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
               <item name="FUSE-6th" type="462c0819:PsiDirectoryNode" />
               <item name="dpdk_client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DPDK-FUSE" type="462c0819:PsiDirectoryNode" />
+              <item name="FUSE-6th" type="462c0819:PsiDirectoryNode" />
+              <item name="fuse_benchmark" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DPDK-FUSE" type="b2602c69:ProjectViewProjectNode" />
@@ -324,12 +339,12 @@
       <workItem from="1532970218897" duration="17439000" />
       <workItem from="1533057981655" duration="6408000" />
       <workItem from="1533178055178" duration="7554000" />
-      <workItem from="1533232449859" duration="11698000" />
+      <workItem from="1533232449859" duration="11893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313152000" />
+    <option name="totallyTimeSpent" value="313347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -372,7 +387,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RAW_block/Makefile" />
     <entry file="file://$PROJECT_DIR$/history/dpdk-server/main.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4911">
@@ -723,6 +737,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
           <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FUSE-6th/fuse_benchmark/bench.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="801">
+          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
         </state>
       </provider>
     </entry>
