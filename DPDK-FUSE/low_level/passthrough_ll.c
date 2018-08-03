@@ -55,7 +55,7 @@
 
 
 
-struct chara_fuse_out_header {
+struct fuse_out_header {
 	uint32_t	len;
 	int32_t		error;
 	uint64_t	unique;
@@ -512,14 +512,14 @@ int chara_fuse_reply_data(fuse_req_t req, struct fuse_bufvec *bufv,
 {
 
 	struct iovec iov[2];
-	struct chara_fuse_out_header out;
+	struct fuse_out_header out;
 	int res;
-//
-//	iov[0].iov_base = &out;
-//	iov[0].iov_len = sizeof(struct fuse_out_header);
-//
-//	out.unique = req->unique;
-//	out.error = 0;
+
+	iov[0].iov_base = &out;
+	iov[0].iov_len = sizeof(struct fuse_out_header);
+
+	out.unique = req->unique;
+	out.error = 0;
 //	res = fuse_send_data_iov(req->se, req->ch, iov, 1, bufv, flags);
 //
 //	printf("FRISK: fuse_reply_data END\n");
