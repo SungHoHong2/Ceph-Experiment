@@ -191,7 +191,7 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
                 usleep(5);
             }
             _msg = (struct message *) msg;
-            strcat(buf, _msg->data);
+            // strcat(buf, _msg->data);
             // strcpy(collected_data[collect_packets], _msg->data);
             // printf("recv msg in FUSE: %ld\n", strlen(_msg->data));
             if(chara_debug) printf("merge msg in FUSE: %ld\n", strlen(buf));
