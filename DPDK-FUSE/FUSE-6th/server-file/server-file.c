@@ -78,9 +78,8 @@ int main(){
     TAILQ_INIT(&avg_queue);
 
 
-
-//     for(int i =0; i<LOOPS; i ++) {
-
+    for(int i =0; i<LOOPS; i++) {
+        sleep(1);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
@@ -105,7 +104,7 @@ int main(){
         TAILQ_REMOVE(&avg_queue, av, nodes);
         test_i++;
         printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(aggregated), av->interval);
-  //  }
+    }
 
     calculateSD(intervals);
 
