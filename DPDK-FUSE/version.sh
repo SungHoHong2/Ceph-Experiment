@@ -127,14 +127,20 @@ then
 
   elif [ "$HOSTS" = "c3n24" ]
   then
-  export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
-  cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/dpdk-server/
-  make
-  ./build/dpdk-server $1 $2 $3 $4
-  # ./build/dpdk-server "CACHE_MISS" "nvme0n1p1"
-  # ./build/dpdk-server "nvme0n1p1"
-  # ./build/dpdk-server "nvme0n1p1" "DEBUG"
+      if [ "$2" = "FILE_ACCESS" ]
+      then
+      ehco "howdy"
 
+
+      else
+      export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
+      cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/dpdk-server/
+      make
+      ./build/dpdk-server $1 $2 $3 $4
+      # ./build/dpdk-server "CACHE_MISS" "nvme0n1p1"
+      # ./build/dpdk-server "nvme0n1p1"
+      # ./build/dpdk-server "nvme0n1p1" "DEBUG"
+      fi
 
   elif [ "$HOSTS" = "c3n25" ]
   then

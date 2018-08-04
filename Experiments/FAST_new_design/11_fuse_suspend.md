@@ -1,4 +1,13 @@
 ### Tasks for 9/3
+- [ ] divide latency for accessing the data during cache-hit
+    - [ ] we can do this by just counting the time of getting the data
+- [ ] install Wenji's fuse verison
+- [ ] add latency for local cache-miss, local-cache hit, remote cache hit
+
+
+
+
+### not yet
 - [ ] mount sdb1 to /mnt/src for HDD
   - [ ] massive migration of c3n24 and c3n25
   - [ ] I need to swich the past permissions into data cause those ones will not work anymore
@@ -8,13 +17,6 @@
   - [ ] change ./bashrc
         alias sudoconf='vi /data1/sungho/commands_pcap.sh'
         alias sudocmd='sudo /data1/sungho/commands_pcap.sh'
-
-- [ ] install Wenji's fuse verison
-
-
-- [ ] debug all Wenji's code
-- [ ] maintenance check for your latest version of DPDK and POSIX
-- [ ] move your DPDK POSIX to new project
 
 
 
