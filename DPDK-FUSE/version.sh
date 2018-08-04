@@ -129,7 +129,8 @@ then
   then
       if [ "$2" = "FILE_ACCESS" ]
       then
-      ehco "howdy"
+      echo "howdy"
+
 
 
       else
