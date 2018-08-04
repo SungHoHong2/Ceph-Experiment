@@ -19,10 +19,31 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#define SECTOR 512
+#define PKT_SIZE 1024
+#define MERGE_PACKETS 4
+#define LOOPS 1000
+
+
 
 int main(){
 
-    printf("FILE ACCESS TEST for just server\n");
+
+    int fd, nr;
+    char* aligned_buf_r = NULL;
+    void* ad = NULL;
+
+    if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS )) {
+        perror("posix_memalign failed"); exit (EXIT_FAILURE);
+    }
+
+    aligned_buf_r = (char *)(ad);
+    fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
+    nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
+    close(fd);
+
+    printf("%s\n",aligned_buf_r);
+
 
     return 0;
 
