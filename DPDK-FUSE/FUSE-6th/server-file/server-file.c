@@ -64,26 +64,6 @@ uint64_t getTimeStamp() {
 
 
 
-void calculateSD(double data[])
-{
-    float sum = 0.0, mean, standardDeviation = 0.0;
-    int i;
-    for(i=0; i<max_loop; ++i)
-    {
-        sum += data[i];
-    }
-
-    mean = sum/max_loop;
-    printf("mean: %f\n",mean);
-
-
-    for(i=0; i<max_loop; ++i)
-        standardDeviation += pow(data[i] - mean, 2);
-
-    printf("std: %f\n",sqrt(standardDeviation/max_loop));
-}
-
-
 int main(){
 
     int fd, nr, test_i=0;
