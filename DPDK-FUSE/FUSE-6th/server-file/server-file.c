@@ -18,6 +18,8 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <math.h>
+
 
 #define SECTOR 512
 #define PKT_SIZE 1024
