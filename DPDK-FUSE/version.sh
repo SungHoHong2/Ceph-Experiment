@@ -130,7 +130,7 @@ then
       if [ "$2" = "FILE_ACCESS" ]
       then
       cd /data1/sungho/Ceph-Experiment/DPDK-FUSE/FUSE-6th/server-file/
-      gcc server-file.c -o dpdk-server && ./dpdk-server
+      gcc server-file.c -o dpdk-server -lm && ./dpdk-server
 
       else
       export RTE_SDK=/data1/sungho/dpdk-stable-17.05.1
