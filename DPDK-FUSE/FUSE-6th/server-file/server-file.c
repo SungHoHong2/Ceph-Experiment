@@ -43,7 +43,7 @@ void calculateSD(double data[])
     for(i=0; i<max_loop; ++i)
         standardDeviation += pow(data[i] - mean, 2);
 
-    printf("std: %f\n",sqrt(standardDeviation/max_loop));
+    printf("std: %f\n",sqrt(standardDeviation/LOOPS));
 }
 
 struct avg_node
