@@ -86,7 +86,7 @@ int main(){
     aligned_buf_r = (char *) (ad);
 
     for(int i =0; i<LOOPS; i++) {
-        sleep(1);
+        // sleep(1);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
