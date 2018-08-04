@@ -32,16 +32,16 @@ void calculateSD(double data[])
 {
     float sum = 0.0, mean, standardDeviation = 0.0;
     int i;
-    for(i=0; i<max_loop; ++i)
+    for(i=0; i<LOOPS; ++i)
     {
         sum += data[i];
     }
 
-    mean = sum/max_loop;
+    mean = sum/LOOPS;
     printf("mean: %f\n",mean);
 
 
-    for(i=0; i<max_loop; ++i)
+    for(i=0; i<LOOPS; ++i)
         standardDeviation += pow(data[i] - mean, 2);
 
     printf("std: %f\n",sqrt(standardDeviation/LOOPS));
