@@ -78,27 +78,27 @@ int main(){
     TAILQ_INIT(&avg_queue);
 
 
+    if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS)) {
+        perror("posix_memalign failed");
+        exit(EXIT_FAILURE);
+    }
+
+    aligned_buf_r = (char *) (ad);
+
     for(int i =0; i<LOOPS; i++) {
         sleep(1);
         av = malloc(sizeof(struct avg_node));
         av->start_time = getTimeStamp();
         TAILQ_INSERT_TAIL(&avg_queue, av, nodes);
 
-
-        if (posix_memalign(&ad, SECTOR, PKT_SIZE * MERGE_PACKETS)) {
-            perror("posix_memalign failed");
-            exit(EXIT_FAILURE);
-        }
-
-        aligned_buf_r = (char *) (ad);
         fd = open("/dev/nvme0n1p1", O_RDWR | O_DIRECT);
         nr = pread(fd, aligned_buf_r, PKT_SIZE * MERGE_PACKETS, 0);
         close(fd);
 
         strcpy(aggregated, aligned_buf_r);
-
         av = TAILQ_FIRST(&avg_queue);
         av->end_time = getTimeStamp();
+        av->num = test_i;
         av->interval = av->end_time - av->start_time;
         intervals[test_i] = (double) av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
