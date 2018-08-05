@@ -1,0 +1,12 @@
+[global]
+name=fio-seq-read
+filename=/mnt/gdcache
+rw=read
+bs=4k
+direct=1
+numjobs=1
+
+[file1]
+size=4G
+iodepth=1
+ioengine=libaio

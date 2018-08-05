@@ -1,8 +1,67 @@
 ### Tasks for 9/3
-- [ ] divide latency for accessing the data during cache-hit
-    - [ ] we can do this by just counting the time of getting the data
+- [x] divide latency for accessing the data during cache-hit
+    - [x] we can do this by just counting the time of getting the data
 - [ ] install Wenji's fuse verison
+  - [ ] run the thing
+
+  cat /mnt/gdcache/data1/sungho/client.txt
+  sudocmd ls -l /mnt/gdcache/
+  lets run FIO in /mnt/gdcache shall we?
+
+
+  cephadmin@c3n22:/mnt/src/cephadmin
+
+
+  fio read-hdd.job
+
+  echo "Round$i: Drop cache....."
+  sudo drop_cache.sh
+  sleep 3
+  echo "Warm cache first...."
+  fio read-hdd.job >> $FILE
+  echo "Show stats...."
+  kill -10 $(pidof gdcache)
+  sleep 2
+  cat /tmp/gdc_info >> $FILE
+  sleep 5
+  echo "Warm cache test start...."
+  fio read-hdd.job >> $FILE
+  echo "Show stats...."
+  kill -10 $(pidof gdcache)
+  sleep 2
+  cat /tmp/gdc_info >> $FILE
+  echo "Drop gdc cache...."
+  kill -12 $(pidof gdcache)
+  echo "Sleep 10 second...."
+
+
+fio --filename=/mnt/gdcache --direct=1 --rw=randread --norandommap --ioengine=libaio --bs=4k --numjobs=1 --time_based --runtime=10 --group_reporting –-name=benchtest
+
+
+[global]
+name=fio-seq-read
+filename=fio-seq-read
+rw=read
+bs=4k
+direct=1
+numjobs=1
+
+[file1]
+size=4G
+iodepth=1
+ioengine=libaio
+
+
+
+
+
+  - [ ] test the version on FIO
 - [ ] add latency for local cache-miss, local-cache hit, remote cache hit
+      - `need to ask this part again` the local miss we did that before and was told not to do that.
+      -
+
+
+
 
 
 
@@ -17,8 +76,6 @@
   - [ ] change ./bashrc
         alias sudoconf='vi /data1/sungho/commands_pcap.sh'
         alias sudocmd='sudo /data1/sungho/commands_pcap.sh'
-
-
 
 
 ### problems with using gdc-fuse
@@ -69,8 +126,6 @@ drwxr-xr-x  2 cephadmin cephadmin 4096 Nov 15  2017 osd-device-2-data
 drwxr-xr-x  2 sungho    sungho    4096 Aug  1 11:54 src
 drwxr-xr-x  2 root      root      4096 Jul 28 16:26 ssd_cache
 drwxr-xr-x  2 sungho    sungho    4096 Jul 24 00:14 sungho
-
-
 
 
 
