@@ -1,6 +1,7 @@
 [global]
 name=fio-seq-read
 filename=/mnt/gdcache/server
+filesize=4k
 rw=read
 bs=1k
 direct=1
