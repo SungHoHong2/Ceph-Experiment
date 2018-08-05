@@ -7,6 +7,6 @@ direct=1
 numjobs=1
 
 [file1]
-size=4G
+size=100M
 iodepth=1
 ioengine=libaio
