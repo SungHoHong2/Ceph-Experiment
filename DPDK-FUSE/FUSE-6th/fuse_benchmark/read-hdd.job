@@ -6,4 +6,5 @@ rw=read
 bs=1k
 direct=1
 numjobs=1
+time_based=1
 runtime=10
