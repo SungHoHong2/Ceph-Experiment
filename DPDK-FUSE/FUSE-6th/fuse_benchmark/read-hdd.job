@@ -5,3 +5,4 @@ rw=read
 bs=4k
 direct=1
 numjobs=1
+runtime=10
