@@ -2,7 +2,7 @@
 name=fio-seq-read
 filename=/mnt/gdcache/server
 rw=read
-bs=4k
+bs=1k
 direct=1
 numjobs=1
 runtime=10

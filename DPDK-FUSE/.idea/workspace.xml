@@ -31,8 +31,8 @@
       <file leaf-file-name="read-hdd.job" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FUSE-6th/fuse_benchmark/read-hdd.job">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+            <state relative-caret-position="95">
+              <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -268,12 +268,12 @@
       <workItem from="1533178055178" duration="7554000" />
       <workItem from="1533232449859" duration="15242000" />
       <workItem from="1533318966493" duration="753000" />
-      <workItem from="1533405533696" duration="4826000" />
+      <workItem from="1533405533696" duration="4883000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="322275000" />
+    <option name="totallyTimeSpent" value="322332000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="756" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -656,8 +656,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FUSE-6th/fuse_benchmark/read-hdd.job">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        <state relative-caret-position="95">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
         </state>
       </provider>
     </entry>
