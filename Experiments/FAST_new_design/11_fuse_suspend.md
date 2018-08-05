@@ -3,10 +3,19 @@
     - [x] we can do this by just counting the time of getting the data
 - [ ] install Wenji's fuse verison
   - [ ] run the thing
+
+  `copy the files and paste it`
+  sudocmd cp /data1/sungho/server /mnt/gdcache/server
+
+
+
+
   cat /mnt/gdcache/data1/sungho/client.txt
   sudocmd ls -l /mnt/gdcache/
   lets run FIO in /mnt/gdcache shall we?
   cephadmin@c3n22:/mnt/src/cephadmin
+
+
 
 
 
