@@ -103,7 +103,7 @@ int main(){
         intervals[test_i] = (double) av->interval;
         TAILQ_REMOVE(&avg_queue, av, nodes);
         test_i++;
-        printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(aggregated), av->interval);
+        // printf("[%ld] recv msg in FUSE: %ld :: %ld\n", av->num, strlen(aggregated), av->interval);
     }
 
     calculateSD(intervals);
