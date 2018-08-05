@@ -3,44 +3,21 @@
     - [x] we can do this by just counting the time of getting the data
 - [ ] install Wenji's fuse verison
   - [ ] run the thing
-
   cat /mnt/gdcache/data1/sungho/client.txt
   sudocmd ls -l /mnt/gdcache/
   lets run FIO in /mnt/gdcache shall we?
-
-
   cephadmin@c3n22:/mnt/src/cephadmin
 
 
-  fio read-hdd.job
 
-  echo "Round$i: Drop cache....."
-  sudo drop_cache.sh
-  sleep 3
-  echo "Warm cache first...."
-  fio read-hdd.job >> $FILE
-  echo "Show stats...."
-  kill -10 $(pidof gdcache)
-  sleep 2
-  cat /tmp/gdc_info >> $FILE
-  sleep 5
-  echo "Warm cache test start...."
-  fio read-hdd.job >> $FILE
-  echo "Show stats...."
-  kill -10 $(pidof gdcache)
-  sleep 2
-  cat /tmp/gdc_info >> $FILE
-  echo "Drop gdc cache...."
-  kill -12 $(pidof gdcache)
-  echo "Sleep 10 second...."
+Hi Wenji, I am trying test the GDCache using FIO.
 
-
-fio --filename=/mnt/gdcache --direct=1 --rw=randread --norandommap --ioengine=libaio --bs=4k --numjobs=1 --time_based --runtime=10 --group_reporting –-name=benchtest
-
+First I attempted to test GDCache with FIO using read
+here is the example argument belopw
 
 [global]
 name=fio-seq-read
-filename=fio-seq-read
+directory=/mnt/gdcache/
 rw=read
 bs=4k
 direct=1
@@ -50,6 +27,21 @@ numjobs=1
 size=4G
 iodepth=1
 ioengine=libaio
+
+however like you have mentioned before some of the implementations seems to be missing in GDCache
+
+unique: 204810, opcode: WRITE (16), nodeid: 139797494635232, insize: 81, pid: 30375
+   unique: 204810, success, outsize: 24
+unique: 204811, opcode: SETATTR (4), nodeid: 139797494635232, insize: 128, pid: 30375
+   unique: 204811, error: -38 (Function not implemented), outsize: 16
+unique: 204812, opcode: FLUSH (25), nodeid: 139797494635232, insize: 64, pid: 30375
+   unique: 204812, error: -38 (Function not implemented), outsize: 16
+unique: 204813, opcode: RELEASE (18), nodeid: 139797494635232, insize: 64, pid: 0
+   unique: 204813, success, outsize: 16
+
+Is there a roundabout way of reading the file without FIO encountering this problem?
+because I also tried to create a file size of 4G named howdy
+but touch: setting times of '/mnt/gdcache/howdy': Function not implemented
 
 
 
