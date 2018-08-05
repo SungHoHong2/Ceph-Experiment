@@ -1,10 +1,10 @@
 [global]
-name=fio-seq-read
 filename=/mnt/gdcache/server
-filesize=4k
-rw=read
-bs=1k
-direct=1
-numjobs=1
+filesize=1m
+rw=randread
+bs=4k
 time_based=1
 runtime=10
+thread=1
+group_reporting=1
+ioengine=libaio
