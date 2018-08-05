@@ -1,6 +1,6 @@
 [global]
 name=fio-seq-read
-filename=/mnt/gdcache
+filename=/mnt/gdcache/
 rw=read
 bs=4k
 direct=1
