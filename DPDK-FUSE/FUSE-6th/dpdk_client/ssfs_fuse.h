@@ -34,7 +34,6 @@ static void lo_read(fuse_req_t req, fuse_ino_t ino, size_t size,
     struct message *_msg;
 
 
-
     selectedText = client;
     _msg = malloc(sizeof(struct message));
     strcpy(_msg->data, selectedText);

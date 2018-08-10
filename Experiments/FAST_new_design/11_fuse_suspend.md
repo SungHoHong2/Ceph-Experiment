@@ -6,9 +6,7 @@
 
   `copy the files and paste it`
   sudocmd cp /data1/sungho/server /mnt/gdcache/server
-
-
-
+  sudocmd cat /mnt/gdcache/server
 
   cat /mnt/gdcache/data1/sungho/client.txt
   sudocmd ls -l /mnt/gdcache/
@@ -16,41 +14,11 @@
   cephadmin@c3n22:/mnt/src/cephadmin
 
 
+  sudocmd cp /data1/sungho/server_1G /mnt/gdcache/server_1G
+  sudocmd fio -filename=/mnt/gdcache/server_1G -filesize 1G -direct=1 -thread -rw=randread -bs=1k -numjobs=1 -runtime=20 -name=mytest
 
 
 
-Hi Wenji, I am trying test the GDCache using FIO.
-
-First I attempted to test GDCache with FIO using read
-here is the example argument belopw
-
-[global]
-name=fio-seq-read
-directory=/mnt/gdcache/
-rw=read
-bs=4k
-direct=1
-numjobs=1
-
-[file1]
-size=4G
-iodepth=1
-ioengine=libaio
-
-however like you have mentioned before some of the implementations seems to be missing in GDCache
-
-unique: 204810, opcode: WRITE (16), nodeid: 139797494635232, insize: 81, pid: 30375
-   unique: 204810, success, outsize: 24
-unique: 204811, opcode: SETATTR (4), nodeid: 139797494635232, insize: 128, pid: 30375
-   unique: 204811, error: -38 (Function not implemented), outsize: 16
-unique: 204812, opcode: FLUSH (25), nodeid: 139797494635232, insize: 64, pid: 30375
-   unique: 204812, error: -38 (Function not implemented), outsize: 16
-unique: 204813, opcode: RELEASE (18), nodeid: 139797494635232, insize: 64, pid: 0
-   unique: 204813, success, outsize: 16
-
-Is there a roundabout way of reading the file without FIO encountering this problem?
-because I also tried to create a file size of 4G named howdy
-but touch: setting times of '/mnt/gdcache/howdy': Function not implemented
 
 
 
