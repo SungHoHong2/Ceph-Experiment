@@ -195,7 +195,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
                 l2fwd_mac_updating(rm[i], 0);
             }
 
-            // rte_pktmbuf_dump(stdout, rm[0], 60);
+            rte_pktmbuf_dump(stdout, rm[0], 60);
             requests_from_dpdk++;
             if(chara_debug) printf("[%d] send merged msg in DPDK\n\n",requests_from_dpdk);
             rte_eth_tx_burst(1, 0, rm, MERGE_PACKETS);
