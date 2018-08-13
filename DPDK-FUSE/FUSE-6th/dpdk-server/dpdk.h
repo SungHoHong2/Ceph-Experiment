@@ -266,11 +266,12 @@ l2fwd_rx_loop()
 
 //                 rte_pktmbuf_dump(stdout, m, 60);
 
-                printf("chara::STEP 0\n");
 
                 if(rte_mbuf_packet_length==PKT_SIZE) {
 
-                     if(strcmp(hostname,"w1")==0) {
+                    printf("chara::STEP 0\n");
+
+                    if(strcmp(hostname,"w1")==0) {
                          dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
                      }
 
