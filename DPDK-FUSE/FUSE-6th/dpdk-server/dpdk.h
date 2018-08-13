@@ -208,7 +208,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         }
 
-    printf("chara::STEP FINAL\n");
+    printf("chara::STEP 2\n");
 
 }
 
@@ -233,6 +233,8 @@ void dpdk_pktmbuf_dump(FILE *f, const struct rte_mbuf *m, unsigned dump_len, int
         m = m->next;
         nb_segs --;
     }
+
+    printf("chara::STEP 3\n");
 }
 
 
@@ -264,7 +266,9 @@ l2fwd_rx_loop()
 
 //                 rte_pktmbuf_dump(stdout, m, 60);
 
-                 if(rte_mbuf_packet_length==PKT_SIZE) {
+                printf("chara::STEP 0\n");
+
+                if(rte_mbuf_packet_length==PKT_SIZE) {
 
                      if(strcmp(hostname,"w1")==0) {
                          dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, 0);
@@ -273,6 +277,8 @@ l2fwd_rx_loop()
                      if(strcmp(hostname,"c3n24")==0) {
                          dpdk_pktmbuf_dump(stdout, m, PKT_SIZE, sizeof(struct ether_hdr) - 2);
                      }
+
+                     printf("chara::STEP 4\n");
                  }
 
             }
