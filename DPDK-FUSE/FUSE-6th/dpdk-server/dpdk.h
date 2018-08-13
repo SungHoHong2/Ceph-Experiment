@@ -141,6 +141,8 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             if(chara_debug) printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, 1);
 
+            rte_pktmbuf_free(rm[0]);
+
         } else if (cache_compact == 1) {
 
             msg = &obj;
@@ -167,6 +169,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
             // rte_pktmbuf_dump(stdout, rm[0], 60);
             if(chara_debug) printf("send msg in DPDK: %s\n", msg->data);
             rte_eth_tx_burst(1, 0, rm, 1);
+
+            rte_pktmbuf_free(rm[0]);
+
 
 
         } else if (cache_hit == 1) {
@@ -204,6 +209,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
             for(i=0; i<MERGE_PACKETS;i++) {
                 free(msg_objs[i]);
+                rte_pktmbuf_free(rm[i]);
             }
 
         }
@@ -282,6 +288,7 @@ l2fwd_rx_loop()
                      printf("chara::STEP 4\n");
                  }
 
+                rte_pktmbuf_free(m);
             }
     }
 }
