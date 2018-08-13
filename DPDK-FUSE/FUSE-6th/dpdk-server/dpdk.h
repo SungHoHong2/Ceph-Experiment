@@ -120,6 +120,9 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
     struct message objs[MERGE_PACKETS];
     struct message** msg_objs;
 
+
+    printf("chara::STEP 1\n");
+
         if( cache_miss == 1 ) {
 
             msg = &obj;
@@ -205,6 +208,7 @@ dpdk_packet_hexdump(FILE *f, const char * title, const void * buf, unsigned int 
 
         }
 
+    printf("chara::STEP FINAL\n");
 
 }
 
